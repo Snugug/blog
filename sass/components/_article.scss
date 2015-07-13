@@ -20,13 +20,13 @@
 
   &--presentations-heading {
     @extend %article--heading;
-    @include awesome-header(color('teal', 80), color('teal', 40), -45deg -30deg, 13);
+    @include awesome-header(color('blue', 80), color('teal', 50), -45deg -30deg, 13);
     min-height: 25vh;
   }
 
   &--me-heading {
     @extend %article--heading;
-    @include awesome-header(color('orange', 80), color('orange', 40), -45deg -30deg, 13);
+    @include awesome-header(color('green', 80), color('teal', 50), -45deg -30deg, 13);
     min-height: 25vh;
   }
 
