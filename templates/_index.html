@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% if title %}{{ title }} | {% endif %}Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- build:css /css/style.css -->
+  <!-- Put CSS here -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- endbuild -->
+
+  <!-- build:js js/fonts.js -->
+  <script>
+    (function () {
+      'use strict';
+
+      var fonts,
+          req,
+          style;
+
+      if (window.localStorage && document.querySelector && window.XMLHttpRequest) {
+        fonts = localStorage.getItem('fonts');
+
+        if (fonts) {
+          req = document.querySelector('link[rel="stylesheet"]');
+
+          style = window.document.createElement('style');
+          style.innerHTML = fonts;
+
+          req.parentNode.insertBefore(style, req.nextSibling);
+          console.log(fonts);
+          console.log(style);
+        }
+        else {
+          window.addEventListener('load', function () {
+            req = new XMLHttpRequest();
+            req.open('GET', '/css/fonts.css');
+            req.onreadystatechange = function () {
+              localStorage.setItem('fonts', req.responseText);
+            }
+            req.send();
+          });
+        }
+      }
+    })();
+  </script>
+  <!-- endbuild -->
+</head>
+<body>
+  {% block body %}{% endblock %}
+</body>
+</html>
