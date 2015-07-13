@@ -1,0 +1,17 @@
+{
+  "name": "blog",
+  "version": "0.0.0",
+  "scripts": {
+    "postinstall": "npm run install:bower",
+    "install:bower": "npm run bower install",
+    "bower": "./node_modules/bower/bin/bower",
+    "gulp": "./node_modules/gulp/bin/gulp.js"
+  },
+  "devDependencies": {
+    "gulp-armadillo": "^1.1.0",
+    "gulp": "^3.8.11"
+  },
+  "dependencies": {
+    "bower": "^1.4.1"
+  }
+}

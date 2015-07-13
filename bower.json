@@ -1,0 +1,14 @@
+{
+  "name": "blog",
+  "version": "0.0.0",
+  "dependencies": {
+    "prism": "~1.0.0"
+  },
+  "devDependencies": {
+    "sass-toolkit": "^2.9.0",
+    "breakpoint-sass": "^2.6.1",
+    "modular-scale": "~2.1.1",
+    "letterform-shades": "~0.1.0",
+    "ibm-colors": "~1.4.0"
+  }
+}
