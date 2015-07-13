@@ -1,0 +1,20 @@
+._blog {
+  margin-top: 0;
+
+  &--footer {
+    width: 100%;
+
+    min-height: 20vh;
+
+    background: $color;
+    color: $background;
+
+    // display: flex;
+    // align-items: baseline;
+
+    @include awesome-header(color('gray', 90), $color, -45deg 30deg, 8);
+
+    // @include awesome-header($color, #1c1b15, (-45deg, 30deg), 8);
+  }
+
+}

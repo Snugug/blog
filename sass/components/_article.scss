@@ -1,0 +1,98 @@
+%article--heading {
+  width: 100vw;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  z-index: -1;
+}
+
+.article {
+  &--heading {
+    @extend %article--heading;
+      // @include awesome-header(#ff0040, #ffad00);
+      // @include awesome-header(#c20030, #ffad00);
+      @include awesome-header(#c20030, #da9400, $steps: 10);
+      // @include awesome-header(#325c80, #5aaafa, (45deg, -45deg), 5);
+
+
+      min-height: 100vh;
+  }
+
+  &--presentations-heading {
+    @extend %article--heading;
+    @include awesome-header(color('teal', 80), color('teal', 40), -45deg -30deg, 13);
+    min-height: 25vh;
+  }
+
+  &--me-heading {
+    @extend %article--heading;
+    @include awesome-header(color('orange', 80), color('orange', 40), -45deg -30deg, 13);
+    min-height: 25vh;
+  }
+
+  &--title {
+    @include close-shade(mix($background, black, 16%), #111, 'bottom right', 15);
+    @include ms-respond(font-size, 4);
+    @include enable-ligatures();
+
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+    line-height: 1.2;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: right;
+    margin-right: 0;
+
+    word-wrap: break-word;
+    hyphens: auto;
+
+    color: $background;
+
+    @include breakpoint(860px) {
+      max-width: 80%;
+      margin-right: calc(10% - 2rem);
+    }
+  }
+
+  &--content {
+    @extend %container;
+    @include rhythm;
+    margin: 0 auto;
+    padding-top: 0;
+    max-width: 760px;
+
+    padding-top: 1.4rem;
+
+    @include breakpoint(448px) {
+      padding-top: 1.618rem;
+    }
+  }
+
+  &--author {
+    @extend %container;
+    padding-top: 0;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: right;
+    font-style: italic;
+    font-size: .9em;
+
+    time {
+      font-weight: bold;
+    }
+  }
+
+  &--published {
+    position: relative;
+    display: block;
+    &:before {
+      position: absolute;
+      right: -.75rem;
+      width: .25rem;
+      height: 100%;
+      @include awesome-header($link-color, #ff0040, 'bottom right');
+      content: '';
+      display: block;
+    }
+  }
+}

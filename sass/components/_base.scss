@@ -1,0 +1,79 @@
+.base {
+  a {
+    color: $link-color;
+    @include underline($background, $link-color, $distance: .95);
+
+    &:hover {
+      color: mix($link-color, $color, 60%);
+      @include underline($background, mix($link-color, $color, 60%), $distance: .95);
+    }
+  }
+
+  ul {
+    list-style: disc;
+
+    ul,
+    ol {
+      margin-top: 0;
+      margin-left: 1em;
+    }
+  }
+
+  ol {
+    ul,
+    ol {
+      margin-top: 0;
+      margin-left: 1em;
+    }
+  }
+
+  li {
+    @include half-rhythm;
+    // margin-top: 0;
+    line-height: 1.25rem;
+  }
+
+  blockquote {
+    position: relative;
+    font-style: italic;
+    text-align: left;
+    font-size: .8em;
+    line-height: 1.25em;
+    padding: 0em 1.5rem;
+
+    strong {
+      font-style: normal;
+    }
+
+
+    @include breakpoint(465px) {
+      font-size: .9em;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    @include breakpoint(535px) {
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+
+    &:before {
+      position: absolute;
+      left: .5rem;
+      width: .25rem;
+      height: 100%;
+      @include awesome-header($link-color, #ff0040, 'bottom right');
+      content: '';
+      display: block;
+    }
+
+    * + * {
+      @include half-rhythm;
+    }
+  }
+
+  pre,
+  code {
+    font-family: 'source-code-pro', 'Source Code Pro', 'Lucida Console', 'Lucida Sans Typewriter', 'monaco', 'Bitstream Vera Sans Mono', monospace;
+  }
+}
