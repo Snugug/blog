@@ -1,7 +1,10 @@
 ---
 title: Progressive Enhancement Code Pattern Using Sass and Modernizr
-published: June 25, 2012
 template: '_layout.html'
+published: June 25, 2012
+updated: June 25, 2012
+summary: >
+  Designing your websites in a [progressive way](http://en.wikipedia.org/wiki/Progressive_enhancement) is one of the best and easiest ways to ensure that a user coming to your site, no matter the way they access it, is going to be able to use your website.
 ---
 Designing your websites in a [progressive way](http://en.wikipedia.org/wiki/Progressive_enhancement) is one of the best and easiest ways to ensure that a user coming to your site, no matter the way they access it, is going to be able to use your website. It's essential for everything on the web from accessibility to responsive web design, and doing it properly, *id est* through feature detection with JavaScript and CSS enhancements instead of through [browser detection](http://css-tricks.com/browser-detection-is-bad/) and UA targeted source files, will not only save you maintenance headaches when future devices come out, but may [save you some embarrassment as well](http://wtfmobileweb.com/). Enter my two favorite Front End tools: [Sass](http://sass-lang.com)+[Compass](http://compass-style.org) and [Modernizr](http://modernizr.com/).
 

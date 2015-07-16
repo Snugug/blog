@@ -2,6 +2,9 @@
 title: The Art of Keeping Up
 template: _layout.html
 published: January 28, 2015
+updated: January 28, 2015
+summary: >
+  The web, as [Ethan Marcotte says](https://twitter.com/globalmoxie/status/192279851732959232), is an inherently unstable medium. It's constantly evolving and changing, and in order to stay relevant you need to keep up.  This is how I do it.
 ---
 Sometimes it's hard for me to believe I was able to write [North](http://pointnorth.io/) on my own. It's a giant document covering probably too many things, many of which I can dive much deeper into. The craziest thing about North though, is that despite its length and the fact that it's only a little over a year old, I read it and many things I've written are out of date already, or otherwise need some updating. The web, as [Ethan Marcotte says](https://twitter.com/globalmoxie/status/192279851732959232), is an inherently unstable medium. It's constantly evolving and changing, and in order to stay relevant you need to keep up. My friend Ian Carrico put together a great blog post titled *[How to get started in {open source} web development](http://fourword.fourkitchens.com/article/how-get-started-open-source-web-development)* with some fabulous input from many smart people in the web design and development community, and I recommend you start there. While it's about getting started, the advice given there is great for everyone designing and developing today. But there's more to keeping up than just that.
 

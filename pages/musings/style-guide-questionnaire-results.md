@@ -2,6 +2,9 @@
 title: Style Guide Questionnaire REsults
 template: _layout.html
 published: May 1, 2014
+updated: May 1, 2014
+summary: >
+  On April 21, I put up a questionnaire asking for feedback on how and why people use Style Guide systems. Here is the feedback I collected.
 ---
 On April 21, I put up a questionnaire asking for feedback on how and why people use Style Guide systems. The questionnaire contained a series of multiple choice and open ended questions. After having received 36 responses and having had responses taper off, I have closed the questionnaire and collated the results below. These are not meant to be scientific results, just the results I received.
 

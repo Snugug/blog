@@ -2,6 +2,9 @@
 title: '@target Your CSS'
 template: _layout.html
 published: June 15, 2014
+updated: June 15, 2014
+summary: >
+  `@target` syntax to spin out specific pieces of your CSS into new files through a little bit of post processing.
 ---
 Way back on January 5, 2012, a feature was made to the Sass issue queue titled [separate media/browser specific markup to separate style sheet](https://github.com/sass/sass/issues/241). The gist of the issue is fairly simple in concept, it's very useful to be able to maintain styling in a single Sass file (or really, single output CSS file), but be able to spin out the pieces you'd like to enhance/degrade with into their own CSS files automatically. Think writing styling for browsers that support Flexbox and browsers that don't support Flexbox in the same file, but having two separate CSS files output for the two different levels of support, letting you use something like [yepnope](http://yepnopejs.com/) or [loadCSS](https://github.com/filamentgroup/loadCSS) to load in only the styling needed. It would make [graceful degradation](https://github.com/sass/sass/issues/241#issuecomment-7881980) for legacy browsers easier too. Lots of good things.
 

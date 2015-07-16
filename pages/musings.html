@@ -7,11 +7,23 @@ hidePublished: true
 {% extends '_layout.html' %}
 
 {%block content %}
-<ul>
+<ul class="posts">
 {% for post in listing %}
   {% if post.path.indexOf('musings/') >= 0 %}
   {% if post.path != 'musings/index.html' %}
-  <li><a href="/{{ post.path }}">{{ post.meta.title }}</a></li>
+  <li class="posts--listing"><a href="/{{ post.path }}" class="posts--title">{{ post.meta.title }}</a>
+  <footer class="article--author">
+    <span class="article--published">Published on <time datetime="{{ post.published|date('Y-m-d') }}">{{ post.published|date('F jS, Y') }}</time></span>
+    {% if post.updated && post.updated|date('Y-m-d') != post.published|date('Y-m-d') %}
+    {% if post.updated && post.updated|date('Y-m-d') != post.birthtime|date('Y-m-d') %}
+      <span class="article--published">Updated on <time datetime="{{ post.updated|date('Y-m-d') }}">{{ post.updated|date('F jS, Y') }}</time></span>
+    {% endif %}
+    {% endif %}
+  </footer>
+  {% if post.meta.summary %}
+  <p>{{ post.meta.summary|markdown|safe }}</p>
+  {% endif %}
+
   {% endif %}
   {% endif %}
 {% endfor %}

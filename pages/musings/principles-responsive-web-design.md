@@ -2,6 +2,9 @@
 title: Principles of Responsive Web Design
 template: '_layout.html'
 published: May 24, 2012
+updated: May 24, 2012
+summary: >
+  I've spent almost the last year learning about and really digging into responsive Web design and I've gotta say, there are very few things that excite me more in front end development today. It is the beginning of a new era of the Web.
 tags:
   - Responsive Web Design
 ---

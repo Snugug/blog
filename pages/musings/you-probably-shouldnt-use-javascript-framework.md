@@ -2,6 +2,9 @@
 title: You probably shouldn't use a JavaScript Framework
 template: _layout.html
 published: April 29, 2015
+updated: April 29, 2015
+summary: >
+  **You probably shouldn't use a JavaScript Framework.** Instead, you should write modular, vanilla JavaScript.
 ---
 **You probably shouldn't use a JavaScript Framework.** Instead, you should write modular, vanilla JavaScript. You also probably shouldn't be considering a JavaScript MVC framework, especially if it's going to be architected in the same way as a server rendered application (going to use site/application interchangeably). With a high performing site, you'll likely squeak just as much perf out of a server rendered app as you would a "single page" app. Between sending less down the line to your users (reducing bandwidth and time to load), keeping their cache size small (making it more likely they'll have something in cache next time), and reducing the memory footprint of your JavaScript (increasing perceived and on-page performance), you're likely better off rendering on server.
 

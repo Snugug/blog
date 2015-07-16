@@ -2,6 +2,9 @@
 title: Singularity 1.0
 template: _layout.html
 published: April 3, 2013
+updated: April 3, 2013
+summary: >
+  I'm super excited to announce [Singularity 1.0](https://github.com/Team-Sass/Singularity)!
 ---
 I'm super excited to announce [Singularity 1.0](https://github.com/Team-Sass/Singularity)! Singularity 1.0 comes from months of work refining the architecture, mental model, and documentation around the original Singularity alpha, and I'm very excited to see it get out the door! Singularity is the same awesome grid system you know and love, now with more shine. For those who are not familiar with Singularity, here are some of its highlights:
 

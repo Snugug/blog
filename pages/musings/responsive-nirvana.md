@@ -2,6 +2,9 @@
 title: Responsive Nirvana
 template: _layout.html
 published: April 26, 2013
+updated: April 26, 2013
+summary: >
+  While they've been soft launched for a few weeks now, I'm crazy excited to announce that we've finally, officially, launched [Singularity 1.0](https://github.com/Team-Sass/Singularity) and [Breakpoint 2.0](https://github.com/team-sass/breakpoint).
 ---
 While they've been soft launched for a few weeks now, I'm crazy excited to announce that we've finally, officially, launched [Singularity 1.0](https://github.com/Team-Sass/Singularity) and [Breakpoint 2.0](https://github.com/team-sass/breakpoint). To me, these two tools represent the next generation of Responsive Web Design with Sass and provide me with an awesome happy place. They've allowed me to create and iterate over responsive designs faster and easier than I've ever been able to before while still allowing me to maintain full control. They provide for me a responsive web design nirvana and I can't wait for everyone to start using them.
 

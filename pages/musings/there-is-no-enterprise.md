@@ -2,8 +2,11 @@
 title: There is no Enterprise
 template: _layout.html
 published: December 29, 2014
+updated: December 29, 2014
+summary: >
+  Let's stop talking about "Enterprise". Enterprise code, enterprise design, enterprise color schemes, enterprise anything. As far as I can see, there is no such thing as "Enterprise", at least not any more, and not how it gets used.
 ---
-<p style="width: 100%; text-align: center"><img src="http://snugug.com/sites/default/files/field/image/no-enterprise.jpg" alt="There is no Enterprise"></p>
+![There is no Enterprise](http://snugug.com/sites/default/files/field/image/no-enterprise.jpg)
 
 I understand this may be controversial considering I work for IBM, but I'd like to propose the following: let's stop talking about "Enterprise". Enterprise code, enterprise design, enterprise color schemes, enterprise anything. As far as I can see, there is no such thing as "Enterprise", at least not any more, and not how it gets used.
  

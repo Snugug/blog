@@ -2,6 +2,9 @@
 title: SVGs, Icon Fonts, and Rasters! Oh My!
 template: _layout.html
 published: March 16, 2013
+updated: March 16, 2013
+summary: >
+  One of the most hotly argued topics in front-end development today is whether you should use SVGs, Icon Fonts, or varying-resolution Rasterized Images when it comes to resolution-independent interface elements. Like all great things on the Internet, _it depends_.
 ---
 One of the most hotly argued topics in front-end development today is whether you should use SVGs, Icon Fonts, or varying-resolution Rasterized Images when it comes to resolution-independent interface elements. Like all great things on the Internet, each side espouses that their solution is the end-all and be-all solution to the problem. However, like all great things in web development, each has its pros and cons, and as such, the answer to the question "which one should I use" is "it depends".
 

@@ -2,6 +2,9 @@
 title: What Can Blue Do For You
 template: _layout.html
 published: May 27, 2014
+updated: May 27, 2014
+summary: >
+  After a fantastic 21 months, last Thursday was my last day at NBCUniversal and am joining IBM.
 ---
 After a fantastic 21 months, last Thursday was my last day at NBCUniversal. During my time there, I was able to grow from some rabble rouser telling a packed room in Munich to uninstall Photoshop to guiding multiple projects in modern standards and best practices. I was able to evolve [Breakpoint](https://github.com/team-sass/breakpoint), [Singularity](https://github.com/team-sass/singularity), and [Toolkit](https://github.com/team-sass/toolkit) into world-class projects, rewrote [Style Prototypes](https://github.com/north/generator-style-prototype) not once, but twice, and grow tremendously in not only my front end development knowledge, but my design and content strategy knowledge. I built and was able to train on and use [Intake Center](http://intake.center/) to help put content front and center during the project intake process, and was able to collaborate on and create [North](http://pointnorth.io/), a project I'm immensely proud of. I've gotten designers who had never worked in the command line up and using Git, ZSH, and starting to design in browser. I've mentored, I've trained, I've learned, I've grown. I did this all while working towards pushing NBCUniversal's brands, developers, and designers forward into a new a modern way of working. I hope that I was able to do all of that for my friends still there.
 
