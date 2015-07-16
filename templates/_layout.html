@@ -14,7 +14,9 @@
         <footer class="article--author">
           <span class="article--published">Published on <time datetime="{{ published|date('Y-m-d') }}">{{ published|date('F jS, Y') }}</time></span>
           {% if updated && updated|date('Y-m-d') != published|date('Y-m-d') %}
+          {% if updated && updated|date('Y-m-d') != stats.birthtime|date('Y-m-d') %}
           <span class="article--published">Updated on <time datetime="{{ updated|date('Y-m-d') }}">{{ updated|date('F jS, Y') }}</time></span>
+          {% endif %}
           {% endif %}
         </footer>
         {% endif %}
