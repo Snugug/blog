@@ -5,4 +5,11 @@
 //////////////////////////////
 var gulp = require('gulp');
 
-require('gulp-armadillo/blogadillo')(gulp);
+require('gulp-armadillo')(gulp, {
+  'pages': {
+    'dir': 'pages/musings',
+    'transformURL': true,
+    'sort': 'created',
+    'reverse': true
+  }
+});
