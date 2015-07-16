@@ -30,6 +30,12 @@
     min-height: 25vh;
   }
 
+  &--musings-heading {
+    @extend %article--heading;
+    @include awesome-header(color('purple', 80), color('teal', 50), -45deg -30deg, 13);
+    min-height: 25vh;
+  }
+
   &--title {
     @include close-shade(mix($background, black, 16%), #111, 'bottom right', 15);
     @include ms-respond(font-size, 4);
@@ -71,11 +77,24 @@
   &--author {
     @extend %container;
     padding-top: 0;
+    padding-bottom: 0;
     max-width: 760px;
     margin: 0 auto;
     text-align: right;
     font-style: italic;
     font-size: .9em;
+
+    position: relative;
+    display: block;
+    &:before {
+      position: absolute;
+      right: .5rem;
+      width: .25rem;
+      height: 100%;
+      @include awesome-header($link-color, #ff0040, 'bottom right');
+      content: '';
+      display: block;
+    }
 
     time {
       font-weight: bold;
@@ -83,16 +102,7 @@
   }
 
   &--published {
-    position: relative;
     display: block;
-    &:before {
-      position: absolute;
-      right: -.75rem;
-      width: .25rem;
-      height: 100%;
-      @include awesome-header($link-color, #ff0040, 'bottom right');
-      content: '';
-      display: block;
-    }
+    margin-top: 0;
   }
 }

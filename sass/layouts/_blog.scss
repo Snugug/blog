@@ -1,6 +1,18 @@
 ._blog {
   margin-top: 0;
 
+  @supports (display: flex) {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  &--article {
+    @supports (display: flex) {
+      flex: 1;
+    }
+  }
+
   &--footer {
     width: 100%;
 
@@ -8,6 +20,11 @@
 
     background: $color;
     color: $background;
+
+    @supports (display: flex) {
+      display: flex;
+      flex-direction: column;
+    }
 
     // display: flex;
     // align-items: baseline;
