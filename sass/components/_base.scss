@@ -9,6 +9,45 @@
     }
   }
 
+  $font-sizes: ms(1) ms(0) ms(-1);
+
+  @at-root {
+    %header {
+      line-height: 1;
+      hyphens: auto;
+      word-wrap: break-word;
+    }
+  }
+
+  h2 {
+    @extend %header;
+    font-size: ms(1);
+    border-bottom: .05em solid $color;
+    text-shadow: 2px 2px $background, -2px -2px $background;
+    // @include underline($background, $color, $distance: .8);
+  }
+
+  h3 {
+    @extend %header;
+    font-size: ms(0);
+  }
+
+  // @for $i from 1 through length($font-sizes) {
+  //   h#{$i + 1} {
+  //     font-size: nth($font-sizes, 1);
+  //     line-height: 1;
+  //     hyphens: auto;
+  //     word-wrap: break-word;
+  //   }
+  // }
+
+  p > img,
+  p ~ video {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   ul {
     list-style: disc;
 

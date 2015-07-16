@@ -21,19 +21,25 @@
   &--presentations-heading {
     @extend %article--heading;
     @include awesome-header(color('blue', 80), color('teal', 50), -45deg -30deg, 13);
-    min-height: 25vh;
+    // min-height: 25vh;
   }
 
   &--me-heading {
     @extend %article--heading;
     @include awesome-header(color('green', 80), color('teal', 50), -45deg -30deg, 13);
-    min-height: 25vh;
+    // min-height: 25vh;
   }
 
   &--musings-heading {
     @extend %article--heading;
     @include awesome-header(color('purple', 80), color('teal', 50), -45deg -30deg, 13);
-    min-height: 25vh;
+    // min-height: 25vh;
+  }
+
+  &--index-heading {
+    @extend %article--heading;
+    @include awesome-header(color('teal', 80), color('teal', 50), -45deg -30deg, 13);
+    // min-height: 25vh;
   }
 
   &--title {

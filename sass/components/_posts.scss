@@ -1,0 +1,15 @@
+.posts {
+
+  &--listing {
+    list-style: none;
+
+    & + & {
+      @include rhythm;
+    }
+  }
+
+  &--title {
+    font-size: ms(0);
+    font-weight: bold;
+  }
+}
