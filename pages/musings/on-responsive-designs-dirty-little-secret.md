@@ -2,6 +2,7 @@
 title: On Responsive Design's Dirty Little Secret
 template: '_layout.html'
 published: December 1, 2012
+updated: December 29, 2013
 ---
 ## UPDATE 1/29/2013
 

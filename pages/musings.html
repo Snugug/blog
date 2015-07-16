@@ -1,0 +1,19 @@
+---
+title: Musings
+listing: true
+page: musings
+hidePublished: true
+---
+{% extends '_layout.html' %}
+
+{%block content %}
+<ul>
+{% for post in listing %}
+  {% if post.path.indexOf('musings/') >= 0 %}
+  {% if post.path != 'musings/index.html' %}
+  <li><a href="/{{ post.path }}">{{ post.meta.title }}</a></li>
+  {% endif %}
+  {% endif %}
+{% endfor %}
+</ul>
+{% endblock %}
