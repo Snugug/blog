@@ -5,5 +5,5 @@ deployment:
   production:
     branch: master
     commands:
-      - npm run dist
+      - npm run deploy
       - bash ./.deploy.sh
