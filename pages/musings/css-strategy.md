@@ -2,7 +2,7 @@
 title: CSS Strategy
 template: _layout.html
 published: July 28, 2013
-updated: July 28, 2013
+updated: January 17, 2014
 summary: >
   My current thoughts on this subject have been codified in [North](https://github.com/snugug/north).
 ---

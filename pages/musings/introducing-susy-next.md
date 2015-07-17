@@ -2,7 +2,7 @@
 title: Introducing Susy Next
 template: '_layout.html'
 published: January 29, 2013
-updated: January 29, 2013
+updated: April 3, 2013
 summary: >
   As of April 3, 2013, [Singularity](http://github.com/at-import/singularity) is no longer being merged with Susy and is still being separately maintained. The original article is kept as a record.
 ---
