@@ -2,6 +2,7 @@
 title: Presentations
 template: _layout.html
 page: presentations
+hidePublished: true
 ---
 A simple list linking to the slides of presentations I've given. Only the most recent version of each presentation will be available. Newer talks will be first.
 
