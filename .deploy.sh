@@ -18,4 +18,4 @@ git add .
 git commit -m ":shipit: Deploy to GitHub Pages"
 
 # Force push to gh-pages
-git push --force "https://${GH_TOKEN}@${GH_REF}" master:gh-pages > /dev/null 2>&1
+git push --force "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
