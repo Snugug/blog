@@ -1,15 +1,71 @@
 .posts {
+  & + & {
+    margin-top: 3rem;
+  }
 
   &--listing {
     list-style: none;
 
     & + & {
-      @include rhythm;
+      @include double-rhythm;
     }
+  }
+
+  &--heading {
+    @extend .base--h2;
+    margin-bottom: 2rem;
+  }
+
+  @supports (display: flex) {
+    &--list {
+      display: flex;
+      flex-flow: column;
+    }
+
+    &--listing {
+      flex: 2;
+    }
+  }
+}
+
+.post {
+  position: relative;
+  &:before {
+    @include awesome-header($link-color, #ff0040, 'bottom right');
+    position: absolute;
+    left: -1rem;
+    width: .25rem;
+    height: 100%;
+    content: '';
+    display: block;
+
   }
 
   &--title {
     font-size: ms(0);
     font-weight: bold;
+  }
+
+  &--author {
+    font-size: .75em;
+    line-height: 1;
+    margin-top: .5rem;
+    font-style: italic;
+    color: mix($color, $background, 65%);
+    // @extend .article--author;
+  }
+
+  &--summary {
+    @extend .base;
+    font-size: .8em;
+    @include half-rhythm;
+  }
+
+  &--published {
+    display: block;
+    & + & {
+      @include half-rhythm;
+    }
+    // @extend .article--published;
   }
 }

@@ -19,7 +19,8 @@
     }
   }
 
-  h2 {
+  h2,
+  &--h2 {
     @extend %header;
     font-size: ms(1);
     border-bottom: .05em solid $color;
@@ -56,6 +57,10 @@
       margin-top: 0;
       margin-left: 1em;
     }
+  }
+
+  ul ul {
+    list-style: square;
   }
 
   ol {

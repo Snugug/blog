@@ -6,26 +6,58 @@ hidePublished: true
 ---
 {% extends '_layout.html' %}
 
-{%block content %}
-<ul class="posts">
-{% for post in listing %}
+{% macro display(post) %}
   {% if post.path.indexOf('musings/') >= 0 %}
   {% if post.path != 'musings/index.html' %}
-  <li class="posts--listing"><a href="/{{ post.path }}" class="posts--title">{{ post.meta.title }}</a>
-  <footer class="article--author">
-    <span class="article--published">Published on <time datetime="{{ post.published|date('Y-m-d') }}">{{ post.published|date('F jS, Y') }}</time></span>
-    {% if post.updated && post.updated|date('Y-m-d') != post.published|date('Y-m-d') %}
-    {% if post.updated && post.updated|date('Y-m-d') != post.birthtime|date('Y-m-d') %}
-      <span class="article--published">Updated on <time datetime="{{ post.updated|date('Y-m-d') }}">{{ post.updated|date('F jS, Y') }}</time></span>
-    {% endif %}
-    {% endif %}
-  </footer>
-  {% if post.meta.summary %}
-  <p>{{ post.meta.summary|markdown|safe }}</p>
+  <li class="posts--listing">
+    <article class="post">
+      <a href="/{{ post.path }}" class="post--title">{{ post.meta.title }}</a>
+      <footer class="post--author">
+        <span class="post--published">Published on <time datetime="{{ post.published|date('Y-m-d') }}">{{ post.published|date('F jS, Y') }}</time></span>
+        {% if post.updated && post.updated|date('Y-m-d') != post.published|date('Y-m-d') %}
+        {% if post.updated && post.updated|date('Y-m-d') != post.birthtime|date('Y-m-d') %}
+          <span class="post--published">Updated on <time datetime="{{ post.updated|date('Y-m-d') }}">{{ post.updated|date('F jS, Y') }}</time></span>
+        {% endif %}
+        {% endif %}
+      </footer>
+      {% if post.meta.summary %}
+      <div class="post--summary">{{ post.meta.summary|markdown|safe }}</div>
+      {% endif %}
+    </article>
+  </li>
   {% endif %}
+  {% endif %}
+{% endmacro %}
 
-  {% endif %}
-  {% endif %}
-{% endfor %}
-</ul>
+{%block content %}
+<section class="posts">
+  <ul class="posts--list">
+  {% for post in listing %}
+    {% if post.published|date('Y') == Date()|date('Y') %}
+    {{ display(post) }}
+    {% endif %}
+  {% endfor %}
+  </ul>
+</section>
+<section class="posts">
+  <h2 class="posts--heading">{{ Date()|date('Y') - 1 }}</h2>
+  <ul class="posts--list">
+  {% for post in listing %}
+    {% if post.published|date('Y') == Date()|date('Y') - 1 %}
+    {{ display(post) }}
+    {% endif %}
+  {% endfor %}
+  </ul>
+</section>
+<section class="posts">
+  <h2 class="posts--heading">Archive</h2>
+  <ul class="posts--list">
+  {% for post in listing %}
+    {% if post.published|date('Y') < Date()|date('Y') - 1 %}
+    {{ display(post) }}
+    {% endif %}
+  {% endfor %}
+  </ul>
+</section>
+
 {% endblock %}

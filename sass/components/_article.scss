@@ -57,8 +57,14 @@
 
     word-wrap: break-word;
     hyphens: auto;
-
     color: $background;
+
+    // @supports (mix-blend-mode: luminosity) {
+    //   color: $color;
+    //   @include close-shade(mix($color, $background, 60%), mix($color, $background, 60%), 'top right', 10);
+    //   mix-blend-mode: exclusion;
+    // }
+
 
     @include breakpoint(860px) {
       max-width: 80%;
@@ -88,7 +94,7 @@
     margin: 0 auto;
     text-align: right;
     font-style: italic;
-    font-size: .9em;
+    font-size: .8em;
 
     position: relative;
     display: block;
