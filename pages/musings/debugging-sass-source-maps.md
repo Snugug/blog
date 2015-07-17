@@ -2,6 +2,9 @@
 title: Debugging Sass with Source Maps
 template: _layout.html
 published: February 28, 2013
+updated: February 28, 2013
+summary: >
+  One of the super exciting features in Sass 3.3, currently in development, is the introduction of native Source Maps as a successor to Sass Debug Info. Working Source Map reading for Sass in Google Chrome Canary means this is a real debugging option you can start looking at today.
 ---
 ## UPDATE 07/06/2013
 

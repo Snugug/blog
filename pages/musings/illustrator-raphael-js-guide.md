@@ -1,7 +1,10 @@
 ---
-title: 'Illustrator to Raphael JS: A Guide'
+title: 'Illustrator to Raphaël JS: A Guide'
 template: '_layout.html'
 published: March 1, 2011
+updated: March 1, 2011
+summary: >
+  A guide on moving SVGs created in Illustrator to Raphaël, a JavaScript SVG drawing library.
 tags:
   - Raphaël JS
   - Web Development

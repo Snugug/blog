@@ -2,6 +2,9 @@
 title: Amusing Analytics for December
 template: '_layout.html'
 published: January 12, 2013
+updated: January 12, 2013
+summary: >
+  Just decided to take a look at my analytics for the month of December, and I thought they were amusing, so I've decided to share.
 ---
 Just decided to take a look at my analytics for the month of December 2012, and I thought they were amusing, so I've decided to share. I use Google Analytics, as a frame of reference. In the month of December, I had 1,408 visitors to my site. They averaged 1.54 pages per visit and 1:32 on site. 70.38% of them were new.
 

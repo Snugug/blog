@@ -2,6 +2,9 @@
 title: It all started with our motion designer.
 template: _layout.html
 published: June 6, 2015
+updated: June 6, 2015
+summary: >
+  Our team transformation all started with our motion designer…
 ---
 It all started with our motion designer.
 

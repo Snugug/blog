@@ -2,6 +2,9 @@
 title: Empathy vs Understanding
 template: _layout.html
 published: April 6, 2015
+updated: April 6, 2015
+summary: >
+  In order to solve the problems of our users or to work better with each other, we need both empathy *and* understanding.
 ---
 We are problem solvers. Whether it's design, development, engineering, crafting, or anything else in which there is a user, what is being done is problem solving. If we are doing our job right, our solution should solve real user needs in a way best suited for them. Often, this is described as "having empathy for our users"; however, the colloquial definition of empathy, "to put oneself in another's shoes" or "to understand another's point of view", isn't quite correct. These definitions conflate empathy with understanding. Because of this, we have a tendency to assume that if we have one, we have the other, but that is not true. In order to solve the problems of our users or to work better with each other, we need both empathy *and* understanding. Exploring the etymology of each word will help us better see their differences.
 

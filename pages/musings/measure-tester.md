@@ -2,6 +2,9 @@
 title: Measure Tester
 template: _layout.html
 published: March 29, 2013
+updated: March 29, 2013
+summary: >
+  A tool to help measure your measure, helping you design for an ideal reading experience.
 ---
 I'm a big fan of nice typography (stopping you before you yell and scream about my last site design, I was experimenting!). One of the key pieces to having great typography is having a great measure, or as it's probably more commonly referred to, line length. For the English language, the ideal measure as I've been taught is generally between 2 and 3 times the length of our alphabet, including spaces. So, when I'm building and designing sites, one of the factors I take into consideration when choosing breakpoints is the text's measure. This will vary by font family, font weight, and font size. Because of this, I find I need to check my measure quite often.
 

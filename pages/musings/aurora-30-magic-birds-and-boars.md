@@ -2,6 +2,9 @@
 title: Aurora 3.0 - Magic Birds and Boars
 template: _layout.html
 published: May 4, 2013
+updated: May 4, 2013
+summary: >
+  I'm excited to announce the official release of Aurora 3.0! Ian and I have been worked hard to build out a base theme that truly is designed around the best tools and techniques available for front end development today.
 ---
 I'm excited to announce the official release of Aurora 3.0! Ian and I have been worked hard to build out a base theme that truly is designed around the best tools and techniques available for front end development today. In the process, we've built better Drupal tools and walked the bleeding edge of Node.js, all to suss out the absolute best tools for the various jobs that we do most often.
 

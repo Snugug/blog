@@ -2,6 +2,9 @@
 title: 'Installing Sass and Compass Across All Platforms'
 template: '_layout.html'
 published: November 4, 2012
+updated: November 4, 2012
+summary: >
+  How to install Ruby Sass and Compass globally across Mac, Windows, and Linux.
 ---
 One of the most frequent questions that gets asked of me is how to install Sass+Compass across platform. Without further adue, here are the instructions for the three major platforms.
 

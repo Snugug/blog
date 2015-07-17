@@ -3,6 +3,8 @@ title: On Responsive Design's Dirty Little Secret
 template: '_layout.html'
 published: December 1, 2012
 updated: December 29, 2013
+summary: >
+  After having extensive conversations with John Albin Wilkins, I've realized that some of the basic assumptions I made when I first went to test this are in fact incorrect and that I was working under the wrong mental model. I am keeping up the original article as record.
 ---
 ## UPDATE 1/29/2013
 

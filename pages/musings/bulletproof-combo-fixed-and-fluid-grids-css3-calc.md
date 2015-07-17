@@ -2,6 +2,9 @@
 title: Bulletproof Combo Fixed and Fluid Grids with CSS3 Calc
 template: _layout.html
 published: January 17, 2014
+updated: January 17, 2014
+summary: >
+  CSS3 Calc can be used to do all sorts of neat things, including creating some fantastic advanced responsive grids. Oh yah, and a new Singularity output style to support it.
 ---
 You wanna see something cool?
 

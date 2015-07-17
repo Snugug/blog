@@ -2,6 +2,9 @@
 title: Override Theme Functions from Drupal 7 Module
 template: '_layout.html'
 published: August 5, 2012
+updated: August 5, 2012
+summary: >
+  Ever need to really override a core or contrib module's theme output? You won't believe what you can do with this one weird hook!
 ---
 Have you ever really, truly hated the theme output of Drupal core or contrib module and really wanted to override it? In your theme function, it's easy enough, <php>function YOURTHEME_themename($vars)</php>. That's all fine and dandy, but what if you really want to do it from a module, like, say, if you're creating a [responsive image solution](http://drupal.org/project/borealis) and need to add a noscript fallback? Well, I can now tell you that yes you can! It's as simple as one overlooked hook and, well, writing you own function! Let's take a look at how.
 

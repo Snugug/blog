@@ -2,6 +2,9 @@
 title: Do You Believe in Magic?
 template: _layout.html
 published: May 1, 2013
+updated: May 1, 2013
+summary: >
+  Today I'm excited to announce Magic, a first-of-its-kind module for Drupal designed to integrate advanced theme development settings into any theme.
 ---
 Today I'm excited to announce [Magic](http://drupal.org/project/magic), a first-of-its-kind module for Drupal designed to integrate advanced theme development settings into *any* theme. Born from a collaboration between Ian Carrico ([ChinggizKhan](http://drupal.org/user/1300542)), Sebastian Siemssen ([fubhy](http://drupal.org/user/761344)), and myself, Magic aims to standardize much of the repeated features between various base themes, especially with Sebastian's [Omega 4](http://drupal.org/project/omega) and Ian and my [Aurora](http://drupal.org/project/aurora) base themes, and make those features easy to implement for any theme. 
 

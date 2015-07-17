@@ -2,6 +2,9 @@
 title: 'Introducing Breakpoint: Media Queries Made Easy'
 template: '_layout.html'
 published: June 27, 2012
+updated: June 27, 2012
+summary: >
+  Introducing Breakpoint, a Sass extension for making writing and maintaining media queries a breeze.
 ---
 As anyone who has done Responsive Web Design will tell you, keeping track of your content based breakpoints ain't so easy. If you're writing plain old CSS, you would need to have a separate file or scattered inline comments telling you what each each number was meant for. Hell, even if you're using Sass, you're probably doing something similar… until now! Introducing [Breakpoint](https://github.com/canarymason/breakpoint); Media Queries Made Easy.
 

@@ -2,6 +2,9 @@
 title: Element Queries
 template: _layout.html
 published: November 11, 2013
+updated: November 11, 2013
+summary: >
+  When building responsive sites, especially style and component guide driven responsive sites, being able to query an item's width instead of the viewport is invaluable for re-usability. While we don't have them natively, we can emulate them with JavaScript.
 ---
 When building responsive sites, especially style and component guide driven responsive sites, eventually the idea of "why can't we just query our element instead of the viewport" comes up. Sometimes the question is formed as "working around the lack of element queries", sometimes as "media queries are a hack", but no matter how it's phrased, the question always makes the assumption that getting native element queries is a foregone certainty and seem to miss the fundamental issue with element queries: they can't, really, be implemented natively.
 

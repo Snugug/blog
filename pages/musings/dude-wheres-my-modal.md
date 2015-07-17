@@ -2,8 +2,11 @@
 title: Dude, Where's My Modal?
 template: _layout.html
 published: May 3, 2015
+updated: May 3, 2015
+summary: >
+  Modals. Popups. Overlays. Dialog Boxes. No matter what you call them; ugh. I can't even. If I were being gracious, I'd say that nine times out of ten, modals are the lazy way out of solving a hard (or sometimes not so hard) design or development problem. We should stop doing that.
 ---
-Modals. Popups. Overlays. Dialog Boxes. No matter what you call them? Ugh. I can't even. If I were being gracious, [I'd say](https://twitter.com/Snugug/status/592716919880450050) that nine times out of ten, modals are the lazy way out of solving a hard (or sometimes not so hard) design or development problem. We should stop doing that.
+Modals. Popups. Overlays. Dialog Boxes. No matter what you call them; ugh. I can't even. If I were being gracious, [I'd say](https://twitter.com/Snugug/status/592716919880450050) that nine times out of ten, modals are the lazy way out of solving a hard (or sometimes not so hard) design or development problem. We should stop doing that.
 
 Modals have lots of technical issues with them; they usually break the universally standard browser back/forward functionality, they're amazingly hard to make accessible and usable to keyboard users, they tend to be pretty heavy to implement, there are innumerable ways to close one and it's never implemented consistently across different modals and usually has no hinting as to what ways will work making it a guess and check system each time, having a fixed size and position that covers the full screen makes it frustratingly difficult to make responsive with any modicum of sanity or decent user experience. But, ya know, with a robust enough (and tiny enough) JavaScript library, we can probably get over most of these issues (good luck with that, though). The real problem with modals is the human brain. Modals are an anti-pattern at the level that we are able to process information.
 

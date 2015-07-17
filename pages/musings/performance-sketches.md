@@ -2,6 +2,9 @@
 title: Performance Sketches
 template: _layout.html
 published: June 24, 2015
+updated: June 24, 2015
+summary: >
+  Creating and enforcing performance budgets are hard to begin with, but getting everyone to understand the impact of their choices on the performance of a project can be doubly so. Having a way to "sketch" performance can help onboard new team members to the concept of performance budgets.
 ---
 Performance is a complex dance between browsers, devices, networks, technology, marketing, branding, content strategy, and visual design. It's no wonder, then, that often it gets left to the end of a project to actually work out. Creating and enforcing performance budgets are hard to begin with, but getting everyone to understand the impact of their choices on the performance of a project can be doubly so. Designing in browser (either by actually designing there, or getting there quickly, iterating there, and deciding there) can help with this as it brings performance to the forefront of the project and provides a way to test ideas from the beginning. But, there still needs to be a way to "sketch" a project's performance before we get in browser. Having a way to "sketch" performance can help onboard new team members to the concept of [performance budgets](http://timkadlec.com/2013/01/setting-a-performance-budget/) earlier and allow teams to have a way of discussing performance while whiteboarding and sketching themselves, an invaluable part of the iteration process.
 
