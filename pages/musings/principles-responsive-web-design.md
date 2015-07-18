@@ -235,7 +235,7 @@ If there is one thing to come out of the iPhone that is the fundamental defining
 
 One of the best examples of a true Natural User Interface is an iOS app called [Clear](http://www.realmacsoftware.com/clear/). Clear is a todo app where you pinch, pull, swipe, and tap to accomplish all of the normal todo actions, with the difference being that the controls *are* the interface, and a beautiful interface it is. One of the toughest things with Natural User Interfaces is building interactions that need no explanation (or whose explanation can be hinted at while using), and Clear does this marvelously. What's more, if you're saying to yourself "but that's a native app, we can't do that in browser!", take a look at [HTML5 Clear](http://clear.youyuxi.com/). Check out the Clear promo video below to get a sense of how a great Natural User Interface works.
 
-<div class="fluid-wrapper"><iframe src="http://player.vimeo.com/video/35693267?title=0&amp;byline=0&amp;portrait=0" width="400" height="230" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+![Vimeo](https://vimeo.com/35693267 "16-9")
 
 Somewhere about this time, if you've been designing according to these principles, you're going to have an epiphany. When designing responsively from a content first perspective on a semantic framework, you're going to realize that, even totally devoid of CSS and JavaScript, your site is mobile optimized. As Scott Kellum says, this is a big deal because "after this epiphany it becomes impossible to set styles then override them when no style at all will do just fine." Let this epiphany guide you toward the Natural UI light and away from the Graphical UI dark.
 

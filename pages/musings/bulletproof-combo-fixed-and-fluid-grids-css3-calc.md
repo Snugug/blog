@@ -8,11 +8,11 @@ summary: >
 ---
 You wanna see something cool?
 
-<div class="fluid-wrapper"><iframe src="//player.vimeo.com/video/84435424" width="500" height="89" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+![Calc Mixd Grid](https://vimeo.com/84435424 "16-9")
 
 Did you catch that? If not, take a good look at the red and green columns. Notice something different about them? How about something a bit more practical.
 
-<div class="fluid-wrapper"><iframe src="//player.vimeo.com/video/84435488" width="500" height="89" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+![Calc Mixd Grid](https://vimeo.com/84435488 "16-9")
 
 See it there? Are you excited yet, because I know I am!
 

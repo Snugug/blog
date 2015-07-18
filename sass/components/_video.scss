@@ -1,0 +1,5 @@
+.video {
+  &--16-9 {
+    @include ir;
+  }
+}
