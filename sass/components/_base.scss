@@ -120,4 +120,12 @@
   code {
     font-family: 'source-code-pro', 'Source Code Pro', 'Lucida Console', 'Lucida Sans Typewriter', 'monaco', 'Bitstream Vera Sans Mono', monospace;
   }
+
+  p code {
+    padding: .2em .4em;
+    margin: 0;
+    font-size: .85em;
+    background-color: rgba($color, .1);
+    border-radius: 3px;
+  }
 }

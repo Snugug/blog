@@ -21,12 +21,14 @@ code {
   overflow: auto;
 
   border: 1px solid rgba($background, .25);
+  border-radius: 3px;
 
   code,
   .base--code {
     @extend %base--pre-build;
-    padding: 1em;
-    font-size: 1em;
+    padding: 1rem;
+    font-size: .85em;
+    line-height: 1.45;
     outline: 0;
   }
 }
