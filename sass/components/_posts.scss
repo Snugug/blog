@@ -11,35 +11,39 @@
     }
   }
 
+  @supports (columns: 2) {
+    &--ARCHIVE {
+      @include breakpoint(672px) {
+        .posts--list {
+          columns: 2;
+          column-gap: 2rem;
+        }
+
+        .posts--listing {
+          break-inside: avoid;
+
+          &:first-of-type {
+            margin-top: 0;
+          }
+        }
+      }
+
+    }
+  }
+
   &--heading {
     @extend .base--h2;
     margin-bottom: 2rem;
   }
 
-  @supports (display: flex) {
-    &--list {
-      display: flex;
-      flex-flow: column;
-    }
-
-    &--listing {
-      flex: 2;
-    }
+  &:nth-of-type(2),
+  &--ARCHIVE {
+    @include double-rhythm;
   }
 }
 
 .post {
   position: relative;
-  &:before {
-    @include awesome-header($link-color, #ff0040, 'bottom right');
-    position: absolute;
-    left: -1rem;
-    width: .25rem;
-    height: 100%;
-    content: '';
-    display: block;
-
-  }
 
   &--title {
     font-size: ms(0);

@@ -11,7 +11,7 @@ hidePublished: true
   {% if post.path != 'musings/index.html' %}
   <li class="posts--listing">
     <article class="post">
-      <a href="/{{ post.path }}" class="post--title">{{ post.meta.title }}</a>
+      <a href="/{{ post.path.replace('/index.html', '') }}" class="post--title">{{ post.meta.title }}</a>
       <footer class="post--author">
         <span class="post--published">Published on <time datetime="{{ post.published|date('Y-m-d') }}">{{ post.published|date('F jS, Y') }}</time></span>
         {% if post.updated && post.updated|date('Y-m-d') != post.published|date('Y-m-d') %}
@@ -31,6 +31,7 @@ hidePublished: true
 
 {%block content %}
 <section class="posts">
+  <h2 class="posts--heading">{{ Date()|date('Y') }}</h2>
   <ul class="posts--list">
   {% for post in listing %}
     {% if post.published|date('Y') == Date()|date('Y') %}
@@ -49,7 +50,7 @@ hidePublished: true
   {% endfor %}
   </ul>
 </section>
-<section class="posts">
+<section class="posts--ARCHIVE">
   <h2 class="posts--heading">Archive</h2>
   <ul class="posts--list">
   {% for post in listing %}
