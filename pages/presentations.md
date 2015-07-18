@@ -6,6 +6,7 @@ hidePublished: true
 ---
 A simple list linking to the slides of presentations I've given. Only the most recent version of each presentation will be available. Newer talks will be first.
 
+* [People First](http://snugug.github.io/people-first/)
 * [Yo Yo!](http://snugug.github.io/yo-yo/#/)
 * [Designing the Modern Web, Redux](http://snugug.github.io/modern-web-redux/#/)
 * [Content Strategy Deliverables](http://snugug.github.io/content-strategy-deliverables/#/)
