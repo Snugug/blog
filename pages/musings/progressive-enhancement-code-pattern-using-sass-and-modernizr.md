@@ -10,7 +10,8 @@ Designing your websites in a [progressive way](http://en.wikipedia.org/wiki/Prog
 
 Sass is a CSS Preprocessing language and Compass is a kickass framework built on top of it. Modernizr is modern feature detection. Both rock, and here's a simple Progressive Enhancement code pattern I've been using leveraging Modernizr's CSS class hooks and Sass nesting.
 
-<pre><code class="language-scss">////////////////////////
+```scss
+////////////////////////
 // Sass Input
 ////////////////////////
 .foo {
@@ -22,9 +23,11 @@ Sass is a CSS Preprocessing language and Compass is a kickass framework built on
   .no-js & {
     /* Default properties if the feature is not present, or JavaScript is disabled and therefore Modernizr didn't fire. */
   }
-}</code></pre>
+}
+```
 
-<pre><code class="language-scss">/*************
+```scss
+/*************
 CSS Output
 **************/
 .foo {
@@ -36,11 +39,13 @@ CSS Output
 
 .no-feature .foo, .no-js .foo {
   /* Default properties if the feature is not present, or JavaScript is disabled and therefore Modernizr didn't fire. */
-}</code></pre>
+}
+```
 
 What I'm doing in this pattern is defining properties directly underneath `.foo` that should be applied regardless of if the feature I'm looking for is available (anything from box model to design), then I'm nesting the Modernizr feature detection parent selectors underneath, allowing me to see both my feature-present (`.feature &`) and feature-absent (`.no-feature &`) styling in line, making future maintenance easier by leaps and bounds. I include the `.no-js &` as a comma-separated addition to the feature-absent both because there are some users with JavaScript disabled (and seeing as how Modernizr is a JavaScript based solution, it then won't fire), and because [all of your users are non-JS while they're downloading your JS](http://twitter.com/zeldman/status/215088145971159042). Neat, but what about in practice? Let's throw Compass into the mix and reinvent the replace-text wheel.
 
-<pre><code class="language-scss">// Compass Image Sprites for our PNGs
+```scss
+// Compass Image Sprites for our PNGs
 @import 'social/*.png';
 
 // Twitter Class!
@@ -65,7 +70,8 @@ What I'm doing in this pattern is defining properties directly underneath `.foo`
     // Call the Sprite'd image's position.
     @include social-sprite(twitter);
   }
-}</code></pre>
+}
+```
 
 So what exactly is all of that? We're going to combine the power of Compass image sprites, dimension helpers, and inlining capabilities to build a future friendly image replacement complete with progressive enhancement up to SVG to make our image replacement resolution independent (yay!). First step is first, we import our Social png icons to create a [Compass Image Sprite](http://compass-style.org/help/tutorials/spriting/). Yes, this will build a full image sprite from individual images; it rocks. Next, we're going to use the [Compass Image Dimension Helpers](http://compass-style.org/reference/compass/helpers/image-dimensions/) to grab the height and width of the PNG image so we don't need to hard code them, making them super dynamic if we choose to change the size of our images later; Compass will handle all of the changes for us in the background. We're then going to grab the hide-text [Text Replacement Mixin](http://compass-style.org/reference/compass/typography/text/replacement/) to hide our text. The final piece of our generic styling is to stop our background from repeating, because we don't want that on a text replacement.
 
@@ -73,7 +79,8 @@ Now onto the fun stuff, the Modernizr powered feature detection. First up, SVG. 
 
 I can hear you now, though, saying: "Hey Sam, that looks like a lot I've got to write each and every time! Can't you make it easier?" Yes. Yes I can. Presenting the **Progressive Enhancement Text Replace Mixin**.
 
-<pre><code class="language-scss">////////////////////////
+```scss
+////////////////////////
 // Progressive Enhancement Text Replace Mixin
 //
 // - $image-name: Name of the image file without extension. 
@@ -107,6 +114,7 @@ I can hear you now, though, saying: "Hey Sam, that looks like a lot I've got to 
     // Call the Sprite'd image's position.
     @include #{$sprite-name}-sprite(#{$image-name});
   }
-}</code></pre>
+}
+```
 
 Hope people find this useful. If there are any bugs in the mixin, let me know and I'll update the mixin here. Happy coding!

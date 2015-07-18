@@ -18,13 +18,16 @@ That all being said, as I've been working on [Style Prototypes](https://github.c
 
 Created with a component guide in mind, it reduces many of the common pitfalls of element queries by reducing what you can query and when it gets queried down to a single item and provides a single interface for working with that query. **eq.js** will only query `min-width` as presented in a single data attribute, will only query it on `unload` and `onresize`, and allows you to access the queried `min-width` through a single attribute. It also provides an interface to allow users to fire a query for any selected nodes, allowing you to trigger queries on an as-needed basis. Usage is fairly easy, simply add a `data-eq-pts` attribute with `key: value` pairs of desired keywords and `min-width` values you'd like to use, each separated by a comma `,`.
 
-<pre><code class="language-markup">&lt;div class='component' data-eq-pts="small: 400, medium: 600, large: 900"&gt;
-  &lt;h1&gt;Hello World&lt;/h1&gt;
-&lt;/div&gt;</code></pre>
+```markup
+<div class='component' data-eq-pts="small: 400, medium: 600, large: 900">
+  <h1>Hello World</h1>
+</div>
+```
 
 When the correct size is available, a `data-eq-state` attribute will be added to the component with the `key` for the given `min-width`. This makes styling easy:
 
-<pre><code class="language-scss">.container {
+```scss
+.container {
   border: 2px solid red;
   background-color: rgba(red, .25);
 
@@ -42,11 +45,14 @@ When the correct size is available, a `data-eq-state` attribute will be added to
     border-color: blue;
     background-color: rgba(blue, .25);
   }
-}</code></pre>
+}
+```
 
 Installing and using **eq.js** is fairly easy. You can either [download a release](https://github.com/Snugug/eq.js/releases) or install it through [Bower](http://bower.io/)
 
-<pre><code class="language-markup">bower install eq.js --save</code></pre>
+```markup
+bower install eq.js --save
+```
 
 When adding **eq.js** to your site, make sure you load it in the `<head>` so that it's ready and available to for when `onload` is available as it directly affects styling on the page.
 

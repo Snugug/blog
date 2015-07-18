@@ -1,5 +1,5 @@
 ---
-title: Style Guide Questionnaire REsults
+title: Style Guide Questionnaire Results
 template: _layout.html
 published: May 1, 2014
 updated: May 1, 2014

@@ -20,22 +20,31 @@ Yesterday morning I had a bit of a brainstorm. Working on a new project, I was a
 
 In order to get the calculations right, I had to do a bit of math. I like math, but this was annoying math because the only way I'm able to check the results is by rendering everything in browser; no way to check my work as I went. With a bit of work, I came up with the following (somewhat) simple formula for determining the width of a single fluid item in a mixed fixed/fluid column pattern:
 
-<p><pre><code class="language-bash">((100% - (sum of fixed widths + sum of gutter widths)) / (sum of fluid width)) * (fluid column width)</code></pre></p>
+```bash
+((100% - (sum of fixed widths + sum of gutter widths)) / (sum of fluid width)) * (fluid column width)
+```
 
 It's fairly straight forward; take the whole width, subtract the fixed parts, divide into equal sized columns, multiply by column width. Sure, fair enough. But then, what happens if you want to span multiple fluid columns? Well you get a formula that looks something like this:
 
-<p><pre><code class="language-bash">(((100% - (sum of fixed widths + sum of gutter widths)) / (sum of fluid width)) * (fluid column width) + (gutter width)) + (((100% - (sum of fixed widths + sum of column widths)) / (sum of fluid width)) * (fluid column width))</code></pre></p>
+```bash
+(((100% - (sum of fixed widths + sum of gutter widths)) / (sum of fluid width)) * (fluid column width) + (gutter width)) + (((100% - (sum of fixed widths + sum of column widths)) / (sum of fluid width)) * (fluid column width))
+```
 
 Fair enough, math, it's complex. Did I mention yet that that's the *string* that needs to get printed out? What about a mixture of fixed and fluid columns?
 
-<p><pre><code class="language-bash">(((100% - (sum of fixed widths + sum of gutter widths)) / (sum of fluid width)) * (fluid column width) + (gutter width)) + (fixed width + gutter width) + (((100% - (sum of fixed widths + sum of column widths)) / (sum of fluid width)) * (fluid column width))</code></pre></p>
+```bash
+(((100% - (sum of fixed widths + sum of gutter widths)) / (sum of fluid width)) * (fluid column width) + (gutter width)) + (fixed width + gutter width) + (((100% - (sum of fixed widths + sum of column widths)) / (sum of fluid width)) * (fluid column width))
+```
+
 
 Okay, that's getting unwieldy. But it's not over! We want to be able to use [isolation](https://github.com/Team-Sass/Singularity/wiki/Output-Styles#isolation) output's source order independent ordering, so we need to calculate margins too! Simple enough, the width of each column preceding the one we're on plus a gutter a piece, but remember the formula for fluid width items! To give you an idea of what that'd look like (and it's calculated width), here's the margin property for the blue item in the first video (the initial `0.5em` is because we're using [split gutters](https://github.com/Team-Sass/Singularity/wiki/Creating-Grids#split-gutters)).
 
-<p><pre><code class="language-scss">.third {
+```scss
+.third {
   width: calc((((100% - (520px + 5em)) / (4))) * 2);
   margin-left: calc(0.5em + (320px + 1em) + (((100% - (520px + 5em)) / (4)) * 1 + 1em));
-}</code></pre></p>
+}
+```
 
 Yah, long story short, this is stupid and you shouldn't ever use this method; at least not without a CSS Preprocessor
 
@@ -45,32 +54,37 @@ I love [Singularity](https://github.com/Team-Sass/Singularity/) and I'm really p
 
 `calc` grids are some restrictions placed on them that `float` and `isolation` grids don't. First, they must be asymmetric grids, meaning you must define the width of each column. You can mix any units you want as long as they are compatible with `calc` (as of this writing, for instance, `rem` units aren't for some reason). If you want to define parts of the remaining fluid area, you do so with unit less numbers just like you would when normally using Singularity. The other change is that `calc` grids only work with fixed width gutters (gutters with defined units, including `%` if you so choose) as the alternative would be having the gutter widths being defined by the remaining fluid area, which is quite hard to grok and doesn't make much sense to me. Mix units all you want, `calc` will take care of it (at least in all of my tests). Otherwise, `calc` behaves more or less identical to `isolation`. To give you an idea of what this looks like, here's the grid definition for the first video:
 
-<p><pre><code class="language-scss">@import "breakpoint";
+```scss
+@import "breakpoint";
 @import "singularitygs";
 @import "singularity-extras/outputs";
 
 @include add-grid(320px 1 2 200px 1);
 @include add-gutter(1em);
 @include add-gutter-style('split');
-@include sgs-change('output', 'calc');</code></pre></p>
+@include sgs-change('output', 'calc');
+```
 
 Here's the HTML and the Sass for the second video:
 
-<p><pre><code class="language-scss">&lt;!doctype html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;Test&lt;/title&gt;
-  &lt;link rel="stylesheet" href="css/test.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;div class="main"&gt;&lt;/div&gt;
-  &lt;div class="primary-sidebar"&gt;&lt;/div&gt;
-  &lt;div class="secondary-sidebar"&gt;&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre></p>
+```scss
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="css/test.css">
+</head>
+<body>
+  <div class="main"></div>
+  <div class="primary-sidebar"></div>
+  <div class="secondary-sidebar"></div>
+</body>
+</html>
+```
 
-<p><pre><code class="language-scss">@import "breakpoint";
+```scss
+@import "breakpoint";
 @import "singularitygs";
 @import "singularity-extras/generators/ratio";
 @import "singularity-extras/generators/snap";
@@ -108,6 +122,7 @@ div {
   height: 100vh;
   margin: 0;
   padding: 0;
-}</code></pre></p>
+}
+```
 
 I hope you enjoy doing some awesome and crazy things with this. Enjoy!

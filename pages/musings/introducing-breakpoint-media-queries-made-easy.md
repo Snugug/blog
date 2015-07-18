@@ -10,25 +10,25 @@ As anyone who has done Responsive Web Design will tell you, keeping track of you
 
 Breakpoint is a [Compass Extension](http://compass-style.org) jointly developed by [Mason Wendell](http://thecodingdesigner.com/) and myself with the aim of solving your media query fatigue. Designed with a mobile first, future friendly mindset, Breakpoint will help you simplify and keep track of your most common media queries while remaining powerful and flexible enough to write any complex, compound media query you'd ever want. First, let's get you installed.
 
-<bash>
+```bash
 gem install breakpoint
-</bash>
+```
 
 If you're creating a new project using Compass, you can require breakpoint from the get go, otherwise you're going to need to require it from your config.rb file.
 
-<bash>
+```bash
 compass create <my_project> -r breakpoint
-</bash>
+```
 
-<ruby>
+```ruby
 require 'breakpoint'
-</ruby>
+```
 
 Finally, import the Breakpoint partial at the top of your working file, or into your Base partial.
 
-<sass>
+```scss
 @import "breakpoint";
-</sass>
+```
 
 There you go! You now are ready to start using Breakpoint! Let's get started.
 
@@ -52,15 +52,15 @@ Besides the awesome `$breakpoint-to-ems`, we've added in a little bonus to help 
 
 Show me how to use the damn thing already!  Okay! What we're going to be doing is creating variables that we can name whatever we want with the features and values we want. Let's say our login form breaks at three different places, we can create the following three variables (I like prefixing breakpoint variables with bkpt, but it's not needed):
 
-<sass>
+```scss
 $bkpt-login-small: 370px;
 $bkpt-login-medium: 490px;
 $bkpt-login-large: 865px;
-</sass>
+```
 
 Then, in our Sass, we'd call the breakpoint media query with our variable, and we're set! Remember, we're building this Mobile First, so our first breakpoint is really our second set of rules!
 
-<sass>
+```scss
 #login {
   background: red;
   
@@ -76,11 +76,11 @@ Then, in our Sass, we'd call the breakpoint media query with our variable, and w
     background: green;
   }
 }
-</sass>
+```
 
 And the CSS that it spits out? Super clean, super simple.
 
-<css>
+```scss
 #login {
   background: red;
 }
@@ -102,11 +102,11 @@ And the CSS that it spits out? Super clean, super simple.
     background: green;
   }
 }
-</css>
+```
 
 And if we've got `$breakpoint-to-ems` turned on?
 
-<css>
+```scss
 #login {
   background: red;
 }
@@ -128,11 +128,11 @@ And if we've got `$breakpoint-to-ems` turned on?
     background: green;
   }
 }
-</css>
+```
 
 That should cover 90% of your media queries, but you can get a little crazy if you want. Say you want to query between two values of a feature? Easy squeazy lemon peaty.
 
-<sass>
+```scss
 $bkpt-medium-not-wide: 500px 700px;
 $bkpt-medium-heigh: 300px 700px 'height';
 
@@ -148,11 +148,11 @@ $bkpt-medium-heigh: 300px 700px 'height';
     background: red;
   }
 }
-</sass>
+```
 
 Becomes:
 
-<css>
+```scss
 #foo {
   color: purple;
   background: yellow;
@@ -169,7 +169,7 @@ Becomes:
     background: red;
   }
 }
-</css>
+```
 
 For more examples, check out [Breakpoint's Read Me](https://github.com/canarymason/breakpoint/blob/master/README.markdown). If you have any questions, ping either [@Snugug](http://twitter.com/#!/snugug) (me) or [@CodingDesigner](http://twitter.com/#!/codingdesigner) (Mason) on Twitter or leave a ticket for us on [GitHub](https://github.com/canarymason/breakpoint/issues).
 

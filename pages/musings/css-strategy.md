@@ -45,25 +45,25 @@ These are the variables, mixins, and extendables that power your Style/Component
 
 These are classes, without prefix, to be used as styling anchor points (and, of course, can include styling in and of themselves). Components will probably be equally used inside of Style/Component guides and in individual implementations. They are similar to blocks in BEM and modules in SMACSS and  OOCSS.
 
-<pre><code class="language-scss">.component{}
-</code></pre>
-
+```scss
+.component{}
+```
 
 ### Objects
 
 These are classes, prefixed with an underscore, to be used to style individual pieces that could be used to make up a component. Objects will mostly be used in Style/Component guides, with individual changes happening inside of implementations, probably using a Component as an anchor for a change. They are similar to elements in BEM and sub-modules in SMACSS.
 
-<pre><code class="language-scss">_object{}
-</code></pre>
-
+```scss
+_object{}
+```
 
 ### Nuances
 
 These are classes, prefixed with a dash, to be used to alter the appearance of a component or object. They are similar to modifiers in BEM, themes/states in SMACSS, and skins in OOCSS.
 
-<pre><code class="language-scss">.-nuance{}
-</code></pre>
-
+```scss
+.-nuance{}
+```
 
 ### Grids and Layout
 
