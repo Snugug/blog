@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="/css/style.css">
   <!-- endbuild -->
 
-  <!-- build:js js/fonts.js -->
   <script>
     (function () {
       'use strict';
@@ -18,6 +17,12 @@
       var fonts,
           req,
           style;
+
+      window.domCL = false;
+
+      window.addEventListener('DOMContentLoaded', function () {
+        window.domCL = true;
+      });
 
       if (window.localStorage && document.querySelector && window.XMLHttpRequest) {
         fonts = localStorage.getItem('fonts');
@@ -45,7 +50,6 @@
       }
     })();
   </script>
-  <!-- endbuild -->
 </head>
 <body>
   {% block body %}{% endblock %}

@@ -1,17 +1,12 @@
 (function (Prism) {
   'use strict';
 
-  var fired = false;
-
-  window.addEventListener('DOMContentLoaded', function () {
-    if (!fired) {
-      Prism.highlightAll();
-      fired = true;
-    }
-  });
-
-  if (!fired) {
+  if (window.domCL) {
     Prism.highlightAll();
-    fired = true;
+  }
+  else {
+    window.addEventListener('DOMContentLoaded', function () {
+      Prism.highlightAll();
+    });
   }
 }(window.Prism));
