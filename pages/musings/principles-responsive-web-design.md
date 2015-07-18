@@ -83,9 +83,149 @@ After a single column theme has been built, what next? The are many advocates of
 
 Content based breakpoints are surprisingly easy, as Stephen says, keep expanding your window until your content looks crap, then put a breakpoint there. There are a plethora of tools out there to get your window's screen size for your break point so there's no excuse not to do it this way. If you're using Sass 3.2 or higher, in fact, your life just became super easy! Instead of needing to remember all of your breakpoints by number, you can remember them by name! You can write a mixin like the following for all of your breakpoints:
 
-<script src="https://gist.github.com/2493551.js?file=02-sample.scss"></script>
+```scss
+// Four breakpoints: foo, bar, baz, and qux.
+//
+// Foo assumes the defaults of min-width and screen. Foo will gen @media screen and (min-width: 500px)
+// Bar changes min-width to max, but assumes screen as well. Bar will gen @media screen and (max-width: 700px)
+// Baz wants to use min-width, but change media type, so min-width needs to be re-declare. Baz will gen @media tv and (min-width: 700px)
+// Qux goes all out and has a full unique media query. Qux will get @media tv and (max-width: 900px)
 
-<script src="https://gist.github.com/2493551.js?file=03-mixins.scss"></script>
+$breakpoints: 'foo' 500px, 'bar' 700px 'max-width', 'baz' 700px 'min-width' tv, 'qux' 900px 'max-width' tv;
+
+// Let's call respond-to!
+#waldo {
+  background: red;
+
+  @include respond-to('foo') {
+    background: green;
+  }
+
+  @include respond-to('bar') {
+    background: yellow;
+  }
+
+  @include respond-to('baz') {
+    background: purple;
+  }
+
+  @include respond-to('qux') {
+    background: orange;
+  }
+}
+
+// Our Output:
+#waldo {
+  background: red;
+}
+
+@media screen and (min-width: 500px) {
+  #waldo {
+    background: green;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  #waldo {
+    background: yellow;
+  }
+}
+
+@media tv and (min-width: 700px) {
+  #waldo {
+    background: purple;
+  }
+}
+
+@media tv and (max-width: 900px) {
+  #waldo {
+    background: orange;
+  }
+}
+```
+
+```scss
+// Our respond-to mixin, with the new hotness?
+// A little more complicated than previous respond-to mixins, but now runs off of a variable. This is also Rev 1 so if someone can help me make it better, I'm all ears.
+// We need to start with a defaulted breakpoints variable.
+
+$breakpoints: false !default;
+
+@mixin respond-to($context) {
+  @if $breakpoints != false {
+    // Check to see if the 2nd item is a number. If it is, we've got a single query
+    @if type-of(nth($breakpoints, 2)) == 'number' {
+      // Check to see if the context matches the breakpoint namespace
+      @if $context == nth($breakpoints, 1) {
+        // Call Media Query Generator
+        @include media-query-gen($breakpoints) {
+          @content;
+        }
+      }
+    }
+    // Else, loop over all of them
+    @else {
+      // Loop over each breakpoint and check context
+      @each $bkpt in $breakpoints {
+        // If context is correctâ€¦
+        @if $context == nth($bkpt, 1) {
+          // Call the generator!
+          @include media-query-gen($bkpt) {
+            @content;
+          }
+        }
+      }
+    }
+  }
+}
+
+// This functionality gets used twice so I turned it into its own mixin.
+
+@mixin media-query-gen($bpt) {
+  // Get length of breakpoint variable, minus the namespace
+  $length: length($bpt);
+  // Go through all of the breakpoint items, starting at the second, and add them to a variable to be passed into the media query mixin
+  $mq: false !default;
+  @for $i from 2 through $length {
+    // If it's the first item, override $mq
+    @if $i == 2 {
+      $mq: nth($bpt, $i);
+    }
+    // Else, join $mq
+    @else {
+      $mq: join($mq, nth($bpt, $i));
+    }
+  }
+  // Call Media Query mixin
+  @include media-query($mq) {
+    @content;
+  }
+}
+
+// Slightly modified version of my Media Query Mixin (https://gist.github.com/2490750) from earlier, modified to accommodate list input
+@mixin media-query($value, $operator: 'min-width', $query: 'screen') {
+  // If a list is passed in for value, break it into value, operator, and query
+  @if type-of($value) == 'list' {
+    $mq: $value;
+    
+    @for $i from 1 through length($mq) {
+      @if $i == 1 {
+        $value: nth($mq, 1);
+      }
+      @else if $i == 2 {
+        $operator: nth($mq, 2);
+      }
+      @else if $i == 3 {
+        $query: nth($mq, 3);
+      }
+    }
+  }
+  
+  @media #{$query} and (#{$operator}: #{$value}) {
+    @content;
+  }
+}
+```
 
 The other issue I have with device based breakpoints is all they do is enforce the printed page metaphor with varying fixed page sizes instead of a single one (think designing a flyer, a brochure, and a business card instead of a website). As [Rachel Hinman says](https://twitter.com/brad_frost/statuses/192239397855440896), "the "page" metaphor holds us back from creating truly great mobile experiences". Device breakpoints are a wolf in sheep's clothing; passing itself off for RWD when in reality it's more of the same static design (even with a fluid grid).
 
