@@ -43,7 +43,7 @@
         else {
           window.addEventListener('load', function () {
             req = new XMLHttpRequest();
-            req.open('GET', '/css/fonts.css');
+            req.open('GET', fontURL);
             req.onreadystatechange = function () {
               localStorage.setItem('fonts', req.responseText);
               localStorage.setItem('fontURL', fontURL);
@@ -58,7 +58,7 @@
 <body>
   {% block body %}{% endblock %}
 
-  <!-- build:js /js/foo.js -->
+  <!-- build:js /js/foo.js async defer -->
   <!-- Put JS here -->
   <script src="/bower_components/prism/prism.js"></script>
   <script src="/bower_components/prism/components/prism-css.js"></script>
