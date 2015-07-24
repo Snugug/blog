@@ -48,6 +48,11 @@
   &--title {
     font-size: ms(0);
     font-weight: bold;
+    line-height: 1;
+
+    .posts--LATEST & {
+      font-size: ms(1);
+    }
   }
 
   &--author {
