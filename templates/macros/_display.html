@@ -1,0 +1,22 @@
+{% macro post(post) %}
+  {% if post.path.indexOf('musings/') >= 0 %}
+  {% if post.path != 'musings/index.html' %}
+  <li class="posts--listing">
+    <article class="post">
+      <a href="/{{ post.path.replace('/index.html', '') }}" class="post--title">{{ post.meta.title }}</a>
+      <footer class="post--author">
+        <span class="post--published">Published on <time datetime="{{ post.published|date('Y-m-d') }}">{{ post.published|date('F jS, Y') }}</time></span>
+        {% if post.updated && post.updated|date('Y-m-d') != post.published|date('Y-m-d') %}
+        {% if post.updated && post.updated|date('Y-m-d') != post.birthtime|date('Y-m-d') %}
+          <span class="post--published">Updated on <time datetime="{{ post.updated|date('Y-m-d') }}">{{ post.updated|date('F jS, Y') }}</time></span>
+        {% endif %}
+        {% endif %}
+      </footer>
+      {% if post.meta.summary %}
+      <div class="post--summary">{{ post.meta.summary|markdown|safe }}</div>
+      {% endif %}
+    </article>
+  </li>
+  {% endif %}
+  {% endif %}
+{% endmacro %}
