@@ -9,14 +9,18 @@
   <!-- Put CSS here -->
   <link rel="stylesheet" href="/css/style.css">
   <!-- endbuild -->
+  {% block head %}{% endblock %}
+
 
   <script>
     (function () {
       'use strict';
 
-      var fonts,
+      var fontURL = '/css/fonts.css',
+          fonts,
           req,
-          style;
+          style,
+          fontUrlLS;
 
       window.domCL = false;
 
@@ -26,16 +30,15 @@
 
       if (window.localStorage && document.querySelector && window.XMLHttpRequest) {
         fonts = localStorage.getItem('fonts');
+        fontUrlLS = localStorage.getItem('fontURL');
 
-        if (fonts) {
+        if (fonts && fontUrlLS === fontURL) {
           req = document.querySelector('link[rel="stylesheet"]');
 
           style = window.document.createElement('style');
           style.innerHTML = fonts;
 
           req.parentNode.insertBefore(style, req.nextSibling);
-          console.log(fonts);
-          console.log(style);
         }
         else {
           window.addEventListener('load', function () {
@@ -43,6 +46,7 @@
             req.open('GET', '/css/fonts.css');
             req.onreadystatechange = function () {
               localStorage.setItem('fonts', req.responseText);
+              localStorage.setItem('fontURL', fontURL);
             }
             req.send();
           });
