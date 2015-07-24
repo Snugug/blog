@@ -9,7 +9,7 @@ require('gulp-armadillo')(gulp, {
   'pages': {
     'dir': 'pages/musings',
     'transformURL': true,
-    'sort': 'created',
+    'sort': 'published',
     'reverse': true
   },
   'copy': {
