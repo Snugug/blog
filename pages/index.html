@@ -3,12 +3,43 @@ listing: true
 ---
 {% extends '_stand-alone.html' %}
 
-{%block content %}
-<div class="latest">
+{% import 'macros/_display.html' as display %}
+
+{% block head %}
   {% for post in listing %}
-  {% if loop.first %}
-  <a href="/{{ post.path }}">{{ post.meta.title }}</a>
-  {% endif %}
+    {% if loop.first %}
+    <link rel="prefetch" href="/{{ post.path.replace('/index.html', '') }}">
+    {% endif %}
   {% endfor %}
+{% endblock %}
+
+{%block content %}
+
+<div class="base">
+  <section class="posts--LATEST">
+    <ul class="posts--list">
+    {% for post in listing %}
+      {% if loop.first %}
+      {% if post.published|date('Y') == Date()|date('Y') %}
+      {{ display.post(post) }}
+      {% endif %}
+      {% endif %}
+    {% endfor %}
+    </ul>
+  </section>
+
+  <section class="posts--ARCHIVE">
+    <ul class="posts--list">
+    {% for post in listing %}
+      {% if !loop.first && loop.index < 6 %}
+      {% if post.published|date('Y') == Date()|date('Y') %}
+      {{ display.post(post) }}
+      {% endif %}
+      {% endif %}
+    {% endfor %}
+    </ul>
+  </section>
 </div>
+
+
 {% endblock %}
