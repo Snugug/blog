@@ -1,6 +1,7 @@
 .www/
 .tmp/
 .dist/
+.publish/
 .DS_Store
 bower_components
 node_modules/
