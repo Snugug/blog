@@ -6,7 +6,7 @@ updated: December 29, 2014
 summary: >
   Let's stop talking about "Enterprise". Enterprise code, enterprise design, enterprise color schemes, enterprise anything. As far as I can see, there is no such thing as "Enterprise", at least not any more, and not how it gets used.
 ---
-![There is no Enterprise](http://snugug.com/sites/default/files/field/image/no-enterprise.jpg)
+![There is no Enterprise](/images/there-is-no-enterprise/no-enterprise.jpg)
 
 I understand this may be controversial considering I work for IBM, but I'd like to propose the following: let's stop talking about "Enterprise". Enterprise code, enterprise design, enterprise color schemes, enterprise anything. As far as I can see, there is no such thing as "Enterprise", at least not any more, and not how it gets used.
  

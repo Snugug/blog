@@ -16,7 +16,7 @@ Of all of the concepts of responsive Web design (thus-forth known as RWD), this 
 
 While there are many similarities between print and Web as mediums, and many concepts from print translate well onto the web, many more do not belong, the most prevalent being a fixed size. There is a reason fixed sized websites are so prominent, it's because it is very easy to design to a known size, a page metaphor if you will, especially for print designers who are use to working with set paper dimensions. It's easier to control your design when you control its dimensions, so designers took to determining what dimensions a "web page" should be, and we all generally settled on a 960px grid based on statistics about desktop browser size. There's just one problem with that, as [Brad Frost has brilliantly put it](http://bradfrostweb.com/blog/web/responsive-web-design-missing-the-point/ "Responsive Web Design: Missing the Point | Brad Frost Web"):
 
-![What is the Web](/sites/default/files/field/image/the-web.jpg "What is the Web")
+![What is the Web](/images/principles-responsive-web-design/the-web.jpg "What is the Web")
 
 > The point of creating [responsive] sites is to create functional (and hopefully optimal) user experiences for a growing number of web-enabled devices and contexts.
 > 

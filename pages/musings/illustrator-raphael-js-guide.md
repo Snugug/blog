@@ -24,29 +24,29 @@ The first thing that we need to do is prepare our Illustrator image for import i
 * Raphaël doesn't support textures
 * If your drawing doesn't follow the [KISS Principle](http://en.wikipedia.org/wiki/KISS_principle), it probably won't work in Raphaël.
 
-![Snugug in Illustrator](/sites/default/files/field/image/Screen%20shot%202011-03-01%20at%206.17.26%20PM.png)
+![Snugug in Illustrator](/images/illustrator-raphael-js-guide/snugug-in-illustrator.png)
 
 Now that we have a file that we're ready to export into Raphaël, we simply need to go to the Import Tool and open demo.html in our browser (again, I choose Google Chrome). In Illustrator, go to File->Save As. Choose SVG (sag) as your Format and press Save. You will get a dialogue box with SVG options. Keep them all as is, what we're interested in is the Show SVG Code… and Web Preview… buttons. 
 
-![SVG Options](/sites/default/files/field/image/Screen%20shot%202011-03-01%20at%206.19.56%20PM.png)
+![SVG Options](/images/illustrator-raphael-js-guide/svg-options.png)
 
 First, press Web Preview… to make sure what you're going to wind up with is actually what you want.  If it is, press Show SVG Code… This is where the magic happens. A .txt file will open up with your SVG Code! What you need to do is copy the SVG code, so from `<svg>` down. From there, go to demo.html and press the Import SVG button. A prompt will come up to enter your SVG code. Paste your SVG code in and press enter.
 
-![Import SVG](/sites/default/files/field/image/Screen%20shot%202011-03-01%20at%206.22.39%20PM.png)
+![Import SVG](/images/illustrator-raphael-js-guide/import-svg.png)
 
-![Paste Code In](/sites/default/files/field/image/Screen%20shot%202011-03-01%20at%206.22.55%20PM.png)
+![Paste Code In](/images/illustrator-raphael-js-guide/paste-code-in.png)
 
 Congratulations! You have your SVG into Raphaël code, but chances are it doesn't look quite right, just look at poor Snugug!
 
-![Poor Snugug!](/sites/default/files/field/image/Screen%20shot%202011-03-01%20at%206.25.07%20PM.png)
+![Poor Snugug!](/images/illustrator-raphael-js-guide/poor-snugug.png)
 
 Now it's okay that it's messed up a little bit, what's wrong is actually just fills and lines, which we are going to fix when we put this into code with attributes. What's most important, and what this step ultimately is all about, is getting the paths out of the Illustrator SVG file in a Raphaël friendly manner. What we're going to do is CRTL+Click (Windows, right click) on an element and press Inspect Element of one of our items
 
-![Inspect Elements](/sites/default/files/field/image/Screen%20shot%202011-03-01%20at%206.27.36%20PM.png)
+![Inspect Elements](/images/illustrator-raphael-js-guide/inspect-elements.png)
 
 When you do that, Chrome will pop up it's Element Inspector. The Element Inspector is a great tool, as it gives you all of the styles of the item you've selected, nests nested items, and highlights what you're looking at in place. I've inspected the element of the main fur, so that's highlighted as well as what I'm looking at
 
-![The Whole Shebang](/sites/default/files/field/image/Screen%20shot%202011-03-01%20at%206.29.13%20PM.png)
+![The Whole Shebang](/images/illustrator-raphael-js-guide/the-whole-shebang.png)
 
 Now, Chrome makes this even better! That element that's selected, we can copy that out of the Element Inspector!  Do just that by pressing CMD+C (CTRL+C on Windows) and paste that text into your favorite text editor. What you're going to get is a big ol' mess of junk, but really all we need to do to get this into a format that we can use with Raphaël is to remove the tags surrounding the path.  The tags for Snugug's head look like this (yours will be similar, and please bear with me while my syntax highlighting is broken):
 
@@ -100,6 +100,6 @@ var snugug_head = snugug_paper.path("M178.563,83.791C176.97899999999998,81.086,1
 
 What we've done here is created a variable (that, by the way, is now manipulatable) called snugug_head and assigned it as a path draw inside of snugug_paper with the path coordinates that we extracted before and the attributes as defined in snugug_fur. Test your website out and you should see your drawing!
 
-![Snugug Head](/sites/default/files/field/image/Screen%20shot%202011-03-02%20at%204.07.14%20AM.png)
+![Snugug Head](/images/illustrator-raphael-js-guide/snugug-head.png)
 
 There ya go! To get the rest of your drawing into Raphael, follow the same process as we just did! Remember that more than one path can be drawn on one canvas! Have fun!
