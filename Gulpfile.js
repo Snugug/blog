@@ -19,7 +19,8 @@ require('gulp-armadillo')(gulp, {
       '!.www/bower_components/**/*',
       '!.www/css/**/style.css',
       '!.www/js/**/*',
-      '.www/css/fonts.css'
+      '.www/css/fonts.css',
+      'CNAME'
     ]
   }
 });
