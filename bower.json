@@ -1,6 +1,22 @@
 {
   "name": "blog",
   "version": "0.0.0",
+  "ignore": [
+    "CNAME",
+    "Gulpfile.js",
+    "fonts",
+    "js",
+    "templates",
+    "package.json",
+    ".deploy.sh",
+    ".dist",
+    ".publish",
+    ".www",
+    ".yo-rc.json",
+    ".nvmrc",
+    ".gitignore",
+    ".git"
+  ],
   "dependencies": {
     "prism": "~1.0.0"
   },
