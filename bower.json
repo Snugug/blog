@@ -17,7 +17,8 @@
     ".gitignore",
     ".git",
     "circle.yml",
-    "bower.json"
+    "bower.json",
+    "pages/**/*.html"
   ],
   "dependencies": {
     "prism": "~1.0.0"
