@@ -13,6 +13,12 @@
   <!-- endbuild -->
   {% block head %}{% endblock %}
 
+  <script>
+    if (window.location.protocol !== 'https:') {
+      window.location.protocol = 'https:';
+    }
+  </script>
+
 
   <script>
     (function () {
