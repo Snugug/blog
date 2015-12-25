@@ -2,18 +2,17 @@
   "name": "blog",
   "version": "0.0.0",
   "scripts": {
-    "test": "./node_modules/gulp/bin/gulp.js build",
     "postinstall": "npm run install:bower",
-    "install:bower": "npm run bower install",
-    "bower": "./node_modules/bower/bin/bower",
-    "gulp": "./node_modules/gulp/bin/gulp.js",
-    "deploy": "./node_modules/gulp/bin/gulp.js dist"
+    "install:bower": "bower install",
+    "bower": "bower",
+    "gulp": "gulp",
+    "start": "gulp",
+    "test": "gulp build",
+    "posttest": "gulp dist"
   },
   "devDependencies": {
-    "gulp-armadillo": "^1.6.0",
-    "gulp": "^3.8.11"
-  },
-  "dependencies": {
-    "bower": "^1.4.1"
+    "bower": "^1.4.1",
+    "gulp": "^3.8.11",
+    "gulp-armadillo": "^2.1.0"
   }
 }
