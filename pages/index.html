@@ -1,45 +1,40 @@
 ---
-listing: true
+listing:
+  folders:
+    - musings
+  sort: published
+  reverse: true
 ---
 {% extends '_stand-alone.html' %}
 
 {% import 'macros/_display.html' as display %}
 
 {% block head %}
-  {% for post in listing %}
+  {% for post in listing.musings %}
     {% if loop.first %}
-    <link rel="prefetch" href="/{{ post.path.replace('/index.html', '') }}">
+    <link rel="prefetch" href="/{{ post.path|replace('/index.html', '') }}">
     {% endif %}
   {% endfor %}
 {% endblock %}
 
 {%block content %}
-
-<div class="base">
   <section class="posts--LATEST">
-    <ul class="posts--list">
-    {% for post in listing %}
-      {% if loop.first %}
-      {% if post.published|date('Y') == Date()|date('Y') %}
-      {{ display.post(post) }}
-      {% endif %}
+    <ul class="posts--list base">
+    {% for post in listing.musings %}
+      {% if loop.first and post.published|date('yyyy') == today|date('yyyy') %}
+        {{ display.post(post) }}
       {% endif %}
     {% endfor %}
     </ul>
   </section>
 
   <section class="posts--ARCHIVE">
-    <ul class="posts--list">
-    {% for post in listing %}
-      {% if !loop.first && loop.index < 6 %}
-      {% if post.published|date('Y') == Date()|date('Y') %}
-      {{ display.post(post) }}
-      {% endif %}
+    <ul class="posts--list base">
+    {% for post in listing.musings %}
+      {% if not loop.first and loop.index < 6 %}
+        {{ display.post(post) }}
       {% endif %}
     {% endfor %}
     </ul>
   </section>
-</div>
-
-
 {% endblock %}

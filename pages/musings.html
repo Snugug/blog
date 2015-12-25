@@ -1,6 +1,10 @@
 ---
 title: Musings
-listing: true
+listing:
+  folders:
+    - musings
+  sort: published
+  reverse: true
 page: musings
 hidePublished: true
 ---
@@ -8,22 +12,23 @@ hidePublished: true
 
 {% import 'macros/_display.html' as display %}
 
-{%block content %}
+{% block content %}
+
 <section class="posts">
-  <h2 class="posts--heading">{{ Date()|date('Y') }}</h2>
+  <h2 class="posts--heading">{{ today|date('yyyy') }}</h2>
   <ul class="posts--list">
-  {% for post in listing %}
-    {% if post.published|date('Y') == Date()|date('Y') %}
+  {% for post in listing.musings %}
+    {% if post.published|date('yyyy') == today|date('yyyy') %}
     {{ display.post(post) }}
     {% endif %}
   {% endfor %}
   </ul>
 </section>
 <section class="posts">
-  <h2 class="posts--heading">{{ Date()|date('Y') - 1 }}</h2>
+  <h2 class="posts--heading">{{ today|date('yyyy') - 1 }}</h2>
   <ul class="posts--list">
-  {% for post in listing %}
-    {% if post.published|date('Y') == Date()|date('Y') - 1 %}
+  {% for post in listing.musings %}
+    {% if post.published|date('yyyy') == today|date('yyyy') - 1 %}
     {{ display.post(post) }}
     {% endif %}
   {% endfor %}
@@ -32,8 +37,8 @@ hidePublished: true
 <section class="posts--ARCHIVE">
   <h2 class="posts--heading">Archive</h2>
   <ul class="posts--list">
-  {% for post in listing %}
-    {% if post.published|date('Y') < Date()|date('Y') - 1 %}
+  {% for post in listing.musings %}
+    {% if post.published|date('yyyy') < today|date('yyyy') - 1 %}
     {{ display.post(post) }}
     {% endif %}
   {% endfor %}

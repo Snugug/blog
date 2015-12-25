@@ -6,7 +6,7 @@ updated: August 20, 2012
 summary: >
   The slides and video from my DrupalCon Munich presentation along with some links.
 ---
-Thanks to everyone who came out to see my session. The slides from my talk are available [here](http://snugug.com/sites/default/files/session_0.pdf). Please remember to [rate my session](http://munich2012.drupal.org/node/add/session-evaluation/249?destination=node/249) and be sure to come to my [Birds of a Feather sessions](http://munich2012.drupal.org/program/schedule/bofs/2012-08-22) tomorrow. I'll be holding three of them in the same room right in a row, a sort of mini Sass+Compass training going from installation through the topics presented in my talk and anything anyone else wants to talk about. I will also be around during the sprints and am happy to hold "Sass Office Hours" of sorts to help people out.
+Thanks to everyone who came out to see my session. The slides from my talk are available [here](http://snugug.com/documents/drupalcon-munich-presentation/session.pdf). Please remember to [rate my session](http://munich2012.drupal.org/node/add/session-evaluation/249?destination=node/249) and be sure to come to my [Birds of a Feather sessions](http://munich2012.drupal.org/program/schedule/bofs/2012-08-22) tomorrow. I'll be holding three of them in the same room right in a row, a sort of mini Sass+Compass training going from installation through the topics presented in my talk and anything anyone else wants to talk about. I will also be around during the sprints and am happy to hold "Sass Office Hours" of sorts to help people out.
 
 Here is the video of my talk
 

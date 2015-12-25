@@ -1,0 +1,10 @@
+{% macro published(published, updated, birthtime, section) %}
+<footer class="{{ section }}--author">
+  <span class="{{ section }}--published">Published on <time datetime="{{ post.published|date('yyyy-mm-dd') }}">{{ published|date('mmmm dS, yyyy') }}</time></span>
+  {% if post.updated %}
+  {% if post.updated|date('yyyy-mm-dd') != published|date('yyyy-mm-dd') and updated|date('yyyy-mm-dd') != birthtime|date('yyyy-mm-dd') %}
+  <span class="{{ section }}--published">Updated on <time datetime="{{ post.published|date('yyyy-mm-dd') }}">{{ updated|date('mmmm dS, yyyy') }}</time></span>
+  {% endif %}
+  {% endif %}
+</footer>
+{% endmacro %}
