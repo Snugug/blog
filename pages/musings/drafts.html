@@ -1,0 +1,44 @@
+---
+title: Musings - Drafts
+listing:
+  folders:
+    - musings
+  sort: published
+  reverse: true
+  ignore:
+    - attribute: draft
+      operator: missing
+    - attribute: page
+      value: musings
+      operator: is
+page: musings
+hidePublished: true
+---
+{% extends '_layout.html' %}
+
+{% import 'macros/_display.html' as display %}
+
+{% block content %}
+
+{% if listing.musings|length != 0 %}
+<section class="base">
+  <p>The following are work-in-progress posts and should not be considered final.</p>
+</section>
+
+<section class="posts--ARCHIVE">
+  <ul class="posts--list">
+  {% for post in listing.musings %}
+    {{ display.post(post) }}
+  {% endfor %}
+  </ul>
+</section>
+{% else %}
+<section class="posts">
+  <div class="base">
+    <h2>No Drafts!</h2>
+    <p>Why not check out my <a href="/musings">published musings</a></p>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
