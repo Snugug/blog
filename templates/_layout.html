@@ -12,7 +12,7 @@
         <div class="article--content {% if page != 'musings' %}base{% endif %}">
           {% block content %}{% endblock %}
         </div>
-        {% if published and not hidePublished %}
+        {% if published and not hidePublished and not draft %}
           {{ pubMacro.published(published, updated, stats.birthtime, 'article') }}
         {% endif %}
       </article>
