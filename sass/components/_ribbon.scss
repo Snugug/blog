@@ -1,0 +1,23 @@
+.ribbon {
+  position: fixed;
+
+  width: 200px;
+  line-height: 50px;
+  margin: 0;
+  padding: 0;
+
+  top: 25px;
+  right: -50px;
+  left: auto;
+  transform: rotate(45deg);
+
+  box-shadow: 0 0 20px 3px rgba(black, .3);
+
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+
+  border: 2px solid $link-color;
+  background: $color;
+  color: $background;
+}

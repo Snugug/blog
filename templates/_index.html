@@ -57,6 +57,8 @@
   </script>
 </head>
 <body>
+  {% if draft %}<div class="ribbon">Draft</div>{% endif %}
+
   {% block body %}{% endblock %}
 
   <!-- build:js /js/app.js async defer -->
