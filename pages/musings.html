@@ -5,6 +5,13 @@ listing:
     - musings
   sort: published
   reverse: true
+  ignore:
+    - attribute: draft
+      value: true
+      operator: is
+    - attribute: page
+      value: musings
+      operator: is
 page: musings
 hidePublished: true
 ---

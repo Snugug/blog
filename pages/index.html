@@ -2,6 +2,10 @@
 listing:
   folders:
     - musings
+  ignore:
+    - attribute: draft
+      value: true
+      operator: is
   sort: published
   reverse: true
 ---
@@ -31,6 +35,9 @@ listing:
   <section class="posts--ARCHIVE">
     <ul class="posts--list base">
     {% for post in listing.musings %}
+      {% if loop.first and post.published|date('yyyy') != today|date('yyyy') %}
+        {{ display.post(post) }}
+      {% endif %}
       {% if not loop.first and loop.index < 6 %}
         {{ display.post(post) }}
       {% endif %}
