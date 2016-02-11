@@ -12,7 +12,7 @@ If you wanna chat with me, the best way to is to ping me on Twitter [@Snugug](ht
 
 ## Licenses For My Site
 
-All of the code and writing on this site falls under the [licenses outlined](https://github.com/Snugug/blog/edit/master/LICENSE.md) for the actual site itself! Everything is open sourced!
+All of the code and writing on this site falls under the [licenses outlined](https://github.com/Snugug/blog/blob/master/LICENSE.md) for the actual site itself! Everything is open sourced!
 
 ## Disclaimer
 
