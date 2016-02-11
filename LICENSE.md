@@ -5,7 +5,7 @@ All original source code is licensed under the MIT License. Source code from oth
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 Sam Richard
+Copyright (c) 2016 Sam Richard
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
