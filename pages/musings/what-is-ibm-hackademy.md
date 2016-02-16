@@ -16,7 +16,7 @@ What does a week at Hackademy look like? It starts with a day-and-a-half long "s
 
 ![FEDs Design Thinking](/images/what-is-ibm-hackademy/hackademy49.jpg)
 
-After the conference section and workshops, the participants break up in to teams and come up with a project to build throughout the rest of the week. They preform some of the Design Thinking exercises they learned to identify who their users are, what those users' pain points are, and come up with solutions to remedy those pain points.
+After the conference section and workshops, the participants break up in to teams and come up with a project to build throughout the rest of the week. They perform some of the Design Thinking exercises they learned to identify who their users are, what those users' pain points are, and come up with solutions to remedy those pain points.
 
 For the rest of the week, they utilize a modern Node stack (complete with Continuous Integration and Deployment) to develop and launch an Minimum Viable Product of their idea utilizing the tools and best practices they learned earlier in the week. Emphasis is placed on performance, accessibility, design, and pushing our FEDs to write as much Vanilla JavaScript as they can to improve their skill with it. At the end of the week, teams give [Playbacks](http://www.ibm.com/design/thinking/keys/playbacks/) for their projects, going through what they built, why they built it, and how they built it.
 
