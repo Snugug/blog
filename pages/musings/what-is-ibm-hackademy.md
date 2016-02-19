@@ -12,7 +12,7 @@ You may have seen me tweeting with the hashtag [`#IBMHackademy`](https://twitter
 
 Hackademy is a week long immersive enablement program, focused on modern Front-End Development tools and best practices, designed to transform the way our teams deliver delightful user experiences. The event brings together Front-End Developers ( FEDs) from both the Design and Engineering arms of our house, who otherwise may be silo-ed from each-other. Front-End Development moves fast, and there are many moving pieces to it, therefore setting this modern baseline across all of IBM is an important part of modernizing, (I've been hanging around a lot of business people lately, forgive me) up-skilling, and T-shaping our FED community.
 
-What does a week at Hackademy look like? It starts with a day-and-a-half long "single track conference". We cover [Design Thinking](http://www.ibm.com/design/thinking/), Git, Social Coding and Full Team Collaboration, Accessibility, Architecture, Task Runners, CSS Preprocessing, Responsi(ble)(ve) Design, Pattern Libraries, and Performance. We spend the 2nd half of the 2nd day doing hands-on workshops on Sass, Git Collaboration, and Vanilla JavaScript.
+What does a week at Hackademy look like? It starts with a day-and-a-half long "single track conference". We cover [IBM Design Thinking](http://www.ibm.com/design/thinking/), Git, Social Coding and Full Team Collaboration, Accessibility, Architecture, Task Runners, CSS Preprocessing, Responsi(ble)(ve) Design, Pattern Libraries, and Performance. We spend the 2nd half of the 2nd day doing hands-on workshops on Sass, Git Collaboration, and Vanilla JavaScript.
 
 ![FEDs Design Thinking](/images/what-is-ibm-hackademy/hackademy49.jpg)
 
