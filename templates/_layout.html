@@ -4,12 +4,12 @@
 
 {% block body %}
   <div class="_blog">
-    <main class="_blog--article">
+    <main class="_blog--article"  itemscope itemtype="http://schema.org/Blog">
       <article class="article">
         <header class="article--{% if page %}{{ page }}-{% endif %}heading">
-          <h1 class="article--title">{{ title }}</h1>
+	  <h1 class="article--title" itemprop="name">{{ title }}</h1>
         </header>
-        <div class="article--content {% if page != 'musings' %}base{% endif %}">
+	<div class="article--content {% if page != 'musings' %}base{% endif %}" itemprop="text">
           {% block content %}{% endblock %}
         </div>
         {% if published and not hidePublished and not draft %}
