@@ -21,8 +21,12 @@ These long-term considerations is where simplicity and ease come back in. Human 
 
 Tools generally require us to do one of two things, either **complect** with them or **compose** with them, in order to work with them. When we _complect_ with something, we are _interleaving or entwining_ with it; complecting is literally the source of complexity. When we _compose_ with something, we are _placing it together_ with other things in our project, connected but not entangled with. Composition is the key to ensuring that we'll be able to guarantee our long-term considerations are met.
 
-As an example, let's imagine, as Rich does, two castles; one is knitted, the other is built out of Lego. The two castles sit on your desk at work, defending your snacks from your coworkers. After a few weeks, you decide that you'd like to switch out the main turret. With the Lego castle, it's fairly straight forward. Because Lego by design to be composed, you would pop off the old turret and replace it with the new turret, seamlessly. The knitted castle, on the other hand, is a different story. Because knitting is by definition complecting yarn together, you're going to need to undo a lot of work to get that turret out, potentially even resorting to cutting, and getting the new turret on will be anything but seamless.
+As an example, let's imagine, as Rich does, two castles; one is knitted, the other is built out of Lego. The two castles sit on your desk at work, defending your snacks from your coworkers. After a few weeks, you decide that you'd like to switch out the main turret. With the Lego castle, it's fairly straight forward. Because Lego is designed to be composed, you would pop off the old turret and replace it with the new turret, seamlessly. The knitted castle, on the other hand, is a different story. Because knitting is by definition complecting yarn together, you're going to need to undo a lot of work to get that turret out, potentially even resorting to cutting, and getting the new turret on will be anything but seamless.
+
+With this in mind, he recommends we should focus on tools that provide modularity through composition as opposed to complecting. Tools should focus on providing simple interfaces designed to be composed together.
 
 > Your sensibilites equating simplicity with ease and familiarity are wrong. Develop sensibilites around entanglement
 
 ![Lions and Tigers and Bears. Oh My!](https://www.youtube.com/watch?v=NecK4MwOfeI '4x3')
+
+So, what does it mean to
