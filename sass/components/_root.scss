@@ -13,4 +13,13 @@ body {
   * + * {
     @include rhythm;
   }
+
+  //////////////////////////////
+  // Fixes Phantom rendering issue
+  //////////////////////////////
+  li {
+    display: list-item;
+    font-weight: normal;
+    width: auto;
+  }
 }

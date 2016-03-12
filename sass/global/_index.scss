@@ -2,12 +2,3 @@
 @import 'mixins';
 @import 'extends';
 @import 'heading';
-
-//////////////////////////////
-// Fixes Phantom rendering issue
-//////////////////////////////
-li {
-  display: list-item;
-  font-weight: normal;
-  width: auto;
-}
