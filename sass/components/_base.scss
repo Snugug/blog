@@ -1,13 +1,23 @@
 .base {
   a {
+    $shadow: 0.0625em 0.0625em 0 $background, -0.0625em -0.0625em 0 $background, 0.0625em -0.0625em 0 $background, -0.0625em 0.0625em 0 $background;
+
     color: $link-color;
     @include underline($background, $link-color, $distance: .95);
+    text-shadow: $shadow;
 
     &:hover {
       color: mix($link-color, $color, 60%);
       @include underline($background, mix($link-color, $color, 60%), $distance: .95);
+      text-shadow: $shadow;
     }
   }
+
+  p {
+    line-height: 1.6;
+    letter-spacing: -.004rem;
+  }
+
 
   $font-sizes: ms(1) ms(0) ms(-1);
 
@@ -22,16 +32,39 @@
   h2,
   &--h2 {
     @extend %header;
-    font-size: ms(1);
-    border-bottom: .05em solid $color;
-    text-shadow: 2px 2px $background, -2px -2px $background;
-    // @include underline($background, $color, $distance: .8);
   }
 
-  h3 {
+  h2 {
     @extend %header;
-    font-size: ms(0);
+    font-size: 1.8em;
+    margin-top: 1.805555556em;
+
+    @include breakpoint(500px) {
+      font-size: 1.555555556em;
+      margin-top: 2.055555556rem;
+    }
+
+    & + p {
+      margin-top: .444444444rem;
+    }
   }
+
+  h3, h4 {
+    color: rgba($color, .55);
+    font-size: 1.333333333em;
+    line-height: 1.18;
+    letter-spacing: -0.022em;
+
+    p + & {
+      margin-top: 1.222222222rem;
+    }
+
+    & + * {
+      margin-top: .444444444rem;
+    }
+  }
+
+
 
   // @for $i from 1 through length($font-sizes) {
   //   h#{$i + 1} {
@@ -49,8 +82,10 @@
     margin-right: auto;
   }
 
-  ul {
+  ul,
+  ol {
     list-style: disc;
+    margin-top: 1.166666667rem;
 
     ul,
     ol {
@@ -72,39 +107,34 @@
   }
 
   li {
-    @include half-rhythm;
-    // margin-top: 0;
-    line-height: 1.25rem;
+    margin-top: 0;
+    line-height: 1.5rem;
+    letter-spacing: -.004rem;
+    margin-left: 1.666666667rem;
+    margin-bottom: .777777778rem;
   }
 
   blockquote {
     position: relative;
     font-style: italic;
     text-align: left;
-    font-size: .8em;
-    line-height: 1.25em;
-    padding: 0em 1.5rem;
+
+    margin-top: (21rem / 18);
+
+    letter-spacing: -.004rem;
+    line-height: 1.5em;
+
+    padding-left: (17rem / 18);
+    margin-left: (-17rem / 18);
 
     strong {
       font-style: normal;
     }
 
-
-    @include breakpoint(465px) {
-      font-size: .9em;
-      margin-left: 1rem;
-      margin-right: 1rem;
-    }
-
-    @include breakpoint(535px) {
-      margin-left: 2rem;
-      margin-right: 2rem;
-    }
-
     &:before {
       position: absolute;
-      left: .5rem;
-      width: .25rem;
+      left: 0;
+      width: (3rem / 18);
       height: 100%;
       @include awesome-header($link-color, #ff0040, 'bottom right');
       content: '';

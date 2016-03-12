@@ -9,10 +9,6 @@ body {
   text-rendering: optimizeLegibility;
   @include enable-ligatures();
   font-weight: 400;
-  line-height: 1.25rem;
-  @include breakpoint(448px) {
-    line-height: 1.618rem;
-  }
 
   * + * {
     @include rhythm;

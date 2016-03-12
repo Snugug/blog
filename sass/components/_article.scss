@@ -30,6 +30,12 @@
     // min-height: 25vh;
   }
 
+  &--recipes-heading {
+    @extend %article--heading;
+    @include awesome-header(color('magenta', 80), color('teal', 50), -45deg -30deg, 13);
+    // min-height: 25vh;
+  }
+
   &--musings-heading {
     @extend %article--heading;
     @include awesome-header(color('purple', 80), color('teal', 50), -45deg -30deg, 13);

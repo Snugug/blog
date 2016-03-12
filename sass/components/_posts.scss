@@ -31,7 +31,14 @@
 
   &--heading {
     @extend .base--h2;
-    margin-bottom: 2rem;
+    font-size: 1.8em;
+    @include underline($background, $color, $distance: .81);
+    text-shadow: 2px 2px $background, -2px -2px $background, 2px -2px $background, -2px 2px $background;
+    margin-top: 1.805555556em;
+
+    &:nth-of-type(1) {
+      margin-top: 0;
+    }
   }
 
   &:nth-of-type(2),
