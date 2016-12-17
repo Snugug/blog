@@ -6,6 +6,8 @@ hidePublished: true
 ---
 A simple list linking to the slides of presentations I've given. Only the most recent version of each presentation will be available. Newer talks will be first.
 
+* [Magic Tricks with Houdini](http://snugug.github.io/magic-tricks-with-houdini/)
+* [Building a Front-End Development Community at Work](https://snugug.github.io/building-fed/)
 * [Domo Arigato Mr. Roboto](http://snugug.github.io/mr-roboto/#/) (Cognitive Computing)
   * [JSConf EU](https://www.youtube.com/watch?v=pKtG4dO-9Tw) (video)
 * [People First](http://snugug.github.io/people-first/)
