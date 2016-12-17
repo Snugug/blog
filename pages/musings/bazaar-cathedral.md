@@ -6,11 +6,9 @@ summary: >
 draft: true
 ---
 
-asdf
+### Notes
 
----
-
-Notes
+<hr>
 
 ## Cathedral & Bazaar
 
@@ -30,7 +28,9 @@ Notes
 * On Brooks Law  (34)
 
 > The fundamental problem that traditional software-development organization addresses is Brook's Law: “Adding more programmers to a late project makes it later.” More generally, Brooks's Law predicts that the complexity and communication costs of a project rise with the square of the number of developers, while work done only rises linearly.
+> 
 > Brooks's Law is founded on experience that bugs tend strongly to cluster at the interfaces between code written by different people, and that communications/coordination overhead on a project tends to rise with the number of interfaces between human beings. Thus, problems scale with the number of communications paths between developers, which scales as the square of the number of developers (more precisely, according to the formula N*(N - 1)/2 where N is the number of developers).
+> 
 > Brooks's Law is founded on experience that bugs tend strongly to cluster at the interfaces between code written by different people, and that communications/coordination overhead on a project tends to rise with the number of interfaces between human beings. Thus, problems scale with the number of communications paths between developers, which scales as the square of the number of developers (more precisely, according to the formula N*(N - 1)/2 where N is the number of developers).
 
 * Smart data structures and dumb code works a lot better then the other way around (38)
@@ -43,15 +43,19 @@ Notes
 * Necessary Preconditions for Bazaar Style (47) 
 
 > It's fairly clear that one cannot code from the ground up in bazaar style. One can test, debug, and improve in bazaar style, but it would be very hard to _originate_ a project in bazaar mode.
+> 
 > …When you start community building, what you need to be able to present is a _plausible promise_. Your program doesn't have to work particularly well. It can be crude, buggy, incomplete, and poorly documented. What it must not fail to do is (a) run, and (b) convince potential co-developers that it can be evolved into something really neat in the foreseeable future
+> 
 > …I think it is not critical that the coordinator be able to originate designs of exceptional brilliance, but it is absolutely critical that the coordinator be able to _recognize good design ideas from others_.
 
 > Early audiences of this essay complimented me by suggesting that I am prone to undervalue design originality in bazaar projects because I have a lot of it myself, and therefore take it for granted. There may be some truth to this; design (as opposed to coding or debugging) is certainly my strongest skill.
+> 
 > But the problem with being clever and original in software design is that it gets to be a habit — you start reflexively making things cute and complicated when you should be keeping them robust and simple. I have had projects crash on me because I made this mistake[.]
  
 * Psychology of Computer Programming (50) 
 
 > Gerald Weinberg's classic _The Psychology of Computer Programming_ supplied what, in hindsight, we can see as a vital correction to Brooks. In his discussion of egoless programming, Weinberg observed that in shops where developers are not territorial about their code, and encouraged other people to look for bugs and potential imporvements in it, improvement happens dramatically faster than elsewhere…
+> 
 > The bazaar method, by harnessing the full power of the egoless programming effect, strongly mitigates the effect of Brooks's Law. The principle behind Brooks's Law is not repealed, but given a large developer population and cheap communications its effects can be swamped by competing nonlinearities that are not otherwise visible. This resembles the relationship between Newtonian and Einsteinian physics – the older system is still valid at low energies, but if you push mass and velocity high enough you get surprises like nuclear explosions or Linux
 
 * Memoirs of a Revolutionist (52)
@@ -202,3 +206,197 @@ https://www.safaribooksonline.com/library/view/the-cathedral/0596001088/ch04s03.
 > > One major strength of a relatively open democracy is that most potential revolutionaries find it easier to make progress toward their objectives by working via the system rather by attacking it. This strength is easily undermined if established parties act together to “raise the bar”, making it more difficult for small dissatisfied groups to see some progress made toward their goals.
 > > 
 > An open process with low entry barriers encourages participation rather than secession, because one can get results without the high overheads of secession. The results may not be as impressive as what could be achieved by seceding, but they come at a lower price, and most people will consider that an acceptable tradeoff. (When the Spanish government revoked Franco's anti-Basque laws and offered the Basque provinces their own schools and limited local autonomy, most of the Basque Separatist movement evaporated almost overnight. Only the hard-core Marxists insisted that it wasn't good enough.)
+
+
+## The Mythical Man-Month
+
+* Programming Systems Product (5)
+  * Program (One Off, top-left corner)
+    * 1x hard to create
+  * Programing System (Interfaces, System Integration; top-right corner)
+    * 3x harder to create
+    * Collection of interacting programs, coordinated in function and disciplined in format, so the assemblage constitutes an entire facility for large tasks
+    * Every input and output conforms in syntax and semantics with precisely defined interfaces
+    * Only uses a prescribed budget of resources
+  * Programming Product (Generalization, testing, documentation, maintenance; bottom-left corner)
+    * 3x harder to create
+    * Run, tested, repaired, extended by anyone
+    * Usable in many operating envs for many sets of data
+    * Must be written in a generalized fashion
+  * Programming Systems Product
+    * 9x harder to create
+    * Truly useful object, intended product of most system programming efforts
+    * Is both of the above
+* Calendar Time (14)
+
+> More software projects have gone awry for lack of calendar time than for all other causes combined.
+>
+> [O]ur techniques of estimating are poorly developed. More seriously, they reflect an unvoiced assumption which is quite untrue, i.e., that all will go well.
+> 
+> Second, our estimating techniques fallaciously confuse effort with progress, hiding the assumption that men and months are interchangeable.
+> 
+> Third, because we are uncertain of our estimates, software managers often lack the courteous stubbornness of Antoine's Chef (Good cooking takes time. If you are made to wait, it is to serve you better, and to please you. Menu of restaurant Antoine, New Orleans)
+> 
+> Fourth, schedule progress is poorly monitored. Techniques proven and routine in other engineering disciplines are considered radical innovations in software engineering
+> 
+> Fifth, when schedule slippage is recognized, the natural (and traditional) response is to add manpower. Like dousing a fire with gasoline, this makes matters worse, much worse. More fire requires more gasoline, and thus begins a regenerative cycle which ends in disaster.
+
+* All Will Go Well (15)
+  * Dorthy Sayers, _The Mind of the Maker_
+  * Creative activity in 3 stages:
+    * Idea
+      * Ideal construct first, outside space and time
+      * Exists complete, but in the mind of the author only
+    * Implementation
+      * Realized in space and time by creating or building
+    * Interaction
+      * Not complete until someone uses the, thereby interacting with the mind of the maker
+
+> Computer programming, [unlike physical media], creates with an exceedingly tractable medium. The programmer builds from pure thought-stuff: concepts and very flexible representations thereof. Because the medium is tractable, we expect few difficulties in implementation; hence our pervasive optimism. Because our ideas are faulty, we have bugs; hence our optimism is unjustified
+
+* Man Month (16 COME BACK TO THIS) 
+  * Cost varies by number of workers and number of months, but progress does not
+
+> _[T]he man-month as a unit for measuring the size of a job is a dangerous and deceptive myth_. It implies that men and months are interchangeable.
+> 
+> **Men and months are interchangeable commodities only when a task can be partitioned amongst many works _with no communication among them_**. (bold mine)
+> 
+> When a task cannot be partitioned because of sequential constraints, the application of more effort has no effect on the schedule. The bearing of a child takes nine months, no matter how many women are assigned. _Many software tasks have this characteristic because of the sequential nature of debugging_ (emphasis mine)
+> 
+> In tasks that can be partitioned but which require communication among the subtasks, the effort of communication must be added to the amount of work to be done. Therefore the best that can be done is somewhat poorer than an even trade of men for months
+
+* Omelettes (21)
+
+> The cook has another choice; he can turn up the heat. The result is often an omelette nothing can save—burned in one part, raw in another.
+> 
+> The cook has another choice; he can turn up the heat. The result is often an omelette nothing can save—burned in one part, raw in another.
+
+* Brooks' Law
+  * _Adding manpower to a late software project makes it later._
+
+### The Surgical Team
+
+(31)
+
+> This then is the problem with the small, sharp team concept: _it is too slow for really big systems_.
+> 
+> The dilemma is a cruel one. For efficiency and conceptual integrity, one prefers a few good minds doing design and construction. Yet for large systems one wants a way to bring considerable manpower to bear, so that the product can make a timely appearance. How can these two needs be reconciled?
+
+### Aristocracy, Democracy, and System Design
+
+* Conceptual Integrity (42)
+
+> …[C]onceptual integrity is _the_ most important consideration in a system design. It is better to have a system omit certain anomalous features and improvements, but to reflect one set of design ideas, than to have one that contains many good but independent and uncoordinated ideas.
+
+* Achieving Conceptual Integrity (43)
+
+> The purpose of a programming system is to make a computer easy to use. To do this, it furnishes languages and various facilities that are in fact programs invoked by controlled language features. But these facilities are bought at a price.
+> 
+> Ease of use is enhanced only if the time gained in functional specification exceeds the time lost in learning, remembering, and searching manuals
+
+* Architect (45)
+
+> By the _architecture_ of a system, I mean the complete and detailed specification of the user interface. For a computer this is the programming manual. For a compiler it is the language manual. For a control program it is the manuals for the language or languages used to invoke its functions. For the entire system it is the union of the manuals the user must consult to do his entire job.
+> 
+> The architect of a system, like the architect of a building, is the user's agent. It is his job to bring professional and technical knowledge to bear in the unalloyed interest of the user, as opposed to the interests of the salesman, the fabricator, etc.
+> 
+> Architecture must be carefully distinguished from implementation. As Blaauw has said, "Where architecture tells _what_ happens, implementation tells _how_ it is made to happen." He gives as a simple example a clock, whose architecture consists of the face, the hands, and the winding knob. When a child has learned this architecture, he can tell time as easily from a wristwatch as from a church tower. The implementation, however, and its realization, describe what goes on inside the case – powering by any of many mechanisms and accuracy control by any of many. 
+
+### Why Did The Tower of Babel Fall?
+
+* Organization in the Large Programming Project (78)
+
+> If there are _n_ worker son a project, there are (_n_^2-_n_)/2 interfaces across which there may be communication, and there are potentially almost 2^_n_ teams within which coordination must occur. The purpose of organization is to reduce the amount of communication and coordination necessary; hence organization is a radical attack on the communication problems treated above.
+> 
+> The means by which communication is obviated are _division of labor_ and _specialization of function_. The tree-like structure of organizations reflects the diminishing need for detailed communication when division and specialization of labor are applied.
+> 
+> In fact, a tree organization really arises as a structure of authority and responsibility. The principle that no man can serve two masters dictates that the authority structure be tree-like. But the communication structure is not so restricted, and the tree is a barely passable approximation of the communication structure, which is a network. The inadequacies of the tree approximation give rise to staff groups, task forces, committees, and even the matrix-type organization used in many engineering laboratories.
+
+### The Documentary Hypothesis
+
+* Documents for a Software Project (110)
+  * What: Objectives (needs to be met and goals, desiredata, constraints, priorities)
+  * What: Product specifications (winds up as manual and internal docs. Speed & space specs are critical)
+  * When: Schedule
+  * How Much: budget
+  * Where: Space allocation
+  * Who: Org Chart (Conway's Law)
+
+> [A]s Conway's Law predicts: "Organizations which design systems are constrained to produce systems which are copies of the communication structures of these organizations." Conway goes on to point out that the organization chart will initially reflect the first system design, which is almost surely not the right one. If the system design is to be free to change, the organization must be prepared to change.
+
+### Plan to Throw One Away
+
+* Pilot Plants and Scaling Up (116)
+  * In order to go from a lab setting to scale there needs to be an intermediate step, a _pilot plant_
+
+> Project after project designs a set of algorithms and then plunges into construction of customer-deliverable software on a schedule that demands delivery of the first thing built.
+> 
+> In most projects, the first system built is barely usable. It may be too slow, too big, awkward to use, or all three. There is no alternative but to start again, smarting but smarter, and build a redesigned version in which these problems are solved. This discard and redesign may be done in one lump, or it may be done piece-by-piece. But all large-system concept or new technology is used, one has to build a system to throw away, for even the best planning is not so omniscient as to get it right the first time.
+> 
+> The management question, therefore, is not _whether_ to build a pilot system and throw it away. You _will_ do that. The only question is whether to plan in advance to build a throwaway, or to promise to deliver the throwaway to the customer. Seen this way, the answer is much clearer. Delivering that throwaway to customers buys time, but it does so only at the cost of agony for the user, distraction for the builders while they do the redesign, and a bad reputation for the product that the best redesign will find hard to live down.
+> 
+> Hence _plan to throw one away; you will anyhow_.
+
+* The Only Constancy is Change Itself (117)
+
+> Once one recognizes that a pilot system must be built and discarded, and that a redesign with changed ideas is inevitable, it becomes useful to face the whole phenomenon of change The first step is to accept the fact of change as a way of life, rather than an untoward and annoying exception. Cosgrove has perceptively pointed out that the programmer delivers satisfaction of a user need rather than any tangible product. And both the actual need and the user's perception of that need will change as programs are built, tested, and used
+
+* Plan the Organization for Change (118)
+
+> [Cosgrove] observes that the reluctance to document designs is not due merely to laziness or time pressure. Instead it comes from the designer's reluctance to commit himself to the defense of decisions which he knows to be tentative. "By documenting a design, the designer exposes himself to the criticisms of everyone, and he must be able to defend everything he writes. If the organizational structure is threatening in any way, nothing is going to be documented until it is completely defensible."
+> 
+> Structuring an organization for change is much harder than designing a system for change. Each man must be assigned to jobs that broaden him, so that the whole force is technically flexible. On a large project the manager needs to keep two or three top programmers as a technical cavalry that can gallop to the rescue wherever the battle is thickest.
+
+### Sharp Tools
+
+* Machine Shops (128)
+
+> Many programming projects are still operated like machine shops so far as tools are concerned. Each master mechanic has his own personal set, collected over a lifetime and carefully locked and guarded – the visible evidences of personal skills. Just so, the programmer keeps little editors, sorts, binary dumps, disk space utilities, etc., stashed away in his file.
+> 
+> Such an approach, however, is foolish for a programming project. First, the essential problem is communication, and individualized tools hamper rather than aid communication. Second, the technology changes when one changes machines or working language, so tool lifetime is short. Finally, it is obviously much more efficient to have common development and maintenance of the general-purpose programming tools.
+> 
+> General-purpose tools are not enough, however. Both specialized needs and personal preferences dictate the need for specialized tools as well; so in discussing programming teams I have postulated one toolmaker per team. This man masters all of the common tools and is able to instruction his client-boss in their use. He also builds the specialized tools his boss needs.
+
+* Program Libraries and Accounting (132)
+  * Each programmer has a _playpen_ area without restriction to do work their own work in, unrestricted
+  * When a component is ready for integration, passed a copy over to the manager of a _system integration sublibrary_. Once there, cannot be changed by original programmer
+  * When a system version is ready for larger use, promoted to _current version sublibrary_. Only touched to fix crippling bugs
+  * Developed independently at IBM, Bell Labs, ICL, Cambridge University. Piece of management technology.
+
+### The Whole and the Parts
+
+* Top-Down Design (143)
+  * Division of system building into architecture, implementation, and realization
+  * Sequence of _refinement steps_
+  * From process, _modules_ of solutions or data identified  that can be refined independently
+    * Degree of modularity determines adaptability and changeability of program
+
+### THe Other Face
+
+* What Documentation Is Required? (165)
+  * Users need prose description of program
+
+> * _Prose_. What is the main function, the reason for the program
+> * _Environment_. On what machines, hardware configurations, operating system configurations will it run?
+> * _Domain and range_. What domain of input is valid? What range of output can legitimately appear?
+> * _Functions realized and algorithms used_. Precisely what does it do?
+> * _Input-output formats_, precise and complete
+> * _Operating instructions_, including normal and abnormal ending behavior, as seen at the console and on the outputs
+> * _Options_. What choices does the user have about functions? Exactly how are those choices specified?
+> * _Running time_. How long does it take to do a problem of specified size on a specified configuration?
+> * _Accuracy and checking_. How precise are the answers expected to be? What means of checking accuracy are incorporated
+
+### No Silver Bullet
+
+* Complexity (183)
+
+> The complexity of software is an essential property, not an accidental one. Hence descriptions of a software entity that abstract away its complexity often abstract away its essence.
+
+> Many of the classical problems of developing software products derive from the essential complexity and tis nonlinear increase with size. From the complexity comes the difficulty of communication among team members, which leads to product flaws cost overruns, schedule delays. From the complexity comes the difficulty of enumerating, much less understanding, all the possible states of the program, and from that comes the unreliability. From the complexity of the functions comes the difficulty of invoking those functions, which makes programs hard to use. From complexity of structure comes the difficulty of extending programs to new functions without creating side effects. From complexity of structure comes the unvisualized states that constitute security trapdoors.
+
+* Changeability (184)
+  * Change happens for two reasons: tried in edge cases and beyond original domain, 
+
+* Artificial Intelligence (190)
+* Requirements refinement and rapid prototyping (199)
+  * "[T]he most important function that software builders do for their clients is the iterative extraction and refinement of the product requirements. For the truth is, the clients do not know what they want. They usually do not know what questiosn muc be answered, and they almost never have thought of the problem in the detail that must be specified"
