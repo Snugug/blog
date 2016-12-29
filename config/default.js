@@ -1,5 +1,5 @@
 'use strict';
 
-const armadillo = require('gulp-armadillo/config/default');
+const armadillo = require('gulp-armadillo/config');
 
 module.exports = armadillo;
