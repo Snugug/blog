@@ -2,17 +2,17 @@
   "name": "blog",
   "version": "0.0.0",
   "scripts": {
-    "postinstall": "npm run install:bower",
-    "install:bower": "bower install",
-    "bower": "bower",
     "gulp": "gulp",
     "start": "gulp",
-    "test": "gulp build",
-    "posttest": "gulp dist"
+    "test": "gulp build"
   },
-  "devDependencies": {
-    "bower": "^1.4.1",
-    "gulp": "^3.8.11",
-    "gulp-armadillo": "^3.2.0"
+  "dependencies": {
+    "breakpoint-sass": "^2.7.1",
+    "gulp": "^3.9.1",
+    "gulp-armadillo": "^3.4.0",
+    "ibm-design-colors": "^2.0.1",
+    "letterform-shades": "^1.0.0",
+    "modularscale-sass": "^2.1.1",
+    "sass-toolkit": "^2.10.2"
   }
 }
