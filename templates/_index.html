@@ -7,17 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="zIeV2B7zZKCtEFP-6vV8rKk0ocpbp035v_g3IRn12Jo" />
 
-  <!-- build:css /css/style.css -->
-  <!-- Put CSS here -->
   <link rel="stylesheet" href="/css/style.css">
-  <!-- endbuild -->
   {% block head %}{% endblock %}
 
-  <script>
+  <script id="font-load">
     (function () {
       'use strict';
 
-      var fontURL = '/css/fonts.css?bust=0312161035',
+      var fontURL = '/css/fonts.css?bust={{ "now"|date("MMddyy") }}',
           fonts,
           req,
           style,
@@ -34,7 +31,7 @@
         fontUrlLS = localStorage.getItem('fontURL');
 
         if (fonts && fontUrlLS === fontURL) {
-          req = document.querySelector('link[rel="stylesheet"]');
+          req = document.querySelector('#font-load');
 
           style = window.document.createElement('style');
           style.innerHTML = fonts;
@@ -60,18 +57,6 @@
   {% if draft %}<div class="ribbon">Draft</div>{% endif %}
 
   {% block body %}{% endblock %}
-
-  <!-- build:js /js/app.js async defer -->
-  <!-- Put JS here -->
-  <script src="/bower_components/prism/prism.js"></script>
-  <script src="/bower_components/prism/components/prism-css.js"></script>
-  <script src="/bower_components/prism/components/prism-css-extras.js"></script>
-  <script src="/bower_components/prism/components/prism-scss.js"></script>
-  <script src="/bower_components/prism/components/prism-bash.js"></script>
-  <script src="/bower_components/prism/components/prism-markup.js"></script>
-  <script src="/bower_components/prism/components/prism-javascript.js"></script>
-  <script src="/js/app.js"></script>
-  <!-- endbuild -->
   {# Google Analytics #}
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
