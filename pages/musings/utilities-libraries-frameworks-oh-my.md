@@ -27,6 +27,6 @@ With this in mind, he recommends we should focus on tools that provide modularit
 
 > Your sensibilites equating simplicity with ease and familiarity are wrong. Develop sensibilites around entanglement
 
-![Lions and Tigers and Bears. Oh My!](https://www.youtube.com/watch?v=NecK4MwOfeI '4x3')
+@[https://www.youtube.com/watch?v=NecK4MwOfeI]
 
 So, what does it mean to

@@ -22,20 +22,20 @@ hidePublished: true
 {% block content %}
 
 <section class="posts">
-  <h2 class="posts--heading">{{ today|date('yyyy') }}</h2>
+  <h2 class="posts--heading">{{ 'now'|date('yyyy') }}</h2>
   <ul class="posts--list">
   {% for post in listing.musings %}
-    {% if post.published|date('yyyy') == today|date('yyyy') %}
+    {% if post.stat.published|date('yyyy') == 'now'|date('yyyy') %}
     {{ display.post(post) }}
     {% endif %}
   {% endfor %}
   </ul>
 </section>
 <section class="posts">
-  <h2 class="posts--heading">{{ today|date('yyyy') - 1 }}</h2>
+  <h2 class="posts--heading">{{ 'now'|date('yyyy') - 1 }}</h2>
   <ul class="posts--list">
   {% for post in listing.musings %}
-    {% if post.published|date('yyyy') == today|date('yyyy') - 1 %}
+    {% if post.stat.published|date('yyyy') == 'now'|date('yyyy') - 1 %}
     {{ display.post(post) }}
     {% endif %}
   {% endfor %}
@@ -45,7 +45,7 @@ hidePublished: true
   <h2 class="posts--heading">Archive</h2>
   <ul class="posts--list">
   {% for post in listing.musings %}
-    {% if post.published|date('yyyy') < today|date('yyyy') - 1 %}
+    {% if post.stat.published|date('yyyy') < 'now'|date('yyyy') - 1 %}
     {{ display.post(post) }}
     {% endif %}
   {% endfor %}

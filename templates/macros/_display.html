@@ -5,7 +5,7 @@
     <article class="post base">
       <a href="/{{ post.path|replace('/index.html', '') }}" class="post--title">{{post.meta.title}}</a>
       {% if not post.meta.draft %}
-      {{ pubMacro.published(post.published, post.updated, post.birthtime, 'post') }}
+      {{ pubMacro.published(post.stat.published, post.stat.updated, post.stat.birthtime, 'post') }}
       {% endif %}
       {% if post.meta.summary %}
       <div class="post--summary">{{ post.meta.summary|markdown|safe }}</div>
