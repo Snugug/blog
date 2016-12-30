@@ -9,7 +9,7 @@
   "dependencies": {
     "breakpoint-sass": "^2.7.1",
     "gulp": "^3.9.1",
-    "gulp-armadillo": "^3.4.0",
+    "gulp-armadillo": "^3.5.1",
     "ibm-design-colors": "^2.0.1",
     "letterform-shades": "^1.0.0",
     "modularscale-sass": "^2.1.1",
