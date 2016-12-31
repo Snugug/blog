@@ -4,12 +4,12 @@
   "scripts": {
     "gulp": "gulp",
     "start": "gulp",
-    "test": "gulp build"
+    "test": "gulp deploy:dry"
   },
   "dependencies": {
     "breakpoint-sass": "^2.7.1",
     "gulp": "^3.9.1",
-    "gulp-armadillo": "^3.5.1",
+    "gulp-armadillo": "^3.6.0",
     "ibm-design-colors": "^2.0.1",
     "letterform-shades": "^1.0.0",
     "modularscale-sass": "^2.1.1",
