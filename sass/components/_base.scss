@@ -157,4 +157,24 @@
     background-color: rgba($color, .1);
     border-radius: 3px;
   }
+
+  table {
+    border: 1px solid rgba($color, .5);
+    width: 100%;
+  }
+
+  th,
+  td {
+    text-align: left;
+    border-left: 1px solid rgba($color, .5);
+    border-bottom: 1px solid rgba($color, .5);
+    padding: .5vw 1vw;
+
+    @include breakpoint(860px) {
+      padding: .25em .5em;
+    }
+  }
+
+
+
 }
