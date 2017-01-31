@@ -4,7 +4,7 @@ template: _layout.html
 page: me
 hidePublished: true
 ---
-Hey there! I'm Sam! I work at [IBM Watson](http://www.ibm.com/smarterplanet/us/en/ibmwatson/), part of the awesome [design team](http://www.ibm.com/design/) where I'm the UI Architect for Platform and Websites. I got my start with the [New York State Senate](http://www.nysenate.gov) and have worked for the [World Economic Forum](http://www.weforum.org) and [NBCUniversal](http://www.nbcuniversal.com/) where a love of Open Source, Open Government, and generally an Open World were instilled and reinforced.
+Hey there! I'm Sam! I work at [IBM](https://www.ibm.com/us-en/), previously as the UI Architect for Websites and Platform for [Watson](https://www.ibm.com/watson/), now as the Agile Team Experience Lead for the CIO. I got my start with the [New York State Senate](http://www.nysenate.gov) and have worked for the [World Economic Forum](http://www.weforum.org) and [NBCUniversal](http://www.nbcuniversal.com/) where a love of Open Source, Open Government, and generally an Open World were instilled and reinforced.
 
 I do quite a bit of public speaking and training. Most of the [presentations](https://snugug.com/presentations/) are available online, some with videos of the talk. If you see me out at a conference, come say hi! I also have contributed a lot of open source work, most of which can be found on [my GitHub page](https://github.com/snugug), or the GitHub pages of [@import](https://github.com/at-import), [Sass Tools](https://github.com/sasstools), [IBM Watson](https://github.com/ibm-watson), and [IBM Design](https://github.com/ibm-design). I've also done a lot of Drupal work, and that can all be found on my [Drupal profile](https://www.drupal.org/u/snugug).
 
