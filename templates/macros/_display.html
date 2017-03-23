@@ -3,7 +3,7 @@
 {% macro post(post) %}
   <li class="posts--listing">
     <article class="post base">
-      <a href="/{{ post.path|replace('/index.html', '') }}" class="post--title">{{post.meta.title}}</a>
+      <a href="/{{ post.path|replace('/index.html', '/') }}" class="post--title">{{post.meta.title}}</a>
       {% if not post.meta.draft %}
       {{ pubMacro.published(post.stat.published, post.stat.updated, post.stat.birthtime, 'post') }}
       {% endif %}
