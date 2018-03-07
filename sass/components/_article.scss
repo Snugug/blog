@@ -50,20 +50,19 @@
 
   &--title {
     @include close-shade(mix($background, black, 16%), #111, 'bottom right', 15);
-    @include ms-respond(font-size, 4);
     @include enable-ligatures();
 
-    font-weight: bold;
-    text-rendering: optimizeLegibility;
-    line-height: 1.2;
-    max-width: 100%;
-    margin: 0 auto;
-    text-align: right;
-    margin-right: 0;
-
-    word-wrap: break-word;
-    hyphens: auto;
     color: $background;
+    font-size: 2rem;
+    font-weight: bold;
+    hyphens: auto;
+    line-height: 1.2;
+    margin-right: 0;
+    margin: 0 auto;
+    max-width: 100%;
+    text-align: right;
+    text-rendering: optimizeLegibility;
+    word-wrap: break-word;
 
     // @supports (mix-blend-mode: luminosity) {
     //   color: $color;
@@ -73,8 +72,13 @@
 
 
     @include breakpoint(860px) {
-      max-width: 80%;
+      font-size: 6vw;
       margin-right: calc(10% - 2rem);
+      max-width: 80%;
+    }
+
+    @include breakpoint(1476px) {
+      font-size: 5rem;
     }
   }
 
@@ -83,7 +87,7 @@
     @include rhythm;
     margin: 0 auto;
     padding-top: 0;
-    max-width: 760px;
+    max-width: 80ch;
 
     padding-top: 1.4rem;
 
