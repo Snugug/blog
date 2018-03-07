@@ -9,10 +9,13 @@
   "dependencies": {
     "breakpoint-sass": "^2.7.1",
     "gulp": "^3.9.1",
-    "gulp-armadillo": "^4.2.1",
+    "gulp-armadillo": "^5.0.0",
     "ibm-design-colors": "^2.0.1",
     "letterform-shades": "^1.0.0",
-    "modularscale-sass": "^2.1.1",
+    "modularscale-sass": "^3.0.3",
     "sass-toolkit": "^2.10.2"
+  },
+  "devDependencies": {
+    "node-prismjs": "^0.1.1"
   }
 }
