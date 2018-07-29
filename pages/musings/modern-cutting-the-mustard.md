@@ -7,7 +7,7 @@ summary: >
   By taking advantage of JavaScript module support, we can update the Cutting the Mustard progressive enhancement technique to allow for modern JavaScript syntaxes and features!
 ---
 
-One of the easiest ways to [progressively enhance](https://alistapart.com/article/understandingprogressiveenhancement) your web experience is the [cutting the mustard](http://responsivenews.co.uk/post/18948466399/cutting-the-mustard) technique. The essence of cutting the mustard is:
+One of the easiest ways to [progressively enhance](https://alistapart.com/article/understandingprogressiveenhancement) your web experience is the [Cutting the Mustard](http://responsivenews.co.uk/post/18948466399/cutting-the-mustard) technique. The essence of Cutting the Mustard is:
 
 1. Provide an accessible base-line experience for everyone using semantic HTML and CSS
 2. Write a test for a minimum subset of JavaScript functionality to support.
@@ -28,7 +28,7 @@ This works really well! The enhancements being looked for are all functions that
 
 ## Enter ES2015+
 
-Starting with ES2015, or ES6, new JavaScript functionality started to be added that couldn't be be tested for by checking if a property exists; it introduced some actual new JavaScript syntax, like `const`, `let`, arrow functions, and classes. The problem we now face wanting to test for support of these is that we can't even _write_ the new syntax and deliver it to browsers that don't support it without parsing errors! This is because, unlike HTML and CSS which can gracefully ignore unsupported syntax, JavaScript can't. How, then, can we Cut the Mustard in a way that won't cause errors in unsupported browsers without compiling or transpiling our modern JavaScript syntax?
+Starting with ES2015, or ES6, new JavaScript functionality started to be added that couldn't be tested for by checking if a property exists; it introduced some actual new JavaScript syntax, like `const`, `let`, arrow functions, and classes. The problem we now face wanting to test for support of these new syntaxes is that we can't even _write_ the new syntax and deliver it to browsers that don't support it without errors! This is because, unlike HTML and CSS which can gracefully ignore unsupported syntax, JavaScript can't! How, then, can we Cut the Mustard in a way that won't cause errors in unsupported browsers without compiling or transpiling our modern JavaScript syntax?
 
 **JavaScript Modules to the Rescue**
 
@@ -55,7 +55,7 @@ When JavaScript modules were introduced, two new bits of HTML syntax were introd
 
 In all browsers that [support JavaScript module via `script` tags](https://caniuse.com/#feat=es6-module), `<script type="module">` will be interpreted as a JavaScript module and loaded and run as expected, but for browsers that don't recognize that type, it'll just be ignored because it's unknown HTML syntax! Easy Peasy! Mustard, cut.
 
-We can also "test" for the opposite by including the `nomodule` attribute. In all browsers that support `type="module"` (except Safari 10.1 and iOS Safari 10.3), adding the `nomodule` attribute to how we've written JavaScript in the past will have that JavaScdipt ignored in module-supporting browsers while it'll loaded and run as expected in all other browsers! While it's not _absolutely perfect_ coverage (less than 1% of browsers globally will fall in to this category at the time of this writing), it's likely good enough for most production work.
+We can also "test" for the opposite by including the `nomodule` attribute. In all browsers that support `type="module"` (except Safari 10.1 and iOS Safari 10.3), adding the `nomodule` attribute to out `<script>` tags will have that JavaScdipt ignored in module-supporting browsers while it'll load and run as expected in all other browsers! While it's not _absolutely perfect_ coverage (less than 1% of browsers globally will fall in to this category at the time of this writing), it's likely good enough for most production work.
 
 ## What's Our New Baseline
 
@@ -71,7 +71,7 @@ Using JavaScript modules as our new baseline gives us a [great modern baseline](
 * [Generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)
 * And, of course, [JavaScript Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
 
-That's quite a bit of new syntax we get _out of the box_ by setting our baseline to JavaScript Modules. This is, of course, in addition to the everything we can test for and use like the previous Cutting the Mustard technique, but on a feature-by-feature basis, like Service Workers and Intersection Observers:
+That's quite a bit of new syntax we get _out of the box_ by setting our baseline to JavaScript modules. This is, of course, in addition to everything we can test for and use that's _not_ based on new syntax, like Service Workers and Intersection Observers. We can even do it on a feature-by-feature basis:
 
 ```js
 if ('IntersectionObserver' in window) {
