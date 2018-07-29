@@ -14,7 +14,7 @@ One of the easiest ways to [progressively enhance](https://alistapart.com/articl
     * If the test _passes_, enhance the experience with modern JavaScript
     * If the test _fails_, enhance enhance the experience with older JavaScript (and usually a subset of the modern JavaScript's functionality)
 
-The original test was developed by the BBC team to distinguish between browsers HTML5 browsers and non-HTML5 browsers. That test was fairly straight forward:
+The original test was developed by the BBC team to distinguish between HTML5 browsers and non-HTML5 browsers. That test was fairly straight forward:
 
 ```js
 if ('querySelector' in document
