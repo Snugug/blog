@@ -90,20 +90,15 @@
     ul,
     ol {
       margin-top: 0;
-      margin-left: 1em;
     }
+  }
+
+  ol {
+    list-style: decimal;
   }
 
   ul ul {
     list-style: square;
-  }
-
-  ol {
-    ul,
-    ol {
-      margin-top: 0;
-      margin-left: 1em;
-    }
   }
 
   li {
@@ -150,7 +145,8 @@
     font-family: 'source-code-pro', 'Source Code Pro', 'Lucida Console', 'Lucida Sans Typewriter', 'monaco', 'Bitstream Vera Sans Mono', monospace;
   }
 
-  p code {
+  p code,
+  li code {
     padding: .2em .4em;
     margin: 0;
     font-size: .85em;
