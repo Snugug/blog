@@ -8,7 +8,7 @@ Hey there! I'm Sam! I work at [IBM](https://www.ibm.com/us-en/), previously as t
 
 I do quite a bit of public speaking and training. Most of the [presentations](https://snugug.com/presentations/) are available online, some with videos of the talk. If you see me out at a conference, come say hi! I also have contributed a lot of open source work, most of which can be found on [my GitHub page](https://github.com/snugug), or the GitHub pages of [@import](https://github.com/at-import), [Sass Tools](https://github.com/sasstools), [IBM Watson](https://github.com/ibm-watson), and [IBM Design](https://github.com/ibm-design). I've also done a lot of Drupal work, and that can all be found on my [Drupal profile](https://www.drupal.org/u/snugug).
 
-If you wanna chat with me, the best way to is to ping me on Twitter [@Snugug](http://www.twitter.com/Snugug). If you _must_ email me, sam [at] snug [dot] ug will work, but I will warm you there's a strong likelihood I won't respond. If it's something about one of the projects I maintain, please file an issue instead of pinging me directly.
+If you wanna chat with me, the best way to is to ping me on Twitter [@Snugug](http://www.twitter.com/Snugug). If you _must_ email me, sam [at] snug [dot] ug will work, but I will warn you there's a strong likelihood I won't respond. If it's something about one of the projects I maintain, please file an issue instead of pinging me directly.
 
 ## Licenses For My Site
 
