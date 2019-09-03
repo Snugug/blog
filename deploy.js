@@ -11,6 +11,7 @@ ghpages.publish(
   },
   err => {
     if (err) {
+      console.error('FAILURE');
       const tokenRegex = new RegExp(token, 'gm');
       console.error(err.replace(tokenRegex, 'GH_TOKEN'));
       process.exit(2);
