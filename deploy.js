@@ -1,12 +1,13 @@
-const pages = require('gh-pages');
+const ghpages = require('gh-pages');
 
 const token = process.env.GH_TOKEN;
 
-pages.publish(
+ghpages.publish(
   '.www',
   {
     repo: `https://${token}@github.com/Snugug/blog.git`,
-    // silent: true,
+    silent: true,
+    message: ':shipit: Deploy to Pages',
   },
   err => {
     if (err) {
@@ -14,5 +15,6 @@ pages.publish(
       console.error(err.replace(tokenRegex, 'GH_TOKEN'));
       process.exit(2);
     }
+    console.log('Deployed');
   },
 );
