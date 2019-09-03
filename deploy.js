@@ -6,7 +6,7 @@ ghpages.publish(
   '.www',
   {
     repo: `https://${token}@github.com/Snugug/blog.git`,
-    silent: true,
+    // silent: true,
     message: ':shipit: Deploy to Pages',
   },
   err => {
