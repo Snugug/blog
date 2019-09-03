@@ -6,7 +6,7 @@
     "start": "gulp",
     "test": "gulp deploy:dry",
     "posttest": "gulp config:cms",
-    "deploy": "gh-pages -m ':shipit: Deploy from CI' -d '.www' -u 'deploy-bot <deploy-bot@ci.run>'"
+    "deploy": "gh-pages -m ':shipit: Deploy from CI' -u 'Deploy Bot <sam@snug.ug>' -d '.www'"
   },
   "dependencies": {
     "breakpoint-sass": "^2.7.1",
