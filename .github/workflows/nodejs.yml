@@ -24,4 +24,4 @@ jobs:
           CI: true
       - name: Deploy to GitHub Pages
         if: success() && github.ref == 'refs/heads/master'
-        run: ./.deploy.sh
+        run: npm run deploy
