@@ -26,4 +26,5 @@ jobs:
         if: success() && github.ref == 'refs/heads/master'
         run: npm run deploy
         env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
