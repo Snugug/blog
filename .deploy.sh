@@ -10,7 +10,7 @@ cd .www
 git init
 
 # Configure Git
-git config user.name "CircleCI"
+git config user.name "GitHub Action CI"
 git config user.email "sam@snug.ug"
 
 # Commit all the things into the repo
