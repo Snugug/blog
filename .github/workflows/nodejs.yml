@@ -23,5 +23,5 @@ jobs:
         env:
           CI: true
       - name: Deploy to GitHub Pages
-        if: github.ref === 'master'
+        if: github.ref == 'master'
         run: ./.deploy.sh
