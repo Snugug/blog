@@ -1,6 +1,6 @@
 const ghpages = require('gh-pages');
 
-const token = process.env.GH_TOKEN;
+const token = process.env.GITHUB_TOKEN;
 
 ghpages.publish(
   '.www',
@@ -16,9 +16,8 @@ ghpages.publish(
   err => {
     if (err) {
       console.error('FAILURE');
-      console.error(err);
-      // const tokenRegex = new RegExp(token, 'gm');
-      // console.error(err.replace(tokenRegex, 'GH_TOKEN'));
+      const tokenRegex = new RegExp(token, 'gm');
+      console.error(err.message.replace(tokenRegex, 'GH_TOKEN'));
       process.exit(2);
     }
     console.log('Deployed');

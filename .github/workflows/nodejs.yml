@@ -25,3 +25,5 @@ jobs:
       - name: Deploy to GitHub Pages
         if: success() && github.ref == 'refs/heads/master'
         run: npm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
