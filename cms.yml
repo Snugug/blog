@@ -1,0 +1,37 @@
+backend:
+  name: github
+  repo: snugug/blog
+  branch: master
+  publish_mode: editorial_workflow
+media_folder: images
+collections:
+  - name: musings
+    label: Musings
+    folder: pages/musings
+    create: true
+    slug: '{{ slug }}'
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Template
+        name: template
+        widget: hidden
+        default: _layout.html
+      - label: Published
+        name: published
+        widget: datetime
+      - label: Updated
+        name: updated
+        widget: datetime
+      - label: Summary
+        name: summary
+        widget: markdown
+        options:
+          - buttons:
+              - bold
+              - italic
+              - code
+      - label: Body
+        name: body
+        widget: markdown

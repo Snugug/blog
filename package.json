@@ -4,7 +4,8 @@
   "scripts": {
     "gulp": "gulp",
     "start": "gulp",
-    "test": "gulp deploy:dry"
+    "test": "gulp deploy:dry",
+    "posttest": "gulp config:cms"
   },
   "dependencies": {
     "breakpoint-sass": "^2.7.1",
@@ -16,6 +17,7 @@
     "sass-toolkit": "^2.10.2"
   },
   "devDependencies": {
+    "gulp-rename": "^1.4.0",
     "node-prismjs": "^0.1.1"
   }
 }
