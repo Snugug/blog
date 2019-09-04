@@ -3,6 +3,8 @@ backend:
   repo: snugug/blog
   branch: master
   publish_mode: editorial_workflow
+  base_url: https://us-central1-snugug-auth.cloudfunctions.net
+  auth_endpoint: /oauth/auth
 media_folder: images
 collections:
   - name: musings
