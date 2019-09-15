@@ -6,7 +6,11 @@ template: _recipe.html
 published: September 14, 2019
 updated: September 14, 2019
 yield: 2 servings
-time: 20 minutes
+time:
+  overall: 30 minutes
+  prep: 30 minutes
+  inactive: 0
+  rest: 0
 difficulty: intermediate
 requirements: patience
 instructions:

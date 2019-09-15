@@ -1,5 +1,4 @@
-{% extends '_index.html' %} {% import 'macros/_published.html' as pubMacro %} {% block body %}
-<main>
+{% extends '_index.html' %} {% import 'macros/_published.html' as pubMacro %} {% block body %} {% macro timing(time) %} {% if time.inactive == 0 and time.rest == 0 %} <span itemprop="totalTime" content="PT30M">{{ time.overall }}</span> {% elseif time.inactive != 0 and time.rest == 0 %} <span itemprop="totalTime" content="PT30M">{{ time.overall }}</span> overall, including <meta itemprop="prepTime" content="PT15M" />{{ time.prep }} minutes of preparation and {{ time.inactive }} unattended {% elseif time.inactive == 0 and time.rest != 0 %} <span itemprop="totalTime" content="PT30M">{{ time.overall }}</span> minutes of preparation, plus {{ time.rest }} resting {% else %} <span itemprop="totalTime" content="PT30M">{{ time.overall }}</span> overall, including <meta itemprop="prepTime" content="PT15M" />{{ time.prep }} minutes of preparation and {{ time.inactive }} unattended, plus {{ time.rest }} of resting {% endif %} {% endmacro %}
   <header class="_recipe--header">
     <img class="_recipe--image" src="/images/cookbook/{{ image }}" alt="{{ title }}" role="presentation" style="object-position: {{ offset }}" />
     <div class="_recipe--title-wrapper">
@@ -28,6 +27,7 @@
           </tr>
         </table>
       </span>
+          <td>{{ timing(time) }}</td>
 
       {% block content %}{% endblock %}
     </div>
