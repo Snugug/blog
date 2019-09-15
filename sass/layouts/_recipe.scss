@@ -1,0 +1,194 @@
+._recipe {
+  &--header {
+    display: grid;
+  }
+  &--image {
+    height: 50vw;
+    max-height: 50vh;
+    width: 100vw;
+    object-fit: cover;
+    grid-row: 1 / span 2;
+    grid-column: 1 / span 1;
+  }
+
+  &--title-wrapper {
+    // margin-top: -1rem;
+    // grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    display: grid;
+    grid-template-columns: auto minmax(auto, 80ch) auto;
+    // background: rgba(white, 0.5);
+    width: 100%;
+  }
+
+  &--title {
+    text-align: left;
+    font-size: 1.5em;
+    font-weight: normal;
+    grid-column: 2 / span 1;
+    padding: 0 0.5rem;
+  }
+
+  &--body {
+    max-width: 80ch;
+    margin: 0 auto;
+    padding: 0 0.5rem;
+  }
+
+  &--story {
+    @include rhythm;
+    margin-bottom: 1rem;
+  }
+
+  &--info-wrapper {
+    @include mq(500px) {
+      float: left;
+      padding-right: 1rem;
+      padding-bottom: 0.25rem;
+    }
+  }
+
+  &--info {
+    // width: 100%;
+    font-size: 0.8em;
+    border: 0 !important;
+
+    td {
+      border: none;
+      padding: 0.3em;
+    }
+
+    td:first-of-type {
+      text-transform: uppercase;
+      width: 25ch;
+    }
+
+    td:last-of-type {
+      font-style: italic;
+    }
+
+    // tr:last-of-type td {
+    //   padding-bottom: 0.8em;
+
+    //   &:last-of-type {
+    //     padding-right: 0.8em;
+    //   }
+    // }
+  }
+
+  &--recipe {
+    width: 100%;
+    counter-reset: procedure-counter;
+
+    th {
+      text-align: left;
+      font-weight: normal;
+      text-transform: uppercase;
+      padding-bottom: 0.5em;
+    }
+
+    thead {
+      border-bottom: 1px solid black;
+    }
+
+    td:not([aria-labelledby]) {
+      padding: 0.5em 0;
+    }
+
+    td[aria-labelledby] {
+      // padding: 0.25em 0;
+      line-height: 1.25;
+    }
+  }
+
+  &--row {
+    border-bottom: 1px solid black;
+    padding-top: 1em;
+
+    // > td:first-of-type {
+
+    // }
+  }
+  &--ingredients {
+    width: 100%;
+
+    [aria-labelledby='ingredient'] {
+      padding-right: 0.25em;
+      width: 60%;
+    }
+
+    [aria-labelledby='amount'] {
+      padding-right: 0 0.25em;
+    }
+  }
+
+  &--steps {
+    list-style: none;
+    margin-left: 2em;
+
+    li {
+      counter-increment: procedure-counter;
+      position: relative;
+      &:before {
+        content: counter(procedure-counter);
+        border: 1px solid black;
+        height: 1.5em;
+        width: 1.5em;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5em;
+        left: -2rem;
+        top: -0.15rem;
+        position: absolute;
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  &--list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 1em;
+  }
+
+  &--listing {
+    margin: 0 !important;
+    list-style: none;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    background-color: white;
+    border-radius: 5px;
+
+    h2 {
+      font-weight: normal;
+      line-height: 1.1;
+      margin: 0;
+      font-size: 1.25em;
+    }
+
+    a {
+      color: #2c2a0c !important;
+    }
+
+    figcaption {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-bottom: 1rem;
+    }
+    img {
+      width: 100%;
+      height: 9.5em;
+      display: block;
+      object-fit: cover;
+    }
+  }
+}
+
+#ingredient {
+  width: 30%;
+}
+
+#amount {
+  width: 20%;
+}

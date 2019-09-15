@@ -1,0 +1,70 @@
+{% extends '_index.html' %} {% import 'macros/_published.html' as pubMacro %} {% block body %}
+<main>
+  <header class="_recipe--header">
+    <img class="_recipe--image" src="/images/cookbook/{{ image }}" alt="{{ title }}" role="presentation" style="object-position: {{ offset }}" />
+    <div class="_recipe--title-wrapper">
+      <h1 class="_recipe--title">{{ title }}</h1>
+    </div>
+  </header>
+  <article class="_recipe--body">
+    <div class="_recipe--story">
+      <span class="_recipe--info-wrapper">
+        <table class="_recipe--info">
+          <tr>
+            <td>Yield</td>
+            <td>{{ yield }}</td>
+          </tr>
+          <tr>
+            <td>Estimated Time</td>
+            <td>{{ time }}</td>
+          </tr>
+          <tr>
+            <td>Difficulty</td>
+            <td>{{ difficulty }}</td>
+          </tr>
+          <tr>
+            <td>Special Requirements</td>
+            <td>{{ requirements }}</td>
+          </tr>
+        </table>
+      </span>
+
+      {% block content %}{% endblock %}
+    </div>
+
+    <table class="_recipe--recipe">
+      <thead>
+        <tr>
+          <th id="ingredient">Ingredient</th>
+          <th id="amount">Amount</th>
+          <th>Procedure</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in instructions %}
+        <tr class="_recipe--row">
+          <td colspan="2">
+            <table class="_recipe--ingredients">
+              {% for ingredient in item.ingredients %}
+              <tr>
+                <td aria-labelledby="ingredient">{{ ingredient.name }}</td>
+                <td aria-labelledby="amount">{{ ingredient.amount }}</td>
+              </tr>
+              {% endfor %}
+            </table>
+          </td>
+          <td>
+            <ol class="_recipe--steps">
+              {% for step in item.procedure %}
+              <li>{{ step }}</li>
+              {% endfor %}
+            </ol>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </article>
+</main>
+
+{% include 'macros/_footer.html' %} {% endblock %}

@@ -1,16 +1,16 @@
 :root {
-  font-size: 125%;
   font-family: 'aller', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+  font-size: 125%;
 }
 
 body {
+  @include enable-ligatures;
   background: $background;
   color: $color;
-  text-rendering: optimizeLegibility;
-  @include enable-ligatures();
   font-weight: 400;
+  text-rendering: optimizeLegibility;
 
-  * + * {
+  *:not(script) + * {
     @include rhythm;
   }
 

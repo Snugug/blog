@@ -1,11 +1,12 @@
 ---
 title: A Recipe for Documentation
 template: _layout.html
-published: MAy 1, 2017
+published: May 1, 2017
 updated: May 1, 2017
 summary: >
   Technical documentation should be more like recipes in a cookbook.
 ---
+
 Imagine opening up a cookbook to a recipe, _Introduction to Chocolate Cake_, and reading the following description:
 
 > Chocolate cake is a delicious desert that, besides being beautiful to look at, has a host of health benefits that will help you live a happier, more full life. And that's not just us boasting! Chocolate cake is chock full of vitamins, minerals, antioxidants, and more, each of which we can provide hard statistics to show you the importance of.

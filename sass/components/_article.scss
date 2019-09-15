@@ -30,7 +30,7 @@
     // min-height: 25vh;
   }
 
-  &--recipes-heading {
+  &--cookbook-heading {
     @extend %article--heading;
     @include awesome-header(color('magenta', 80), color('teal', 50), -45deg -30deg, 13);
     // min-height: 25vh;
@@ -69,7 +69,6 @@
     //   @include close-shade(mix($color, $background, 60%), mix($color, $background, 60%), 'top right', 10);
     //   mix-blend-mode: exclusion;
     // }
-
 
     @include breakpoint(860px) {
       font-size: 6vw;
