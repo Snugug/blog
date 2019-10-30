@@ -37,7 +37,7 @@ instructions:
       - name: Cornstartch
         amount: 2 tbsp
       - name: Whole-Grain Dijon Mustard
-        amount: 2 tbsp
+        amount: 1 tbsp
       - name: Fresh Ground Black Pepper
         amount: As needed
       - name: Kosher Salt
