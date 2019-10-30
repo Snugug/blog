@@ -1,6 +1,6 @@
 ---
 title: Slow Scrambled Egg Toast
-image: slow-scrambled-eggs.jpg
+image: cookbook/slow-scrambled-eggs.jpg
 offset: 0 17%
 template: _recipe.html
 published: September 14, 2019

@@ -13,7 +13,7 @@
 <li class="_recipe--listing">
   <a href="/{{ recipe.path|replace('/index.html', '/') }}">
     <figure class="recipe">
-      <img loading="lazy" src="/images/cookbook/{{ recipe.meta.image }}" alt="{{ recipe.meta.title }}" role="presentation" style="object-position: {{ recipe.meta.offset }}" />
+      <img loading="lazy" src="/images/{{ recipe.meta.image }}" alt="{{ recipe.meta.title }}" role="presentation" style="object-position: {{ recipe.meta.offset }}" />
       <figcaption>
         <h2>
           {{ recipe.meta.title }}
