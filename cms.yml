@@ -37,3 +37,61 @@ collections:
       - label: Body
         name: body
         widget: markdown
+  - name: recipes
+    label: Recipes
+    folder: pages/cookbook
+    create: true
+    slug: '{{ slug }}'
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Template
+        name: template
+        widget: hidden
+        default: _recipe.html
+      - label: Published
+        name: published
+        widget: datetime
+      - label: Updated
+        name: updated
+        widget: datetime
+      - label: Body
+        name: body
+        widget: markdown
+      - label: Image
+        name: image
+        widget: image
+      - label: Offset
+        name: offset
+        widget: string
+      - label: Yield
+        name: yield
+        widget: string
+      - label: Difficulty
+        name: difficulty
+        widget: select
+        options:
+          - beginner
+          - intermediate
+          - expert
+      - label: Requirements
+        name: requirements
+        widget: string
+      - label: Instructions
+        name: instructions
+        widget: list
+        fields:
+          - label: Ingredients
+            name: ingredients
+            widget: list
+            fields:
+              - label: Name
+                name: name
+                widget: string
+              - label: Amount
+                name: amount
+                widget: string
+          - label: Procedure
+            name: procedure
+            widget: list
