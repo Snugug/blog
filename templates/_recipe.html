@@ -57,7 +57,7 @@
           <td>
             <ol class="_recipe--steps" itemprop="recipeInstructions">
               {% for step in item.procedure %}
-              <li itemprop="step">{{ step }}</li>
+              <li itemprop="step">{{ step | safe }}</li>
               {% endfor %}
             </ol>
           </td>

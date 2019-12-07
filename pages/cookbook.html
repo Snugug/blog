@@ -4,7 +4,7 @@ listing:
   folders:
     - cookbook
   sort: published
-  reverse: false
+  reverse: true
   ignore:
     - attribute: draft
       value: true
@@ -20,11 +20,7 @@ hidePublished: true
 
 <section class="posts">
   <ul class="_recipe--list">
-    {% for recipe in listing.cookbook %}
-    {{
-      display.recipe(recipe)
-    }}
-    {% endfor %}
+    {% for recipe in listing.cookbook %} {{ display.recipe(recipe) }} {% endfor %}
   </ul>
 </section>
 
