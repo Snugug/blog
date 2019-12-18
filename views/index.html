@@ -1,0 +1,34 @@
+---
+layout: singleton
+tags:
+  - landing
+title: Home
+---
+
+{% block head %}
+{% for item in collections.homepage %}
+<link rel="prefetch" href="{{item.url | url }}">
+{% endfor %}
+{% endblock %}
+
+{% import 'preview.html' as preview %}
+
+<section class="posts--LATEST">
+  <ol class="posts--list base">
+    {% for post in collections.homepage %}
+    {% if post.data.tags.includes('post') %}
+    <li>{{preview.post(post)}}</li>
+    {% endif %}
+    {% endfor %}
+  </ol>
+</section> 
+
+<section class="recipes--LATEST">
+  <ol class="recipes--list base">
+    {% for recipe in collections.homepage %}
+    {% if recipe.data.tags.includes('recipe') %}
+    <li>{{preview.recipe(recipe)}}</li>
+    {% endif %}
+    {% endfor %}
+  </ol>
+</section> 

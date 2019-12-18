@@ -1,0 +1,16 @@
+---
+layout: _wrapper
+---
+
+<div class="_blog">
+  <main class="_blog--article" itemscope itemtype="http://schema.org/Blog">
+    <article class="article">
+      <header class="article--{% if page %}{{ page }}-{% endif %}heading">
+        <h1 class="article--title" itemprop="name">{{ title }}</h1>
+      </header>
+      <div class="article--content {% if page != 'musings' %}base{% endif %}" itemprop="text">
+        {{ content | safe }}
+      </div>
+    </article>
+  </main>
+</div>

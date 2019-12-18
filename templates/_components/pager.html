@@ -1,0 +1,21 @@
+{% macro pager(page, pagination) %}{% if pagination.hrefs.length > 1 %}
+<nav aria-labelledby="my-pagination">
+  <h2 id="my-pagination">This is my Pagination</h2>
+  <ol>
+    <li>{% if page.url != pagination.hrefs[0] %}<a href="{{ pagination.hrefs[0] }}">First</a>{% else %}First{% endif %}</li>
+
+    {% set pageIndex = pagination.hrefs.indexOf(page.url) %}
+
+    <li>{% if pageIndex != 0 %}<a href="{{ pagination.hrefs[pageIndex - 1] }}">Previous</a>{% else %}Previous{% endif %}</li>
+
+    {% for url in pagination.hrefs %}
+    <li><a href="{{ url }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}>Page {{ loop.index }}</a></li>
+    {% endfor %}
+
+    <li>{% if pageIndex != pagination.hrefs.length - 1 %}<a href="{{ pagination.hrefs[pageIndex + 1] }}">Next</a>{% else %}Next{% endif %}</li>
+
+    <li>{% if page.url != pagination.hrefs[pagination.hrefs.length - 1] %}<a href="{{ pagination.hrefs[pagination.hrefs.length - 1] }}">Last</a>{% else %}Last{% endif %}</li>
+  </ol>
+</nav>
+{% endif %}
+{% endmacro %}

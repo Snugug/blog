@@ -1,0 +1,22 @@
+---
+layout: singleton
+tags:
+  - landing
+title: Cookbook
+pagination:
+  data: collections.recipe
+  size: 15
+  alias: recipes
+  reverse: true
+permalink: 'cookbook/{{ pagination.pageNumber | cleanPaginationHome }}/index.html'
+---
+
+{% import 'preview.html' as preview %}
+
+<ol>
+  {% for recipe in recipes %}
+  <li>{{preview.recipe(recipe)}}</li>
+  {% endfor %}
+</ol>
+
+{% from 'pager.html' import pager %} {{pager(page, pagination)}}

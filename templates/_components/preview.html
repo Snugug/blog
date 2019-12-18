@@ -1,0 +1,32 @@
+{% from 'published.html' import published %} {% macro post(post) %}
+<li class="post--listing">
+  <article class="post base">
+    <a href="{{post.url | url }}" class="post--title">{{post.data.title}}</a>
+    {{published(post)}}
+    <div class="post--summary">{{post.data.summary}}</div>
+  </article>
+</li>
+{% endmacro %} {% macro recipe(recipe) %}
+<li class="_recipe--listing">
+  <a href="{{recipe.url | url }}">
+    <figure class="recipe">
+      <img loading="lazy" src="/images/{{ recipe.data.image }}" alt="{{ recipe.data.title }}" role="presentation" style="object-position: {{ recipe.data.offset }}" />
+      <figcaption>
+        <h2>
+          {{ recipe.data.title }}
+        </h2>
+        <table class="_recipe--info">
+          <tr>
+            <td>Estimated Time</td>
+            <td>{{ recipe.data.time.overall }}</td>
+          </tr>
+          <tr>
+            <td>Difficulty</td>
+            <td>{{ recipe.data.difficulty }}</td>
+          </tr>
+        </table>
+      </figcaption>
+    </figure>
+  </a>
+</li>
+{% endmacro %}

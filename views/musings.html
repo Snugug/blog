@@ -1,0 +1,22 @@
+---
+layout: singleton
+tags:
+  - landing
+title: Musings
+pagination:
+  data: collections.post
+  size: 15
+  alias: posts
+  reverse: true
+permalink: 'musings/{{ pagination.pageNumber | cleanPaginationHome }}/index.html'
+---
+
+{% import 'preview.html' as preview %}
+
+<ol>
+  {% for post in posts %}
+  <li>{{preview.post(post)}}</li>
+  {% endfor %}
+</ol>
+
+{% from 'pager.html' import pager %} {{pager(page, pagination)}}
