@@ -8,10 +8,9 @@
   overflow-y: overlay;
   tab-size: 2;
   text-align: left;
-  white-space: pre;
-  word-break: normal;
+  white-space: pre-wrap;
   word-spacing: normal;
-  word-wrap: normal;
+  word-wrap: break-word;
 }
 
 %base--pre {
