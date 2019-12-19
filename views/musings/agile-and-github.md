@@ -2,8 +2,10 @@
 title: Agile and GitHub
 summary: >
   GitHub so often is thought of as just source code and maybe an issue queue to report bugs. But, hidden beneath the surface is a powerful project management tool that can scale from a 5 person engineering team to a 50 person multidisciplinary team. From 1 repository to 100. Monoliths to microservices.
-draft: true
+tags:
+  - draft
 ---
+
 GitHub so often is thought of as just source code and maybe an issue queue to report bugs. But, hidden beneath the surface is a powerful project management tool that can scale from a 5 person engineering team to a 50 person multidisciplinary team. From 1 repository to 100. Monoliths to microservices.
 
 Project management in GitHub starts with the [Issues](https://guides.github.com/features/issues/). When first starting with issues, it's tempting to think of them as simple. A title, a comment; but, with that empty formless space, structure can take shape. GitHub allows [issue templates](https://github.com/blog/2111-issue-and-pull-request-templates) to be set up for each repository, allowing [markdown](https://guides.github.com/features/mastering-markdown/) files to automatically fill in the comment area of a new issue or pull request. You can do the same for [Pull Requests](https://guides.github.com/introduction/flow/), providing automatic structure to both new issues and requests to bring new work in.
@@ -22,7 +24,7 @@ With Issues and Pull Requests sorted with Labels, the next step is tracking a gr
 
 A Milestone _PowerUp_, if an Agile method is being used, is to use Milestones to track Agile Sprints. Name Milestones for their Sprint number and make sure a due date is assigned. Then, track progress of the Sprint using the Milestone's progress bar.
 
-With all of the different moving pieces that make up a project, documenting everything is critically important. While not given as much love as other parts of GitHub, each repository comes with a [Wiki](https://guides.github.com/features/wikis/) that can be used to do just that. As previously mentioned, putting meta-information in to the Wiki, like the Label Style Guide or even documenting [team process](https://github.com/punchcard-cms/punchcard/wiki/Team-Process).  As a Wiki, it can be used for much more than technical or meta documentation, though. Wikis can be used for documenting a project's Road Map, current and future architecture, even [user personas](https://github.com/punchcard-cms/punchcard/wiki/Personas) for a project, as we do in Punchcard. Each Wiki is its own Git repo, as well, so they can be managed using Git just like a repository.
+With all of the different moving pieces that make up a project, documenting everything is critically important. While not given as much love as other parts of GitHub, each repository comes with a [Wiki](https://guides.github.com/features/wikis/) that can be used to do just that. As previously mentioned, putting meta-information in to the Wiki, like the Label Style Guide or even documenting [team process](https://github.com/punchcard-cms/punchcard/wiki/Team-Process). As a Wiki, it can be used for much more than technical or meta documentation, though. Wikis can be used for documenting a project's Road Map, current and future architecture, even [user personas](https://github.com/punchcard-cms/punchcard/wiki/Personas) for a project, as we do in Punchcard. Each Wiki is its own Git repo, as well, so they can be managed using Git just like a repository.
 
 While GitHub provides a very strong project management platform with just its built-in functionality, expanding it with some other tools can really bring it to the next level. Tools like Trello, Zube, and Waffle all provide a great way of visualizing work, but the one I've found most useful is one called [ZenHub](https://www.zenhub.com/). ZenHub is a browser plugin that enhances GitHub's interface directly. This does two things: it allows project management to happen without leaving GitHub's context and providing a shared space for everyone, and instantly empowers all repositories with these capabilities.
 
