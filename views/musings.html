@@ -13,10 +13,8 @@ permalink: 'musings/{{ pagination.pageNumber | cleanPaginationHome }}/index.html
 
 {% import 'preview.html' as preview %}
 
-<ol>
-  {% for post in posts %}
-  <li>{{preview.post(post)}}</li>
-  {% endfor %}
+<ol class="posts">
+  {% for post in posts %} {{preview.post(post)}} {% endfor %}
 </ol>
 
-{% from 'pager.html' import pager %} {{pager(page, pagination)}}
+{% from 'pager.html' import pager %} {{pager(page, pagination, 'musings')}}

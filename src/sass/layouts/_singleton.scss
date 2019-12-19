@@ -1,0 +1,37 @@
+._standalone {
+  &--header {
+    @include close-shade(#111, #111, 'bottom right', 75); // sass-lint:disable-line mixin-name-format
+    @include trianglePaint(0.5, 171, 60, 25, 70, 100%, 30%);
+    align-items: flex-end;
+    border-bottom: 0.5px solid rgba(0, 0, 0, var(--paint-alpha)); // sass-lint:disable-line no-color-literals
+    box-sizing: border-box;
+    color: var(--white);
+    display: flex;
+    flex-direction: row-reverse;
+    font-weight: bold;
+    height: calc(10em + 5vw);
+    max-height: 30vh;
+    padding: 2em;
+    text-rendering: optimizeLegibility;
+
+    &[data-title='musings'] {
+      @include trianglePaint(0.5, 270, 70, 40, 40, 100%, 40%);
+    }
+
+    &[data-title='cookbook'] {
+      @include trianglePaint(0.5, 345, 100, 38, 50, 100%, 38%);
+    }
+
+    &[data-title='about-me'] {
+      @include trianglePaint(0.5, 25, 80, 50, 90, 100%, 50%);
+    }
+
+    h1 {
+      font-weight: bold;
+    }
+  }
+
+  &--content {
+    @extend %container;
+  }
+}

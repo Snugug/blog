@@ -5,11 +5,25 @@ tags:
   - landing
 ---
 
-Hey there! I'm Sam! I work at [Google](https://www.google.com) as an Enterprise Partner Engineer! I previously have worked at [IBM](https://www.ibm.com/us-en/) as the UI Architect for Websites and Platform for [Watson](https://www.ibm.com/watson/), the Agile Team Experience Lead for the CIO, and the engineering lead for IBM's Digital Technical Engagement team. I got my start with the [New York State Senate](http://www.nysenate.gov) and have worked for the [World Economic Forum](http://www.weforum.org) and [NBCUniversal](http://www.nbcuniversal.com/) where a love of Open Source, Open Government, and generally an Open World were instilled and reinforced.
+Hey there! I'm Sam! I work at [Google](https://www.google.com) as a Developer Advocate for Chrome OS!
 
-I do quite a bit of public speaking and training. Most of the [presentations](https://snugug.com/presentations/) are available online, some with videos of the talk. If you see me out at a conference, come say hi! I also have contributed a lot of open source work, most of which can be found on [my GitHub page](https://github.com/snugug), or the GitHub pages of [@import](https://github.com/at-import), [Sass Tools](https://github.com/sasstools), [IBM Watson](https://github.com/ibm-watson), and [IBM Design](https://github.com/ibm-design). I've also done a lot of Drupal work, and that can all be found on my [Drupal profile](https://www.drupal.org/u/snugug).
+Prior to Google, I worked at [IBM](https://www.ibm.com/us-en/) as the UI Architect for Websites and Platform for [Watson](https://www.ibm.com/watson/), the Agile Team Experience Lead for the CIO, and the engineering lead for IBM's Digital Technical Engagement team. I got my start with the [New York State Senate](http://www.nysenate.gov) and have worked for the [World Economic Forum](http://www.weforum.org) and [NBCUniversal](http://www.nbcuniversal.com/) where a love of Open Source, Open Government, and generally an Open World were instilled and reinforced.
 
-If you wanna chat with me, the best way to is to ping me on Twitter [@Snugug](http://www.twitter.com/Snugug). If you _must_ email me, sam [at] snug [dot] ug will work, but I will warn you there's a strong likelihood I won't respond. If it's something about one of the projects I maintain, please file an issue instead of pinging me directly.
+I do quite a bit of public speaking and training. Most of my [presentations](https://snugug.com/presentations/) are available online, with some even having videos! If you see me out at a conference, come say hi! I also have contributed a lot of open source work, which you can get to from [my GitHub page](https://github.com/snugug).
+
+If you wanna chat with me, the best way to is to ping me on Twitter [@Snugug](http://www.twitter.com/Snugug). If it's something about one of the projects I maintain, please file an issue instead of pinging me directly.
+
+## Conference Bios
+
+**The Personal**
+
+> Sam Richard, better known as Snugug throughout the Internet, is a developer with design tendencies and a love of building open source tools to help with both. Sam geeks out on content strategy, team process, and cultural transformation. His social media feed, though, is mostly food.
+>
+> Sam is currently working at Google to help companies build and deliver their web applications for Chrome and Chrome OS.
+
+**The Professional**
+
+> Sam Richard, better known as Snugug throughout the Internet, is a Developer Advocate for Chrome OS at Google. He has a background leading software architecture, development, design, and strategy for the web at Fortune 100 companies, and loves being able to share the knowledge he's gained doing so with anyone interested through teaching, speaking, and open source work. Outside of work, Sam is an avid amateur chef, foodie, and photographer, and often combines all three.
 
 ## Licenses For My Site
 

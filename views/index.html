@@ -13,21 +13,24 @@ title: Home
 
 {% import 'preview.html' as preview %}
 
-<section class="posts--LATEST">
-  <ol class="posts--list base">
+<section class="latest-posts">
+  <ol class="posts">
     {% for post in collections.homepage %}
     {% if post.data.tags.includes('post') %}
-    <li>{{preview.post(post)}}</li>
+    {{preview.post(post)}}
     {% endif %}
     {% endfor %}
   </ol>
 </section> 
 
-<section class="recipes--LATEST">
-  <ol class="recipes--list base">
+<section class="latest-recipes">
+  <header>
+    <h2>Latest Recipes</h2>
+  </header>
+  <ol class="recipes">
     {% for recipe in collections.homepage %}
     {% if recipe.data.tags.includes('recipe') %}
-    <li>{{preview.recipe(recipe)}}</li>
+    {{preview.recipe(recipe)}}
     {% endif %}
     {% endfor %}
   </ol>

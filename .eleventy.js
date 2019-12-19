@@ -28,6 +28,8 @@ function collectionReducer(length) {
 module.exports = function(eleventy) {
   const config = scaffold(eleventy);
 
+  eleventy.setDataDeepMerge(true);
+
   eleventy.addFilter('cleanPaginationHome', index => {
     return index === 0 ? '' : index + 1;
   });
@@ -35,12 +37,14 @@ module.exports = function(eleventy) {
   eleventy.addCollection('homepage', collection => {
     const posts = collection
       .getFilteredByTag('post')
+      .filter(c => !c.data.tags.includes('draft'))
       .reverse()
       .reduce(collectionReducer(5), []);
     const cookbook = collection
       .getFilteredByTag('recipe')
+      .filter(c => !c.data.tags.includes('draft'))
       .reverse()
-      .reduce(collectionReducer(5), []);
+      .reduce(collectionReducer(6), []);
 
     return posts.concat(cookbook);
   });

@@ -89,3 +89,8 @@ th {
   padding: 0;
   text-align: left;
 }
+
+code {
+  @include enable-ligatures; // sass-lint:disable-line mixin-name-format
+  font-family: 'dm', monospace;
+}

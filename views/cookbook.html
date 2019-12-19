@@ -13,10 +13,8 @@ permalink: 'cookbook/{{ pagination.pageNumber | cleanPaginationHome }}/index.htm
 
 {% import 'preview.html' as preview %}
 
-<ol>
-  {% for recipe in recipes %}
-  <li>{{preview.recipe(recipe)}}</li>
-  {% endfor %}
+<ol class="recipes">
+  {% for recipe in collections.homepage %} {% if recipe.data.tags.includes('recipe') %} {{preview.recipe(recipe)}} {% endif %} {% endfor %}
 </ol>
 
-{% from 'pager.html' import pager %} {{pager(page, pagination)}}
+{% from 'pager.html' import pager %} {{pager(page, pagination, 'cookbook')}}

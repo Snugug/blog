@@ -15,6 +15,8 @@
  */
 import { log } from './lib/log';
 
+CSS.paintWorklet.addModule('/js/houdini/triangles.js');
+
 // eslint-disable-next-line no-constant-condition
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {

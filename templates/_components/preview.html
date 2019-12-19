@@ -1,30 +1,24 @@
 {% from 'published.html' import published %} {% macro post(post) %}
-<li class="post--listing">
-  <article class="post base">
-    <a href="{{post.url | url }}" class="post--title">{{post.data.title}}</a>
-    {{published(post)}}
-    <div class="post--summary">{{post.data.summary}}</div>
+<li class="posts--listing">
+  <article class="post-preview">
+    <a href="{{post.url | url }}" class="post-preview--title">{{post.data.title}}</a>
+    {{published(post, 'post-preview')}}
+    <div class="post-preview--summary">{{post.data.summary}}</div>
   </article>
 </li>
 {% endmacro %} {% macro recipe(recipe) %}
-<li class="_recipe--listing">
-  <a href="{{recipe.url | url }}">
-    <figure class="recipe">
+<li class="recipes--listing">
+  <a href="{{recipe.url | url }}" class="recipe-preview">
+    <figure class="recipe-preview--image">
       <img loading="lazy" src="/images/{{ recipe.data.image }}" alt="{{ recipe.data.title }}" role="presentation" style="object-position: {{ recipe.data.offset }}" />
       <figcaption>
         <h2>
           {{ recipe.data.title }}
         </h2>
-        <table class="_recipe--info">
-          <tr>
-            <td>Estimated Time</td>
-            <td>{{ recipe.data.time.overall }}</td>
-          </tr>
-          <tr>
-            <td>Difficulty</td>
-            <td>{{ recipe.data.difficulty }}</td>
-          </tr>
-        </table>
+        <ul>
+          <li>{{ recipe.data.time.overall }}</li>
+          <li>{{ recipe.data.difficulty }}</li>
+        </ul>
       </figcaption>
     </figure>
   </a>

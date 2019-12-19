@@ -1,0 +1,10 @@
+// sass-lint:disable mixin-name-format
+@mixin trianglePaint($alpha, $hue, $sat, $light, $size, $bkgsat, $bkglight) {
+  #{--paint-alpha}: $alpha;
+  #{--base-hue}: $hue; // sass-lint:disable-line no-duplicate-properties
+  #{--max-saturation}: $sat; // sass-lint:disable-line no-duplicate-properties
+  #{--max-lightness}: $light; // sass-lint:disable-line no-duplicate-properties
+  #{--size}: $size; // sass-lint:disable-line no-duplicate-properties
+  background-color: hsl(var(--base-hue), $bkgsat, $bkglight); // sass-lint:disable-line no-color-literals
+  background-image: paint(triangles);
+}

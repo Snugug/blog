@@ -1,7 +1,7 @@
 // sass-lint:disable no-universal-selectors
 
 :root {
-  font-family: sans-serif;
+  font-family: 'aller', sans-serif;
   font-size: 100%;
   letter-spacing: 0.03125em;
   line-height: 1.5;
@@ -11,13 +11,17 @@ body *:not(script) + * {
   margin-top: 1em;
 }
 
+a {
+  color: #c20030; // sass-lint:disable-line no-color-literals
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: sans-serif;
+  font-family: inherit;
   line-height: 1;
   // margin: 0.67em 0;
 }
@@ -28,12 +32,12 @@ h1 {
 }
 
 h2 {
-  font-size: 3.75rem;
+  font-size: 3rem;
   letter-spacing: -0.0083333333em;
 }
 
 h3 {
-  font-size: 3rem;
+  font-size: 2.75rem;
   line-height: 1.125;
 }
 
@@ -122,4 +126,22 @@ button {
   letter-spacing: 0.1666666667em;
   line-height: 2.666666667;
   text-transform: uppercase;
+}
+
+blockquote {
+  margin-left: calc(3em + 6px);
+  position: relative;
+  width: calc(100% - 3em - 6px);
+
+  &::before {
+    @include trianglePaint(0.25, 345, 100, 100, 20, 100%, 50%);
+    border: 1px solid rgba(0, 0, 0, var(--paint-alpha)); // sass-lint:disable-line no-color-literals
+    content: '';
+    display: block;
+    height: 100%;
+    left: calc(-1em - 6px);
+    position: absolute;
+    top: 0;
+    width: 6px;
+  }
 }
