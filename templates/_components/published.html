@@ -1,0 +1,10 @@
+{% macro published(item, section) %}
+<footer class="{{section}}--author">
+  {% if item.data.original %}
+  <span class="{{ section }}--published" itemprop="dateModified">Updated on <time datetime="{{ post.published|date('yyyy-mm-dd') }}">{{ item.date | date('en', {year: 'numeric', month: 'long', day: 'numeric'}) }}</time></span>
+  <span class="{{ section }}--published" itemprop="datePublished">Published on <time datetime="{{ post.published|date('yyyy-mm-dd') }}">{{ item.data.original | date('en', {year: 'numeric', month: 'long', day: 'numeric'}) }}</time></span>
+  {% else %}
+  <span class="{{ section }}--published" itemprop="datePublished">Published on <time datetime="{{ post.published|date('yyyy-mm-dd') }}">{{ item.date | date('en', {year: 'numeric', month: 'long', day: 'numeric'}) }}</time></span>
+  {% endif %}
+</footer>
+{% endmacro %}

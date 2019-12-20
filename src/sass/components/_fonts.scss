@@ -1,0 +1,28 @@
+@font-face {
+  font-display: swap;
+  font-family: 'aller';
+  font-style: normal;
+  font-weight: bold;
+  src: url('/fonts/aller/regular.woff2') format('woff2'), url('/fonts/aller/regular.woff') format('woff');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'aller';
+  font-style: italic;
+  font-weight: bold;
+  src: url('/fonts/aller/italic.woff2') format('woff2'), url('/fonts/aller/italic.woff') format('woff');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'aller';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/fonts/aller/light.woff2') format('woff2'), url('/fonts/aller/light.woff') format('woff');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'aller';
+  font-style: italic;
+  font-weight: normal;
+  src: url('/fonts/aller/light-italic.woff2') format('woff2'), url('/fonts/aller/light-italic.woff') format('woff');
+}

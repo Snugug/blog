@@ -1,0 +1,14 @@
+---
+layout: _wrapper
+---
+
+<main class="_standalone">
+  <article>
+    <header class="_standalone--header" data-title="{{title | slug}}">
+      <h1>{% if title and title != 'Home' %}{{title}}{% else %}Snugug{% endif %}</h1>
+    </header>
+    <div class="_standalone--content">
+      {{content | safe}}
+    </div>
+  </article>
+</main>

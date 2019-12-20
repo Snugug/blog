@@ -1,0 +1,39 @@
+---
+layout: singleton
+tags:
+  - landing
+title: Home
+summary: >
+  The personal website of Sam Richard, aka Snugug, featuring writings about web development and the tech industry, as well as a collection of recipes.
+---
+
+{% block head %}
+{% for item in collections.homepage %}
+<link rel="prefetch" href="{{item.url | url }}">
+{% endfor %}
+{% endblock %}
+
+{% import 'preview.html' as preview %}
+
+<section class="latest-posts">
+  <ol class="posts">
+    {% for post in collections.homepage %}
+    {% if post.data.tags.includes('post') %}
+    {{preview.post(post)}}
+    {% endif %}
+    {% endfor %}
+  </ol>
+</section> 
+
+<section class="latest-recipes">
+  <header>
+    <h2>Latest Recipes</h2>
+  </header>
+  <ol class="recipes">
+    {% for recipe in collections.homepage %}
+    {% if recipe.data.tags.includes('recipe') %}
+    {{preview.recipe(recipe)}}
+    {% endif %}
+    {% endfor %}
+  </ol>
+</section> 

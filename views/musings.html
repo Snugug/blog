@@ -1,0 +1,22 @@
+---
+layout: singleton
+tags:
+  - landing
+title: Musings
+pagination:
+  data: collections.post
+  size: 15
+  alias: posts
+  reverse: true
+permalink: 'musings/{{ pagination.pageNumber | cleanPaginationHome }}/index.html'
+summary: >
+  Full catalog of Sam's writings.
+---
+
+{% import 'preview.html' as preview %}
+
+<ol class="posts">
+  {% for post in posts %} {{preview.post(post)}} {% endfor %}
+</ol>
+
+{% from 'pager.html' import pager %} {{pager(page, pagination, 'musings')}}
