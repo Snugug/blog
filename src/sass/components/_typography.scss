@@ -165,3 +165,8 @@ ul {
   padding: 6px;
   shape-outside: circle(50%);
 }
+
+code {
+  @include enable-ligatures;
+  font-family: 'dm', monospace;
+}

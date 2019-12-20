@@ -18,6 +18,7 @@
   &--title {
     @include close-shade(#111, #111, 'bottom right', 15);
     font-size: calc(2em + 6vw);
+    font-weight: bold;
     padding: 2rem;
     word-wrap: break-word;
 
@@ -29,5 +30,14 @@
   &--content {
     @extend %container;
     font-size: 125%;
+  }
+
+  &--author {
+    border-right: 3px solid var(--red);
+    font-size: 0.8em;
+    font-style: italic;
+    margin-top: 1em;
+    padding-right: 0.5em;
+    text-align: right;
   }
 }

@@ -10,7 +10,7 @@
 
     <link rel="preload" as="font" crossorigin type="font/woff2" href="/fonts/aller/light.woff2" />
     <link rel="preload" as="font" crossorigin type="font/woff2" href="/fonts/aller/bold.woff2" />
-    <!-- <link rel="stylesheet" href="/css/dank-mono.css" /> -->
+    <link rel="stylesheet" href="/css/dank-mono.css" media="print" onload="this.media='all'" />
     <script type="module" defer src="/js/main.js"></script>
 
     <title>{% if title and title != 'Home' %}{{ title }} | {% endif %}Snugug</title>

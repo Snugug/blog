@@ -2,6 +2,7 @@
 layout: _wrapper
 ---
 
+{% from 'published.html' import published %}
 <div class="_blog">
   <main class="_blog--article" itemscope itemtype="http://schema.org/Blog">
     <article class="article">
@@ -9,7 +10,7 @@ layout: _wrapper
         <h1 class="article--title" itemprop="name">{{ title }}</h1>
       </header>
       <div class="article--content {% if page != 'musings' %}base{% endif %}" itemprop="text">
-        {{ content | safe }}
+        {{ content | safe }} {{published(page, 'article')}}
       </div>
     </article>
   </main>
