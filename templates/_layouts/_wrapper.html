@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/style.css" />
 
     <link rel="preload" as="font" crossorigin type="font/woff2" href="/fonts/aller/light.woff2" />
-    <link rel="preload" as="font" crossorigin type="font/woff2" href="/fonts/aller/bold.woff2" />
+    <link rel="preload" as="font" crossorigin type="font/woff2" href="/fonts/aller/regular.woff2" />
     <link rel="stylesheet" href="/css/dank-mono.css" media="print" onload="this.media='all'" />
     <script type="module" defer src="/js/main.js"></script>
 
@@ -18,7 +18,7 @@
     <meta name="theme-color" content="#008673" />
 
     <title>{% if title and title != 'Home' %}{{ title }} | {% endif %}Snugug</title>
-    <meta name="Description" content="{{ metadesc }}" />
+    <meta name="Description" content="{{ summary }}" />
 
     <meta name="google-site-verification" content="zIeV2B7zZKCtEFP-6vV8rKk0ocpbp035v_g3IRn12Jo" />
 
@@ -44,7 +44,7 @@
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m);
-      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
       ga('create', 'UA-30577396-1', 'auto');
       ga('send', 'pageview');
