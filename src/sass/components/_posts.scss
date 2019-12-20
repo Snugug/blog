@@ -1,6 +1,6 @@
 .posts {
   display: grid;
-  gap: 1em; // sass-lint:disable-line no-misspelled-properties
+  grid-gap: 1em;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   list-style: none;
   margin: 0;

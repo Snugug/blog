@@ -1,6 +1,6 @@
 .recipes {
   display: grid;
-  gap: 2em; // sass-lint:disable-line no-misspelled-properties
+  grid-gap: 2em;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   list-style: none;
   margin: 0;

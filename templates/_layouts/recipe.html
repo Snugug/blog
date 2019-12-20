@@ -4,7 +4,7 @@ layout: _wrapper
 
 {% macro timing(time) %} {% if time.inactive == 0 and time.rest == 0 %} <span itemprop="totalTime" content="PT30M">{{ time.overall }}</span> {% elseif time.inactive != 0 and time.rest == 0 %} <span itemprop="totalTime" content="PT30M">{{ time.overall }}</span> overall, including <meta itemprop="prepTime" content="PT15M" />{{ time.prep }} minutes of preparation and {{ time.inactive }} unattended {% elseif time.inactive == 0 and time.rest != 0 %} <span itemprop="totalTime" content="PT30M">{{ time.overall }}</span> minutes of preparation, plus {{ time.rest }} resting {% else %} <span itemprop="totalTime" content="PT30M">{{ time.overall }}</span> overall, including <meta itemprop="prepTime" content="PT15M" />{{ time.prep }} minutes of preparation and {{ time.inactive }} unattended, plus {{ time.rest }} of resting {% endif %} {% endmacro %}
 
-<main itemscope itemtype="http://schema.org/Recipe">
+<main itemscope itemtype="http://schema.org/Recipe" class="_recipe">
   <header class="_recipe--header">
     <img class="_recipe--image" src="/images/{{ image }}" alt="{{ title }}" role="presentation" style="object-position: {{ offset }}" itemprop="image" />
     <div class="_recipe--title-wrapper">
@@ -33,7 +33,7 @@ layout: _wrapper
       </table>
 
       <div class="_recipe--content" itemprop="description">
-        {% block content %}{% endblock %}
+        {{ content | safe }}
       </div>
     </div>
 
