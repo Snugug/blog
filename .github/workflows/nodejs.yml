@@ -69,6 +69,8 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: site
+          path: public
+      - run: ls public
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:
