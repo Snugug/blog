@@ -43,7 +43,7 @@ jobs:
       - name: Lighthouse Audit
         uses: treosh/lighthouse-ci-action@v2
         with:
-          configPath: .lighthouserc.yml
+          configPath: .lighthouserc.json
           temporaryPublicStorage: true
 
   deploy:
