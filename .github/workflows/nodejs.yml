@@ -3,7 +3,7 @@ name: Node CI
 on: [push]
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -31,7 +31,7 @@ jobs:
           path: public
 
   lighthouse:
-    needs: build
+    needs: build-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,7 +43,7 @@ jobs:
       - name: Lighthouse Audit
         uses: treosh/lighthouse-ci-action@v2
         with:
-          configPath: ./lighthouserc.yml
+          configPath: .lighthouserc.yml
           temporaryPublicStorage: true
 
   deploy:
