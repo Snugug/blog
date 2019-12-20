@@ -24,13 +24,46 @@ jobs:
           npm test
         env:
           CI: true
+      - name: Upload built state
+        uses: actions/upload-artifact@v1
+        with:
+          name: site
+          path: public
+
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Download compiled site
+        uses: actions/download-artifact@v1
+        with:
+          name: site
       - name: Lighthouse Audit
         uses: treosh/lighthouse-ci-action@v2
         with:
           configPath: ./lighthouserc.yml
           temporaryPublicStorage: true
+
+  deploy:
+    needs: lighthouse
+    if: success() && github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Switch Node Version
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install
+        run: |
+          npm ci
+      - name: Download compiled site
+        uses: actions/download-artifact@v1
+        with:
+          name: site
       - name: Deploy to GitHub Pages
-        if: success() && github.ref == 'refs/heads/master'
         run: npm run deploy
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
