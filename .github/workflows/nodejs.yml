@@ -52,7 +52,7 @@ jobs:
   #         temporaryPublicStorage: true
 
   deploy:
-    needs: lighthouse
+    needs: build-test
     runs-on: ubuntu-latest
     if: success() && github.ref == 'refs/heads/master'
     steps:
