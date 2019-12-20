@@ -16,7 +16,7 @@
 /* eslint-env node */
 const gulp = require('gulp');
 const scaffold = require('static-site-scaffold/lib/gulp.config')(gulp);
-const { assets, sass } = require('config');
+const { folders, assets, sass } = require('config');
 const { buildSrcDest } = require('static-site-scaffold/lib/gulp/assets');
 
 /**
@@ -74,8 +74,15 @@ function watchManifest() {
   return gulp.watch(src, scaffold.manifest);
 }
 
+/**
+ * @return {object} Gulp pipe
+ */
+function moveCNAME() {
+  return gulp.src('CNAME').pipe(gulp.dest(folders.output));
+}
+
 gulp.task('server', gulp.parallel(scaffold.server, scaffold.external));
-gulp.task('build:static', gulp.parallel(scaffold.images, scaffold.videos, scaffold.fonts, scaffold.manifest, scaffold.sass));
+gulp.task('build:static', gulp.parallel(scaffold.images, scaffold.videos, scaffold.fonts, scaffold.manifest, scaffold.sass, moveCNAME));
 gulp.task('watch:static', gulp.parallel(watchImages, watchVideos, watchFonts, watchManifest));
 
 // ////////////////////////////
