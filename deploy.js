@@ -3,7 +3,7 @@ const ghpages = require('gh-pages');
 const token = process.env.GH_TOKEN;
 
 ghpages.publish(
-  '.www',
+  'public',
   {
     repo: `https://${token}@github.com/Snugug/blog.git`,
     // silent: true,
