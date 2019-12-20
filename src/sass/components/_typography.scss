@@ -170,3 +170,7 @@ code {
   @include enable-ligatures;
   font-family: 'dm', monospace;
 }
+
+.fluid-wrapper {
+  @include ir;
+}

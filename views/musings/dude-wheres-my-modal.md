@@ -11,7 +11,7 @@ Modals have lots of technical issues with them; they usually break the universal
 
 Have you ever entered a room and totally forgotten why you had gone in there in the first place? Of course you have; we all have. There's a name for that: **The Doorway Effect**
 
-![Dude, Where's My Car?](http://una.im/slides-perf-is-our-job/img/dudewhersmycar.gif)
+![Dude, Where's My Car?](/images/dude-wheres-my-modal/dude.gif)
 
 The Doorway Effect, more formally known as the [location-updating effect](http://www.freakonomics.com/media/Radvansky%20Krawietz%20%26%20Tamplin%202011%20%28QJEP%29%20%281%29.pdf) describes: "the finding that when people pass through a doorway to move from one location to another, they forget more information than if they do not make such a shift.… Essentially, a shift at an event boundary introduces a need to update one's understanding of the ongoing events, and this updating process is effortful." In their work [_Walking through doorways causes forgetting: Further explorations_](http://www.freakonomics.com/media/Radvansky%20Krawietz%20%26%20Tamplin%202011%20%28QJEP%29%20%281%29.pdf), Gabriel A. Radvansky, Sabine A. Krawietz, and Andrea K. Tamplin of the Department of Psychology, University of Notre Dame explored whether the Doorway Effect was dependent on how the environments are experienced. Their conclusion is that no, be it physical objects in the real world or virtual objects on a small screen, the Doorway Effect was not dependent on how the way the environments are experienced.
 
@@ -35,8 +35,8 @@ The first, and most obvious thing to do, is determine if clarity of context can 
 
 The second, and one I've become a really big fan of, is what I'm going to call the contextual slide open (that's a terrible name, someone suggest a better one). I first saw this pattern used in the iOS view of [Google Image search](https://images.google.com/?gws_rd=ssl), and has since expanded to all versions of Google Image search. The basic idea is that, instead of a modal, make the relevant content appear in-line, on the same page, contextually connected directly to the triggering element in both UI and animation, while keeping that trigger in view, with deep links to animate-in the contextual area on load, that can be closed through an obvious close indicator, by toggling the selected item, or by simply ignoring and moving on with the page, all without covering anything else on the page. While this doesn't resolve all of the issues we encounter with the Doorway Effect, it helps to mitigate them all in a fairly elegant way as it isn't an entirely new area, allowing for faster recovery from the event boundary by only requiring a tweak in the current event model instead of needing to build an entirely new one and removing the possibility that information is stored across two event models.
 
-<video src="http://snugug.github.io/videos/google-images-modal-replacement.mp4" controls loop>
-  <p>Download a video of the <a href="http://snugug.github.io/videos/google-images-modal-replacement.mp4">Google Image Search modal replacement</a></p>
+<video src="https://snugug.github.io/videos/google-images-modal-replacement.mp4" controls loop>
+  <p>Download a video of the <a href="https://snugug.github.io/videos/google-images-modal-replacement.mp4">Google Image Search modal replacement</a></p>
 </video>
 
 With this information in had, and a couple of new patterns to consider and grow from, we should grab our bootstraps and pull ourselves out of the modal murk. As designers and developers, we are creatives, and being creative is hard. Our answer, like always, should be to do the hard work to find the best solution for our users, not simply use the same 'ol stuff without sitting back to consider if it's actually doing what we think it is. Modals are the prototypical example of a pattern that gets used and abused without though. We should stop doing that.
