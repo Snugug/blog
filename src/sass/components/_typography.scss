@@ -145,3 +145,23 @@ blockquote {
     width: 6px;
   }
 }
+
+ul {
+  margin-left: 2em;
+
+  li {
+    margin-top: 0.5em;
+  }
+}
+
+.headshot {
+  @include trianglePaint(0.25, 345, 100, 100, 20, 100%, 50%);
+  border-radius: 50%;
+  float: left;
+  margin-bottom: 1em;
+  margin-right: 1em;
+  margin-top: 1em;
+  max-width: 200px;
+  padding: 6px;
+  shape-outside: circle(50%);
+}

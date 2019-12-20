@@ -5,6 +5,8 @@ tags:
   - landing
 ---
 
+![Headshot of Sam](/images/me/square.jpg){.headshot}
+
 Hey there! I'm Sam! I work at [Google](https://www.google.com) as a Developer Advocate for Chrome OS!
 
 Prior to Google, I worked at [IBM](https://www.ibm.com/us-en/) as the UI Architect for Websites and Platform for [Watson](https://www.ibm.com/watson/), the Agile Team Experience Lead for the CIO, and the engineering lead for IBM's Digital Technical Engagement team. I got my start with the [New York State Senate](http://www.nysenate.gov) and have worked for the [World Economic Forum](http://www.weforum.org) and [NBCUniversal](http://www.nbcuniversal.com/) where a love of Open Source, Open Government, and generally an Open World were instilled and reinforced.
