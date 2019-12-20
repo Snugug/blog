@@ -1,6 +1,5 @@
 ._standalone {
   &--header {
-    @include close-shade(#111, #111, 'bottom right', 75); // sass-lint:disable-line mixin-name-format
     @include trianglePaint(0.5, 171, 60, 25, 70, 100%, 30%);
     align-items: flex-end;
     border-bottom: 0.5px solid rgba(0, 0, 0, var(--paint-alpha)); // sass-lint:disable-line no-color-literals
@@ -8,7 +7,6 @@
     color: var(--white);
     display: flex;
     flex-direction: row-reverse;
-    font-weight: bold;
     height: calc(10em + 5vw);
     max-height: 30vh;
     padding: 2em;
@@ -27,6 +25,8 @@
     }
 
     h1 {
+      @include close-shade(#111, #111, 'bottom right', 10); // sass-lint:disable-line mixin-name-format
+      font-size: calc(2em + 6vw);
       font-weight: bold;
     }
   }
