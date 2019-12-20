@@ -29,6 +29,11 @@ jobs:
         with:
           name: site
           path: public
+      - name: Upload compiled dependencies
+        uses: actions/upload-artifact@v1
+        with:
+          name: dependencies
+          path: node_modules
 
   # lighthouse:
   #   needs: build-test
@@ -62,13 +67,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install
-        run: |
-          npm ci
       - name: Download compiled site
         uses: actions/download-artifact@v1
         with:
           name: site
+      - name: Download dependencies
+        uses: actions/download-artifact@v1
+        with:
+          name: dependencies
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:
