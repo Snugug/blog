@@ -30,7 +30,8 @@
     "lint": "better-npm-run lint",
     "test:lint": "eslint tests",
     "gulp": "gulp",
-    "lighthouse": "lhci"
+    "lighthouse": "lhci",
+    "deploy": "node ./deploy.js"
   },
   "betterScripts": {
     "build": {
