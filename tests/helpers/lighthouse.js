@@ -43,9 +43,13 @@ function auditCheck(t, results) {
   const { audits, categories } = results;
 
   Object.keys(categories).forEach(c => {
+    let target = 0.9;
+    if (c === 'seo' || c === 'best-practices') {
+      target = 0.85;
+    }
     if (c !== 'pwa') {
       const { score, title } = categories[c];
-      t.assert(score >= 0.9, `${title} is 90% is better`);
+      t.true(score >= target, `${title} is ${target * 100}% or better, was ${score * 100}%`);
     }
   });
 
@@ -56,7 +60,7 @@ function auditCheck(t, results) {
 
   Object.keys(importantAudits).forEach(a => {
     const audit = audits[a];
-    t.assert(audit.numericValue < importantAudits[a], `${audit.title} < ${importantAudits[a]}ms`);
+    t.true(audit.numericValue < importantAudits[a], `${audit.title} < ${importantAudits[a]}ms`);
   });
 }
 
