@@ -2,7 +2,7 @@
 title: Static Site Scaffold
 date: 2019-12-18
 summary: >
-  Introducing the Static Site Scaffold. Part 1 of 3 discussing the new scaffolding.
+  Introducing the Static Site Scaffold, built with Eleventy, Gulp, Rollup, and Workbox, to enable you to build fast, internationalized static sites and Progressive Web Apps. Part 1 of 3 discussing the new scaffolding.
 ---
 
 My journey with JavaScript started 7 years ago, with my first commit to [Generator Armadillo](https://github.com/Snugug/generator-armadillo/tree/928636eeaf074a39acfe62391838684e6baef3bb), a Yeoman generator to make static sites. I didn't like Jekyll, didn't want to run Ruby, and thought that if I could get something running in Node (back in the 0.10 days!) to fit my needs faster than I could figure out Jekyll, I'd go full-in on it. Turns out, I could. Armadillo has evolved a lot over the years, with the latest version, [Gulp Armadillo](https://github.com/Snugug/gulp-armadillo), only now showing a little bit of its age even being a couple years old. After joining Google, and looking to collaborate with the team building [web.dev](https://web.dev), I was introduced to [Eleventy](https://www.11ty.dev/). It looked to be a good replacement for the custom Nunjucks compiling I was doing in Armadillo, so I took what I had learned from my 7 years of building static site generators and built one more. **Introducing [Static Site Scaffold](https://github.com/chromeos/static-site-scaffold)**, an i18n static site starter for building easy-to-maintain sites and Progressive Web Apps.

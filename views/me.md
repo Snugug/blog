@@ -3,6 +3,8 @@ title: About Me
 layout: singleton
 tags:
   - landing
+summary: >
+  The professional biography and headshot of Sam Richard, aka Snugug.
 ---
 
 ![Headshot of Sam](/images/me/square.jpg){.headshot}
