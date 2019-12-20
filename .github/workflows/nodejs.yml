@@ -43,6 +43,11 @@ jobs:
       - name: Lighthouse Audit
         uses: treosh/lighthouse-ci-action@v2
         with:
+          urls: |
+            /
+            /cookbook
+            /musings
+            /me
           configPath: .lighthouserc.json
           temporaryPublicStorage: true
 
