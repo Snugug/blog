@@ -48,6 +48,7 @@ jobs:
 
   deploy:
     needs: lighthouse
+    runs-on: ubuntu-latest
     if: success() && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout
