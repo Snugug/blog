@@ -70,7 +70,6 @@ jobs:
         with:
           name: site
           path: public
-      - run: ls public
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:
