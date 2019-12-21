@@ -12,6 +12,7 @@ ghpages.publish(
       name: 'Deploy Bot',
       email: 'sam@snug.ug',
     },
+    dotfiles: true,
   },
   err => {
     if (err) {
