@@ -70,6 +70,7 @@ jobs:
         with:
           name: site
           path: public
+      - run: touch public/.nojekyll
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:

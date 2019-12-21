@@ -78,7 +78,7 @@ function watchManifest() {
  * @return {object} Gulp pipe
  */
 function moveCNAME() {
-  return gulp.src(['CNAME', '.nojekyll']).pipe(gulp.dest(folders.output));
+  return gulp.src(['CNAME']).pipe(gulp.dest(folders.output));
 }
 
 gulp.task('server', gulp.parallel(scaffold.server, scaffold.external));
