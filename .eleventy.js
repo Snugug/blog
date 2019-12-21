@@ -64,5 +64,9 @@ module.exports = function(eleventy) {
       });
   });
 
+  eleventy.addCollection('archive', collection => {
+    return collection.getFilteredByTag('post').filter(i => !i.data.tags.includes('draft'));
+  });
+
   return config;
 };
