@@ -1,6 +1,5 @@
 ---
-title: >
-  What Is #IBMHackademy
+title: 'What Is #IBMHackademy'
 date: 2016-02-11
 summary: >
   `#IBMHackademy` is a week long immersive enablement program, focused on modern Front-End Development tools and best practices, designed to transform the way our teams deliver delightful user experiences.
