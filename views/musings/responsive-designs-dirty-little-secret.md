@@ -41,13 +41,13 @@ While the Isolation method most certainly will solve the sub-pixel rounding issu
 
 Take a look at what standard row clearing looks like.
 
-![Float Row Clearing](/sites/default/files/field/image/Float%20Row%20Clearing.png)
+<!-- ![Float Row Clearing](/sites/default/files/field/image/Float%20Row%20Clearing.png) -->
 
 Using the Float method, we get nice cleared rows with absolutely no extra markup. Why is this important? Well, for Responsive Web Design, we send one set of HTML down to the user and alter the layout using CSS. The Float method makes changing our layouts really easy without changing our markup because of its inherit row clearing abilities. Simply change your margins, widths, and floats at your given breakpoints and you've got a new grid! It's awesome, it works really well, and it's how [Susy](http://susy.oddbird.net/), one of my favorite Sass powered grid systems, works. But yes, it's still affected by the sub-pixel rounding issue.
 
 Let's take a look at what row clearing looks like with the Isolation method.
 
-![Isolation Row Clearing](/sites/default/files/field/image/Isolation%20Row%20Clearing.png)
+<!-- ![Isolation Row Clearing](/sites/default/files/field/image/Isolation%20Row%20Clearing.png) -->
 
 Those dark green parts? Those are the parts of the two rows that overlap each other. Yup! You read (and see) that right! The isolation method fixes the sub-pixel rounding issues by introducing an even worse issue, breaking row clearing! While float clearing still works, as you can see, rows clear based on the height of the last item in the row, not the tallest as in the Float method. Well how do we solve this? **_Welcome back wrapper divs!_** That's right! In order to fix row clearing with the Isolation method, each row needs to be wrapped in a clearfixed div! And for each change in row arrangement you make as you change layouts, you need wrapper divs for each row! It's not without its place in Responsive Web Design. If you've got major pieces of a site that are already cordoned off or naturally have wrappers around the rows you need, the Isolation method is a great method to use. This is what [Zen Grids](http://zengrids.com/) uses.
 

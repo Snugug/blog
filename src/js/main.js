@@ -13,9 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { log } from './lib/log';
 
+// import 'lunr';
+
 CSS.paintWorklet.addModule('/js/houdini/triangles.js');
+
+// const idx = lunr(function() {
+//   /* eslint-disable no-invalid-this */
+//   this.field('title');
+//   this.field('body');
+
+//   this.add({
+//     title: 'Twelfth-Night',
+//     body: 'If music be the food of love, play on: Give me excess of it…',
+//     author: 'William Shakespeare',
+//     id: '1',
+//   });
+// });
+
+// console.log(idx.search('love'));
 
 // eslint-disable-next-line no-constant-condition
 if ('serviceWorker' in navigator) {
