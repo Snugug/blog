@@ -1,6 +1,10 @@
 ._recipe {
   font-size: 125%;
 
+  td {
+    vertical-align: baseline;
+  }
+
   &--header {
     display: grid;
   }
@@ -121,6 +125,7 @@
 
     li {
       counter-increment: procedure-counter;
+      padding-left: 0.5em;
       position: relative;
 
       &::before {
