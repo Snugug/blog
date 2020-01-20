@@ -3,22 +3,22 @@
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Hello World<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
 </code></pre><p>When the correct size is available, a <code>data-eq-state</code> attribute will be added to the component with the <code>key</code> for the given <code>min-width</code>. This makes styling easy:</p><pre class="language-scss"><code class="language-scss"><span class="token selector">.container </span><span class="token punctuation">{</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> 2px solid red<span class="token punctuation">;</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>red<span class="token punctuation">,</span> 0.25<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token unit">px</span> solid <span class="token color">red</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token color">red</span><span class="token punctuation">,</span> <span class="token number">0.25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token selector"><span class="token parent important">&amp;</span>[data-eq-state='small'] </span><span class="token punctuation">{</span>
-    <span class="token property">border-color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
-    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>green 0.25<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">border-color</span><span class="token punctuation">:</span> <span class="token color">green</span><span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token color">green</span> <span class="token number">0.25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
   <span class="token selector"><span class="token parent important">&amp;</span>[data-eq-state='medium'] </span><span class="token punctuation">{</span>
-    <span class="token property">border-color</span><span class="token punctuation">:</span> orange<span class="token punctuation">;</span>
-    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>orange<span class="token punctuation">,</span> 0.25<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">border-color</span><span class="token punctuation">:</span> <span class="token color">orange</span><span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token color">orange</span><span class="token punctuation">,</span> <span class="token number">0.25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 
   <span class="token selector"><span class="token parent important">&amp;</span>[data-eq-state='large'] </span><span class="token punctuation">{</span>
-    <span class="token property">border-color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
-    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>blue<span class="token punctuation">,</span> 0.25<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">border-color</span><span class="token punctuation">:</span> <span class="token color">blue</span><span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token color">blue</span><span class="token punctuation">,</span> <span class="token number">0.25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre><p>Installing and using <strong>eq.js</strong> is fairly easy. You can either <a href="https://github.com/Snugug/eq.js/releases">download a release</a> or install it through <a href="http://bower.io/">Bower</a></p><pre class="language-markup"><code class="language-markup">bower install eq.js --save

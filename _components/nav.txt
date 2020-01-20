@@ -1,1 +1,20 @@
-<footer class="footer"><nav><ul><li><a href="/">Home</a></li><li><a href="/me/">About Me</a></li><li><a href="/cookbook/">Cookbook</a></li><li><a href="/musings/">Musings</a></li><li><a href="/presentations/">Presentations</a></li></ul></nav></footer>
+
+  
+<footer class="footer">
+  <nav>
+    <ul>
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/me/">About Me</a></li>
+      
+      <li><a href="/cookbook/">Cookbook</a></li>
+      
+      <li><a href="/musings/">Musings</a></li>
+      
+      <li><a href="/presentations/">Presentations</a></li>
+      
+    </ul>
+  </nav>
+</footer>
+ 
