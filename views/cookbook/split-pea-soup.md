@@ -66,7 +66,7 @@ instructions:
       - Add dried mushrooms, bay leaves, and thyme sprigs into a cheese cloth and form into a pouch, tied together with butcher twine, forming a _bouquet garni_.
       - Place the bouquet garni, mushroom broth, split green peas, salt, and pepper into the pot.
       - If using a pressure cooker, cook at 9 PSI for 15 minutes. If cooking on the stove top, bring to a simmer and stir until peas, carrots, and potatoes are soft and soup has reduced slightly, about 2 hours.
-      - Stir soup together and season with salt and pepper.
+      - Remove the bouquet garni, stir soup together, and season with salt and pepper.
 ---
 
 Another vegan soup recipe to add to my collection! The challenge with making split pea soup vegetarian is that a major source of flavor comes from ham bones or ham hocks, which impart smokey, meaty, umami notes into the soup. Split pea soup really needs these flavors, so to get the meaty and umami notes, I've made this with mushroom broth instead of the usual water. For the smokey notes, I've utilized one of my new favorite ingredients, chipotle paste, which adds the smokey flavor without a hint on spicy in the final product. Once the ham is replaced, the soup is, surprisingly vegan!
