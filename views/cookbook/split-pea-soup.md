@@ -2,7 +2,7 @@
 title: Split Pea Soup
 image: cookbook/split-pea-soup.jpeg
 offset: 0 55%
-published: 2020-02-01
+date: 2020-02-01
 yield: 8 servings
 tags:
   - vegan
