@@ -33,17 +33,6 @@ gulp.task('sass', scaffold.sass);
 gulp.task('watch:sass', gulp.parallel(scaffold.sass, watchSass));
 
 // Static Assets
-
-/**
- * Watches images and runs moveImages
- *
- * @return {object} Gulp watch object
- */
-function watchImages() {
-  const { src } = buildSrcDest(assets.images);
-  return gulp.watch(src, scaffold.images);
-}
-
 /**
  * Watches videos and runs moveVideos
  *
@@ -83,7 +72,7 @@ function moveCNAME() {
 
 gulp.task('server', gulp.parallel(scaffold.server, scaffold.external));
 gulp.task('build:static', gulp.parallel(scaffold.images, scaffold.videos, scaffold.fonts, scaffold.manifest, scaffold.sass, moveCNAME));
-gulp.task('watch:static', gulp.parallel(watchImages, watchVideos, watchFonts, watchManifest));
+gulp.task('watch:static', gulp.parallel(watchVideos, watchFonts, watchManifest));
 
 // ////////////////////////////
 // Pipelines
