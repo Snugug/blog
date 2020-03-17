@@ -154,6 +154,18 @@ ul {
   }
 }
 
+dl {
+  padding: 0 1em;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-left: 2em;
+}
+
 .headshot {
   @include trianglePaint(0.25, 345, 100, 100, 20, 100%, 50%);
   border-radius: 50%;
