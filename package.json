@@ -136,5 +136,8 @@
     "workbox-routing": "^5.0.0-rc.1",
     "workbox-strategies": "^5.0.0-rc.1"
   },
-  "private": true
+  "private": true,
+  "volta": {
+    "node": "12.16.1"
+  }
 }
