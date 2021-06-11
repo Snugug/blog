@@ -1,5 +1,6 @@
 const { defineConfig } = require('vite');
 const { eleventyPlugin } = require('vite-plugin-eleventy');
+const { posthtmlPlugin } = require('vite-plugin-posthtml');
 const path = require('path');
 
 module.exports = defineConfig({
@@ -31,5 +32,18 @@ module.exports = defineConfig({
     outDir: '../public',
     emptyDir: true,
   },
-  plugins: [eleventyPlugin()],
+  plugins: [
+    eleventyPlugin(),
+    posthtmlPlugin({
+      plugins: [
+        require('posthtml-minifier')({
+          collapseBooleanAttributes: true,
+          collapseInlineTagWhitespace: true,
+          collapseWhitespace: true,
+          minifyCSS: true,
+          minifyJS: true,
+        }),
+      ],
+    }),
+  ],
 });
