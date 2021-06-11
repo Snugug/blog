@@ -20,6 +20,10 @@ import triangleWorklet from '/js/houdini/triangles.js?url';
 
 CSS.paintWorklet.addModule(triangleWorklet);
 
+if (import.meta.hot) {
+  import.meta.hot.on('eleventy-update', () => {});
+}
+
 // const idx = lunr(function() {
 //   /* eslint-disable no-invalid-this */
 //   this.field('title');
