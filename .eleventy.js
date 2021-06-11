@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const scaffold = require('static-site-scaffold/lib/11ty.config');
+const markdown = require('./lib/markdown');
 
 function collectionReducer(length) {
   return (acc, current, i) => {
@@ -25,31 +25,33 @@ function collectionReducer(length) {
   };
 }
 
-module.exports = function(eleventy) {
-  const config = scaffold(eleventy);
+module.exports = function (eleventy) {
+  eleventy.setLibrary('md', markdown);
 
   eleventy.setDataDeepMerge(true);
 
-  eleventy.addFilter('cleanPaginationHome', index => {
+  eleventy.addFilter('date', (d) => d?.toLocaleDateString());
+
+  eleventy.addFilter('cleanPaginationHome', (index) => {
     return index === 0 ? '' : index + 1;
   });
 
-  eleventy.addCollection('homepage', collection => {
+  eleventy.addCollection('homepage', (collection) => {
     const posts = collection
       .getFilteredByTag('post')
-      .filter(c => !c.data.tags.includes('draft'))
+      .filter((c) => !c.data.tags.includes('draft'))
       .reverse()
       .reduce(collectionReducer(5), []);
     const cookbook = collection
       .getFilteredByTag('recipe')
-      .filter(c => !c.data.tags.includes('draft'))
+      .filter((c) => !c.data.tags.includes('draft'))
       .reverse()
       .reduce(collectionReducer(6), []);
 
     return posts.concat(cookbook);
   });
 
-  eleventy.addCollection('nav', collection => {
+  eleventy.addCollection('nav', (collection) => {
     return collection
       .getFilteredByTag('landing')
       .sort((a, b) => {
@@ -58,15 +60,24 @@ module.exports = function(eleventy) {
         return 0;
       })
       .reverse()
-      .sort(a => {
+      .sort((a) => {
         if (a.url === '/') return -1;
         return 0;
       });
   });
 
-  eleventy.addCollection('archive', collection => {
-    return collection.getFilteredByTag('post').filter(i => !i.data.tags.includes('draft'));
+  eleventy.addCollection('archive', (collection) => {
+    return collection.getFilteredByTag('post').filter((i) => !i.data.tags.includes('draft'));
   });
 
-  return config;
+  return {
+    dir: {
+      includes: '../templates/_components',
+      layouts: '../templates/_layouts',
+    },
+    dataTemplateEngine: 'njk',
+    markdownTemplateEngine: 'njk',
+    htmlTemplateEngine: 'njk',
+    templateEngineOverride: 'njk',
+  };
 };

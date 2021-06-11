@@ -1,0 +1,19 @@
+{
+  "extends": "stylelint-config-sass-guidelines",
+  "rules": {
+    "selector-class-pattern": [
+      "^[_a-z0-9\\-]+$",
+      {
+        "message": "Selector should be written in lowercase with hyphens (selector-class-pattern)"
+      }
+    ],
+    "max-nesting-depth": [
+      3,
+      {
+        "ignoreAtRules": ["each", "media", "supports", "include", "for"]
+      }
+    ],
+    "scss/at-function-pattern": "^[a-z]+([a-zA-Z0-9-]+[a-zA-Z0-9]+)?$",
+    "scss/at-mixin-pattern": "^[a-z]+([a-zA-Z0-9-]+[a-zA-Z0-9]+)?$"
+  }
+}

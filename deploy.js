@@ -14,7 +14,7 @@ ghpages.publish(
     },
     dotfiles: true,
   },
-  err => {
+  (err) => {
     if (err) {
       console.error('FAILURE');
       const tokenRegex = new RegExp(token, 'gm');

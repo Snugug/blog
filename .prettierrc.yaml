@@ -1,3 +1,10 @@
-tabwidth: 2
+tabWidth: 2
 singleQuote: true
-printWidth: 100000
+printWidth: 100
+proseWrap: preserve
+trailingComma: all
+overrides:
+  - files:
+      - '*.njk'
+    options:
+      parser: html
