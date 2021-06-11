@@ -179,7 +179,7 @@ dd {
 }
 
 code {
-  @include enable-ligatures;
+  font-feature-settings: 'liga', 'dlig';
   font-family: 'dm', monospace;
 }
 

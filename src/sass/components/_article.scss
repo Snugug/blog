@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .article {
   &--heading {
     @include trianglePaint(0.2, 25, 30, 80, 125, 100%, 30%);
@@ -9,7 +11,7 @@
     display: flex;
     flex-wrap: wrap;
     font-weight: bold;
-    height: (100vh / 1.75);
+    height: math.div(100vh, 1.75);
     justify-content: flex-end;
     text-align: right;
     text-rendering: optimizeLegibility;
