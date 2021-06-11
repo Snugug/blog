@@ -1,9 +1,9 @@
 @mixin trianglePaint($alpha, $hue, $sat, $light, $size, $bkgsat, $bkglight) {
-  --paint-alpha: $alpha;
-  --base-hue: $hue;
-  --max-saturation: $sat;
-  --max-lightness: $light;
-  --size: $size;
-  background-color: hsl(var(--base-hue), $bkgsat, $bkglight);
+  --paint-alpha: #{$alpha};
+  --base-hue: #{$hue};
+  --max-saturation: #{$sat};
+  --max-lightness: #{$light};
+  --size: #{$size};
+  background-color: hsl(var(--base-hue), #{$bkgsat}, #{$bkglight});
   background-image: paint(triangles);
 }

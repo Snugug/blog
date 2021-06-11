@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-@import 'toolkit';
-@import 'breakpoint';
-@import 'letterform-shades';
+@import '$toolkit/reset';
+@import '$breakpoint';
+@import '$letterform-shades';
 
 @import 'globals/extends';
 @import 'globals/mixins';

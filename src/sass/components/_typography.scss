@@ -184,5 +184,5 @@ code {
 }
 
 .fluid-wrapper {
-  @include ir;
+  aspect-ratio: 16 / 9;
 }
