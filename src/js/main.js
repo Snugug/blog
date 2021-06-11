@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { log } from './lib/log';
+// import { log } from './lib/log';
 
-// import 'lunr';
+import triangleWorklet from '/js/houdini/triangles.js?url';
 
-CSS.paintWorklet.addModule('/js/houdini/triangles.js');
+CSS.paintWorklet.addModule(triangleWorklet);
 
 // const idx = lunr(function() {
 //   /* eslint-disable no-invalid-this */
@@ -36,15 +36,15 @@ CSS.paintWorklet.addModule('/js/houdini/triangles.js');
 // console.log(idx.search('love'));
 
 // eslint-disable-next-line no-constant-condition
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', async () => {
-    try {
-      const registration = await navigator.serviceWorker.register('/sw.js');
-      log('Service Worker registered! 😎');
-      log(registration);
-    } catch (e) {
-      log('Registration failed 😫');
-      log(e);
-    }
-  });
-}
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', async () => {
+//     try {
+//       const registration = await navigator.serviceWorker.register('/sw.js');
+//       log('Service Worker registered! 😎');
+//       log(registration);
+//     } catch (e) {
+//       log('Registration failed 😫');
+//       log(e);
+//     }
+//   });
+// }
