@@ -7,9 +7,7 @@ summary: >
   The personal website of Sam Richard, aka Snugug, featuring writings about web development and the tech industry, as well as a collection of recipes.
 ---
 
-{% block head %} {% for item in collections.homepage %}
-<link rel="prefetch" href="{{item.url | url }}" />
-{% endfor %} {% endblock %} {% import 'preview.njk' as preview %}
+{% import 'preview.njk' as preview %}
 
 <section class="latest-posts">
   <ol class="posts">
