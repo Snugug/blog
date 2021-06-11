@@ -13,9 +13,9 @@
 
   a {
     text-decoration: none;
+  }
 
-    &[aria-current] {
-      text-decoration: underline;
-    }
+  [aria-current] {
+    text-decoration: underline;
   }
 }

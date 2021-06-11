@@ -75,9 +75,8 @@ h6 {
 }
 
 button {
-  -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
-  -webkit-tap-highlight-color: rbga(0, 0, 0, 0); // sass-lint:disable-line no-vendor-prefixes
   align-items: center;
+  appearance: none; // sass-lint:disable-line no-vendor-prefixes
   background-color: var(--blue-600);
   border-radius: 4px;
   color: var(--white);
@@ -90,6 +89,7 @@ button {
   min-width: 64px;
   overflow: hidden;
   position: relative;
+  -webkit-tap-highlight-color: rbga(0, 0, 0, 0); // sass-lint:disable-line no-vendor-prefixes
   text-transform: uppercase;
   vertical-align: middle;
 }

@@ -51,8 +51,8 @@ async function serviceWorkerInclude({ cachedResponse }) {
   const matches = [...new Set(content.match(includesRegExp))];
   const neededIncludes = await Promise.all(
     matches
-      .map(i => i.split(includesFileRegExp)[1])
-      .map(async key => {
+      .map((i) => i.split(includesFileRegExp)[1])
+      .map(async (key) => {
         const cachedInclude = await matchPrecache(key);
         return cachedInclude.text();
       }),
@@ -64,7 +64,7 @@ async function serviceWorkerInclude({ cachedResponse }) {
 
   const rebuild = content
     .split(includesRegExp)
-    .map(i => {
+    .map((i) => {
       if (matches.includes(i)) {
         return includes[i];
       }
@@ -89,7 +89,7 @@ async function swiCleanup({ response }) {
   let open = 0;
   const rebuild = content
     .split(includesRegExp)
-    .map(i => {
+    .map((i) => {
       // If the current item is the include and it's not included from within
       if (matches && i === matches[0]) {
         matches.shift();

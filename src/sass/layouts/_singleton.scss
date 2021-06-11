@@ -25,7 +25,12 @@
     }
 
     h1 {
-      @include close-shade(#111, #111, 'bottom right', 10); // sass-lint:disable-line mixin-name-format
+      @include close-shade(
+        #111,
+        #111,
+        'bottom right',
+        10
+      ); // sass-lint:disable-line mixin-name-format
       font-size: calc(2em + 6vw);
       font-weight: bold;
     }

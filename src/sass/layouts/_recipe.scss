@@ -90,11 +90,11 @@
       padding: 0.5em 0;
     }
 
-    // sass-lint:disable no-qualifying-elements
+    /* stylelint-disable selector-no-qualifying-type */
     td[aria-labelledby] {
       line-height: 1.25;
     }
-    // sass-lint:enable no-qualifying-elements
+    /* stylelint-enable selector-no-qualifying-type */
   }
 
   &--row {
@@ -150,7 +150,7 @@
   }
 }
 
-// sass-lint:disable no-ids
+/* stylelint-disable selector-max-id */
 #ingredient {
   width: 30%;
 }
@@ -158,4 +158,4 @@
 #amount {
   width: 20%;
 }
-// sass-lint:enable no-ids
+/* stylelint-enable selector-max-id */
