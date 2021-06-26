@@ -7,11 +7,11 @@ summary: >
 
 You wanna see something cool?
 
-![Calc Mixd Grid](https://vimeo.com/84435424 '16-9')
+@[vimeo](https://vimeo.com/84435424){.16-9}
 
 Did you catch that? If not, take a good look at the red and green columns. Notice something different about them? How about something a bit more practical.
 
-![Calc Mixd Grid](https://vimeo.com/84435488 '16-9')
+@[vimeo](https://vimeo.com/84435488){.16-9}
 
 See it there? Are you excited yet, because I know I am!
 
