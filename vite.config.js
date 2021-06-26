@@ -1,6 +1,7 @@
 const { defineConfig } = require('vite');
 const { eleventyPlugin } = require('vite-plugin-eleventy');
 const { posthtmlPlugin } = require('vite-plugin-posthtml');
+const { default: imageminPlugin } = require('vite-plugin-imagemin');
 const path = require('path');
 
 module.exports = defineConfig({
@@ -54,5 +55,6 @@ module.exports = defineConfig({
         }),
       ],
     }),
+    imageminPlugin(),
   ],
 });

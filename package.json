@@ -74,6 +74,7 @@
     "uslug": "^1.0.4",
     "vite": "^2.3.7",
     "vite-plugin-eleventy": "0.0.7",
+    "vite-plugin-imagemin": "^0.3.2",
     "vite-plugin-posthtml": "0.0.2",
     "vite-plugin-pwa": "^0.7.3"
   },
