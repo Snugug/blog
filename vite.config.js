@@ -1,6 +1,7 @@
 const { defineConfig } = require('vite');
 const { eleventyPlugin } = require('vite-plugin-eleventy');
 const { posthtmlPlugin } = require('vite-plugin-posthtml');
+const { imgPlugin } = require('vite-plugin-img');
 const { default: imageminPlugin } = require('vite-plugin-imagemin');
 const path = require('path');
 
@@ -44,6 +45,7 @@ module.exports = defineConfig({
   },
   plugins: [
     eleventyPlugin(),
+    imgPlugin(),
     posthtmlPlugin({
       plugins: [
         require('posthtml-minifier')({
