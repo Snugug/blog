@@ -31,6 +31,15 @@ module.exports = defineConfig({
   build: {
     outDir: '../public',
     emptyDir: true,
+    // rollupOptions: {
+    //   output: [
+    //     {
+    //       assetFileNames: 'assets/[name].[ext]',
+    //       chunkFileNames: 'assets/[name].js',
+    //       entryFileNames: 'assets/[name].js',
+    //     },
+    //   ],
+    // },
   },
   plugins: [
     eleventyPlugin(),
