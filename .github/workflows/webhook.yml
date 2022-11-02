@@ -1,7 +1,8 @@
 name: Repository Dispatch
 on:
   repository_dispatch:
-    types: []
+    types:
+      - sanity_deploy
 jobs:
   myEvent:
     runs-on: ubuntu-latest
