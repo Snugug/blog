@@ -203,10 +203,10 @@ const equipment = instructions
   @import 'letterform-shades/stylesheets/letterform-shades';
 
   .recipe {
-    padding-bottom: 2rem;
+    padding-bottom: var(--spacing);
 
     &--heading {
-      --heading-padding: 2rem 2rem 5rem 2rem;
+      --heading-padding: var(--spacing) var(--spacing) 5rem var(--spacing);
       // background: hsl(171, 100%, 30%);
       // background: var(--red);
 
@@ -239,7 +239,7 @@ const equipment = instructions
       margin: 0 auto;
       margin-top: 1rem;
       max-width: calc(60ch + 4rem);
-      padding: 0 2rem;
+      padding: 0 var(--spacing);
       position: relative;
     }
 
@@ -295,9 +295,9 @@ const equipment = instructions
 
     &--steps {
       margin: 0 auto;
-      margin-top: 2rem;
+      margin-top: var(--spacing);
       max-width: calc(80ch + 4rem);
-      padding: 0 2rem;
+      padding: 0 var(--spacing);
     }
   }
 </style>

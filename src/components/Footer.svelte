@@ -28,7 +28,7 @@
       inset -0.05em 0 1rem rgba(0, 0, 0, 0.25);
     color: var(--snow);
     min-height: 20vh;
-    padding: 2rem;
+    padding: var(--spacing);
     position: relative;
   }
 

@@ -95,22 +95,22 @@ const recipes = (await client.fetch(recipeQuery)).map((recipe) => ({
   .home-section {
     margin: 0 auto;
     max-width: 120ch;
-    padding: 1rem 2rem;
+    padding: 1rem var(--spacing);
 
     &:last-of-type {
-      padding-bottom: 2rem;
+      padding-bottom: var(--spacing);
     }
 
     &:first-of-type {
-      padding-top: 2rem;
+      padding-top: var(--spacing);
     }
   }
 
   .home-content {
     display: grid;
     grid-gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
-    padding: 1rem 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 25ch), 1fr));
+    padding: 1rem var(--spacing);
 
     li {
       height: 100%;
@@ -119,7 +119,7 @@ const recipes = (await client.fetch(recipeQuery)).map((recipe) => ({
 
   .all-content {
     // aspect-ratio: 1 / 1;
-    --heading-font-size: clamp(1.25em, 1.53vw, 2.5em);
+    --heading-font-size: var(--spacing);
     display: block;
     height: 100%;
   }

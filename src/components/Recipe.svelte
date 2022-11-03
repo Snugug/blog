@@ -64,6 +64,10 @@
     counter-reset: steps;
     width: 100%;
 
+    @media (max-width: 500px) {
+      font-size: 0.8em;
+    }
+
     th {
       border-bottom: 3px solid var(--red);
       padding: 0 0.25rem;
@@ -80,7 +84,7 @@
     }
 
     tr {
-      padding: 2rem;
+      padding: var(--spacing);
     }
 
     &--ingredients {

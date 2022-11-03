@@ -29,6 +29,8 @@
 
   --highlight-color: var(--plum);
 
+  --spacing: clamp(1rem, 5vw, 2rem);
+
   background-color: var(--black);
   color: var(--white);
 }

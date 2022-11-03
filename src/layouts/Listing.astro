@@ -101,8 +101,8 @@ const posts = Object.entries(
   .all-posts {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding: 1rem 2rem;
+    gap: var(--spacing);
+    padding: 1rem var(--spacing);
   }
 
   .all-posts {
@@ -113,8 +113,8 @@ const posts = Object.entries(
   .posts {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
-    padding: 1rem 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 25ch), 1fr));
+    padding: 1rem var(--spacing);
 
     li {
       height: 100%;
