@@ -1,0 +1,14 @@
+{
+  "LABEL": {
+    "name": "feedback: title format",
+    "color": "#db2780"
+  },
+  "CHECKS": {
+    "regexp": "^(🐎|🐛|🆕|📝|♻️|📌|💎){1}(\\((site|build|tests)\\))? {1}\\w(\\w|\\s|\\d|.|,|\\-)*$"
+  },
+  "MESSAGES": {
+    "success": "All OK",
+    "failure": "Please make sure your PR title matches the following format: 🐎|🐛|🆕|📝|♻️|📌|💎(site|build|tests) title. Title can contain letters, spaces, numbers, dashes, commas, and dots, and must start with a letter",
+    "notice": ""
+  }
+}
