@@ -22,8 +22,8 @@ jobs:
       - name: Test and Build
         run: npm t
         env:
-          SANITY_PROJECT: ${{ secrets.SANITY_PROJECT }}
-          SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
+          SANITY_PROJECT: '${{ secrets.SANITY_PROJECT }}'
+          SANITY_TOKEN: '${{ secrets.SANITY_TOKEN }}'
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
