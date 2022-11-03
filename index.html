@@ -1,340 +1,151 @@
-<!DOCTYPE html><html lang="en" dir="ltr"><head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="/css/style.css">
-
-    <link rel="preload" as="font" crossorigin="" type="font/woff2" href="/fonts/aller/light.woff2">
-    <link rel="preload" as="font" crossorigin="" type="font/woff2" href="/fonts/aller/regular.woff2">
-    <link rel="stylesheet" href="/css/dank-mono.css" media="print" onload="this.media='all'">
-    <script type="module" defer="" src="/js/main.js"></script>
-
-    <link rel="icon" type="image/png" href="/images/icons/icon72.png">
-    <link rel="apple-touch-icon" href="/images/icons/icon192.png">
-    <meta name="theme-color" content="#008673">
-
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/fonts/dank-mono.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="generator" content="Astro v1.6.2">
     <title>Snugug</title>
-    <meta name="Description" content="The personal website of Sam Richard, aka Snugug, featuring writings about web development and the tech industry, as well as a collection of recipes.
-">
+    <meta name="description">
+  <link rel="stylesheet" href="/assets/cookbook.cda8d6ee.css" />
+<link rel="stylesheet" href="/assets/index.6958b5f5.css" />
+<link rel="stylesheet" href="/assets/cookbook.1e858765.css" />
+<link rel="stylesheet" href="/assets/index.acc5a884.css" /><script type="module">"serviceWorker"in navigator&&window.addEventListener("load",()=>{navigator.serviceWorker.register("/sw.js",{scope:"/"})});
+</script></head>
+  <body class="body">
+    <style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="1hbtu9" component-url="/Menu.bd5d2339.js" component-export="default" renderer-url="/client.788af3ea.js" props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Menu&quot;,&quot;value&quot;:true}" await-children=""><div><button class="toggle svelte-1g8b6wp" aria-expanded="false" aria-label="Open menu"></button>
 
-    <meta name="google-site-verification" content="zIeV2B7zZKCtEFP-6vV8rKk0ocpbp035v_g3IRn12Jo">
+  <nav class="menu svelte-1g8b6wp" aria-expanded="false"><ul class="menu--list svelte-1g8b6wp"><li><a href="/" tabindex="-1">Home</a></li>
+      <li><a href="/musings" tabindex="-1">Posts</a></li>
+      <li><a href="/cookbook" tabindex="-1">Cookbook</a></li>
+      <li><a href="/me" tabindex="-1">About</a></li>
+      <li><a href="/presentations" tabindex="-1">Presentations</a></li>
+      <li><a href="/rss.xml" tabindex="-1">RSS</a></li></ul></nav>
+</div></astro-island>
 
-    
-  </head>
-  <body>
-    <div class="_wrapper">
-       
-<main class="_standalone">
-  <article>
-    <header class="_standalone--header" data-title="home">
-      <h1>Snugug</h1>
-    </header>
-    <div class="_standalone--content">
-      
-
-
-<link rel="prefetch" href="/musings/a-beginners-guide-to-diabetes/">
-
-<link rel="prefetch" href="/musings/eleventy-plus-vite/">
-
-<link rel="prefetch" href="/musings/book-recommendations/">
-
-<link rel="prefetch" href="/musings/static-site-scaffold/">
-
-<link rel="prefetch" href="/musings/cookbook/">
-
-<link rel="prefetch" href="/cookbook/split-pea-soup/">
-
-<link rel="prefetch" href="/cookbook/vegan-peanut-butter-chocolate-chunk-cookies/">
-
-<link rel="prefetch" href="/cookbook/fragrant-sticky-rice-yuzu-chicken/">
-
-<link rel="prefetch" href="/cookbook/lobster-mac-and-cheese/">
-
-<link rel="prefetch" href="/cookbook/slow-scrambled-egg-toast/">
-
-
-
-
-
-<section class="latest-posts">
-  <ol class="posts">
-    
-    
-    
-<li class="posts--listing">
-  <article class="post-preview">
-    <a href="/musings/a-beginners-guide-to-diabetes/" class="post-preview--title">A Beginner's Guide to Diabetes</a>
-    
-<footer class="post-preview--author">
-  
-  <span class="post-preview--published" itemprop="datePublished">Published on <time datetime="Invalid Date">October 25, 2022</time></span>
-  
-</footer>
-
-    <div class="post-preview--summary">My personal story about what I've learned over the past year since getting diagnosed with diabetes.
+    <main class="astro-I2NLKOXI">
+    <div class="heading astro-I2NLKOXI">
+      <div class="heading heading--padded astro-3D5OBTLG" style="--hue: 171;--saturation: 60;--lightness: 25;--alpha: 0.5;--size: 70;">
+  <h1 class="heading--title astro-3D5OBTLG" itemprop="name">Hi <br />I'm Sam <br /><span class='aka'>aka</span> Snugug</h1>
 </div>
-  </article>
-</li>
 
-    
-    
-    
-    
-<li class="posts--listing">
-  <article class="post-preview">
-    <a href="/musings/eleventy-plus-vite/" class="post-preview--title">Eleventy + Vite</a>
-    
-<footer class="post-preview--author">
-  
-  <span class="post-preview--published" itemprop="datePublished">Published on <time datetime="Invalid Date">May 12, 2021</time></span>
-  
-</footer>
-
-    <div class="post-preview--summary">A pattern I've started using combining Eleventy and Vite.
-</div>
-  </article>
-</li>
-
-    
-    
-    
-    
-<li class="posts--listing">
-  <article class="post-preview">
-    <a href="/musings/book-recommendations/" class="post-preview--title">Book Recommendations</a>
-    
-<footer class="post-preview--author">
-  
-  <span class="post-preview--published" itemprop="datePublished">Published on <time datetime="Invalid Date">March 16, 2020</time></span>
-  
-</footer>
-
-    <div class="post-preview--summary">Books that I've read and plan on reading, and that I recommend you read too.
-</div>
-  </article>
-</li>
-
-    
-    
-    
-    
-<li class="posts--listing">
-  <article class="post-preview">
-    <a href="/musings/static-site-scaffold/" class="post-preview--title">Static Site Scaffold</a>
-    
-<footer class="post-preview--author">
-  
-  <span class="post-preview--published" itemprop="datePublished">Published on <time datetime="Invalid Date">December 17, 2019</time></span>
-  
-</footer>
-
-    <div class="post-preview--summary">Introducing the Static Site Scaffold, built with Eleventy, Gulp, Rollup, and Workbox, to enable you to build fast, internationalized static sites and Progressive Web Apps. Part 1 of 3 discussing the new scaffolding.
-</div>
-  </article>
-</li>
-
-    
-    
-    
-    
-<li class="posts--listing">
-  <article class="post-preview">
-    <a href="/musings/cookbook/" class="post-preview--title">Cookbook</a>
-    
-<footer class="post-preview--author">
-  
-  <span class="post-preview--published" itemprop="datePublished">Published on <time datetime="Invalid Date">September 14, 2019</time></span>
-  
-</footer>
-
-    <div class="post-preview--summary">I've added a cookbook section to the site!
-</div>
-  </article>
-</li>
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  </ol>
-</section> 
-
-<section class="latest-recipes">
-  <header>
-    <h2>Latest Recipes</h2>
-  </header>
-  <ol class="recipes">
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-<li class="recipes--listing">
-  <a href="/cookbook/split-pea-soup/" class="recipe-preview">
-    <figure class="recipe-preview--image">
-      <picture><source srcset="/images/cookbook/split-pea-soup.250.webp 250w, /images/cookbook/split-pea-soup.400.webp 400w, /images/cookbook/split-pea-soup.550.webp 550w, /images/cookbook/split-pea-soup.700.webp 700w, /images/cookbook/split-pea-soup.850.webp 850w, /images/cookbook/split-pea-soup.1000.webp 1000w, /images/cookbook/split-pea-soup.1150.webp 1150w, /images/cookbook/split-pea-soup.1300.webp 1300w, /images/cookbook/split-pea-soup.1450.webp 1450w, /images/cookbook/split-pea-soup.1500.webp 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/webp"><source srcset="/images/cookbook/split-pea-soup.250.jpg 250w, /images/cookbook/split-pea-soup.400.jpg 400w, /images/cookbook/split-pea-soup.550.jpg 550w, /images/cookbook/split-pea-soup.700.jpg 700w, /images/cookbook/split-pea-soup.850.jpg 850w, /images/cookbook/split-pea-soup.1000.jpg 1000w, /images/cookbook/split-pea-soup.1150.jpg 1150w, /images/cookbook/split-pea-soup.1300.jpg 1300w, /images/cookbook/split-pea-soup.1450.jpg 1450w, /images/cookbook/split-pea-soup.1500.jpg 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/jpeg"><img loading="lazy" src="/images/cookbook/split-pea-soup.jpeg" alt="Split Pea Soup" role="presentation" style="object-position: 0 55%" height="1125" width="1500"></picture>
-      <figcaption>
-        <h2>
-          Split Pea Soup
-        </h2>
-        <ul>
-          <li>40 minutes</li>
-          <li>easy</li>
-        </ul>
-      </figcaption>
-    </figure>
-  </a>
-</li>
-
-    
-    
-    
-    
-<li class="recipes--listing">
-  <a href="/cookbook/vegan-peanut-butter-chocolate-chunk-cookies/" class="recipe-preview">
-    <figure class="recipe-preview--image">
-      <picture><source srcset="/images/cookbook/vegan-peanut-butter-cookies.250.webp 250w, /images/cookbook/vegan-peanut-butter-cookies.400.webp 400w, /images/cookbook/vegan-peanut-butter-cookies.550.webp 550w, /images/cookbook/vegan-peanut-butter-cookies.700.webp 700w, /images/cookbook/vegan-peanut-butter-cookies.850.webp 850w, /images/cookbook/vegan-peanut-butter-cookies.1000.webp 1000w, /images/cookbook/vegan-peanut-butter-cookies.1150.webp 1150w, /images/cookbook/vegan-peanut-butter-cookies.1300.webp 1300w, /images/cookbook/vegan-peanut-butter-cookies.1450.webp 1450w, /images/cookbook/vegan-peanut-butter-cookies.1500.webp 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/webp"><source srcset="/images/cookbook/vegan-peanut-butter-cookies.250.jpg 250w, /images/cookbook/vegan-peanut-butter-cookies.400.jpg 400w, /images/cookbook/vegan-peanut-butter-cookies.550.jpg 550w, /images/cookbook/vegan-peanut-butter-cookies.700.jpg 700w, /images/cookbook/vegan-peanut-butter-cookies.850.jpg 850w, /images/cookbook/vegan-peanut-butter-cookies.1000.jpg 1000w, /images/cookbook/vegan-peanut-butter-cookies.1150.jpg 1150w, /images/cookbook/vegan-peanut-butter-cookies.1300.jpg 1300w, /images/cookbook/vegan-peanut-butter-cookies.1450.jpg 1450w, /images/cookbook/vegan-peanut-butter-cookies.1500.jpg 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/jpeg"><img loading="lazy" src="/images/cookbook/vegan-peanut-butter-cookies.jpg" alt="Vegan Peanut Butter Chocolate Chunk Cookies" role="presentation" style="object-position: 0 9%" height="1125" width="1500"></picture>
-      <figcaption>
-        <h2>
-          Vegan Peanut Butter Chocolate Chunk Cookies
-        </h2>
-        <ul>
-          <li>14 minutes</li>
-          <li>easy</li>
-        </ul>
-      </figcaption>
-    </figure>
-  </a>
-</li>
-
-    
-    
-    
-    
-<li class="recipes--listing">
-  <a href="/cookbook/fragrant-sticky-rice-yuzu-chicken/" class="recipe-preview">
-    <figure class="recipe-preview--image">
-      <picture><source srcset="/images/cookbook/sticky-rice-yuzu-chicken.250.webp 250w, /images/cookbook/sticky-rice-yuzu-chicken.400.webp 400w, /images/cookbook/sticky-rice-yuzu-chicken.550.webp 550w, /images/cookbook/sticky-rice-yuzu-chicken.700.webp 700w, /images/cookbook/sticky-rice-yuzu-chicken.850.webp 850w, /images/cookbook/sticky-rice-yuzu-chicken.1000.webp 1000w, /images/cookbook/sticky-rice-yuzu-chicken.1150.webp 1150w, /images/cookbook/sticky-rice-yuzu-chicken.1300.webp 1300w, /images/cookbook/sticky-rice-yuzu-chicken.1450.webp 1450w, /images/cookbook/sticky-rice-yuzu-chicken.1500.webp 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/webp"><source srcset="/images/cookbook/sticky-rice-yuzu-chicken.250.jpg 250w, /images/cookbook/sticky-rice-yuzu-chicken.400.jpg 400w, /images/cookbook/sticky-rice-yuzu-chicken.550.jpg 550w, /images/cookbook/sticky-rice-yuzu-chicken.700.jpg 700w, /images/cookbook/sticky-rice-yuzu-chicken.850.jpg 850w, /images/cookbook/sticky-rice-yuzu-chicken.1000.jpg 1000w, /images/cookbook/sticky-rice-yuzu-chicken.1150.jpg 1150w, /images/cookbook/sticky-rice-yuzu-chicken.1300.jpg 1300w, /images/cookbook/sticky-rice-yuzu-chicken.1450.jpg 1450w, /images/cookbook/sticky-rice-yuzu-chicken.1500.jpg 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/jpeg"><img loading="lazy" src="/images/cookbook/sticky-rice-yuzu-chicken.jpg" alt="Fragrant Sticky Rice with Yuzu Chicken" role="presentation" style="object-position: 5% 45%" height="1125" width="1500"></picture>
-      <figcaption>
-        <h2>
-          Fragrant Sticky Rice with Yuzu Chicken
-        </h2>
-        <ul>
-          <li>35 minutes</li>
-          <li>easy</li>
-        </ul>
-      </figcaption>
-    </figure>
-  </a>
-</li>
-
-    
-    
-    
-    
-<li class="recipes--listing">
-  <a href="/cookbook/lobster-mac-and-cheese/" class="recipe-preview">
-    <figure class="recipe-preview--image">
-      <picture><source srcset="/images/cookbook/lobster-mac-n-cheese.250.webp 250w, /images/cookbook/lobster-mac-n-cheese.400.webp 400w, /images/cookbook/lobster-mac-n-cheese.550.webp 550w, /images/cookbook/lobster-mac-n-cheese.700.webp 700w, /images/cookbook/lobster-mac-n-cheese.850.webp 850w, /images/cookbook/lobster-mac-n-cheese.1000.webp 1000w, /images/cookbook/lobster-mac-n-cheese.1150.webp 1150w, /images/cookbook/lobster-mac-n-cheese.1300.webp 1300w, /images/cookbook/lobster-mac-n-cheese.1450.webp 1450w, /images/cookbook/lobster-mac-n-cheese.1500.webp 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/webp"><source srcset="/images/cookbook/lobster-mac-n-cheese.250.jpg 250w, /images/cookbook/lobster-mac-n-cheese.400.jpg 400w, /images/cookbook/lobster-mac-n-cheese.550.jpg 550w, /images/cookbook/lobster-mac-n-cheese.700.jpg 700w, /images/cookbook/lobster-mac-n-cheese.850.jpg 850w, /images/cookbook/lobster-mac-n-cheese.1000.jpg 1000w, /images/cookbook/lobster-mac-n-cheese.1150.jpg 1150w, /images/cookbook/lobster-mac-n-cheese.1300.jpg 1300w, /images/cookbook/lobster-mac-n-cheese.1450.jpg 1450w, /images/cookbook/lobster-mac-n-cheese.1500.jpg 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/jpeg"><img loading="lazy" src="/images/cookbook/lobster-mac-n-cheese.jpg" alt="Lobster Mac &amp; Cheese" role="presentation" style="object-position: 0 45%" height="1500" width="1500"></picture>
-      <figcaption>
-        <h2>
-          Lobster Mac &amp; Cheese
-        </h2>
-        <ul>
-          <li>60 minutes</li>
-          <li>easy</li>
-        </ul>
-      </figcaption>
-    </figure>
-  </a>
-</li>
-
-    
-    
-    
-    
-<li class="recipes--listing">
-  <a href="/cookbook/slow-scrambled-egg-toast/" class="recipe-preview">
-    <figure class="recipe-preview--image">
-      <picture><source srcset="/images/cookbook/slow-scrambled-eggs.250.webp 250w, /images/cookbook/slow-scrambled-eggs.400.webp 400w, /images/cookbook/slow-scrambled-eggs.550.webp 550w, /images/cookbook/slow-scrambled-eggs.700.webp 700w, /images/cookbook/slow-scrambled-eggs.850.webp 850w, /images/cookbook/slow-scrambled-eggs.1000.webp 1000w, /images/cookbook/slow-scrambled-eggs.1150.webp 1150w, /images/cookbook/slow-scrambled-eggs.1300.webp 1300w, /images/cookbook/slow-scrambled-eggs.1450.webp 1450w, /images/cookbook/slow-scrambled-eggs.1500.webp 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/webp"><source srcset="/images/cookbook/slow-scrambled-eggs.250.jpg 250w, /images/cookbook/slow-scrambled-eggs.400.jpg 400w, /images/cookbook/slow-scrambled-eggs.550.jpg 550w, /images/cookbook/slow-scrambled-eggs.700.jpg 700w, /images/cookbook/slow-scrambled-eggs.850.jpg 850w, /images/cookbook/slow-scrambled-eggs.1000.jpg 1000w, /images/cookbook/slow-scrambled-eggs.1150.jpg 1150w, /images/cookbook/slow-scrambled-eggs.1300.jpg 1300w, /images/cookbook/slow-scrambled-eggs.1450.jpg 1450w, /images/cookbook/slow-scrambled-eggs.1500.jpg 1500w" sizes="(min-width: 489px) 50vw, (min-width: 729px) 33vw, 100vw" type="image/jpeg"><img loading="lazy" src="/images/cookbook/slow-scrambled-eggs.jpg" alt="Slow Scrambled Egg Toast" role="presentation" style="object-position: 0 17%" height="1500" width="1500"></picture>
-      <figcaption>
-        <h2>
-          Slow Scrambled Egg Toast
-        </h2>
-        <ul>
-          <li>30 minutes</li>
-          <li>intermediate</li>
-        </ul>
-      </figcaption>
-    </figure>
-  </a>
-</li>
-
-    
-    
-  </ol>
-</section> 
-    </div>
-  </article>
-</main>
 
     </div>
-      <!--#include virtual="/_components/nav.txt"-->
-<footer class="footer">
-  <nav>
-    <ul>
-      
-      <li><a href="/">Home</a></li>
-      
-      <li><a href="/me/">About Me</a></li>
-      
-      <li><a href="/cookbook/">Cookbook</a></li>
-      
-      <li><a href="/musings/">Musings</a></li>
-      
-      <li><a href="/presentations/">Presentations</a></li>
-      
-    </ul>
-  </nav>
+    <section class="home-section astro-I2NLKOXI">
+      <h2 class="type--h2 astro-I2NLKOXI">Recent posts</h2>
+      <ul class="home-content astro-I2NLKOXI">
+        <li class="astro-I2NLKOXI">
+              <a href="/musings/a-beginners-guide-to-diabetes" class="card__link svelte-mdlpy2"><article class="card svelte-mdlpy2"><h2 class="type--h3 type--a card--title svelte-mdlpy2">A Beginner's Guide to Diabetes</h2>
+    <footer class="card--date svelte-mdlpy2" aria-label="Published on">
+      10/26/2022</footer>
+    <p class="card--content svelte-mdlpy2">My personal story about what I've learned over the past year since getting diagnosed with diabetes.</p></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/musings/eleventy-plus-vite" class="card__link svelte-mdlpy2"><article class="card svelte-mdlpy2"><h2 class="type--h3 type--a card--title svelte-mdlpy2">Eleventy + Vite</h2>
+    <footer class="card--date svelte-mdlpy2" aria-label="Published on">
+      5/13/2021</footer>
+    <p class="card--content svelte-mdlpy2">A pattern I've started using combining Eleventy and Vite.</p></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/musings/book-recommendations" class="card__link svelte-mdlpy2"><article class="card svelte-mdlpy2"><h2 class="type--h3 type--a card--title svelte-mdlpy2">Book Recommendations</h2>
+    <footer class="card--date svelte-mdlpy2" aria-label="Published on">
+      3/17/2020</footer>
+    <p class="card--content svelte-mdlpy2">Books that I've read and plan on reading, and that I recommend you read too.</p></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/musings/cookbook" class="card__link svelte-mdlpy2"><article class="card svelte-mdlpy2"><h2 class="type--h3 type--a card--title svelte-mdlpy2">Cookbook</h2>
+    <footer class="card--date svelte-mdlpy2" aria-label="Published on">
+      9/15/2019</footer>
+    <p class="card--content svelte-mdlpy2">I've added a cookbook section to the site!</p></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/musings/developing-on-chrome-os" class="card__link svelte-mdlpy2"><article class="card svelte-mdlpy2"><h2 class="type--h3 type--a card--title svelte-mdlpy2">Setting up a Chrome OS Development Environment</h2>
+    <footer class="card--date svelte-mdlpy2" aria-label="Published on">
+      10/31/2018</footer>
+    <p class="card--content svelte-mdlpy2">After joining Google, I was given a Google Pixelbook as my main computer. This is my journey to get it set up for web development</p></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/musings/modern-cutting-the-mustard" class="card__link svelte-mdlpy2"><article class="card svelte-mdlpy2"><h2 class="type--h3 type--a card--title svelte-mdlpy2">A Modern Take on Cutting the Mustard</h2>
+    <footer class="card--date svelte-mdlpy2" aria-label="Published on">
+      7/29/2018</footer>
+    <p class="card--content svelte-mdlpy2">By taking advantage of JavaScript module support, we can update the Cutting the Mustard progressive enhancement technique to allow for modern JavaScript syntaxes and features!</p></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/musings/lighthouse-web-performance-architecture-and-you" class="card__link svelte-mdlpy2"><article class="card svelte-mdlpy2"><h2 class="type--h3 type--a card--title svelte-mdlpy2">Lighthouse, Web Performance, Architecture, And You</h2>
+    <footer class="card--date svelte-mdlpy2" aria-label="Published on">
+      3/7/2018</footer>
+    <p class="card--content svelte-mdlpy2">A primer on how the performance auditing tool Lighthouse works, thoughts on web performance and was of improving it, and how the two can be used as a basis for architectural discussions.</p></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/musings/a-recipe-for-documentation" class="card__link svelte-mdlpy2"><article class="card svelte-mdlpy2"><h2 class="type--h3 type--a card--title svelte-mdlpy2">A Recipe for Documentation</h2>
+    <footer class="card--date svelte-mdlpy2" aria-label="Published on">
+      5/1/2017</footer>
+    <p class="card--content svelte-mdlpy2">Technical documentation should be more like recipes in a cookbook.</p></article>
+</a>
+            </li>
+        <li class="all-content posts astro-I2NLKOXI">
+          <div class="heading astro-3D5OBTLG" style="--hue: 270;--saturation: 70;--lightness: 40;--alpha: 0.5;--size: 40;">
+  <a href="/musings" class="heading--link heading--padded astro-3D5OBTLG">
+        <h1 class="heading--title astro-3D5OBTLG" itemprop="name">Posts</h1>
+      </a>
+</div>
+
+
+        </li>
+      </ul>
+    </section>
+    <section class="home-section section__cookbook astro-I2NLKOXI">
+      <h2 class="type--h2 astro-I2NLKOXI">Recent recipes</h2>
+      <ul class="home-content astro-I2NLKOXI">
+        <li class="astro-I2NLKOXI">
+              <a href="/cookbook/split-pea-soup" class="card__link svelte-1wxl2wd"><article class="card svelte-1wxl2wd"><img src="https://cdn.sanity.io/images/7crq3xjz/production/a5b0c485c6eed946c7108c80f4f6aaed7b2d2936-4032x3024.jpg?h=343&w=610&fit=crop&auto=format" alt="Split Pea Soup" class="card--image svelte-1wxl2wd" loading="lazy">
+    <h2 class="type--h3 type--a card--title svelte-1wxl2wd">Split Pea Soup</h2>
+    <footer class="card--date svelte-1wxl2wd">2/1/2020</footer></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/cookbook/vegan-peanut-butter-chocolate-chunk-cookies" class="card__link svelte-1wxl2wd"><article class="card svelte-1wxl2wd"><img src="https://cdn.sanity.io/images/7crq3xjz/production/bcb1921b07570bc5bf928a1fd1445a47e471cac4-4032x3024.jpg?h=343&w=610&fit=crop&auto=format" alt="Vegan Peanut Butter Chocolate Chunk Cookies" class="card--image svelte-1wxl2wd" loading="lazy">
+    <h2 class="type--h3 type--a card--title svelte-1wxl2wd">Vegan Peanut Butter Chocolate Chunk Cookies</h2>
+    <footer class="card--date svelte-1wxl2wd">1/20/2020</footer></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/cookbook/fragrant-sticky-rice-yuzu-chicken" class="card__link svelte-1wxl2wd"><article class="card svelte-1wxl2wd"><img src="https://cdn.sanity.io/images/7crq3xjz/production/aae1621910354a4c543689625705d69a00a3963b-4032x3024.jpg?h=343&w=610&fit=crop&auto=format" alt="Fragrant Sticky Rice with Yuzu Chicken" class="card--image svelte-1wxl2wd" loading="lazy">
+    <h2 class="type--h3 type--a card--title svelte-1wxl2wd">Fragrant Sticky Rice with Yuzu Chicken</h2>
+    <footer class="card--date svelte-1wxl2wd">12/7/2019</footer></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/cookbook/lobster-mac-and-cheese" class="card__link svelte-1wxl2wd"><article class="card svelte-1wxl2wd"><img src="https://cdn.sanity.io/images/7crq3xjz/production/ff85c88adcd7ace751240aa59dc9f0e35ed28165-3024x3024.jpg?h=343&w=610&fit=crop&auto=format" alt="Lobster Mac &amp; Cheese" class="card--image svelte-1wxl2wd" loading="lazy">
+    <h2 class="type--h3 type--a card--title svelte-1wxl2wd">Lobster Mac &amp; Cheese</h2>
+    <footer class="card--date svelte-1wxl2wd">10/30/2019</footer></article>
+</a>
+            </li><li class="astro-I2NLKOXI">
+              <a href="/cookbook/slow-scrambled-egg-toast" class="card__link svelte-1wxl2wd"><article class="card svelte-1wxl2wd"><img src="https://cdn.sanity.io/images/7crq3xjz/production/870757ee8ef4f15f281e0e4249da684049706a50-3024x3024.jpg?h=343&w=610&fit=crop&auto=format" alt="Slow Scrambled Egg Toast" class="card--image svelte-1wxl2wd" loading="lazy">
+    <h2 class="type--h3 type--a card--title svelte-1wxl2wd">Slow Scrambled Egg Toast</h2>
+    <footer class="card--date svelte-1wxl2wd">9/14/2019</footer></article>
+</a>
+            </li>
+        <li class="all-content cookbook astro-I2NLKOXI">
+          <div class="heading astro-3D5OBTLG" style="--hue: 345;--saturation: 100;--lightness: 28;--alpha: 0.5;--size: 50;">
+  <a href="/cookbook" class="heading--link heading--padded astro-3D5OBTLG">
+        <h1 class="heading--title astro-3D5OBTLG" itemprop="name">Cookbook</h1>
+      </a>
+</div>
+
+
+        </li>
+      </ul>
+    </section>
+  </main>
+
+    <footer class="footer svelte-nwo1ox"><div class="inner svelte-nwo1ox"><img src="/images/me/square.jpg" alt="Headshot of Sam" class="headshot svelte-nwo1ox" loading="lazy">
+    <h2 class="svelte-nwo1ox">Sam <br><span class="aka">aka</span> Snugug</h2>
+    <p class="svelte-nwo1ox">BBQ lead, ChromeOS DevRel</p>
+    <p class="svelte-nwo1ox">Web, design, development, food</p></div>
 </footer>
-<!--#endinclude-->  
-    <script>
-      (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        (i[r] =
-          i[r] ||
-          function() {
-            (i[r].q = i[r].q || []).push(arguments);
-          }),
-          (i[r].l = 1 * new Date());
-        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m);
-      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-      ga('create', 'UA-30577396-1', 'auto');
-      ga('send', 'pageview');
-    </script>
-  
+    
 
-</body></html>
+    <script>(self.Astro=self.Astro||{}).only=t=>{(async()=>await(await t())())()},window.dispatchEvent(new Event("astro:only"));</script><astro-island uid="Z12xwGk" component-url="/Houdini.3bbc1370.js" component-export="default" renderer-url="/client.788af3ea.js" props="{}" ssr="" client="only" opts="{&quot;name&quot;:&quot;Houdini&quot;,&quot;value&quot;:true}"></astro-island>
+  </body></html>
+
