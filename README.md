@@ -1,4 +1,4 @@
-# Snugug
+# Snugug [![Build and Deploy](https://github.com/Snugug/blog/actions/workflows/build-deploy.yml/badge.svg)](https://github.com/Snugug/blog/actions/workflows/build-deploy.yml)
 
 My personal site, [snugug.com](https://snugug.com), built with [Astro](https://astro.build/) and [Sanity](https://www.sanity.io/). Components in [Svelte](https://svelte.dev/), styling by [Sass](https://sass-lang.com/), service worker powered by [Workbox](https://developer.chrome.com/docs/workbox/).
 
