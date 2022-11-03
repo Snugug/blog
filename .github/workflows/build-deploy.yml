@@ -11,7 +11,7 @@ on:
       - sanity_deploy
 
 jobs:
-  Test and Build:
+  test-build-deploy:
     runs-on: ubuntu-latest
     environment: production
     steps:
