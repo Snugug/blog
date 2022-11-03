@@ -1,0 +1,18 @@
+.note {
+  &--warning {
+    background-color: var(--yellow);
+    --highlight-color: var(--white);
+    color: var(--black);
+    padding: 1rem;
+    border-radius: 5px;
+    border: 2px solid var(--gold);
+  }
+
+  &--error {
+    background-color: var(--dark-red);
+    --highlight-color: var(--black);
+    padding: 1rem;
+    border-radius: 5px;
+    border: 0.25rem solid var(--red);
+  }
+}

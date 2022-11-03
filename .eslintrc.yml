@@ -1,19 +1,39 @@
 root: true
 extends:
   - eslint:recommended
+  - plugin:json/recommended
+  - plugin:astro/recommended
   - google
   - plugin:prettier/recommended
 plugins:
   - import
   - prettier
+  - svelte3
 env:
   browser: true
   node: false
   es6: true
   es2017: true
+  es2020: true
 parserOptions:
   parser: babel-eslint
-  ecmaVersion: 2017
+  ecmaVersion: 2022
   sourceType: module
-globals:
-  PRODUCTION: readonly
+overrides:
+  - files:
+      - '*.svelte'
+    processor: svelte3/svelte3
+  - files:
+      - '*.astro'
+    parser: astro-eslint-parser
+    parserOptions:
+      parser: '@typescript-eslint/parser'
+      extraFileExtensions:
+        - '*.astro'
+  - files:
+      - '*.yaml'
+      - '*.yml'
+    plugins:
+      - yaml
+    extends:
+      - plugin:yaml/recommended

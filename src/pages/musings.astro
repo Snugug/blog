@@ -1,0 +1,47 @@
+---
+import Layout from '$layouts/Listing.astro';
+import Postcard from '$components/Postcard.svelte';
+
+const query =
+  '*[_type == "post" && archived != true &&  !(_id in path("drafts.**"))]';
+
+/**
+ * Structures the post data from Sanity
+ * @param {Object} post - The post data from Sanity
+ * @return {Object} - The structured post data
+ */
+function structure(post) {
+  return {
+    title: post.title,
+    summary: post.summary,
+    slug: post.slug.current,
+    published: new Date(post.published),
+    updated: post.updated ? new Date(post.updated) : new Date(post.published),
+  };
+}
+---
+
+<Layout
+  title="Posts"
+  hue={270}
+  saturation={70}
+  lightness={40}
+  size={40}
+  alpha={0.5}
+  background="var(--plum)"
+  query={query}
+  Card={Postcard}
+  {structure}
+>
+  <section class="post-section">
+    <h2 class="type--h2">
+      <a href="/musings/archive" class="type--a post-archive">Archive</a>
+    </h2>
+  </section>
+</Layout>
+
+<style>
+  .post-archive {
+    display: block;
+  }
+</style>

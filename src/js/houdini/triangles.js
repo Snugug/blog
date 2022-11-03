@@ -7,7 +7,13 @@ registerPaint(
      * @return {Array}
      */
     static get inputProperties() {
-      return ['--paint-alpha', '--base-hue', '--size', '--max-saturation', '--max-lightness'];
+      return [
+        '--base-hue',
+        '--max-saturation',
+        '--max-lightness',
+        '--size',
+        '--paint-alpha',
+      ];
     }
 
     /**
@@ -59,7 +65,15 @@ registerPaint(
           dotLine.push(odd ? lines[y + 1][i] : lines[y][i]);
         }
         for (let i = 0; i < dotLine.length - 2; i++) {
-          this.drawTriangle(ctx, dotLine[i], dotLine[i + 1], dotLine[i + 2], color, maxS, maxL);
+          this.drawTriangle(
+            ctx,
+            dotLine[i],
+            dotLine[i + 1],
+            dotLine[i + 2],
+            color,
+            maxS,
+            maxL,
+          );
         }
       }
     }

@@ -1,0 +1,44 @@
+---
+import '$sass/style.scss';
+import Houdini from '$components/Houdini.svelte';
+import Menu from '$components/Menu.svelte';
+import Footer from '$components/Footer.svelte';
+import SWRegister from '$components/SWRegister.astro';
+
+export interface Props {
+  title: string;
+  summary: string;
+}
+
+const { title, summary } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/fonts/dank-mono.css" />
+    {
+      import.meta.env.MODE !== 'development' ? (
+        <link rel="manifest" href="/manifest.webmanifest" />
+      ) : (
+        ''
+      )
+    }
+    <meta name="generator" content={Astro.generator} />
+    <title>{title ? `${title} | ` : ''}Snugug</title>
+    <meta name="description" content={summary} />
+  </head>
+  <body class="body">
+    <Menu client:load />
+
+    <slot />
+
+    <Footer />
+
+    <SWRegister />
+    <Houdini client:only />
+  </body>
+</html>

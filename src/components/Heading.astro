@@ -1,0 +1,80 @@
+---
+export interface Props {
+  title: string;
+  hue: number;
+  saturation: number;
+  lightness: number;
+  alpha: number;
+  size: number;
+  link?: string;
+}
+
+const {
+  title,
+  hue,
+  saturation,
+  lightness,
+  alpha,
+  size,
+  link = false,
+} = Astro.props;
+
+let topClass = 'heading';
+
+if (!link) {
+  topClass += ' heading--padded';
+}
+---
+
+<div class={topClass}>
+  {
+    link ? (
+      <a href={link} class="heading--link heading--padded">
+        <h1 class="heading--title" itemprop="name" set:html={title} />
+      </a>
+    ) : (
+      <h1 class="heading--title" itemprop="name" set:html={title} />
+    )
+  }
+</div>
+
+<style lang="scss" define:vars={{ hue, saturation, lightness, alpha, size }}>
+  @import 'letterform-shades/stylesheets/letterform-shades';
+
+  .heading {
+    --base-hue: var(--hue);
+    --max-saturation: var(--saturation);
+    --max-lightness: var(--lightness);
+    --paint-alpha: var(--alpha);
+    --size: var(--size);
+    background-image: paint(triangles);
+    box-shadow: inset 0 -0.05rem 1rem rgba(0, 0, 0, 0.25),
+      inset 0.05em 0 1rem rgba(0, 0, 0, 0.25),
+      inset -0.05em 0 1rem rgba(0, 0, 0, 0.25);
+    color: var(--snow);
+    display: block;
+    font-size: var(--heading-font-size, clamp(3em, 6vw, 8em));
+    font-weight: 700;
+    height: 100%;
+    text-align: right;
+    text-rendering: optimizeLegibility;
+    width: 100%;
+
+    &--padded {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      padding: var(--heading-padding, 2rem);
+    }
+
+    &--link {
+      height: 100%;
+      width: 100%;
+    }
+
+    &--title {
+      @include close-shade(#111, #111, 'bottom right', 15);
+      word-break: break-word;
+    }
+  }
+</style>

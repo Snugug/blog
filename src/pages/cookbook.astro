@@ -1,0 +1,37 @@
+---
+import Layout from '$layouts/Listing.astro';
+import Recipecard from '$components/Recipecard.svelte';
+
+const query =
+  '*[_type == "recipe" && archived != true &&  !(_id in path("drafts.**"))]{"image": mainImage.asset->url, title, slug, published}';
+
+/**
+ * Structures the content from Sanity`
+ * @param {Object} recipe - The recipe object
+ * @return {Object} - The structured recipe object`
+ */
+function structure(recipe) {
+  return {
+    title: recipe.title,
+    slug: recipe.slug.current,
+    image: recipe.image,
+    published: new Date(recipe.published),
+    updated: recipe.updated
+      ? new Date(recipe.updated)
+      : new Date(recipe.published),
+  };
+}
+---
+
+<Layout
+  title="Cookbook"
+  hue={345}
+  saturation={100}
+  lightness={28}
+  size={50}
+  alpha={0.5}
+  background="var(--red)"
+  query={query}
+  Card={Recipecard}
+  {structure}
+/>

@@ -1,0 +1,47 @@
+---
+import Layout from '$layouts/Listing.astro';
+import Postcard from '$components/Postcard.svelte';
+
+const query =
+  '*[_type == "post" && archived == true &&  !(_id in path("drafts.**"))]';
+
+/**
+ * Structures the data for the page
+ * @param {Object} post - The post data
+ * @return {Object} - The structured data
+ */
+function structure(post) {
+  return {
+    title: post.title,
+    summary: post.summary,
+    slug: post.slug.current,
+    published: new Date(post.published),
+    updated: post.updated ? new Date(post.updated) : new Date(post.published),
+  };
+}
+---
+
+<Layout
+  title="Archive"
+  hue={270}
+  saturation={70}
+  lightness={20}
+  size={40}
+  alpha={0.25}
+  background="var(--grey)"
+  query={query}
+  Card={Postcard}
+  {structure}
+>
+  <section class="post-section">
+    <h2 class="type--h2">
+      <a href="/musings" class="type--a post-archive">Current</a>
+    </h2>
+  </section>
+</Layout>
+
+<style>
+  .post-archive {
+    display: block;
+  }
+</style>
