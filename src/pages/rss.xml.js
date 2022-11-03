@@ -2,7 +2,7 @@ import rss from '@astrojs/rss';
 import { client } from '$lib/sanity.js';
 
 const query =
-  '*[_type == "post" || _type == "recipe" && archived != true &&  !(_id in path("drafts.**"))] | order(published desc) {title, "link": slug.current, "type": _type, "pubDate": published, "description": summary}';
+  '*[(_type == "post" || _type == "recipe") && archived != true && !(_id in path("drafts.**"))] | order(published desc) {title, "link": slug.current, "type": _type, "pubDate": published, "description": summary}';
 
 const items = (await client.fetch(query)).map((i) => {
   const item = { ...i };
