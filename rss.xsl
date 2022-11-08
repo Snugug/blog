@@ -158,6 +158,11 @@ This file is in BETA. Please test and contribute to the discussion:
             flex-direction: column;
             gap: calc(var(--spacing) / 2);
           }
+          
+          .description {
+            margin-bottom: calc(var(--spacing) / 4);
+            margin-top: calc(var(--spacing) / 4);
+          }
         </style>
       </head>
       <body>
@@ -166,7 +171,7 @@ This file is in BETA. Please test and contribute to the discussion:
             <strong>This is a web feed,</strong> also known as an RSS feed. <strong>Subscribe</strong> by copying the URL from the address bar into your newsreader.
           </p>
           <small class="min">
-            Visit <a href="https://aboutfeeds.com">About Feeds</a> to get started with newsreaders and subscribing. It’s free.
+            Visit <a href="https://aboutfeeds.com">About Feeds</a> to get started with newsreaders and subscribing. It's free.
           </small>
         </nav>
         <main class="container main">
@@ -220,6 +225,9 @@ This file is in BETA. Please test and contribute to the discussion:
                     <xsl:value-of select="title"/>
                   </a>
                 </h3>
+                <p class="description">
+                  <xsl:value-of select="description"/>
+                </p>
                 <small class="min">
                 Published: <xsl:value-of select="pubDate" />
                 </small>
