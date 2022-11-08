@@ -55,9 +55,10 @@ pre {
 
 code:not([class]) {
   font-family: 'dm', monospace;
-  background: var(--pink);
+  background: var(--dark-grey);
   font-size: 0.8em;
-  padding: 0em 0.25em;
+  padding: 0.1em 0.25em;
+  border-radius: 1px;
 }
 
 .token.prolog,
