@@ -1,0 +1,140 @@
+---
+import Layout from '$layouts/Donut.astro';
+import Heading from '$components/Heading.astro';
+import github from '$components/icons/fontawesome/github.svg?raw';
+import mastodon from '$components/icons/fontawesome/mastodon.svg?raw';
+import instagram from '$components/icons/fontawesome/instagram.svg?raw';
+import rss from '$components/icons/fontawesome/rss.svg?raw';
+import blog from '$components/icons/fontawesome/house-chimney.svg?raw';
+import linkedIn from '$components/icons/fontawesome/linkedin-in.svg?raw';
+import git from '$components/icons/fontawesome/git-alt.svg?raw';
+import user from '$components/icons/fontawesome/user-astronaut.svg?raw';
+
+const title = 'Links';
+const summary = 'List of links to my stuff';
+
+const hue = 270;
+const saturation = 70;
+const lightness = 40;
+const size = 40;
+const alpha = 0.5;
+
+const links = [
+  {
+    name: 'Blog',
+    icon: blog,
+    url: '/',
+  },
+  {
+    name: 'About Me',
+    icon: user,
+    url: 'http://localhost:3000/me',
+  },
+  {
+    name: 'RSS',
+    icon: rss,
+    url: '/rss.xml',
+  },
+  {
+    name: 'Mastodon',
+    icon: mastodon,
+    url: 'https://mas.to/@snugug',
+  },
+  {
+    name: 'Instagram',
+    icon: instagram,
+    url: 'https://instagram.com/snugug',
+  },
+  {
+    name: 'GitHub',
+    icon: github,
+    url: 'https://github.com/snugug',
+  },
+  {
+    name: 'LinkedIn',
+    icon: linkedIn,
+    url: 'https://www.linkedin.com/in/sam-richard-67036513/',
+  },
+  {
+    name: 'Site Source',
+    icon: git,
+    url: 'https://github.com/snugug/blog',
+  },
+];
+---
+
+<Layout title={title} summary={summary}>
+  <main class="container">
+    <header class="container--heading">
+      <Heading
+        title={title}
+        hue={hue}
+        saturation={saturation}
+        lightness={lightness}
+        size={size}
+        alpha={alpha}
+      />
+    </header>
+    <article>
+      <ul class="links">
+        {
+          links.map((l) => (
+            <li>
+              <a
+                rel="me"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="link"
+                href={l.url}
+              >
+                <span class="icon" set:html={l.icon} />
+                <span>{l.name}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </article>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .container--heading {
+    background-color: var(--plum);
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 3vw, 2rem);
+    margin: 0 auto;
+    max-width: 60ch;
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .link {
+    align-items: center;
+    border: 3px solid var(--white);
+    border-radius: 1rem;
+    display: grid;
+    font-size: clamp(1rem, 3vw, 2rem);
+    gap: clamp(0.5rem, 1.5vw, 1.5rem);
+    grid-template-columns: clamp(1rem, 3vw, 2rem) auto;
+    justify-content: center;
+    line-height: 1;
+    padding: clamp(1rem, 3vw, 2rem);
+
+    &:hover,
+    &:focus-within {
+      background-color: var(--plum);
+    }
+  }
+
+  .icon {
+    fill: var(--white);
+
+    :global(svg) {
+      aspect-ratio: 1 / 1;
+    }
+  }
+</style>
