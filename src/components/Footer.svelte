@@ -6,7 +6,10 @@
       class="headshot"
       loading="lazy"
     />
-    <h2>Sam <br /><span class="aka">aka</span> Snugug</h2>
+    <h2>
+      Sam <br /><span class="aka">aka</span>
+      <a class="type--a" href="/links">Snugug</a>
+    </h2>
     <p>BBQ lead, ChromeOS DevRel</p>
     <p>Web, design, development, food</p>
   </div>
@@ -66,5 +69,9 @@
   p {
     font-size: 0.8rem;
     margin-top: 0.25rem;
+  }
+
+  .type--a {
+    padding: 0 0.25rem;
   }
 </style>

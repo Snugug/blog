@@ -35,7 +35,9 @@ const { title, summary } = Astro.props;
   <body class="body">
     <Menu client:load />
 
-    <slot />
+    <div class="body-content">
+      <slot />
+    </div>
 
     <Footer />
 
@@ -43,3 +45,15 @@ const { title, summary } = Astro.props;
     <Houdini client:only />
   </body>
 </html>
+
+<style>
+  .body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .body-content {
+    flex: 1;
+  }
+</style>
