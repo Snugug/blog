@@ -1,18 +1,17 @@
-name: Test - Site
+name: Test, Build, Deploy - Site
 
 on:
   push:
-    branches-ignore:
-      - main
     paths:
       - site/**
-      - .github/**
+      - .github/workflows/tbd-site.yml
   pull_request:
     branches-ignore:
       - main
     paths:
       - site/**
-      - .github/**
+      - .github/workflows/tbd-site.yml
+  repository_dispatch:
 
 jobs:
   test-build:
@@ -44,3 +43,25 @@ jobs:
         env:
           SANITY_PROJECT: ${{ secrets.SANITY_PROJECT }}
           SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
+      - name: Upload site build
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v3
+        working-directory: site
+        with:
+          name: site
+          path: dist
+  deploy:
+    needs: test-build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: site
+          path: dist
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
