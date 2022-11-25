@@ -2,6 +2,7 @@ name: Test, Build, Deploy - Site
 
 on:
   push:
+    branches:
     paths:
       - site/**
       - .github/**
