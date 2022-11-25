@@ -76,9 +76,9 @@ jobs:
         with:
           name: cms
           path: dist
-      - name: Test and Build
+      - name: Deploy
         working-directory: cms
         run: pnpm run deploy
         env:
           SANITY_STUDIO_PROJECT: ${{ secrets.SANITY_PROJECT }}
-          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_TOKEN }}
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_DEPLOY }}
