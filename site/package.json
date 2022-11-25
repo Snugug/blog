@@ -8,7 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "prepare": "husky install",
+    "prepare": "cd ../ && husky install ./site/.husky",
     "astro": "astro",
     "pretest": "run-s lint",
     "test": "run-s build",
