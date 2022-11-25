@@ -9,11 +9,11 @@ on:
       - unlabeled
 
 jobs:
-  check:
+  check-title:
     runs-on: ubuntu-latest
     steps:
       - uses: thehanimo/pr-title-checker@v1.3.4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           pass_on_octokit_error: false
-          configuration_path: '.github/pr-title-checker-config.json'
+          configuration_path: ".github/pr-title-checker-config.json"
