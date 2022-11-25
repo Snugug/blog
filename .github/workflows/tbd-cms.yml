@@ -80,5 +80,4 @@ jobs:
         working-directory: cms
         run: pnpm run deploy
         env:
-          SANITY_STUDIO_PROJECT: ${{ secrets.SANITY_PROJECT }}
-          SANITY_STUDIO_TOKEN: ${{ secrets.SANITY_PROJECT }}
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_TOKEN }}
