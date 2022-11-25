@@ -1,0 +1,66 @@
+name: Test, Build, Deploy - Site
+
+on:
+  push:
+    paths:
+      - site/**
+      - .github/workflows/tbd-site.yml
+  pull_request:
+    branches-ignore:
+      - main
+    paths:
+      - site/**
+      - .github/workflows/tbd-site.yml
+  repository_dispatch:
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Install dependencies
+        working-directory: site
+        run: pnpm install
+      - name: Test and Build
+        working-directory: site
+        run: pnpm t
+        env:
+          SANITY_PROJECT: ${{ secrets.SANITY_PROJECT }}
+          SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
+      - name: Upload site build
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v3
+        with:
+          name: site
+          path: ./site/dist
+  deploy:
+    needs: test-build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: site
+          path: dist
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

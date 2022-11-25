@@ -28,7 +28,7 @@ const links = [
   {
     name: 'About Me',
     icon: user,
-    url: 'http://localhost:3000/me',
+    url: '/me',
   },
   {
     name: 'RSS',
@@ -81,9 +81,8 @@ const links = [
           links.map((l) => (
             <li>
               <a
-                rel="me"
-                target="_blank"
-                rel="noopener noreferrer"
+                rel={l.url.startsWith('http') ? 'me noopener noreferrer' : null}
+                target={l.url.startsWith('http') ? '_blank' : null}
                 class="link"
                 href={l.url}
               >

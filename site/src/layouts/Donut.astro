@@ -1,9 +1,8 @@
 ---
 import '$sass/style.scss';
-import Houdini from '$components/Houdini.svelte';
+import Scripts from '$components/Scripts.svelte';
 import Menu from '$components/Menu.svelte';
 import Footer from '$components/Footer.svelte';
-import SWRegister from '$components/SWRegister.astro';
 
 export interface Props {
   title: string;
@@ -39,10 +38,8 @@ const { title, summary } = Astro.props;
       <slot />
     </div>
 
+    <Scripts client:only />
     <Footer />
-
-    <SWRegister />
-    <Houdini client:only />
   </body>
 </html>
 
