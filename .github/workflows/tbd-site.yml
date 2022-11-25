@@ -4,13 +4,13 @@ on:
   push:
     paths:
       - site/**
-      - .github/workflows/tbd-site.yml
+      - .github/**
   pull_request:
     branches-ignore:
       - main
     paths:
       - site/**
-      - .github/workflows/tbd-site.yml
+      - .github/**
   repository_dispatch:
 
 jobs:
