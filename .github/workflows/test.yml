@@ -1,12 +1,16 @@
-name: Test
+name: Test - Site
 
 on:
   push:
     branches-ignore:
       - main
+    paths:
+      - site/**
   pull_request:
     branches-ignore:
       - main
+    paths:
+      - site/**
 
 jobs:
   test-build:
@@ -14,10 +18,27 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
-        run: npm ci
+        working-directory: site
+        run: pnpm install
       - name: Test and Build
-        run: npm t
+        working-directory: site
+        run: pnpm t
         env:
           SANITY_PROJECT: ${{ secrets.SANITY_PROJECT }}
           SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
