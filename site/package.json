@@ -17,8 +17,8 @@
     "fix": "run-p *:fix",
     "js:lint": "eslint --quiet .",
     "js:fix": "eslint --fix .",
-    "prettier:lint": "prettier -c .",
-    "prettier:fix": "prettier --write .",
+    "prettier:lint": "prettier --plugin-search-dir=. -c .",
+    "prettier:fix": "prettier --plugin-search-dir=. --write .",
     "css:lint": "stylelint \"**/*.{css,scss,svelte,astro}\"",
     "css:fix": "stylelint --fix \"**/*.{css,scss,svelte,astro}\""
   },
@@ -56,7 +56,7 @@
     "postcss-html": "^1.5.0",
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.7.0",
-    "prettier-plugin-svelte": "^2.8.0",
+    "prettier-plugin-svelte": "^2.8.1",
     "sass": "^1.55.0",
     "stylelint": "^14.14.0",
     "stylelint-config-prettier": "^9.0.3",
@@ -67,7 +67,7 @@
   "lint-staged": {
     "**/*.{css,scss,svelte,astro}": "stylelint",
     "**/*.{js,mjs,cjs,ts,json,astro,svelte}": "eslint",
-    "**/*": "prettier -c"
+    "**/*": "prettier --plugin-search-dir=. -c"
   },
   "volta": {
     "node": "18.12.0"
