@@ -4,4 +4,4 @@
 # Make code run through TTY
 exec >/dev/tty 2>&1
 
-cd site && npm run lint:staged
+cd cms && pnpm lint:staged
