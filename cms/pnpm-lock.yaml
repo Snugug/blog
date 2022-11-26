@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@sanity/code-input': ^3.0.0
   '@sanity/eslint-config-studio': ^2.0.1
   '@typescript-eslint/eslint-plugin': ^5.44.0
   '@typescript-eslint/parser': ^5.44.0
@@ -22,6 +23,7 @@ specifiers:
   typescript: ^4.0.0
 
 dependencies:
+  '@sanity/code-input': 3.0.0_sgh7imvq57orryko75z6pwhwoi
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-is: 18.2.0
@@ -1622,6 +1624,28 @@ packages:
       - supports-color
     dev: false
 
+  /@sanity/code-input/3.0.0_sgh7imvq57orryko75z6pwhwoi:
+    resolution: {integrity: sha512-Ov6csC/t2i6qZbbylGodhMmaygsX/t/TxjCG1L+oGPJNXu3mXQDG8/3PQmZl1Zac1Do90+72eK4/x/xj/+QHBA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      react: ^18
+      react-dom: ^18
+      sanity: ^3.0.0
+      styled-components: ^5.2.0
+    dependencies:
+      '@sanity/icons': 2.0.0_react@18.2.0
+      '@sanity/incompatible-plugin': 1.0.4_biqbaboplfbrettd7655fr4n2y
+      '@sanity/ui': 1.0.0_23mhwjhnzfjwvdn7ol54k26zom
+      ace-builds: 1.13.1
+      react: 18.2.0
+      react-ace: 10.1.0_biqbaboplfbrettd7655fr4n2y
+      react-dom: 18.2.0_react@18.2.0
+      sanity: 3.0.0_maey765qzsqrp6bbazpxj7endy
+      styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
+    transitivePeerDependencies:
+      - react-is
+    dev: false
+
   /@sanity/color/2.1.20:
     resolution: {integrity: sha512-dHPgiCMf+lwvQls5uPzorfiq9YuU41AzvifA+ugVHmXvq7JBoofoOPUOmdHUQF0l0shSy0nD3zn52j2I+T2ekg==}
     dev: false
@@ -2256,6 +2280,10 @@ packages:
 
   /abab/2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
+    dev: false
+
+  /ace-builds/1.13.1:
+    resolution: {integrity: sha512-HvkZv/AhDRSA4k5Co5Dg8dWOTfID0AQ7Sa5cU6V82fz/XfCA0A/icC3sdBoh9yg0WQoJqbFrRYc+ogr/971Vww==}
     dev: false
 
   /acorn-globals/7.0.1:
@@ -5216,6 +5244,14 @@ packages:
     resolution: {integrity: sha512-C5N2Z3DgnnKr0LOpv/hKCgKdb7ZZwafIrsesve6lmzvZIRZRGaZ/l6Q8+2W7NaT+ZwO3fFlSCzCzrDCFdJfZ4g==}
     dev: false
 
+  /lodash.get/4.4.2:
+    resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    dev: false
+
+  /lodash.isequal/4.5.0:
+    resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    dev: false
+
   /lodash.isplainobject/4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
     dev: false
@@ -6368,6 +6404,21 @@ packages:
     resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
     dependencies:
       performance-now: 2.1.0
+    dev: false
+
+  /react-ace/10.1.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-VkvUjZNhdYTuKOKQpMIZi7uzZZVgzCjM7cLYu6F64V0mejY8a2XTyPUIMszC6A4trbeMIHbK5fYFcT/wkP/8VA==}
+    peerDependencies:
+      react: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      ace-builds: 1.13.1
+      diff-match-patch: 1.0.5
+      lodash.get: 4.4.2
+      lodash.isequal: 4.5.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-clientside-effect/1.2.6_react@18.2.0:

@@ -2,6 +2,7 @@ import { defineConfig } from 'sanity';
 import { deskTool } from 'sanity/desk';
 import { schemaTypes } from './schemas';
 import { markdownSchema } from 'sanity-plugin-markdown';
+import { codeInput } from '@sanity/code-input';
 
 console.log(import.meta.env);
 
@@ -14,7 +15,7 @@ export default defineConfig({
   projectId,
   dataset: 'production',
 
-  plugins: [deskTool(), markdownSchema()],
+  plugins: [deskTool(), markdownSchema(), codeInput()],
 
   schema: {
     types: schemaTypes,
