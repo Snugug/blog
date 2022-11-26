@@ -62,24 +62,24 @@
 <p>The second thing I needed to do was figure out how to keep my CMS codebase and my site codebase together in the same repo, because I didn’t want to maintain them in different places. To do this, I leaned on the <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore"><code>paths</code></a> workflow push filter, letting me run different GitHub Actions depending on whether code was pushed to my CMS or to my site. While experimenting with this, I also found that if you have multiple GitHub Actions with jobs with the same id (like <code>test-build</code>) and make that required for a protected branch, it’ll work regardless of which Action runs! This means I can protect my main branch regardless of if I’m working on my CMS or my site!</p>
 <p>To keep everything secure, I use a combo of <code>.env</code> files locally with my Sanity project and a Sanity API token for reading content for my site, and have GitHub Secrets to supply those during my GitHub Actions build. To deploy my Sanity studio, I do the same, but have a separate deploy token that gets injected during my Action run. The only thing that was a little annoying is the environment variables when working with Sanity is that the required names are specific, so you can’t choose the names you want and pass them in where you want. That’s easy to overcome, though.</p>
 <hr>
-<p>I’m super excited about this new setup and workflow, and am making plans for how to expand on it to allow for previews using Astro’s server-side render (SSR) mode. I also have been playing with <a href="https://pnpm.io/">pnpm</a> and migrated my codebase to that, too, with this, and I’m really loving that, too. The only gotcha here was getting <a href="https://typicode.github.io/husky/#/">Husky</a> to work right, the <code>prepare</code> script needs to run from the site root and the hooks need to <code>cd</code> to the folder they’re in. If you want to see how the above shakes out, here’s some deep links to my <a href="https://github.com/Snugug/blog/tree/7fdf537ab9471a335f9850c5a0705b9fe549937a">site source</a> as it looks at time of publishing:</p>
+<p>I’m super excited about this new setup and workflow, and am making plans for how to expand on it to allow for previews using Astro’s server-side render (SSR) mode. I also have been playing with <a href="https://pnpm.io/">pnpm</a> and migrated my codebase to that, too, with this, and I’m really loving that, too. The only gotcha here was getting <a href="https://typicode.github.io/husky/#/">Husky</a> to work right, the <code>prepare</code> script needs to run from the site root and the hooks need to <code>cd</code> to the folder they’re in. If you want to see how the above shakes out, here’s some deep links to my <a href="https://github.com/Snugug/blog/tree/e85221063403074088e6ddeb804d88648d88d29e">site source</a> as it looks at time of publishing:</p>
 <ul>
 <li>GitHub Actions
 <ul>
-<li><a href="https://github.com/Snugug/blog/blob/7fdf537ab9471a335f9850c5a0705b9fe549937a/.github/workflows/tbd-site.yml">Site build/deploy</a></li>
-<li><a href="https://github.com/Snugug/blog/blob/7fdf537ab9471a335f9850c5a0705b9fe549937a/.github/workflows/tbd-cms.yml">CMS build/deploy</a></li>
+<li><a href="https://github.com/Snugug/blog/blob/e85221063403074088e6ddeb804d88648d88d29e/.github/workflows/tbd-site.yml">Site build/deploy</a></li>
+<li><a href="https://github.com/Snugug/blog/blob/e85221063403074088e6ddeb804d88648d88d29e/.github/workflows/tbd-cms.yml">CMS build/deploy</a></li>
 </ul>
 </li>
 <li>Codebases
 <ul>
-<li><a href="https://github.com/Snugug/blog/tree/7fdf537ab9471a335f9850c5a0705b9fe549937a/cms">CMS</a></li>
-<li><a href="https://github.com/Snugug/blog/tree/7fdf537ab9471a335f9850c5a0705b9fe549937a/site">Site</a></li>
+<li><a href="https://github.com/Snugug/blog/tree/e85221063403074088e6ddeb804d88648d88d29e/cms">CMS</a></li>
+<li><a href="https://github.com/Snugug/blog/tree/e85221063403074088e6ddeb804d88648d88d29e/site">Site</a></li>
 </ul>
 </li>
 <li>Husky
 <ul>
-<li><a href="https://github.com/Snugug/blog/blob/7fdf537ab9471a335f9850c5a0705b9fe549937a/cms/package.json#L15">Husky prepare for CMS</a></li>
-<li><a href="https://github.com/Snugug/blog/blob/7fdf537ab9471a335f9850c5a0705b9fe549937a/cms/.husky/pre-commit"><code>pre-commit</code> hook</a></li>
+<li><a href="https://github.com/Snugug/blog/blob/e85221063403074088e6ddeb804d88648d88d29e/cms/package.json#L15">Husky prepare for CMS</a></li>
+<li><a href="https://github.com/Snugug/blog/blob/e85221063403074088e6ddeb804d88648d88d29e/cms/.husky/pre-commit"><code>pre-commit</code> hook</a></li>
 </ul>
 </li>
 </ul>
