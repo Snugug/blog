@@ -62,21 +62,26 @@
   .menu {
     align-items: center;
     backdrop-filter: blur(2px);
-    // height: calc(2rem + 2px);
     background: hsla(225, 6%, 13%, 0.75);
     border-bottom: 2px solid var(--snow);
     border-left: 2px solid var(--snow);
     box-shadow: -5px 5px 1em rgba(0, 0, 0, 0.75);
     color: transparent;
     display: flex;
-    left: 0;
     padding: 0.5rem;
     position: fixed;
+    right: 0;
     top: 0;
     transform: translatex(calc(100% + 1em));
     transition: transform 0.3s ease-in-out, color 0.3s ease-in;
     width: calc(100% + 2px);
     z-index: 100;
+
+    @supports (max-width: max-content) {
+      max-width: max-content;
+      padding-left: 0.75rem;
+      padding-right: 2.5rem;
+    }
 
     &[aria-expanded='true'] {
       color: var(--white);
