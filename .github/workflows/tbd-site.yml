@@ -53,6 +53,7 @@ jobs:
     needs: test-build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: site
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v3

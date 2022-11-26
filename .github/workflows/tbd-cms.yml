@@ -50,6 +50,7 @@ jobs:
     needs: test-build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: cms
     steps:
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2
