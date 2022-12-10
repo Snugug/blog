@@ -1,0 +1,21 @@
+---
+import Twitter from '$lib/tweetback/twitter';
+
+/**
+ * Find all the Twitter tweets
+ */
+export async function getStaticPaths() {
+  return Twitter.tweets.map((tweet) => {
+    return {
+      params: {
+        id: tweet.id,
+      },
+      props: { ...tweet },
+    };
+  });
+}
+
+const { text } = Astro.props;
+---
+
+<p>{text}</p>
