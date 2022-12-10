@@ -38,14 +38,17 @@
     "svelte": "^3.52.0",
     "the-new-css-reset": "^1.7.3",
     "vite-plugin-pwa": "^0.13.1",
-    "workbox-precaching": "^6.5.4"
+    "workbox-precaching": "^6.5.4",
+    "sentiment": "^5.0.2",
+    "sqlite3": "^5.1.2",
+    "cli-progress": "^3.11.2",
+    "parse-domain": "^7.0.1",
+    "@11ty/eleventy-img": "^2.0.1",
+    "@tweetback/canonical": "^2.0.3"
   },
   "devDependencies": {
-    "@11ty/eleventy-img": "^2.0.1",
     "@sanity/webhook": "^2.0.0",
-    "@tweetback/canonical": "^2.0.3",
     "@typescript-eslint/parser": "^5.42.0",
-    "cli-progress": "^3.11.2",
     "eslint": "^8.26.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
@@ -53,7 +56,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-n": "^15.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-svelte3": "^4.0.0",
     "eslint-plugin-yaml": "^0.5.0",
@@ -61,14 +64,11 @@
     "letterform-shades": "^1.0.0",
     "lint-staged": "^13.0.3",
     "npm-run-all": "^4.1.5",
-    "parse-domain": "^7.0.1",
     "postcss-html": "^1.5.0",
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.7.0",
     "prettier-plugin-svelte": "^2.8.1",
     "sass": "^1.55.0",
-    "sentiment": "^5.0.2",
-    "sqlite3": "^5.1.2",
     "stylelint": "^14.14.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recommended": "^9.0.0",
@@ -80,7 +80,7 @@
     "**/*.{js,mjs,cjs,ts,json,astro,svelte}": "eslint",
     "**/*": "prettier --plugin-search-dir=. -c"
   },
-  "volta": {
-    "node": "18.12.0"
+  "engines": {
+    "node": ">=18.12.0"
   }
 }

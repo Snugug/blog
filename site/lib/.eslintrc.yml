@@ -1,6 +1,6 @@
 extends:
   - eslint:recommended
-  - plugin:node/recommended
+  - plugin:n/recommended
   - plugin:json/recommended
   - plugin:astro/recommended
   - google
