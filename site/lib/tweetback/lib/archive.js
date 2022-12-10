@@ -38,9 +38,12 @@ export async function retrieveTweets() {
 
   if (shouldFilterOutCircleTweets) {
     try {
+      // I know this may be missing, so I'm disabling the linter.
+      /* eslint-disable n/no-missing-import */
       const { circleTweets: circles } = await import(
         '../twitter-circle-tweets.js'
       );
+      /* eslint-enable n/no-missing-import */
       circleTweets = circles;
     } catch (e) {
       console.log('No circle tweets found.');
