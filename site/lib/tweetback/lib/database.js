@@ -1,13 +1,12 @@
 import sqlite3 from 'sqlite3';
 import { join } from 'path';
-import * as url from 'url';
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+import process from 'process';
 
 /**
  * Database for reuse in other areas
  */
 export const db = new (sqlite3.verbose().Database)(
-  join(__dirname, './tweets.db'),
+  join(process.cwd(), 'lib/tweetback/lib/tweets.db'),
 );
 
 /**
