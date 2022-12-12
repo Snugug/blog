@@ -1,3 +1,7 @@
+<script>
+  export let link = '/links';
+</script>
+
 <footer class="footer">
   <div class="inner">
     <img
@@ -8,7 +12,7 @@
     />
     <h2>
       Sam <br /><span class="aka">aka</span>
-      <a class="type--a" href="/links">Snugug</a>
+      <a class="type--a" href={link}>Snugug</a>
     </h2>
     <p>BBQ lead, ChromeOS DevRel</p>
     <p>Web, design, development, food</p>

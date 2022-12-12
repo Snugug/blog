@@ -1,6 +1,7 @@
 ---
-import Layout from '$layouts/Donut.astro';
-import Heading from '$components/Heading.astro';
+import '$sass/style.scss';
+import Scripts from '$components/Scripts.svelte';
+import Footer from '$components/Footer.svelte';
 import github from '$components/icons/fontawesome/github.svg?raw';
 import mastodon from '$components/icons/fontawesome/mastodon.svg?raw';
 import instagram from '$components/icons/fontawesome/instagram.svg?raw';
@@ -12,12 +13,6 @@ import user from '$components/icons/fontawesome/user-astronaut.svg?raw';
 
 const title = 'Links';
 const summary = 'List of links to my stuff';
-
-const hue = 270;
-const saturation = 70;
-const lightness = 40;
-const size = 40;
-const alpha = 0.5;
 
 const links = [
   {
@@ -63,39 +58,56 @@ const links = [
 ];
 ---
 
-<Layout title={title} summary={summary}>
-  <main class="container">
-    <header class="container--heading">
-      <Heading
-        title={title}
-        hue={hue}
-        saturation={saturation}
-        lightness={lightness}
-        size={size}
-        alpha={alpha}
-      />
-    </header>
-    <article>
-      <ul class="links">
-        {
-          links.map((l) => (
-            <li>
-              <a
-                rel={l.url.startsWith('http') ? 'me noopener noreferrer' : null}
-                target={l.url.startsWith('http') ? '_blank' : null}
-                class="link"
-                href={l.url}
-              >
-                <span class="icon" set:html={l.icon} />
-                <span>{l.name}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </article>
-  </main>
-</Layout>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/fonts/dank-mono.css" />
+    <link rel="me" href="https://mas.to/@snugug" />
+    {
+      import.meta.env.MODE !== 'development' ? (
+        <link rel="manifest" href="/manifest.webmanifest" />
+      ) : (
+        ''
+      )
+    }
+    <meta name="generator" content={Astro.generator} />
+    <title>{title ? `${title} | ` : ''}Snugug</title>
+    <meta name="description" content={summary} />
+  </head>
+  <body class="body">
+    <main class="container">
+      <header class="container--heading">
+        <Footer link="/" />
+      </header>
+      <article>
+        <ul class="links">
+          {
+            links.map((l) => (
+              <li>
+                <a
+                  rel={
+                    l.url.startsWith('http') ? 'me noopener noreferrer' : null
+                  }
+                  target={l.url.startsWith('http') ? '_blank' : null}
+                  class="link"
+                  href={l.url}
+                >
+                  <span class="icon" set:html={l.icon} />
+                  <span>{l.name}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </main>
+
+    <Scripts client:only />
+  </body>
+</html>
 
 <style lang="scss">
   .container--heading {
