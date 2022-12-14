@@ -1,18 +1,35 @@
 <script>
   import Twitter from '$lib/tweetback/twitter';
+
   import md from 'chromeos-dev-markdown';
+  import { transform as tweetback } from '@tweetback/canonical';
+
   import Heart from '$components/icons/fontawesome/heart.svg?raw';
   import Retweet from '$components/icons/fontawesome/retweet.svg?raw';
   import Link from '$components/icons/fontawesome/link.svg?raw';
+  import Reply from '$components/icons/fontawesome/reply.svg?raw';
   export let tweet = {};
   export let showReplies = false;
   export let wrapper = 'div';
   const published =
     tweet.date.toLocaleDateString('en-US') +
     ' - ' +
-    tweet.date.toLocaleTimeString('en-US');
+    tweet.date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   const media = tweet?.media.filter((m) => m.type !== 'link');
-  console.log(tweet);
+
+  let reply = false;
+  if (tweet?.reply?.isReply) {
+    if (tweet.reply.to.toLowerCase() === 'snugug') {
+      reply = `/archive/twitter/${tweet.reply.toTweetId}`;
+    } else {
+      reply = tweetback(
+        `https://twitter.com/${tweet.reply.to}/status/${tweet.reply.toTweetId}`,
+      );
+    }
+  }
 </script>
 
 <svelte:element this={wrapper} class="wrapper">
@@ -50,6 +67,7 @@
             ><span class="meta--icon">{@html Link}</span></a
           >
         </li>
+
         <li class="meta--item">
           <span class="meta--icon" aria-label="Retweets">{@html Retweet}</span>
           {tweet?.shares || 0}
@@ -58,6 +76,17 @@
           <span class="meta--icon" aria-label="Favorites">{@html Heart}</span>
           {tweet?.favorites || 0}
         </li>
+        {#if reply}
+          <li class="meta--item">
+            <a
+              href={reply}
+              title="See reply"
+              target={reply.startsWith('/') ? '_self' : '_blank'}
+              rel={reply.startsWith('/') ? null : 'noopener noreferrer'}
+              ><span class="meta--icon">{@html Reply}</span></a
+            >
+          </li>
+        {/if}
       </ul>
     </footer>
   </div>
@@ -105,6 +134,10 @@
     display: flex;
     font-size: 0.8rem;
     gap: 1rem;
+  }
+
+  time {
+    font-variant-numeric: tabular-nums;
   }
 
   .meta {
