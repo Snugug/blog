@@ -3,13 +3,24 @@ import Layout from '$layouts/Twitter.astro';
 import Twitter from '$lib/tweetback/twitter';
 import Tweet from '$components/Tweet.svelte';
 
-const tweets = Twitter.tweets.slice(0, 25);
+const media = Twitter.tweets.filter((tweet) => {
+  const hasMedia = tweet.media.length > 0;
+  if (!hasMedia) return false;
+  const m = tweet.media.map((m) => m.type).filter((t) => t !== 'link');
+  if (m.length === 0) return false;
+
+  return true;
+});
+
+const tweets = media.slice(0, 25);
+
+console.log(tweets.map((t) => t.media));
 ---
 
 <Layout
   title="title"
   summary="A collection of tweets from the past"
-  active="timeline"
+  active="media"
 >
   <ul>
     {

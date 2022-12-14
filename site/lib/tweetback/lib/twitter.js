@@ -20,7 +20,9 @@ export class Twitter {
    */
   async init() {
     try {
-      this._tweets = await tweetData.getAllTweets();
+      this._tweets = (await tweetData.getAllTweets()).sort((a, b) =>
+        a.date > b.date ? -1 : 1,
+      );
     } catch (e) {
       console.error(e);
     }
@@ -31,6 +33,18 @@ export class Twitter {
    */
   get tweets() {
     return this._tweets;
+  }
+
+  /**
+   *
+   * @param {string} id Tweet ID
+   * @return {object[]} Array of replies
+   */
+  getReplies(id) {
+    return this._tweets.filter(
+      (tweet) =>
+        tweet?.reply?.toTweetId === id && tweet?.reply?.isReply === true,
+    );
   }
 
   // /**

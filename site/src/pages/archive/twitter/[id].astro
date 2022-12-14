@@ -1,4 +1,6 @@
 ---
+import Tweet from '$components/Tweet.svelte';
+import Layout from '$layouts/Twitter.astro';
 import Twitter from '$lib/tweetback/twitter';
 
 /**
@@ -15,7 +17,11 @@ export async function getStaticPaths() {
   });
 }
 
-const { text } = Astro.props;
+const tweet = Astro.props;
+const replies = await Twitter.getReplies(tweet.id);
+console.log(replies);
 ---
 
-<p>{text}</p>
+<Layout title={`Tweet ${tweet?.id}`} summary={tweet?.text} active="tweet">
+  <Tweet tweet={tweet} showReplies={true} />
+</Layout>

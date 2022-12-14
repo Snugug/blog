@@ -1,0 +1,155 @@
+---
+import Layout from '$layouts/Donut.astro';
+import Heading from '$components/Heading.astro';
+import Twitter from '$lib/tweetback/twitter';
+
+export interface Props {
+  title: string;
+  summary: string;
+  active: string;
+}
+
+const { title, summary, tweet, active } = Astro.props;
+
+const id = tweet?.id || Twitter.tweets[0]?.id;
+
+const highlight = 'var(--grey)';
+
+/**
+ * @param {string} path The path to check
+ * @return {string} The data-active attribute if the path matches the active path
+ */
+function isActive(path: string) {
+  return path === active;
+}
+---
+
+<Layout title={title} summary={summary}>
+  <main>
+    <article class="page">
+      <div class="page--heading">
+        <Heading
+          title=""
+          hue={25}
+          saturation={30}
+          lightness={70}
+          size={70}
+          alpha={0.5}
+        />
+      </div>
+      <div class="container">
+        <header class="twitter-header">
+          <img
+            src="/images/me/square.jpg"
+            alt="Headshot of Sam"
+            class="headshot"
+            loading="lazy"
+          />
+          <div>
+            <h1 class="twitter-header--name">Sam Richard</h1>
+            <h2 class="twitter-header--handle">@Snugug</h2>
+          </div>
+
+          <p class="twitter-header--bio">
+            BBQ lead, ChromeOS DevRel. Mostly food, sometimes design and
+            development, especially for the web. 7008px tall. He/him.
+          </p>
+
+          <ul class="twitter-header--nav">
+            <li>
+              <a href="/archive/twitter" data-active={isActive('timeline')}
+                >Timeline</a
+              >
+            </li>
+            <li>
+              <a href="/archive/twitter/media" data-active={isActive('media')}
+                >Media</a
+              >
+            </li>
+            <li>
+              <a href={`/archive/twitter/${id}`} data-active={isActive('tweet')}
+                >Tweet</a
+              >
+            </li>
+            <li>
+              <a href="/archive/twitter/stats" data-active={isActive('stats')}
+                >Stats</a
+              >
+            </li>
+          </ul>
+        </header>
+
+        <slot />
+      </div>
+    </article>
+  </main>
+</Layout>
+
+<style lang="scss" define:vars={{ highlight }}>
+  .page {
+    --highlight-color: var(--highlight);
+
+    &--heading {
+      background-color: var(--highlight);
+      height: 25vh;
+    }
+
+    .headshot {
+      --paint-alpha: 0.25;
+      --base-hue: 345;
+      --max-saturation: 100;
+      --max-lightness: 100;
+      --size: 20;
+      background-color: var(--highlight);
+      background-image: paint(triangles);
+      border-radius: 50%;
+      margin: 1em 1em 1em 0;
+      margin-top: calc(var(--spacing) * -1 - 75px);
+      padding: 5px;
+      width: 150px;
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0 auto;
+    max-width: calc(60ch + var(--spacing) * 2);
+    padding: var(--spacing);
+  }
+
+  .twitter-header {
+    border-bottom: 1px solid var(--grey);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &--name {
+      font-size: 1.25em;
+      font-weight: 700;
+    }
+
+    &--handle {
+      color: var(--grey);
+      font-size: 0.8em;
+    }
+
+    &--bio {
+      font-size: 0.8em;
+    }
+
+    &--nav {
+      display: flex;
+      justify-content: space-between;
+
+      li {
+        padding: 0.25rem;
+      }
+    }
+  }
+
+  [data-active] {
+    border-bottom: 0.25rem solid var(--grey);
+  }
+</style>
