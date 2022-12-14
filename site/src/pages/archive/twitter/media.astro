@@ -2,8 +2,10 @@
 import Layout from '$layouts/Twitter.astro';
 import Twitter from '$lib/tweetback/twitter';
 import Tweet from '$components/Tweet.svelte';
+import Pagination from '$components/Pagination.svelte';
 
 const media = Twitter.tweets.filter((tweet) => {
+  if (tweet.retweet) return false;
   const hasMedia = tweet.media.length > 0;
   if (!hasMedia) return false;
   const m = tweet.media.map((m) => m.type).filter((t) => t !== 'link');
@@ -12,9 +14,9 @@ const media = Twitter.tweets.filter((tweet) => {
   return true;
 });
 
+const page = 0;
+const total = Math.ceil(media.length / 25) - 1;
 const tweets = media.slice(0, 25);
-
-console.log(tweets.map((t) => t.media));
 ---
 
 <Layout
@@ -31,6 +33,7 @@ console.log(tweets.map((t) => t.media));
       ))
     }
   </ul>
+  <Pagination page={page} total={total} home="media" prefix="media" />
 </Layout>
 
 <style lang="scss">
