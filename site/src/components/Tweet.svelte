@@ -42,16 +42,27 @@
       <ul class="media">
         {#each media as m}
           <li class="media--item">
-            <a href={m.url}
-              >{#if m.type === 'image'}
+            {#if m.type === 'image'}
+              <a href={m.url}>
                 <img
                   class="media--image"
                   src={m.url}
                   alt={m.alt}
                   loading="lazy"
                 />
-              {/if}</a
-            >
+              </a>
+            {/if}
+            {#if m.type === 'video'}
+              <video
+                class="media--video"
+                src={m.src}
+                controls={m.loop ? null : true}
+                poster={m.poster}
+                loading="lazy"
+                loop={m.loop ? true : null}
+                autoplay={m.loop ? true : null}
+              />
+            {/if}
           </li>
         {/each}
       </ul>
@@ -168,6 +179,11 @@
 
     &--image {
       max-height: 50vh;
+    }
+
+    &--video {
+      max-height: 50vh;
+      max-width: 100%;
     }
   }
 </style>
