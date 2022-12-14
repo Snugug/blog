@@ -50,10 +50,20 @@ function isActive(path: string) {
             <h2 class="twitter-header--handle">@Snugug</h2>
           </div>
 
-          <p class="twitter-header--bio">
-            BBQ lead, ChromeOS DevRel. Mostly food, sometimes design and
-            development, especially for the web. 7008px tall. He/him.
-          </p>
+          <div class="twitter-header--bio type">
+            <p>
+              BBQ lead, ChromeOS DevRel. Mostly food, sometimes design and
+              development, especially for the web. 7008px tall. He/him.
+            </p>
+            <p>
+              An archive of my Twitter timeline up until I moved to Mastodon.
+              You can find me there at <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://mas.to/@Snugug">@sam@snugug.com</a
+              >
+            </p>
+          </div>
 
           <ul class="twitter-header--nav">
             <li>
@@ -136,6 +146,7 @@ function isActive(path: string) {
     }
 
     &--bio {
+      --highlight-color: var(--dark-grey);
       font-size: 0.8em;
     }
 
