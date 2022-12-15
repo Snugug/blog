@@ -1,0 +1,208 @@
+---
+import Layout from '$layouts/Twitter.astro';
+import Twitter from '$lib/tweetback/twitter';
+import Tweet from '$components/Tweet.svelte';
+import Heart from '$components/icons/fontawesome/heart.svg?raw';
+import Retweet from '$components/icons/fontawesome/retweet.svg?raw';
+import TwitterIcon from '$components/icons/fontawesome/twitter.svg?raw';
+import Image from '$components/icons/fontawesome/image.svg?raw';
+
+const favorites = Twitter.tweets
+  .filter((tweet) => Number(tweet.favorites) > 0)
+  .map((tweet) => Number(tweet.favorites))
+  .reduce((acc, cur) => acc + cur);
+const shares = Twitter.tweets
+  .filter((tweet) => Number(tweet.shares) > 0)
+  .map((tweet) => Number(tweet.shares))
+  .reduce((acc, cur) => acc + cur);
+const media = Twitter.tweets
+  .filter((tweet) => {
+    if (tweet.retweet) return false;
+    const hasMedia = tweet.media.length > 0;
+    if (!hasMedia) return false;
+    const m = tweet.media.map((m) => m.type).filter((t) => t !== 'link');
+    if (m.length === 0) return false;
+
+    return true;
+  })
+  .map(
+    (tweet) =>
+      tweet.media.map((m) => m.type).filter((t) => t !== 'link').length,
+  )
+  .reduce((acc, cur) => acc + cur);
+
+const tweetFrequencyByYear = Twitter.tweets
+  .map((tweet) => {
+    const date = new Date(tweet.date);
+    return date.getFullYear();
+  })
+  .reduce((acc, cur) => {
+    if (acc[cur]) {
+      acc[cur] += 1;
+    } else {
+      acc[cur] = 1;
+    }
+    return acc;
+  }, {});
+
+const mostShared = Twitter.tweets
+  .filter((tweet) => Number(tweet.shares) > 0)
+  .sort((a, b) => Number(b.shares) - Number(a.shares))
+  .splice(0, 10);
+
+const mostLiked = Twitter.tweets
+  .filter((tweet) => Number(tweet.favorites) > 0)
+  .sort((a, b) => Number(b.favorites) - Number(a.favorites))
+  .splice(0, 10);
+
+/**
+ * Formats a number with appropriate i18n formatting
+ * @param {number} stat
+ * @return {string} Formatted number
+ */
+function formatStat(stat) {
+  return new Intl.NumberFormat('en-US').format(stat);
+}
+---
+
+<Layout
+  title="Twitter Archive - Stats"
+  summary="A collection of stats about my tweets from the past"
+  active="stats"
+>
+  <section>
+    <div
+      id="frequency"
+      class="chart chart__frequency"
+      data-frequency={JSON.stringify(tweetFrequencyByYear)}
+    >
+    </div>
+    <ul class="glance">
+      <li class="stat">
+        <span class="icon tweets" aria-label="Tweets" set:html={TwitterIcon} />
+        {formatStat(Twitter.tweets.length)}
+      </li>
+      <li class="stat">
+        <span
+          class="icon images"
+          aria-label="Uploaded media"
+          set:html={Image}
+        />
+        {formatStat(media)}
+      </li>
+      <li class="stat">
+        <span class="icon heart" aria-label="Favorites" set:html={Heart} />
+        {formatStat(favorites)}
+      </li>
+      <li class="stat">
+        <span class="icon shares" aria-label="Shares" set:html={Retweet} />
+        {formatStat(shares)}
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="type--h2">Most Shared</h2>
+    <ol class="tweetlist">
+      {
+        mostShared.map((tweet) => (
+          <li>
+            <Tweet tweet={tweet} nest={false} />
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+  <section>
+    <h2 class="type--h2">Most Liked</h2>
+    <ol class="tweetlist">
+      {
+        mostLiked.map((tweet) => (
+          <li>
+            <Tweet tweet={tweet} nest={false} />
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Layout>
+
+<script>
+  import '$js/charts/TweetFrequency.js';
+</script>
+
+<style lang="scss">
+  .chart {
+    :global(.ct-labels) {
+      text-align: center;
+    }
+
+    :global(.ct-bar) {
+      stroke-width: clamp(5px, 5vw, 30px);
+      // transform: translateX(-0.5rem);
+    }
+
+    &__frequency {
+      :global(.ct-bar) {
+        stroke: var(--pre-cyan);
+      }
+    }
+  }
+
+  section + section {
+    margin-top: 2rem;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  .tweetlist {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  li {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .icon {
+    height: 1em;
+    width: 1em;
+  }
+
+  .glance {
+    align-items: center;
+    column-gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.5em;
+    justify-content: center;
+    margin-top: 1rem;
+    row-gap: 1rem;
+  }
+
+  .stat {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .heart {
+    fill: var(--red);
+  }
+
+  .shares {
+    fill: var(--light-green);
+  }
+
+  .tweets {
+    fill: var(--pre-cyan);
+  }
+
+  .images {
+    fill: var(--gold);
+  }
+</style>

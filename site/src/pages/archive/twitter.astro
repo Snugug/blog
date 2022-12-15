@@ -1,0 +1,41 @@
+---
+import Layout from '$layouts/Twitter.astro';
+import Twitter from '$lib/tweetback/twitter';
+import Tweet from '$components/Tweet.svelte';
+import Pagination from '$components/Pagination.svelte';
+
+const tweets = Twitter.tweets.slice(0, 25);
+const page = 0;
+const total = Math.ceil(Twitter.tweets.length / 25);
+---
+
+<Layout
+  title="Twitter Archive"
+  summary="A collection of tweets from the past"
+  active="timeline"
+>
+  <ul>
+    {
+      tweets.map((tweet) => (
+        <li>
+          <Tweet tweet={tweet} nest={false} />
+        </li>
+      ))
+    }
+  </ul>
+  <Pagination page={page} total={total} home="twitter" />
+</Layout>
+
+<style lang="scss">
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  li {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+</style>
