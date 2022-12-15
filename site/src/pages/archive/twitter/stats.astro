@@ -31,6 +31,20 @@ const media = Twitter.tweets
   )
   .reduce((acc, cur) => acc + cur);
 
+const tweetFrequencyByYear = Twitter.tweets
+  .map((tweet) => {
+    const date = new Date(tweet.date);
+    return date.getFullYear();
+  })
+  .reduce((acc, cur) => {
+    if (acc[cur]) {
+      acc[cur] += 1;
+    } else {
+      acc[cur] = 1;
+    }
+    return acc;
+  }, {});
+
 const mostShared = Twitter.tweets
   .filter((tweet) => Number(tweet.shares) > 0)
   .sort((a, b) => Number(b.shares) - Number(a.shares))
@@ -57,6 +71,12 @@ function formatStat(stat) {
   active="stats"
 >
   <section>
+    <div
+      id="frequency"
+      class="chart chart__frequency"
+      data-frequency={JSON.stringify(tweetFrequencyByYear)}
+    >
+    </div>
     <ul class="glance">
       <li class="stat">
         <span class="icon tweets" aria-label="Tweets" set:html={TwitterIcon} />
@@ -107,7 +127,28 @@ function formatStat(stat) {
   </section>
 </Layout>
 
+<script>
+  import '$js/charts/TweetFrequency.js';
+</script>
+
 <style lang="scss">
+  .chart {
+    :global(.ct-labels) {
+      text-align: center;
+    }
+
+    :global(.ct-bar) {
+      stroke-width: clamp(5px, 5vw, 30px);
+      // transform: translateX(-0.5rem);
+    }
+
+    &__frequency {
+      :global(.ct-bar) {
+        stroke: var(--pre-cyan);
+      }
+    }
+  }
+
   section + section {
     margin-top: 2rem;
   }
@@ -140,6 +181,7 @@ function formatStat(stat) {
     flex-wrap: wrap;
     font-size: 1.5em;
     justify-content: center;
+    margin-top: 1rem;
     row-gap: 1rem;
   }
 
