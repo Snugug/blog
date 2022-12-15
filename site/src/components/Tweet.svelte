@@ -116,7 +116,6 @@
 
 <style lang="scss">
   .replies {
-    border-left: 1px solid var(--grey);
     margin-left: 1rem;
   }
 
@@ -138,6 +137,10 @@
     flex-direction: column;
     gap: 1rem;
     padding: 0.5rem;
+
+    li & {
+      border-left: 1px solid var(--grey);
+    }
   }
 
   footer {
