@@ -37,29 +37,29 @@ jobs:
       - name: Install dependencies
         working-directory: site
         run: pnpm install
+      - name: Setup build cache
+        if: github.ref == 'refs/heads/main'
+        uses: actions/cache@v3
+        with:
+          path: ./site/dist
+          key: ${{ runner.os }}-build
       - name: Test and Build
         working-directory: site
         run: pnpm t
         env:
           SANITY_PROJECT: ${{ secrets.SANITY_PROJECT }}
           SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
-      - name: Upload site build
-        if: github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@v3
-        with:
-          name: site
-          path: ./site/dist
   deploy:
     needs: test-build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: site
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
+      - name: Get build cache
+        uses: actions/cache@v3
         with:
-          name: site
-          path: dist
+          path: ./site/dist
+          key: ${{ runner.os }}-build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
