@@ -53,7 +53,6 @@ jobs:
     needs: test-build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: site
     steps:
       - name: Get build cache
         uses: actions/cache@v3
@@ -64,4 +63,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./site/dist
