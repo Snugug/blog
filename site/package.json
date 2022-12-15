@@ -49,6 +49,7 @@
   "devDependencies": {
     "@sanity/webhook": "^2.0.0",
     "@typescript-eslint/parser": "^5.42.0",
+    "aws-sdk": "^2.1275.0",
     "eslint": "^8.26.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
@@ -63,6 +64,8 @@
     "husky": "^8.0.1",
     "letterform-shades": "^1.0.0",
     "lint-staged": "^13.0.3",
+    "mock-aws-s3": "^4.0.2",
+    "nock": "^13.2.9",
     "npm-run-all": "^4.1.5",
     "postcss-html": "^1.5.0",
     "prettier": "^2.7.1",
