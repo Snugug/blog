@@ -27,11 +27,13 @@ export async function getStaticPaths() {
 }
 
 const tweet = Astro.props;
-const replies = await Twitter.getReplies(tweet.id);
-console.log(replies);
 ---
 
-<Layout title={`Tweet ${tweet?.id}`} summary={tweet?.text} active="tweet">
+<Layout
+  title={`Twitter Archive - Tweet ${tweet?.id}`}
+  summary={tweet?.text}
+  active="tweet"
+>
   <div class="wrapper">
     <div class="tweet-wrapper">
       <Tweet tweet={tweet} showReplies={true} />

@@ -39,8 +39,8 @@ const { tweets, total } = Astro.props;
 ---
 
 <Layout
-  title="title"
-  summary="A collection of tweets from the past"
+  title={`Twitter Archive - Media, Page ${page}`}
+  summary={`Page ${page} of a collection of tweets featuring media from the past`}
   active="media"
 >
   <ul>
