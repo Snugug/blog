@@ -4,9 +4,28 @@ import Twitter from '$lib/tweetback/twitter';
 import Tweet from '$components/Tweet.svelte';
 import Pagination from '$components/Pagination.svelte';
 
-const tweets = Twitter.tweets.slice(0, 25);
-const page = 0;
-const total = Math.ceil(Twitter.tweets.length / 25);
+/**
+ * Builds static paths for each media page
+ */
+export async function getStaticPaths() {
+  const total = Math.ceil(Twitter.tweets.length / 25);
+  const pages = [];
+  for (let i = 1; i < total; i++) {
+    pages.push({
+      params: {
+        page: i,
+      },
+      props: {
+        tweets: Twitter.tweets.slice(i * 25, (i + 1) * 25),
+        total: total - 1,
+      },
+    });
+  }
+  return pages;
+}
+
+const { page } = Astro.params;
+const { tweets, total } = Astro.props;
 ---
 
 <Layout

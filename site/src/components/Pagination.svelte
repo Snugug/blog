@@ -5,42 +5,28 @@
   export let page;
   export let total;
   export let home;
-  export let prefix;
 
   const previous = Number(page) - 1 > 0 ? Number(page) - 1 : null;
   const next = Number(page) + 1 <= Number(total) ? Number(page) + 1 : null;
-
-  console.log('----');
-  console.log(previous);
-  console.log(next);
-  console.log('----');
 </script>
 
 <div class="nav">
   {#if previous}
     <a
       class="nav--previous"
-      href="/archive/twitter/{prefix}-{previous}"
+      href="/archive/{home}-{previous}"
       title="Previous page"
     >
       <span class="icon">{@html Previous}</span>
     </a>
-  {:else}
-    <a
-      class="nav--previous"
-      href="/archive/twitter/{home}"
-      title="Previous page"
-    >
+  {:else if Number(page) > 0}
+    <a class="nav--previous" href="/archive/{home}" title="Previous page">
       <span class="icon">{@html Previous}</span>
     </a>
   {/if}
   <span class="nav--page">{Number(page)} / {total}</span>
   {#if next}
-    <a
-      class="nav--next"
-      href="/archive/twitter/{prefix}-{next}"
-      title="Next page"
-    >
+    <a class="nav--next" href="/archive/{home}-{next}" title="Next page">
       <span class="icon">{@html Next}</span>
     </a>
   {/if}
