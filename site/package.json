@@ -39,6 +39,7 @@
     "chromeos-dev-markdown": "^1.0.1",
     "cli-progress": "^3.11.2",
     "css-paint-polyfill": "^3.4.0",
+    "markdown-it": "^13.0.1",
     "parse-domain": "^7.0.1",
     "sentiment": "^5.0.2",
     "sqlite3": "^5.1.2",

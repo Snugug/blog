@@ -1,7 +1,7 @@
 <script>
   import Twitter from '$lib/tweetback/twitter';
 
-  import md from 'chromeos-dev-markdown';
+  import MarkdownIt from 'markdown-it';
   import { transform as tweetback } from '@tweetback/canonical';
 
   import Heart from '$components/icons/fontawesome/heart.svg?raw';
@@ -11,6 +11,13 @@
   export let tweet = {};
   export let showReplies = false;
   export let wrapper = 'div';
+
+  const md = new MarkdownIt({
+    html: false,
+    linkify: true,
+    typographer: true,
+  });
+
   const published =
     tweet.date.toLocaleDateString('en-US') +
     ' - ' +
@@ -22,7 +29,7 @@
 
   let reply = false;
   if (tweet?.reply?.isReply) {
-    if (tweet.reply.to.toLowerCase() === 'snugug') {
+    if (tweet?.reply?.to?.toLowerCase() === 'snugug') {
       reply = `/archive/twitter/${tweet.reply.toTweetId}`;
     } else {
       reply = tweetback(
