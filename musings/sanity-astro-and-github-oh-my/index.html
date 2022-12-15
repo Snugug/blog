@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="astro-MPDYEVQB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/fonts/dank-mono.css">
+    <link rel="me" href="https://mas.to/@snugug">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="generator" content="Astro v1.6.15">
+    <title>Sanity, Astro, and GitHub Oh My! | Snugug</title>
+    <meta name="description" content="Why I chose Sanity and Astro for my site rebuild, and how I got continuous deployment working for both using GitHub Actions from a monorepo-like setup.">
+  <link rel="stylesheet" href="/assets/cookbook.d0dd872e.css" />
+<link rel="stylesheet" href="/assets/cookbook.65b8ab6f.css" />
+<link rel="stylesheet" href="/assets/_slug_.b6836d49.css" /></head>
+  <body class="body astro-MPDYEVQB">
+    <style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="ZJ6d3u" component-url="/Menu.ecc8f48d.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Menu&quot;,&quot;value&quot;:true}" await-children=""><div><button class="toggle svelte-lkm16t" aria-expanded="false" aria-label="Open menu"></button>
+
+  <nav class="menu svelte-lkm16t" aria-expanded="false"><ul class="menu--list svelte-lkm16t"><li><a href="/" tabindex="-1">Home</a></li>
+      <li><a href="/musings" tabindex="-1">Posts</a></li>
+      <li><a href="/cookbook" tabindex="-1">Cookbook</a></li>
+      <li><a href="/me" tabindex="-1">About</a></li>
+      <li><a href="/presentations" tabindex="-1">Presentations</a></li>
+      <li><a href="/rss.xml" tabindex="-1">RSS</a></li></ul></nav>
+</div></astro-island>
+
+    <div class="body-content astro-MPDYEVQB">
+      <main itemscope="" itemtype="http://schema.org/Blog" class="astro-HRZLV7RA">
+    <article class="article astro-HRZLV7RA">
+      <header class="article--heading astro-HRZLV7RA">
+        <div class="heading heading--padded astro-O3TATT2D" style="--hue: 25;--saturation: 30;--lightness: 80;--alpha: 0.2;--size: 125;">
+  <h1 class="heading--title astro-O3TATT2D" itemprop="name">Sanity, Astro, and GitHub Oh My!</h1>
+</div>
+
+
+      </header>
+      <div class="article--container astro-HRZLV7RA">
+        <div class="article--inner astro-HRZLV7RA">
+          <p class="article--date astro-HRZLV7RA">
+            
+            <time datetime="2022-11-25T00:00:00.000Z" class="astro-HRZLV7RA">11/25/2022
+            </time>
+          </p>
+          <div class="article--content type astro-HRZLV7RA"><p>Following my realization that I no longer want to deal with <a href="/musings/return-of-the-cms/">flat Markdown files</a>, I decided I wanted to rebuild my site. I had a few requirements for doing so: I needed the ability to manage fairly complex content models (my recipes are weirdly complicated to model), I needed migration to be quick because I didn’t want to spend a bunch of time on it, and I needed to be able to generate pages from API calls. This lead me on a journey to totally rebasing my site’s stack.</p>
+<section>
+<h2 id="content-management" tabindex="-1"><a class="header-anchor" href="#content-management">Content management</a></h2>
+<p>I’ve got a long history with content management systems; I got my start, as a career, as a back-end developer, as a front-end developer, as a content strategist, as public speaker, and as a project leader in <a href="https://drupal.org/">Drupal</a>. My first four jobs were all doing work in and around content management. When I left NBCUniversal for IBM, I did so in no small part to expand my knowledge outside of CMS-driven sites, only to work on building an early Node.js headless CMS we called <a href="https://github.com/punchcard-cms">Punchcard</a>. By the time I left, I was once a again working on a Drupal powered website. Needless to say, I have a lot of <em>feelings</em> about content management systems.</p>
+<p>Like I mentioned in <a href="/musings/return-of-the-cms/">Return of the CMS</a>, the current field of headless CMSes ticks a lot of CMS boxes for me. After looking at a bunch of them and talking with a few other people, I decided to try my hand at migrating my content to <a href="https://sanity.io/">Sanity</a>. There’s a bunch I really like about Sanity: content modeling is super solid, including the ability to model complex, repeatable, and repeatable complex fields and it’s super customizable. It even has one of my “pet peev” features that I find missing from most content management systems: differentiating between fields that are required to publish and those required to save (in Sanity, fields marked “required” are required for publishing, but it’s data model makes none strictly required to save, which is good enough for my needs). So I went to work. I also really like the idea of <a href="https://github.com/portabletext/portabletext">PortableText</a>, a JSON spec for defining structured block content that can be used for everything from WYSIWYG editors to HTML, Markdown, and more, although I confess I haven’t implemented it yet.</p>
+<p>I dove in to see what I could do. I made a few test posts using their blog template as a starting point. It worked well. I ran it locally and poked around with the API; by default it’s got its own query language called <a href="https://www.sanity.io/docs/how-queries-work">GROQ</a> which works well enough; they also offer GraphQL but I never really loved that so I haven’t enabled that yet. After an initial proof of concept, I moved all my content types into it, and was happy.</p>
+<p>When I initially built out my instance, I had used v2. Sanity v3 is <a href="https://www.sanity.io/blog/sanity-studio-v3-developer-preview">coming soon</a> and is currently in release candidate. Whereas v2 feels very much like a fully cusom tack, v3 has been totally rebuilt, runs <a href="https://vitejs.dev/">Vite</a> (which I love) and now feels like a regular webapp. Some plugins (like the markdown editor I’m writing this in) are still a work-in-progress, but I like the codebase so much more I’m mostly OK with it. So, content codebse sorted, now my front-end.</p>
+</section>
+<section>
+<h2 id="site-codebase" tabindex="-1"><a class="header-anchor" href="#site-codebase">Site codebase</a></h2>
+<p>My previous site was built on <a href="https://11ty.dev/">Eleventy</a> and I was mostly happy with that for a long time. But the more I used it, the more some rough edges started to annoy me. I don’t have much JavaScript on my site, but I’ve got some, and I’ve got a lot of CSS and even with my <a href="/musings/eleventy-plus-vite/">solution for 11ty and Vite</a>, they still feel like two separate things trying to compete for ownership of my <code>dev</code> script. I’ve also lost patience with the templating solutions provided; work on my <a href="/musings/a-beginners-guide-to-diabetes/#tracking-my-health">health tracking app</a> with <a href="https://svelte.dev/">Svelte</a> has made me realize just how much is missing from those systems. Then there’s page generation. I’ve done a lot of work figuring out how to scale this in 11ty and I don’t love the overriding of pagination to accomplish this. Finally, while I really love 11ty’s data cascade, once I remove my flat Markdown files, a lot of their utility goes away. So started exploring other options.</p>
+<p>I looked at a bunch of other static site generators (SSGs), with a focus on low to zero JS output and support for modern templating options. I eventually settled on <a href="https://astro.build/">Astro</a>; like 11ty it’s aggressive about not outputting JavaScript, even for non-Astro components, and it deeply integrates with Vite, which I also really like (although I wish link and script tags would get compiled like they do for standard Vite builds). But it was my experience when I started integrating the content API that I really decided it was worth a full rebuild.</p>
+<p>Unlike 11ty, page generation in Astro is done based on folder structure, but file names can have params in them, which feels much more like building routes in a dynamic server. This, to me, feels really natural when coupled with an API. A lot of the struggle I had with managing layouts and cascading data and generating pages disappears with this paradigm. Adding in modern component frameworks for handling reusable UI (instead of Nunjucks macros or shortcodes) also made me more productive, to the point where I was able not only to rebuild my site in a weekend, but do a top-to-bottom refresh of it while adding new features (hello RSS feed and sitemap) to boot!</p>
+<p>With Sanity and Astro, I think I’ve finally found a winning combo for me blogging more and doing a better job at maintaining my website. The only thing I needed to figure out was continuous deployment now that my content and my site are disconnected.</p>
+</section>
+<section>
+<h2 id="continuous-deployment" tabindex="-1"><a class="header-anchor" href="#continuous-deployment">Continuous deployment</a></h2>
+<p>I’ve loved <a href="https://github.com/features/actions">GitHub Actions</a> for a long time, but their documentation is a little obtuse and testing is hard and mostly done live, so it took me a while to figure out how to combine all of the above into a nice package.</p>
+<p>The first, and most important bit, was finding the <a href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch"><code>repository_dispatch</code></a> workflow trigger that lets GitHub Actions run off of a webhook call! Perfect, I thought, as Sanity can be configured to send webhooks when content deploys! Except, and rightfully so, the webhook that GitHub actions requires is pretty secured; it requires a a beta fine-grained GitHub access token with read and write code access and has a max 1-year lifespan, and the structure of the webhook needs to be very specific. Unfortunately, this means Sanity can’t just call the action directly, you need something in the middle. A serverless function would be great here, but I wound up going with <a href="https://pipedream.com/">Pipedream</a>. Even now, I don’t know why specific dispatch names don’t work, but a generic one does, so that’s still a work-in-progress, but it works, so that’s what matters!</p>
+<p>The second thing I needed to do was figure out how to keep my CMS codebase and my site codebase together in the same repo, because I didn’t want to maintain them in different places. To do this, I leaned on the <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore"><code>paths</code></a> workflow push filter, letting me run different GitHub Actions depending on whether code was pushed to my CMS or to my site. While experimenting with this, I also found that if you have multiple GitHub Actions with jobs with the same id (like <code>test-build</code>) and make that required for a protected branch, it’ll work regardless of which Action runs! This means I can protect my main branch regardless of if I’m working on my CMS or my site!</p>
+<p>To keep everything secure, I use a combo of <code>.env</code> files locally with my Sanity project and a Sanity API token for reading content for my site, and have GitHub Secrets to supply those during my GitHub Actions build. To deploy my Sanity studio, I do the same, but have a separate deploy token that gets injected during my Action run. The only thing that was a little annoying is the environment variables when working with Sanity is that the required names are specific, so you can’t choose the names you want and pass them in where you want. That’s easy to overcome, though.</p>
+<hr>
+<p>I’m super excited about this new setup and workflow, and am making plans for how to expand on it to allow for previews using Astro’s server-side render (SSR) mode. I also have been playing with <a href="https://pnpm.io/">pnpm</a> and migrated my codebase to that, too, with this, and I’m really loving that, too. The only gotcha here was getting <a href="https://typicode.github.io/husky/#/">Husky</a> to work right, the <code>prepare</code> script needs to run from the site root and the hooks need to <code>cd</code> to the folder they’re in. If you want to see how the above shakes out, here’s some deep links to my <a href="https://github.com/Snugug/blog/tree/e85221063403074088e6ddeb804d88648d88d29e">site source</a> as it looks at time of publishing:</p>
+<ul>
+<li>GitHub Actions
+<ul>
+<li><a href="https://github.com/Snugug/blog/blob/e85221063403074088e6ddeb804d88648d88d29e/.github/workflows/tbd-site.yml">Site build/deploy</a></li>
+<li><a href="https://github.com/Snugug/blog/blob/e85221063403074088e6ddeb804d88648d88d29e/.github/workflows/tbd-cms.yml">CMS build/deploy</a></li>
+</ul>
+</li>
+<li>Codebases
+<ul>
+<li><a href="https://github.com/Snugug/blog/tree/e85221063403074088e6ddeb804d88648d88d29e/cms">CMS</a></li>
+<li><a href="https://github.com/Snugug/blog/tree/e85221063403074088e6ddeb804d88648d88d29e/site">Site</a></li>
+</ul>
+</li>
+<li>Husky
+<ul>
+<li><a href="https://github.com/Snugug/blog/blob/e85221063403074088e6ddeb804d88648d88d29e/cms/package.json#L15">Husky prepare for CMS</a></li>
+<li><a href="https://github.com/Snugug/blog/blob/e85221063403074088e6ddeb804d88648d88d29e/cms/.husky/pre-commit"><code>pre-commit</code> hook</a></li>
+</ul>
+</li>
+</ul>
+</section>
+</div>
+        </div>
+      </div>
+    </article>
+  </main>
+    </div>
+
+    <script>(self.Astro=self.Astro||{}).only=t=>{(async()=>await(await t())())()},window.dispatchEvent(new Event("astro:only"));</script><astro-island uid="1HCVf6" component-url="/Scripts.e7e8b989.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="only" opts="{&quot;name&quot;:&quot;Scripts&quot;,&quot;value&quot;:true}"></astro-island>
+    <footer class="footer svelte-1bt7hha"><div class="inner svelte-1bt7hha"><img src="/images/me/square.jpg" alt="Headshot of Sam" class="headshot svelte-1bt7hha" loading="lazy">
+    <h2 class="svelte-1bt7hha">Sam <br><span class="aka">aka</span>
+      <a class="type--a svelte-1bt7hha" href="/links">Snugug</a></h2>
+    <p class="svelte-1bt7hha">BBQ lead, ChromeOS DevRel</p>
+    <p class="svelte-1bt7hha">Web, design, development, food</p></div>
+</footer>
+  
+</body></html>
+

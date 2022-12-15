@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" class="astro-MPDYEVQB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/fonts/dank-mono.css">
+    <link rel="me" href="https://mas.to/@snugug">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="generator" content="Astro v1.6.15">
+    <title>Measure Tester | Snugug</title>
+    <meta name="description" content="A tool to help measure your measure, helping you design for an ideal reading experience.">
+  <link rel="stylesheet" href="/assets/cookbook.d0dd872e.css" />
+<link rel="stylesheet" href="/assets/cookbook.65b8ab6f.css" />
+<link rel="stylesheet" href="/assets/_slug_.b6836d49.css" /></head>
+  <body class="body astro-MPDYEVQB">
+    <style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="ZJ6d3u" component-url="/Menu.ecc8f48d.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Menu&quot;,&quot;value&quot;:true}" await-children=""><div><button class="toggle svelte-lkm16t" aria-expanded="false" aria-label="Open menu"></button>
+
+  <nav class="menu svelte-lkm16t" aria-expanded="false"><ul class="menu--list svelte-lkm16t"><li><a href="/" tabindex="-1">Home</a></li>
+      <li><a href="/musings" tabindex="-1">Posts</a></li>
+      <li><a href="/cookbook" tabindex="-1">Cookbook</a></li>
+      <li><a href="/me" tabindex="-1">About</a></li>
+      <li><a href="/presentations" tabindex="-1">Presentations</a></li>
+      <li><a href="/rss.xml" tabindex="-1">RSS</a></li></ul></nav>
+</div></astro-island>
+
+    <div class="body-content astro-MPDYEVQB">
+      <main itemscope="" itemtype="http://schema.org/Blog" class="astro-HRZLV7RA">
+    <article class="article astro-HRZLV7RA">
+      <header class="article--heading astro-HRZLV7RA">
+        <div class="heading heading--padded astro-O3TATT2D" style="--hue: 25;--saturation: 30;--lightness: 80;--alpha: 0.2;--size: 125;">
+  <h1 class="heading--title astro-O3TATT2D" itemprop="name">Measure Tester</h1>
+</div>
+
+
+      </header>
+      <div class="article--container astro-HRZLV7RA">
+        <div class="article--inner astro-HRZLV7RA">
+          <p class="article--date astro-HRZLV7RA">
+            
+            <time datetime="2013-03-29T00:00:00.000Z" class="astro-HRZLV7RA">3/29/2013
+            </time>
+          </p>
+          <div class="article--content type astro-HRZLV7RA"><p>I’m a big fan of nice typography (stopping you before you yell and scream about my last site design, I was experimenting!). One of the key pieces to having great typography is having a great measure, or as it’s probably more commonly referred to, line length. For the English language, the ideal measure as I’ve been taught is generally between 2 and 3 times the length of our alphabet, including spaces. So, when I’m building and designing sites, one of the factors I take into consideration when choosing breakpoints is the text’s measure. This will vary by font family, font weight, and font size. Because of this, I find I need to check my measure quite often.</p>
+<p>I’ve built myself two tools to do just this. The first one is a <a href="https://snugug.com/documents/measure-tester/Measure%20Tester.txt">.txt file</a> where I can simply paste in my measure and visually see if it it’s too large or too small. The second one is an <a href="https://snugug.com/documents/measure-tester/Measure%20Tester.alfredworkflow">Alfred Workflow</a> for the new <a href="http://www.alfredapp.com/">Alfred 2.0</a> (if you don’t already use Alfred, you should really start, the basic version is free). For the Alfred workflow, I believe you need the Powerpack, which I think is worth it. The Measure workflow will allow you to type ‘measure’ in to Alfred, then paste in your copied line, and it’ll notify you whether or not you’ve got an ideal measure. Hope you enjoy!</p>
+</div>
+        </div>
+      </div>
+    </article>
+  </main>
+    </div>
+
+    <script>(self.Astro=self.Astro||{}).only=t=>{(async()=>await(await t())())()},window.dispatchEvent(new Event("astro:only"));</script><astro-island uid="1HCVf6" component-url="/Scripts.e7e8b989.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="only" opts="{&quot;name&quot;:&quot;Scripts&quot;,&quot;value&quot;:true}"></astro-island>
+    <footer class="footer svelte-1bt7hha"><div class="inner svelte-1bt7hha"><img src="/images/me/square.jpg" alt="Headshot of Sam" class="headshot svelte-1bt7hha" loading="lazy">
+    <h2 class="svelte-1bt7hha">Sam <br><span class="aka">aka</span>
+      <a class="type--a svelte-1bt7hha" href="/links">Snugug</a></h2>
+    <p class="svelte-1bt7hha">BBQ lead, ChromeOS DevRel</p>
+    <p class="svelte-1bt7hha">Web, design, development, food</p></div>
+</footer>
+  
+</body></html>
+

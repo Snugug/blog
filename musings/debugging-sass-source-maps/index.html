@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" class="astro-MPDYEVQB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/fonts/dank-mono.css">
+    <link rel="me" href="https://mas.to/@snugug">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="generator" content="Astro v1.6.15">
+    <title>Debugging Sass with Source Maps | Snugug</title>
+    <meta name="description" content="One of the super exciting features in Sass 3.3, currently in development, is the introduction of native Source Maps as a successor to Sass Debug Info. Working Source Map reading for Sass in Google Chrome Canary means this is a real debugging option you can start looking at today.">
+  <link rel="stylesheet" href="/assets/cookbook.d0dd872e.css" />
+<link rel="stylesheet" href="/assets/cookbook.65b8ab6f.css" />
+<link rel="stylesheet" href="/assets/_slug_.b6836d49.css" /></head>
+  <body class="body astro-MPDYEVQB">
+    <style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="ZJ6d3u" component-url="/Menu.ecc8f48d.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Menu&quot;,&quot;value&quot;:true}" await-children=""><div><button class="toggle svelte-lkm16t" aria-expanded="false" aria-label="Open menu"></button>
+
+  <nav class="menu svelte-lkm16t" aria-expanded="false"><ul class="menu--list svelte-lkm16t"><li><a href="/" tabindex="-1">Home</a></li>
+      <li><a href="/musings" tabindex="-1">Posts</a></li>
+      <li><a href="/cookbook" tabindex="-1">Cookbook</a></li>
+      <li><a href="/me" tabindex="-1">About</a></li>
+      <li><a href="/presentations" tabindex="-1">Presentations</a></li>
+      <li><a href="/rss.xml" tabindex="-1">RSS</a></li></ul></nav>
+</div></astro-island>
+
+    <div class="body-content astro-MPDYEVQB">
+      <main itemscope="" itemtype="http://schema.org/Blog" class="astro-HRZLV7RA">
+    <article class="article astro-HRZLV7RA">
+      <header class="article--heading astro-HRZLV7RA">
+        <div class="heading heading--padded astro-O3TATT2D" style="--hue: 25;--saturation: 30;--lightness: 80;--alpha: 0.2;--size: 125;">
+  <h1 class="heading--title astro-O3TATT2D" itemprop="name">Debugging Sass with Source Maps</h1>
+</div>
+
+
+      </header>
+      <div class="article--container astro-HRZLV7RA">
+        <div class="article--inner astro-HRZLV7RA">
+          <p class="article--date astro-HRZLV7RA">
+            <span class="astro-HRZLV7RA">
+                  <span class="article--date-signifier astro-HRZLV7RA" aria-label="Updated on:">
+                    U 
+                  </span>
+                  <span class="astro-HRZLV7RA">
+                    7/6/2013
+                  </span>
+                  <span class="astro-HRZLV7RA"> / </span>
+                  <span class="article--date-signifier astro-HRZLV7RA" aria-label="Published on:">
+                    P 
+                  </span>
+                </span>
+            <time datetime="2013-02-28T00:00:00.000Z" class="astro-HRZLV7RA">2/28/2013
+            </time>
+          </p>
+          <div class="article--content type astro-HRZLV7RA"><aside class="note--warning"><p>After some user confusion about the difference between Source Maps and Debug Info, this article has been updated to more clearly focus on Source Maps. This update incorporates the previous update in which Paul Irish pointed out that the UI for individual properties have been added to Canary’s Source Map implementation.</p>
+</aside><p>One of the super exciting features in Sass 3.3, currently in development, is the introduction of native <a href="http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/">Source Maps</a> in Sass. Source Maps are a generic mapping format written in JSON that can be utilized by any processed file to create relations between pre-processed files and post-processed files, for instance between pre-compressed JavaScript and the expanded development files or, as in our case, between compiled CSS and the development Sass files. If you’ve ever used <a href="https://addons.mozilla.org/en-us/firefox/addon/firesass-for-firebug/">FireSass</a> or Sass’s <code>--debug-info</code> flag, you can think of Source Maps as their successor.</p>
+<section>
+<h2 id="before-we-start" tabindex="-1"><a class="header-anchor" href="#before-we-start">Before We Start</a></h2>
+<p>Google Chrome <a href="https://www.google.com/intl/en/chrome/browser/canary.html">Canary</a> currently has support for Sass Source Maps built in, so I will be referencing their implementation of debugging for the purposes of this post. There are other tools that are able to do what Chrome does, but Chrome provides a good good baseline for comparison. To enable Source Maps in Chrome, go to <a href="chrome://flags">chrome://flags</a> inside of your Canary browser and enable <code>Enable Developer Tools experiments.</code>. You’ll need to restart your browser afterwards. Once enabled, open up your Web Inspector, open up settings (the gear in the lower-right corner), go to <code>Experiments</code>, check <code>Support for Sass</code>, and restart your browser to have the changes take effect.</p>
+</section>
+<section>
+<h2 id="sass-source-maps" tabindex="-1"><a class="header-anchor" href="#sass-source-maps">Sass Source Maps</a></h2>
+<p>Source Maps change the Sass debugging game. Now, in order to test Sass Source Maps, your’e going to need the prerelease version of Sass 3.3 which you can install by running <code>gem install sass --pre</code>. You’re going to need at least <strong>Sass 3.3.0.alpha.101</strong> for Source Maps to work. If you’re compiling using Sass, you can compile your files with Source Maps by doing something like <code>sass --watch --sourcemap style.scss:style.css</code>; as of this writing, adding <code>sass_options = {:sourcemap =&gt; true}</code> into Compass’s config.rb unfortunately <a href="https://github.com/chriseppstein/compass/issues/1189">does not work</a>, but it hopefully will soon. With Source Maps enabled, in addition to your compiled file, you get a file in the same directory called <code>file.css.map</code> which looks something like this:</p>
+<figure><pre class="language-javascript"><code class="language-javascript"><span class="token punctuation">{</span>
+<span class="token string-property property">"version"</span><span class="token operator">:</span> <span class="token string">"3"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"mappings"</span><span class="token operator">:</span> <span class="token string">"AAOA,IAAK;EACH,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,IAAI;ECRX,gBAAgB,EAAE,IAAI;EDUtB,OAAO,EAAE,IAAI"</span><span class="token punctuation">,</span>
+<span class="token string-property property">"sources"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"../sass/test.scss"</span><span class="token punctuation">,</span><span class="token string">"../sass/_mixin.scss"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token string-property property">"file"</span><span class="token operator">:</span> <span class="token string">"test.css"</span>
+<span class="token punctuation">}</span>
+</code></pre></figure><p>Look! A pretty JSON file! It’s fairly human-readable except for the actual mappings which are encoded to make their size smaller. It also shows us all of the sources that make up that file, providing us a good way to see what actually is going into our files.</p>
+<p>If you go to Sources in Canary, you’ll be in for a wonderful surprise: each partial that is used to generate your final CSS file gets displayed! That means you can easily see your whole development partial structure!</p>
+<p>On top of all of that, the Source Map not only maps selectors to their source, it also maps <em>individual properties</em> to their source! Simply <code>ctrl+click</code> (Windows) or <code>cmd-click</code> (Mac) to go straight to the line in the file a property comes from! As promised, Sass Source Maps allow you to dive in to a property that comes from mixins, jumping straight to the line in the file inside the mixin it comes from, as well as dive in to a property that comes from extendables, jumping straight to the line in the file inside the extendable it comes from and even working with placeholder extendables. If there was one disappointment, it’s that, while the Source Maps will take you to a property that’s built using a function and it will show you the function call, if the function is supplied by a partial, that partial isn’t included in the Source Map tree and there’s still no easy way to jump to the actual function definition. That being said, I’m not sure how I would effectively go about implementing that, so I can’t be too upset about that.</p>
+<p>Anyway, all in all, this is absolutely amazing, and I’m super excited to have this available to us in Sass. Huge thanks to Alexander Pavlov for the patch to put this into Chrome and I believe who wrote the Source Map patch for Sass to begin with.</p>
+</section>
+<section>
+<h2 id="sass-debug-info" tabindex="-1"><a class="header-anchor" href="#sass-debug-info">Sass Debug Info</a></h2>
+<p>If you have previously used FireSass or or Sass’s <code>--debug-info</code>, you were using an ad-hoc hack to determine the source of selectors, but <code>--debug-info</code> <em>is not</em> a true Source Map. The new Source Map feature above is the first real implementation of Source Maps in Sass. If you are unable to use Sass 3.3’s Source Map feature, you can still debug Sass currently with Debug Info.</p>
+<p>Currently available in the stable version of Sass, as of this writing it’s Sass 3.2.6, is the <code>--debug-info</code> flag. With this flag enabled, Sass will print out a non-standard media query that tools can read and determine the source file from. If you’re compiling using Sass, you can compile your files with the debug info by doing something like <code>sass --watch --debug-info style.scss:style.css</code>; if you’re compiling using Compass, you can add <code>sass_options = {:debug_info =&gt; true}</code> to the bottom of your <code>config.rb</code> file. With Debug Info on, above each selector in your compiled CSS file, a non-standard media query will be printed that looks something like this:</p>
+<figure><pre class="language-scss"><code class="language-scss"><span class="token comment">/* Compressed (what you'll see) */</span>
+<span class="token comment">/* @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/Richard\/Prototypes\/sourcemap\/sass\/test\.scss}line{font-family:\000034}} */</span>
+
+<span class="token comment">/* Expanded */</span>
+<span class="token atrule"><span class="token rule">@media</span> -sass-debug-info</span> <span class="token punctuation">{</span>
+  <span class="token selector">filename </span><span class="token punctuation">{</span>
+    <span class="token property">font-family</span><span class="token punctuation">:</span> file\<span class="token punctuation">:</span> \/\/\/Users\/Richard\/Prototypes\/sourcemap\/sass\/test\.scss<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">line </span><span class="token punctuation">{</span>
+    <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token entity" title="\000034">\000034</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></figure><p>Debug Info, instead of producing a Source Map, will produce a non-standard media query <code>-sass-debug-info</code> with two fake selectors; <code>filename</code> and <code>line</code>. The <code>filename</code> selector has the absolute path to the file, whereas the <code>line</code> selector has the line number the selector comes from (although this is a bit of misdirection as the line is actually 4, not 34). Debug Info isn’t as powerful as Source Maps, being unable to dig into individual properties or pulling in all of the partials you’re using. Google Chrome stable supports Debug Info, enabled the same way you enable Source Maps in Chrome Canary. When enabled, Sass’s Debug Info will replace your normal properties with Debug Info properties just like with Source Maps, although in Sources, you will only see the primary Sass file, not any of the partials.</p>
+</section>
+</div>
+        </div>
+      </div>
+    </article>
+  </main>
+    </div>
+
+    <script>(self.Astro=self.Astro||{}).only=t=>{(async()=>await(await t())())()},window.dispatchEvent(new Event("astro:only"));</script><astro-island uid="1HCVf6" component-url="/Scripts.e7e8b989.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="only" opts="{&quot;name&quot;:&quot;Scripts&quot;,&quot;value&quot;:true}"></astro-island>
+    <footer class="footer svelte-1bt7hha"><div class="inner svelte-1bt7hha"><img src="/images/me/square.jpg" alt="Headshot of Sam" class="headshot svelte-1bt7hha" loading="lazy">
+    <h2 class="svelte-1bt7hha">Sam <br><span class="aka">aka</span>
+      <a class="type--a svelte-1bt7hha" href="/links">Snugug</a></h2>
+    <p class="svelte-1bt7hha">BBQ lead, ChromeOS DevRel</p>
+    <p class="svelte-1bt7hha">Web, design, development, food</p></div>
+</footer>
+  
+</body></html>
+

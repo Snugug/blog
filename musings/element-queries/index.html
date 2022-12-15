@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" class="astro-MPDYEVQB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/fonts/dank-mono.css">
+    <link rel="me" href="https://mas.to/@snugug">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="generator" content="Astro v1.6.15">
+    <title> Element Queries | Snugug</title>
+    <meta name="description" content="When building responsive sites, especially style and component guide driven responsive sites, being able to query an item's width instead of the viewport is invaluable for re-usability. While we don't have them natively, we can emulate them with JavaScript.">
+  <link rel="stylesheet" href="/assets/cookbook.d0dd872e.css" />
+<link rel="stylesheet" href="/assets/cookbook.65b8ab6f.css" />
+<link rel="stylesheet" href="/assets/_slug_.b6836d49.css" /></head>
+  <body class="body astro-MPDYEVQB">
+    <style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="ZJ6d3u" component-url="/Menu.ecc8f48d.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Menu&quot;,&quot;value&quot;:true}" await-children=""><div><button class="toggle svelte-lkm16t" aria-expanded="false" aria-label="Open menu"></button>
+
+  <nav class="menu svelte-lkm16t" aria-expanded="false"><ul class="menu--list svelte-lkm16t"><li><a href="/" tabindex="-1">Home</a></li>
+      <li><a href="/musings" tabindex="-1">Posts</a></li>
+      <li><a href="/cookbook" tabindex="-1">Cookbook</a></li>
+      <li><a href="/me" tabindex="-1">About</a></li>
+      <li><a href="/presentations" tabindex="-1">Presentations</a></li>
+      <li><a href="/rss.xml" tabindex="-1">RSS</a></li></ul></nav>
+</div></astro-island>
+
+    <div class="body-content astro-MPDYEVQB">
+      <main itemscope="" itemtype="http://schema.org/Blog" class="astro-HRZLV7RA">
+    <article class="article astro-HRZLV7RA">
+      <header class="article--heading astro-HRZLV7RA">
+        <div class="heading heading--padded astro-O3TATT2D" style="--hue: 25;--saturation: 30;--lightness: 80;--alpha: 0.2;--size: 125;">
+  <h1 class="heading--title astro-O3TATT2D" itemprop="name"> Element Queries</h1>
+</div>
+
+
+      </header>
+      <div class="article--container astro-HRZLV7RA">
+        <div class="article--inner astro-HRZLV7RA">
+          <p class="article--date astro-HRZLV7RA">
+            
+            <time datetime="2013-11-11T00:00:00.000Z" class="astro-HRZLV7RA">11/11/2013
+            </time>
+          </p>
+          <div class="article--content type astro-HRZLV7RA"><p>When building responsive sites, especially style and component guide driven responsive sites, eventually the idea of “why can’t we just query our element instead of the viewport” comes up. Sometimes the question is formed as “working around the lack of element queries”, sometimes as “media queries are a hack”, but no matter how it’s phrased, the question always makes the assumption that getting native element queries is a foregone certainty and seem to miss the fundamental issue with element queries: they can’t, really, be implemented natively.</p>
+<p>Tab Atkins has a <a href="http://www.xanthir.com/b4PR0">great writeup on the issues of element queries</a>. There are circularity issues in both styling declaration (setting <code>width: 400px</code> at a <code>min-width: 450px</code> for instance) and in needing to get properties of elements based on the content placed inside of it (think <code>inline</code> elements, just about any <code>height</code> query). Add on top of this the need for your page to be rendered by the browser in order for the proper sizes to be calculated and then, potentially, rerendered again and, potentially, rerendered again, ad nauseam. In fact, the only real solution that Tab and Boris Zbarsky, a hacker for Mozilla, could come up with was, essentially, an <code>iframe</code>-like element whose properties (such as <code>width</code> and <code>height</code>) are treated in the DOM like normal elements (and thus can’t be effected by element queries) with elements inside being able to query the width of that element. But that gets really ugly, is likewise slow, and they really only like the solution if it can be detected from the markup. Overall, not particularly good.</p>
+<p>That all being said, as I’ve been working on <a href="https://github.com/team-sass/generator-style-prototype">Style Prototypes</a>, I really wanted element queries for the component guide in order to create truly reusable component guides. Understanding the inherent issues with element queries, I decided I wanted to write a little JavaScript library to try and provide some form of limited element queries like functionality, and so I built <a href="https://github.com/snugug/eq.js">eq.js</a></p>
+<section>
+<h2 id="eqjs" tabindex="-1"><a class="header-anchor" href="#eqjs">eq.js</a></h2>
+<p><strong>eq.js</strong> is a tiny little stand-alone JavaScript library (2.26KB minified, 1002B gzipped) that provides element query-like functionality for your projects. Unlike other JavaScript libraries that look to provide similar functionality, <strong>eq.js</strong> doesn’t require jQuery or Sizzle to work, making its weight the only added weight to the page, and is designed to be blazing fast, utilizing techniques to reduce layout thrashing and increase perceived render speed such as grouping reads and writes together and firing the reads and writes through <code>requestAnimationFrame</code>. The <a href="http://eqjs.io/">demo site</a> contains the performance benchmark page that was used to test performance, using more than 2,200 nodes, each requiring a query and applying a new set of styling. This benchmark is able to query all of the nodes and apply the correct attribute in ~35ms.</p>
+<p>Created with a component guide in mind, it reduces many of the common pitfalls of element queries by reducing what you can query and when it gets queried down to a single item and provides a single interface for working with that query. <strong>eq.js</strong> will only query <code>min-width</code> as presented in a single data attribute, will only query it on <code>unload</code> and <code>onresize</code>, and allows you to access the queried <code>min-width</code> through a single attribute. It also provides an interface to allow users to fire a query for any selected nodes, allowing you to trigger queries on an as-needed basis. Usage is fairly easy, simply add a <code>data-eq-pts</code> attribute with <code>key: value</code> pairs of desired keywords and <code>min-width</code> values you’d like to use, each separated by a comma <code>,</code>.</p>
+<figure><pre class="language-markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>component<span class="token punctuation">'</span></span> <span class="token attr-name">data-eq-pts</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small: 400, medium: 600, large: 900<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Hello World<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre></figure><p>When the correct size is available, a <code>data-eq-state</code> attribute will be added to the component with the <code>key</code> for the given <code>min-width</code>. This makes styling easy:</p>
+<figure><pre class="language-scss"><code class="language-scss"><span class="token selector">.container </span><span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token unit">px</span> solid <span class="token color">red</span><span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token color">red</span><span class="token punctuation">,</span> <span class="token number">0.25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token selector"><span class="token parent important">&amp;</span>[data-eq-state='small'] </span><span class="token punctuation">{</span>
+    <span class="token property">border-color</span><span class="token punctuation">:</span> <span class="token color">green</span><span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token color">green</span> <span class="token number">0.25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token selector"><span class="token parent important">&amp;</span>[data-eq-state='medium'] </span><span class="token punctuation">{</span>
+    <span class="token property">border-color</span><span class="token punctuation">:</span> <span class="token color">orange</span><span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token color">orange</span><span class="token punctuation">,</span> <span class="token number">0.25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token selector"><span class="token parent important">&amp;</span>[data-eq-state='large'] </span><span class="token punctuation">{</span>
+    <span class="token property">border-color</span><span class="token punctuation">:</span> <span class="token color">blue</span><span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token color">blue</span><span class="token punctuation">,</span> <span class="token number">0.25</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></figure><p>Installing and using <strong>eq.js</strong> is fairly easy. You can either <a href="https://github.com/Snugug/eq.js/releases">download a release</a> or install it through <a href="http://bower.io/">Bower</a></p>
+<figure><pre class="language-markup"><code class="language-markup">bower install eq.js --save
+</code></pre></figure><p>When adding <strong>eq.js</strong> to your site, make sure you load it in the <code>&lt;head&gt;</code> so that it’s ready and available to for when <code>onload</code> is available as it directly affects styling on the page.</p>
+<p>Hope you enjoy!</p>
+</section>
+</div>
+        </div>
+      </div>
+    </article>
+  </main>
+    </div>
+
+    <script>(self.Astro=self.Astro||{}).only=t=>{(async()=>await(await t())())()},window.dispatchEvent(new Event("astro:only"));</script><astro-island uid="1HCVf6" component-url="/Scripts.e7e8b989.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="only" opts="{&quot;name&quot;:&quot;Scripts&quot;,&quot;value&quot;:true}"></astro-island>
+    <footer class="footer svelte-1bt7hha"><div class="inner svelte-1bt7hha"><img src="/images/me/square.jpg" alt="Headshot of Sam" class="headshot svelte-1bt7hha" loading="lazy">
+    <h2 class="svelte-1bt7hha">Sam <br><span class="aka">aka</span>
+      <a class="type--a svelte-1bt7hha" href="/links">Snugug</a></h2>
+    <p class="svelte-1bt7hha">BBQ lead, ChromeOS DevRel</p>
+    <p class="svelte-1bt7hha">Web, design, development, food</p></div>
+</footer>
+  
+</body></html>
+
