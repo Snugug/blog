@@ -1,0 +1,104 @@
+---
+import Tweet from '$components/Tweet.svelte';
+import Layout from '$layouts/Twitter.astro';
+import Twitter from '$lib/tweetback/twitter';
+import Next from '$components/icons/fontawesome/chevron-right.svg?raw';
+import Previous from '$components/icons/fontawesome/chevron-left.svg?raw';
+
+/**
+ * Find all the Twitter tweets
+ */
+export async function getStaticPaths() {
+  return Twitter.tweets.map((tweet, i) => {
+    const props = { ...tweet };
+    if (i !== 0) {
+      props.previous = Twitter.tweets[i - 1].id;
+    }
+    if (i !== Twitter.tweets.length - 1) {
+      props.next = Twitter.tweets[i + 1].id;
+    }
+    return {
+      params: {
+        id: tweet.id,
+      },
+      props,
+    };
+  });
+}
+
+const tweet = Astro.props;
+---
+
+<Layout
+  title={`Twitter Archive - Tweet ${tweet?.id}`}
+  summary={tweet?.text}
+  active="tweet"
+>
+  <div class="wrapper">
+    <div class="tweet-wrapper">
+      <Tweet tweet={tweet} showReplies={true} />
+    </div>
+
+    {
+      tweet?.previous ? (
+        <a
+          class="nav--previous"
+          href={`/archive/twitter/${tweet.previous}`}
+          title="Previous tweet"
+        >
+          <span class="icon" set:html={Previous} />
+        </a>
+      ) : (
+        ''
+      )
+    }
+    {
+      tweet?.next ? (
+        <a
+          class="nav--next"
+          href={`/archive/twitter/${tweet.next}`}
+          title="Next tweet"
+        >
+          <span class="icon" set:html={Next} />
+        </a>
+      ) : (
+        ''
+      )
+    }
+  </div>
+</Layout>
+
+<style lang="scss">
+  .tweet-wrapper {
+    align-items: center;
+    display: flex;
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: center;
+  }
+
+  .wrapper {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 1rem 1fr 1rem;
+    // align-items: center;
+  }
+
+  .nav--next {
+    grid-column: 3;
+    grid-row: 1;
+    margin-top: 1rem;
+  }
+
+  .nav--previous {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 1rem;
+  }
+
+  .icon :global(svg) {
+    fill: var(--grey);
+    height: 1rem;
+    width: 1rem;
+  }
+</style>

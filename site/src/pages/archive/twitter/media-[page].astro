@@ -1,0 +1,70 @@
+---
+import Layout from '$layouts/Twitter.astro';
+import Twitter from '$lib/tweetback/twitter';
+import Tweet from '$components/Tweet.svelte';
+import Pagination from '$components/Pagination.svelte';
+
+/**
+ * Builds static paths for each media page
+ */
+export async function getStaticPaths() {
+  const media = Twitter.tweets.filter((tweet) => {
+    if (tweet.retweet) return false;
+    const hasMedia = tweet.media.length > 0;
+    if (!hasMedia) return false;
+    const m = tweet.media.map((m) => m.type).filter((t) => t !== 'link');
+    if (m.length === 0) return false;
+
+    return true;
+  });
+
+  const total = Math.ceil(media.length / 25);
+  const pages = [];
+  for (let i = 1; i < total; i++) {
+    pages.push({
+      params: {
+        page: i,
+      },
+      props: {
+        tweets: media.slice(i * 25, (i + 1) * 25),
+        total: total - 1,
+      },
+    });
+  }
+  return pages;
+}
+
+const { page } = Astro.params;
+const { tweets, total } = Astro.props;
+---
+
+<Layout
+  title={`Twitter Archive - Media, Page ${page}`}
+  summary={`Page ${page} of a collection of tweets featuring media from the past`}
+  active="media"
+>
+  <ul>
+    {
+      tweets.map((tweet) => (
+        <li>
+          <Tweet tweet={tweet} nest={false} />
+        </li>
+      ))
+    }
+  </ul>
+  <Pagination page={page} total={total} home="twitter/media" />
+</Layout>
+
+<style lang="scss">
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  li {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+</style>
