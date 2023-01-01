@@ -40,6 +40,13 @@
   outline: 4px solid var(--plum);
 }
 
+img,
+video,
+picture {
+  max-width: 100%;
+  height: auto;
+}
+
 .type {
   position: relative;
   line-height: 1.6;
