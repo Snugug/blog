@@ -51,7 +51,7 @@ jobs:
           BRANCH=${{ github.ref }}
           CACHE=${{ runner.os }}-build
 
-          gh actions-cache delete $CACHE -R $REPO -B $BRANCH --confirm
+          gh actions-cache delete $CACHE -R $REPO -B $BRANCH --confirm || echo "Build cache is clean"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Test and Build
