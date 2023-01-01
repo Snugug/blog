@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" class="astro-MPDYEVQB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/fonts/dank-mono.css">
+    <link rel="me" href="https://mas.to/@snugug">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="generator" content="Astro v1.6.15">
+    <title>Introducing Starchart Studio | Snugug</title>
+    <meta name="description" content="Introducing Starchart Studio, a component story tool for island architectures, powered by Astro">
+  <link rel="stylesheet" href="/assets/cookbook.d0dd872e.css" />
+<link rel="stylesheet" href="/assets/cookbook.65b8ab6f.css" />
+<link rel="stylesheet" href="/assets/_slug_.b6836d49.css" /></head>
+  <body class="body astro-MPDYEVQB">
+    <style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="ZJ6d3u" component-url="/Menu.ecc8f48d.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Menu&quot;,&quot;value&quot;:true}" await-children=""><div><button class="toggle svelte-lkm16t" aria-expanded="false" aria-label="Open menu"></button>
+
+  <nav class="menu svelte-lkm16t" aria-expanded="false"><ul class="menu--list svelte-lkm16t"><li><a href="/" tabindex="-1">Home</a></li>
+      <li><a href="/musings" tabindex="-1">Posts</a></li>
+      <li><a href="/cookbook" tabindex="-1">Cookbook</a></li>
+      <li><a href="/me" tabindex="-1">About</a></li>
+      <li><a href="/presentations" tabindex="-1">Presentations</a></li>
+      <li><a href="/rss.xml" tabindex="-1">RSS</a></li></ul></nav>
+</div></astro-island>
+
+    <div class="body-content astro-MPDYEVQB">
+      <main itemscope="" itemtype="http://schema.org/Blog" class="astro-HRZLV7RA">
+    <article class="article astro-HRZLV7RA">
+      <header class="article--heading astro-HRZLV7RA">
+        <div class="heading heading--padded astro-O3TATT2D" style="--hue: 25;--saturation: 30;--lightness: 80;--alpha: 0.2;--size: 125;">
+  <h1 class="heading--title astro-O3TATT2D" itemprop="name">Introducing Starchart Studio</h1>
+</div>
+
+
+      </header>
+      <div class="article--container astro-HRZLV7RA">
+        <div class="article--inner astro-HRZLV7RA">
+          <p class="article--date astro-HRZLV7RA">
+            
+            <time datetime="2023-01-01T00:00:00.000Z" class="astro-HRZLV7RA">1/1/2023
+            </time>
+          </p>
+          <div class="article--content type astro-HRZLV7RA"><p>As hinted at on <a href="https://mas.to/@snugug/109600326798344614">Mastodon</a>, I’ve gone ahead and releaesd the first preview version of <a href="https://www.npmjs.com/package/starchart-studio"><strong>Starchart Studio</strong></a> - a component story tool similar to <a href="https://storybook.js.org/">Storybook</a> designed for island architectures and powered by <a href="https://astro.build/">Astro</a>.</p>
+<p>Why yet another story tool? Good question!</p>
+<p>When looking to integrate a tools like Storybook into a recent Astro project, I kept on running into hurdles or DX decisions I didn’t love: most seem designed with SPA architectures in mind, support for various frameworks felt limited (usually React or Vue first), and none supported Astro components, which were going to make up a large portion of my Astro project. I wanted something that would work with anything I was likely to throw at it and didn’t require tight coupling. So, as I’m likely to do, I made a thing.</p>
+<section>
+<h2 id="solving-only-the-hard-stuff" tabindex="-1"><a class="header-anchor" href="#solving-only-the-hard-stuff">Solving only the hard stuff</a></h2>
+<p>Astro was a great starting place: it has built-in dynamic page and component rendering, a robust component model, support for lots of JS frameworks out-of-the-box, and is super flexible. Building a story tool on top of it was mostly defining a content model and DX patterns with very little novel code needing to be written. This left me with only really needing to “solve the hard stuff”, aka Starchart’s logic and DX. For that,  I really only needed to figure out:</p>
+<ul>
+<li>How to generate both stand-alone previews and full-story pages for one story input (1 to n page generation with different layouts)</li>
+<li>How to list all components without asking the developer for duplicate work</li>
+<li>How to connect state to components in a dynamic way</li>
+</ul>
+<section>
+<h3 id="from-one-many" tabindex="-1"><a class="header-anchor" href="#from-one-many">From one, many</a></h3>
+<p>The biggest “bit” of a story tool is having two or more views of the same story: the fully-featured story page and a stand-alone iframed page for the component to sit in isolation. I wanted to keep basic component stories to a single file, so I settled on <a href="https://docs.astro.build/en/guides/integrations-guide/mdx/">Astro’s MDX integration</a> as a base for stories. This allows developers to write Markdown documentation while also exporting an object with configuration, including a component that can be passed around and rendered. When <a href="https://docs.astro.build/en/reference/api-reference/#markdown-files">globbed</a>, they come with a bunch of useful properties, too, which can be used to build out robust systems if not used directly to generate pages.</p>
+<p>One of properties is <code>file</code>. When combined with <a href="https://docs.astro.build/en/reference/api-reference/#getstaticpaths"><code>getStaticPaths</code></a> and dynamic params in filenames, you can create multiple related pages from a single input. Because this function is run server-side from Node, you can use Node built-ins without worry, like <code>path</code>. I grab the basename of the file, and generate two entries in <code>getStaticPaths</code>, one for the isolated component, and one for the fully-featured story page. I can even have different properties that get passed to those components (from <code>Astro.props</code>) from this, making it possible to further change exactly what’s available on the page. This includes signaling if the page should be inline and, if so, choosing a different layout. The main <code>Starchart.astro</code> component basically exists to do just that:</p>
+<figure><pre class="language-jsx"><code class="language-jsx"><span class="token punctuation">{</span>
+  story<span class="token punctuation">.</span><span class="token property-access">inline</span> <span class="token operator">?</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">InlineStory</span></span>
+      <span class="token attr-name">Component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>story<span class="token punctuation">.</span><span class="token property-access"><span class="token maybe-class-name">Component</span></span><span class="token punctuation">}</span></span>
+      <span class="token attr-name">props</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>story<span class="token punctuation">.</span><span class="token property-access">properties</span><span class="token punctuation">}</span></span>
+      <span class="token attr-name">slug</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>story<span class="token punctuation">.</span><span class="token property-access">slug</span><span class="token punctuation">}</span></span>
+    <span class="token punctuation">/></span></span>
+  <span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">BlockStory</span></span>
+      <span class="token attr-name">Component</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>story<span class="token punctuation">.</span><span class="token property-access"><span class="token maybe-class-name">Component</span></span><span class="token punctuation">}</span></span>
+      <span class="token spread"><span class="token punctuation">{</span><span class="token spread operator">...</span>story<span class="token punctuation">.</span><span class="token property-access">properties</span><span class="token punctuation">}</span></span>
+      <span class="token attr-name">chart</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>chart<span class="token punctuation">}</span></span>
+    <span class="token punctuation">/></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></figure><p><code>chart</code>, in the above code sample, is actually the list of all components, and their URLs, ready to be made into nav of some sort. Getting this from an individual page is kinda tricky; <code>getStaticPaths</code> runs in isolation so it’s hard to capture the glob and reuse it. When you use Starchart’s <code>getStaticPaths</code> function, you’re actually calling a method on a singleton class instance; that lets me save the results to a property and recall them during other function calls, which you make <a href="https://github.com/Snugug/starchart-studio/tree/e3157140b472929f4e8666944d75dbd3c05bb8d8#:~:text=const%20starchart%20%3D%20StarchartStudio.chart(Astro)%3B">to set up the story</a>. As a side note, a singleton class to hold state is a pattern I find myself using quite often when with JS modules.</p>
+</section>
+<section>
+<h3 id="dealing-with-state" tabindex="-1"><a class="header-anchor" href="#dealing-with-state">Dealing with state</a></h3>
+<p>With this basic setup and the built-in component model, I had prop-only components rendering! Inputs couldn’t be changed, but I considered that a fair tradeoff considering they’re designed to not be once loaded. But sometimes you have state, and that posed problems.</p>
+<p>I knew developers would need to define functions to connect form updates to their state management of choice, but Astros’ <a href="https://docs.astro.build/en/reference/directives-reference/#definevars"><code>define:vars</code></a> for passing variables into script tags stringifies everything, so no functions allowed. While I maybe could work around this with an <code>exec</code>, it was strike one. Next, the system works using <a href="https://docs.astro.build/en/core-concepts/astro-components/#dynamic-tags">dynamic tags</a> to render the component, but dynamic tags can’t be hydrated. This unfortunately took me a while of spinning to realize; as it’s only mentioned under dynamic tags and not in the hydration docs, but I got there. That was strike two. One more and this whole thing collapses. But fortunately, Astro’s component model, while a hinderance here, actually saved me.</p>
+<p>See, Astro is all about mixing islands of interactivity with static content. This means that you can make a static Astro component that has hydrated components in it, and that works fine. Because that component doesn’t need to be hydrated, <em>it</em> can then be dynamically loaded. And thus, a simple, if slightly inelegant, solution emerged: hydrated components need to be wrapped in a static component. We’ll pass you all the props you need to render your component, just swap the direct component call in your story for your wrapped one. This also provides a clear place to add Starchart-specific code for managing state and events without coupling it into your production component.</p>
+<p>The last bit is pretty straight-forward: the isolated component lives in an iframe, so <code>postmessage</code> to send data across that border, with a couple of custom events and some developer-facing helper functions to manage it all for them, so they just need to write how their state changes when it comes it.</p>
+</section>
+</section>
+<section>
+<h2 id="finishing-touches-and-whats-next" tabindex="-1"><a class="header-anchor" href="#finishing-touches-and-whats-next">Finishing touches and what’s next</a></h2>
+<p>The last bit I added was a width slider to the preview area, inspired by Brad Frost’s <a href="https://bradfrost.com/blog/post/ish/">ish.</a>. I absolutely loved ish. during my early responsive web design days, and with the rise of container queries, I feel like it’s time to shine is once again here, but this time for components. I’ve started with a basic implementation, changing width, but I think I’d like to add height, too, and the size buttons: small-ish, medium-ish, large-ish, xl-ish, and of course, the disco mode.</p>
+<p>I also want to add the ability to include variants for a component. I haven’t quite figured out how to do that yet, but with my solution for building inline pages squared away, it’ll probably be a variation (get it, <em>get it</em>) on that.</p>
+<p>Finally, this needs some visual polish. I’ll get to that.</p>
+<p>And a website. Every good OSS project these days has a website.</p>
+</section>
+<section>
+<h2 id="putting-it-all-together" tabindex="-1"><a class="header-anchor" href="#putting-it-all-together">Putting it all together</a></h2>
+<p>With all of that, I’ve release version 0.2.1 (because no good initial release goes without an immediate point fix) of <a href="https://www.npmjs.com/package/starchart-studio">Starchart Studio</a>. The README has how to use it and the <a href="https://github.com/snugug/starchart-studio">repo</a> has a working demo in the <code>src</code> directory. If you try it out, LMK!</p>
+<p><video src="https://media.mas.to/masto-public/media_attachments/files/109/600/305/812/185/840/original/c1be52a89c8f86ac.mp4" role="button" tabindex="0" aria-label="Screen recording of Astro-powered story tool in action. Starts with a card component, shows what props are available for the component, a description of the component, and a preview of the component in an iFrame, which is shown being resized on drag. Next switches to a counter component that shows both props and state, which is updated as the component is changed and when the state form item is changed." title="Screen recording of Astro-powered story tool in action. Starts with a card component, shows what props are available for the component, a description of the component, and a preview of the component in an iFrame, which is shown being resized on drag. Next switches to a counter component that shows both props and state, which is updated as the component is changed and when the state form item is changed." loop="" autoplay="" playsinline="" style="position: static; top: 0px; left: 0px;"></video></p>
+</section>
+</div>
+        </div>
+      </div>
+    </article>
+  </main>
+    </div>
+
+    <script>(self.Astro=self.Astro||{}).only=t=>{(async()=>await(await t())())()},window.dispatchEvent(new Event("astro:only"));</script><astro-island uid="1HCVf6" component-url="/Scripts.e7e8b989.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="only" opts="{&quot;name&quot;:&quot;Scripts&quot;,&quot;value&quot;:true}"></astro-island>
+    <footer class="footer svelte-1bt7hha"><div class="inner svelte-1bt7hha"><img src="/images/me/square.jpg" alt="Headshot of Sam" class="headshot svelte-1bt7hha" loading="lazy">
+    <h2 class="svelte-1bt7hha">Sam <br><span class="aka">aka</span>
+      <a class="type--a svelte-1bt7hha" href="/links">Snugug</a></h2>
+    <p class="svelte-1bt7hha">BBQ lead, ChromeOS DevRel</p>
+    <p class="svelte-1bt7hha">Web, design, development, food</p></div>
+</footer>
+  
+</body></html>
+
