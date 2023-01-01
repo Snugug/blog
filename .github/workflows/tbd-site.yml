@@ -42,18 +42,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./site/dist
-          key: ${{ runner.os }}-build
-      - name: Delete current build cache
-        run: |
-          gh extension install actions/gh-actions-cache
-
-          REPO=${{ github.repository }}
-          BRANCH=${{ github.ref }}
-          CACHE=${{ runner.os }}-build
-
-          gh actions-cache delete $CACHE -R $REPO -B $BRANCH --confirm || echo "Build cache is clean"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          key: build-${{ runner.os }}-${{ github.run_id }}
       - name: Test and Build
         working-directory: site
         run: pnpm t
@@ -69,9 +58,20 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./site/dist
-          key: ${{ runner.os }}-build
+          key: build-${{ runner.os }}-${{ github.run_id }}
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site/dist
+      - name: Delete current build cache
+        run: |
+          gh extension install actions/gh-actions-cache
+
+          REPO=${{ github.repository }}
+          BRANCH=${{ github.ref }}
+          CACHE=build-${{ runner.os }}-${{ github.run_id }}
+
+          gh actions-cache delete $CACHE -R $REPO -B $BRANCH --confirm || echo "Build cache is clean"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
