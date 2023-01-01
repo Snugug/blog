@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" class="astro-MPDYEVQB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/fonts/dank-mono.css">
+    <link rel="me" href="https://mas.to/@snugug">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="generator" content="Astro v1.6.15">
+    <title>Eleventy + Vite | Snugug</title>
+    <meta name="description" content="A pattern I've started using combining Eleventy and Vite.">
+  <link rel="stylesheet" href="/assets/cookbook.afd1d160.css" />
+<link rel="stylesheet" href="/assets/cookbook.65b8ab6f.css" />
+<link rel="stylesheet" href="/assets/_slug_.b6836d49.css" /></head>
+  <body class="body astro-MPDYEVQB">
+    <style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="ZJ6d3u" component-url="/Menu.ecc8f48d.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Menu&quot;,&quot;value&quot;:true}" await-children=""><div><button class="toggle svelte-lkm16t" aria-expanded="false" aria-label="Open menu"></button>
+
+  <nav class="menu svelte-lkm16t" aria-expanded="false"><ul class="menu--list svelte-lkm16t"><li><a href="/" tabindex="-1">Home</a></li>
+      <li><a href="/musings" tabindex="-1">Posts</a></li>
+      <li><a href="/cookbook" tabindex="-1">Cookbook</a></li>
+      <li><a href="/me" tabindex="-1">About</a></li>
+      <li><a href="/presentations" tabindex="-1">Presentations</a></li>
+      <li><a href="/rss.xml" tabindex="-1">RSS</a></li></ul></nav>
+</div></astro-island>
+
+    <div class="body-content astro-MPDYEVQB">
+      <main itemscope="" itemtype="http://schema.org/Blog" class="astro-HRZLV7RA">
+    <article class="article astro-HRZLV7RA">
+      <header class="article--heading astro-HRZLV7RA">
+        <div class="heading heading--padded astro-O3TATT2D" style="--hue: 25;--saturation: 30;--lightness: 80;--alpha: 0.2;--size: 125;">
+  <h1 class="heading--title astro-O3TATT2D" itemprop="name">Eleventy + Vite</h1>
+</div>
+
+
+      </header>
+      <div class="article--container astro-HRZLV7RA">
+        <div class="article--inner astro-HRZLV7RA">
+          <p class="article--date astro-HRZLV7RA">
+            
+            <time datetime="2021-05-13T00:00:00.000Z" class="astro-HRZLV7RA">5/13/2021
+            </time>
+          </p>
+          <div class="article--content type astro-HRZLV7RA"><p>I really like <a href="https://www.11ty.dev/">Eleventy</a> as a static site generator; it does all of the things I want from an SSG and it does it well. Well, except asset handling, like compiling, bundling, and managing my CSS and JavaScript. I think part of that is because setting up compilers and bundlers just is kinda an absolute drag, even if you know what you’re doing. Except, that is, with <a href="https://vitejs.dev/">Vite</a>. Vite may just be the single best front-end development tool I’ve used in literal years. It’s fast, it’s got bells and whistles built-in, it’s smart and un-opinionated enough that there’s almost no overhead to get what you likely want, and it’s super extensible. Combining the two felt obvious.</p>
+<p>Eleventy and Vite both take slightly different approaches to compiling; Eleventy, everything’s compiled up-front, whereas Vite things are compiled on-the-fly. Critically, because of this, Vite expects everything to be served from one folder, by default the top-level folder, but Eleventy expects things to be compiled to a folder for serving. While I&quot;m sure someone could get super creative with a combination of Vite and or Eleventy plugins to make the workflow I’m about to show cleaner, this setup is fast, efficient, and will have you rolling with both of them quickly.</p>
+<section>
+<h2 id="configure-vite" tabindex="-1"><a class="header-anchor" href="#configure-vite">Configure Vite</a></h2>
+<p>First thing first, after installing Eleventy and Vite is to set up your Vite config. I’m going to assume that all of the working code is going to go into the <code>src</code> directory, so <code>src/js</code> for JavaScript, <code>src/css</code> for CSS, etc… and that the compiled output is going to go into the <code>public</code> directory. Switch these folders up as you need. To make this work from the Vite side, this is all you need in your <code>vite.config.js</code> file:</p>
+<figure><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> defineConfig <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'vite'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token function">defineConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">root</span><span class="token operator">:</span> <span class="token string">'src'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">clearScreen</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// This is to show Eleventy output in the console along with Vite output</span>
+  <span class="token literal-property property">build</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">outDir</span><span class="token operator">:</span> <span class="token string">'../public'</span><span class="token punctuation">,</span> <span class="token comment">// The output directory is relative to the project root, so we need to put it back one folder to work</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></figure><p>That’s it! It sets the root directory Vite works from to the <code>src</code> folder, it sets the build directory to a sibling of the <code>src</code> folder called <code>public</code>, and it configures the command line interface so that you can see Eleventy and Vite output at the same time.</p>
+</section>
+<section>
+<h2 id="configure-eleventy" tabindex="-1"><a class="header-anchor" href="#configure-eleventy">Configure Eleventy</a></h2>
+<p>Next up is configuring Eleventy. Here, the only essential configuration is to change the output directory of Eleventy to Vite’s root directory; this ensures the HTML is available for Vite to serve. This will make that directory <em>a little messy</em> as all compiled HTML will get put in there, but for a quick and effective solution, I’m OK with it. To do so, make sure the following is set in your <code>.eleventy.js</code> file:</p>
+<figure><pre class="language-js"><code class="language-js">module<span class="token punctuation">.</span><span class="token method-variable function-variable method function property-access">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">eleventy</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword control-flow">return</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">dir</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">output</span><span class="token operator">:</span> <span class="token string">'src'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></figure><p>Any other Eleventy config you want, you can put in there, too. Last thing you need to do to button this up is to add <code>src/**/*.html</code> to any ignore files you have (like <code>.gitignore</code>) so the in-development Eleventy compiled HTML is not included.</p>
+</section>
+<section>
+<h2 id="add-npm-scripts" tabindex="-1"><a class="header-anchor" href="#add-npm-scripts">Add NPM Scripts</a></h2>
+<p>Two more steps! Almost done! This step is optional, but I highly recommend it: setting up NPM scripts to make working with all of this easier. My recommendation is to install the following dev dependencies:</p>
+<figure><pre class="language-bash"><code class="language-bash">$ <span class="token function">npm</span> i <span class="token parameter variable">-D</span> npm-run-all del-cli delete-empty
+</code></pre></figure><p>These three packages, will, in order, let you run NPM scripts sequentially or in parallel from other npm scripts, let you delete items, and let you delete empty folders. These three combine to make a few really handy scripts possible:</p>
+<figure><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"prestart"</span><span class="token operator">:</span> <span class="token string">"run-s clean"</span><span class="token punctuation">,</span>
+    <span class="token property">"start"</span><span class="token operator">:</span> <span class="token string">"run-p *:dev"</span><span class="token punctuation">,</span>
+    <span class="token property">"prebuild"</span><span class="token operator">:</span> <span class="token string">"run-s clean"</span><span class="token punctuation">,</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"NODE_ENV=production run-s eleventy:build vite:build"</span><span class="token punctuation">,</span>
+    <span class="token property">"clean"</span><span class="token operator">:</span> <span class="token string">"run-s clean:files clean:empty"</span><span class="token punctuation">,</span>
+    <span class="token property">"clean:files"</span><span class="token operator">:</span> <span class="token string">"del 'src/**/*.html' public"</span><span class="token punctuation">,</span>
+    <span class="token property">"clean:empty"</span><span class="token operator">:</span> <span class="token string">"delete-empty src"</span><span class="token punctuation">,</span>
+    <span class="token property">"eleventy:dev"</span><span class="token operator">:</span> <span class="token string">"eleventy --watch"</span><span class="token punctuation">,</span>
+    <span class="token property">"eleventy:build"</span><span class="token operator">:</span> <span class="token string">"eleventy"</span><span class="token punctuation">,</span>
+    <span class="token property">"vite:dev"</span><span class="token operator">:</span> <span class="token string">"vite"</span><span class="token punctuation">,</span>
+    <span class="token property">"vite:build"</span><span class="token operator">:</span> <span class="token string">"vite build"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></figure><p>These combine to give you, really, two scripts you’re likely to run: <code>npm start</code> and <code>npm run build</code>. They do the following:</p>
+<dl>
+<dt><code>npm start</code></dt>
+<dd>Before start is run, it deletes all of the HTML files from the <code>src</code> directory and removes the <code>public</code> directory, then deletes empty folders in the <code>src</code> directory that may be left over fom removing the HTML files. Once done, it runs all of the NPM scripts ending in <code>:dev</code>, so <code>eleventy:dev</code> and <code>vite:dev</code>, in parallel, which starts Eleventy in watch mode and Vite in dev mode.</dd>
+<dt><code>npm run build</code></dt>
+<dd>This is run with <code>NODE_ENV=production</code>, or “in production mode”, which is a common signal that production optimizations should happen. Before build is run, it cleans up the files just like start did, then runs Eleventy’s build first, then Vite’s build second; this is to ensure that the HTML gets generated before Vite tries to do its thing with it.</dd>
+</dl>
+</section>
+<section>
+<h2 id="multi-page-apps-static-assets-and-vite" tabindex="-1"><a class="header-anchor" href="#multi-page-apps-static-assets-and-vite">Multi-Page Apps, Static Assets, and Vite</a></h2>
+<p>Vite, in development mode, work with multi-page apps just fine! Unfortunately, when it comes to build time, it only works on <code>src/index.html</code> by default. This is straightforward to remedy, though. First install <a href="https://www.npmjs.com/package/fast-glob">Fast Glob</a> as a dev dependency (<code>npm i -D fast-glob</code>) and add the following to your <code>vite.config.js</code> file:</p>
+<figure><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> glob <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fast-glob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Find all HTML files and build an object of names and paths to work from</span>
+<span class="token keyword">const</span> files <span class="token operator">=</span> glob<span class="token punctuation">.</span><span class="token method function property-access">sync</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token method function property-access">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'src'</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'/**/*.html'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token method function property-access">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">acc<span class="token punctuation">,</span> cur</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> name <span class="token operator">=</span> cur<span class="token punctuation">.</span><span class="token method function property-access">replace</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token method function property-access">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'/src/'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token method function property-access">replace</span><span class="token punctuation">(</span><span class="token string">'/index.html'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// If name is blank, make up a name for it, like 'home'</span>
+  <span class="token keyword control-flow">if</span> <span class="token punctuation">(</span>name <span class="token operator">===</span> <span class="token string">''</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name <span class="token operator">=</span> <span class="token string">'home'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  acc<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> cur<span class="token punctuation">;</span>
+  <span class="token keyword control-flow">return</span> acc<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token function">defineConfig</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment">// ... Other config stuff</span>
+  <span class="token literal-property property">build</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ... Other build config stuff</span>
+    <span class="token literal-property property">rollupOptions</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">input</span><span class="token operator">:</span> files<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></figure><p>While a little complicated, what this does is find all of the HTML files in the <code>src</code> directory, figure out a name for the file by removing <code>/index.html</code>, and then building an array of names and HTML pages to use as input for Vite’s Rollup configuration. This assumes that all pages that get assets have a <code>/index.html</code> file; if not, update the glob or the replacement accordingly. This is also going to generate a JavaScript file for each page, but because of how Vite handles imports, you should still get shared chunks between all of them. This is kind of the ugliest bit of this setup, and I’m sure it can be improved, but it’s pretty good for a quick solve.</p>
+<p>As for assets, like a <code>manifest.json</code>, <code>robots.txt</code>, or images, Vite expects those to be in a <code>public</code> folder in your root, so in this case, <code>src/public</code>. Usually not a big deal, but if you find those assets aren’t getting checked in, make sure you’re ignore files are ignoring <code>/public</code> for the roo public folder, not <code>public</code> which will ignore folders named public <em>anywhere</em>, including the one is <code>src</code>.</p>
+</section>
+<section>
+<h2 id="whats-next" tabindex="-1"><a class="header-anchor" href="#whats-next">What’s Next</a></h2>
+<p>For me, this is a very happy little setup. I’m sure there’s more tweaking that can be done to make everything a bit more smooth and a bit easier to deal with, but this was the most minimal setup I could get to that consistently worked and, more importantly, gave me the awesome dev experience of the combined power of Vite and Eleventy. If you’ve got thoughts on this setup or this post, drop me a line on Twitter.</p>
+<p>Enjoy y’all!</p>
+</section>
+</div>
+        </div>
+      </div>
+    </article>
+  </main>
+    </div>
+
+    <script>(self.Astro=self.Astro||{}).only=t=>{(async()=>await(await t())())()},window.dispatchEvent(new Event("astro:only"));</script><astro-island uid="1HCVf6" component-url="/Scripts.e7e8b989.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-MPDYEVQB&quot;]}" ssr="" client="only" opts="{&quot;name&quot;:&quot;Scripts&quot;,&quot;value&quot;:true}"></astro-island>
+    <footer class="footer svelte-1bt7hha"><div class="inner svelte-1bt7hha"><img src="/images/me/square.jpg" alt="Headshot of Sam" class="headshot svelte-1bt7hha" loading="lazy">
+    <h2 class="svelte-1bt7hha">Sam <br><span class="aka">aka</span>
+      <a class="type--a svelte-1bt7hha" href="/links">Snugug</a></h2>
+    <p class="svelte-1bt7hha">BBQ lead, ChromeOS DevRel</p>
+    <p class="svelte-1bt7hha">Web, design, development, food</p></div>
+</footer>
+  
+</body></html>
+
