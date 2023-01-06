@@ -8,7 +8,7 @@
     <link rel="me" href="https://mas.to/@snugug">
     <link rel="manifest" href="/manifest.webmanifest">
     <meta name="generator" content="Astro v1.6.15">
-    <title>Image Based Art Direction with CSS Container Queries | Snugug</title>
+    <title>Art Directed Images with CSS Container Queries | Snugug</title>
     <meta name="description" content="How to art direct images with container queries, no JavaScript required.">
   <link rel="stylesheet" href="/assets/cookbook.afd1d160.css" />
 <link rel="stylesheet" href="/assets/cookbook.65b8ab6f.css" />
@@ -29,7 +29,7 @@
     <article class="article astro-HRZLV7RA">
       <header class="article--heading astro-HRZLV7RA">
         <div class="heading heading--padded astro-O3TATT2D" style="--hue: 25;--saturation: 30;--lightness: 80;--alpha: 0.2;--size: 125;">
-  <h1 class="heading--title astro-O3TATT2D" itemprop="name">Image Based Art Direction with CSS Container Queries</h1>
+  <h1 class="heading--title astro-O3TATT2D" itemprop="name">Art Directed Images with CSS Container Queries</h1>
 </div>
 
 
@@ -78,7 +78,12 @@
     <span class="token property">display</span><span class="token punctuation">:</span> initial<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre></figure><p>That’s it! Go have fun with it!</p>
+</code></pre></figure><p>Something to consider if you’re looking to give this a go in production:</p>
+<ul>
+<li>Small examples will probably seem to work fine, but do test if you’re using this a lot</li>
+<li>After talking this out with Una, she recommends adding a placeholder in to help prevent layout shift. You can probably accomplish something similar using a trick similar to what Sara mentions in her post; wrap your images in a parent with an <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio"><code>aspect-ratio</code></a> that can change based on what image is being pulled in (so more container queries)</li>
+</ul>
+<p>That’s it! Go have fun with it!</p>
 </div>
         </div>
       </div>
