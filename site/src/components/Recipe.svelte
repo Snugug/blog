@@ -49,7 +49,7 @@
         <td>
           <ol class="recipe--steps" itemprop="recipeInstructions">
             {#each instruction.procedure as step}
-              <li itemprop="step" class="type">{@html md.render(step)}</li>
+              <li class="type">{@html md.render(step)}</li>
             {/each}
           </ol>
         </td>

@@ -95,12 +95,12 @@ const timing = instructions
           }),
         };
 
-        let output = `${t.overall}`;
+        let output = `<time itemprop="totalTime">${t.overall}</time>`;
 
         if (t.rest) {
-          output += `, plus ${t.rest} resting`;
+          output += `, plus <time itemprop="prepTime">${t.rest}</time> resting`;
         } else if (t.active && t.inactive) {
-          output += `, with ${t.active} active and ${t.inactive} inactive`;
+          output += `, with <time itemprop="cookTime">${t.active}</time> active and <time itemprop="prepTime">${t.inactive}</time> inactive`;
         }
 
         return output;
@@ -149,7 +149,7 @@ const equipment = instructions
         />
       </header>
       <div class="recipe--image">
-        <img src={image} alt={title} />
+        <img itemprop="image" src={image} alt={title} />
       </div>
 
       <section class="recipe--overview-container">
@@ -157,11 +157,11 @@ const equipment = instructions
           <tbody>
             <tr>
               <td>Yield</td>
-              <td>{servings}</td>
+              <td itemprop="recipeYield">{servings}</td>
             </tr>
             <tr>
               <td>Estimated Time</td>
-              <td>{timing}</td>
+              <td set:html={timing} />
               <tr>
                 <td>Difficulty</td>
                 <td>{difficulty}</td>
@@ -189,7 +189,11 @@ const equipment = instructions
             })
           }
         </time>
-        <section class="recipe--content type" set:html={md.render(body)} />
+        <section
+          class="recipe--content type"
+          itemprop="description"
+          set:html={md.render(body)}
+        />
       </div>
 
       <section class="recipe--steps">
