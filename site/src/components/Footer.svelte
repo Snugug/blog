@@ -1,8 +1,33 @@
 <script>
+  import { onMount } from 'svelte';
+  import { setup } from '$js/plausible';
+
   export let link = '/links';
+
+  let footer;
+
+  onMount(async () => {
+    /* global plausible */
+    setup();
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (window.plausible) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              plausible('Fully Read');
+              observer.unobserve(footer);
+            }
+          });
+        }
+      });
+
+      observer.observe(footer);
+    }
+  });
 </script>
 
-<footer class="footer">
+<footer bind:this={footer} class="footer">
   <div class="inner">
     <img
       src="/images/me/square.jpg"
