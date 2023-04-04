@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" class="astro-FCJACSJA">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/fonts/dank-mono.css">
+    <link rel="me" href="https://mas.to/@snugug">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="generator" content="Astro v1.6.15">
+    <title>Adaptable Components with CSS Style Queries | Snugug</title>
+    <meta name="description" content="Use CSS Style Queries to let components adapt to more scenarios than just container size or screen width.">
+    <script defer data-domain="snugug.com" src="https://plausible.io/js/script.outbound-links.tagged-events.js"></script>
+  <link rel="stylesheet" href="/assets/cookbook.afd1d160.css" />
+<link rel="stylesheet" href="/assets/cookbook.f2b52b85.css" />
+<link rel="stylesheet" href="/assets/_slug_.b6836d49.css" /></head>
+  <body class="body astro-FCJACSJA">
+    <style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="Z1Cnaa4" component-url="/Menu.5c4a6882.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-FCJACSJA&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Menu&quot;,&quot;value&quot;:true}" await-children=""><div><button class="toggle svelte-lkm16t" aria-expanded="false" aria-label="Open menu"></button>
+
+  <nav class="menu svelte-lkm16t" aria-expanded="false"><ul class="menu--list svelte-lkm16t"><li><a href="/" tabindex="-1">Home</a></li>
+      <li><a href="/musings" tabindex="-1">Posts</a></li>
+      <li><a href="/cookbook" tabindex="-1">Cookbook</a></li>
+      <li><a href="/me" tabindex="-1">About</a></li>
+      <li><a href="/presentations" tabindex="-1">Presentations</a></li>
+      <li><a href="/rss.xml" tabindex="-1">RSS</a></li></ul></nav>
+</div></astro-island>
+
+    <div class="body-content astro-FCJACSJA">
+      <main itemscope="" itemtype="http://schema.org/Blog" class="astro-HRZLV7RA">
+    <article class="article astro-HRZLV7RA">
+      <header class="article--heading astro-HRZLV7RA">
+        <div class="heading heading--padded astro-O3TATT2D" style="--hue: 25;--saturation: 30;--lightness: 80;--alpha: 0.2;--size: 125;">
+  <h1 class="heading--title astro-O3TATT2D" itemprop="name">Adaptable Components with CSS Style Queries</h1>
+</div>
+
+
+      </header>
+      <div class="article--container astro-HRZLV7RA">
+        <div class="article--inner astro-HRZLV7RA">
+          <p class="article--date astro-HRZLV7RA">
+            
+            <time datetime="2023-04-04T00:00:00.000Z" class="astro-HRZLV7RA">4/4/2023
+            </time>
+          </p>
+          <div class="article--content type astro-HRZLV7RA"><p>I’m in the process of refactoring <a href="https://chromeos.dev">ChromeOS.dev</a> and using the opportunity to clean up our components and the styling that controls them. The site is designed to be maximally flexible; we don’t use standard breakpoints, content areas are sized based on characters to maintain optimal line length, we’ve implemented flexible typography, and more. Think <a href="https://aneventapart.com/news/post/designing-intrinsic-layouts-aea-video">intrinsic design</a> as coined by <a href="https://front-end.social/@jensimmons">Jen Simmons</a>. So when I sat down to refactor, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries">container queries</a> were the obvious choice for maintaining the responsive ideal of our site. I got through one component before I ran into an issue.</p>
+<p>On our site, we’ve got a table of contents component (ToC). In theory, it’s a pretty simple component: a list of certain headers on the page that, in one view, is collapsible with a background and in another, expanded without one. You can see examples on a <a href="https://chromeos.dev/en/posts/grow-your-ideas-in-2023-dev-guidance-and-inspiration-for-delighting-chromeos-users">blog post</a> (<em>Grow your ideas in 2023: Dev guidance and inspiration for delighting ChromeOS users</em>) and a <a href="https://chromeos.dev/en/web/desktop-progressive-web-apps">reference page</a> (<em>Desktop Progressive Web Apps</em>). My first thought was that this was a “reverse container query” moment, where the “small view” is for large viewports and the “large view” is for small viewports, except that’s not quite true. That’s not quite true, in practice.</p>
+<p>Our blog post layout and reference page layout are slightly different. One expands to two columns, one to three, and the columns are slightly different sizes. This ultimately means that, if I were to adapt just on component width or screen size, which we have to do today, the ToC winds up breaking in one or the other layout. This isn’t ideal.</p>
+<p>Previously, the way I’d get around this would be by duplicating CSS; having something, usually a class, I can query off of (like <a href="https://modernizr.com/">Modernizr</a> style feature detection),attach the media query to that, then duplicate my CSS for each instance. Then, I had a brainstorm.</p>
+<section>
+<h2 id="custom-view-queries-with-css-style-queries" tabindex="-1"><a class="header-anchor" href="#custom-view-queries-with-css-style-queries">Custom view queries with CSS Style Queries</a></h2>
+<p><a href="https://developer.chrome.com/blog/style-queries/">CSS Style Queries</a> are the cousin to container queries; instead of querying a container’s size, they query a specific property/value pair. Right now, they’re <a href="https://caniuse.com/css-container-queries-style">only implemented in Chromium browsers</a> and only for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/--*">CSS Custom Properties</a>, but that’s all you need! With style queries, you can write a layout using normal media queries and set the view you want for a component, like this:</p>
+<figure><pre class="language-scss"><code class="language-scss"><span class="token selector">.layout </span><span class="token punctuation">{</span>
+  <span class="token property">--toc-view</span><span class="token punctuation">:</span> <span class="token string">'inline'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token number">789</span><span class="token unit">px</span><span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.layout </span><span class="token punctuation">{</span>
+    <span class="token property">--toc-view</span><span class="token punctuation">:</span> <span class="token string">'block'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></figure><p>And then in your component, you can respond to it like this:</p>
+<figure><pre class="language-scss"><code class="language-scss"><span class="token selector">.toc </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token color">red</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Only apply this styling with the ToC is displayed "inline"</span>
+<span class="token atrule"><span class="token rule">@container</span> <span class="token function">style</span><span class="token punctuation">(</span><span class="token property">--toc-view</span><span class="token punctuation">:</span> <span class="token string">'inline'</span><span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.toc </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token color">blue</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Only apply this styling with the ToC is displayed "block"</span>
+<span class="token atrule"><span class="token rule">@container</span> <span class="token function">style</span><span class="token punctuation">(</span><span class="token property">--toc-view</span><span class="token punctuation">:</span> <span class="token string">'block'</span><span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.toc </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token color">green</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></figure><p>Voila! You’ve made a custom view query! You can do this on a per-component basis, like you see here, or, as I’m doing in our refactor, do it for higher-level layout parts (<code>--extras-inline</code> and <code>--subnav-inline</code>, either <code>0</code> or <code>1</code>). Now you can have components not only adapt to their size, but where they’re used in a given layout!</p>
+<p>Just about anywhere where I had a similar pattern of duplicating CSS code based on a media query and “pivot” class can be replaced with this. The next component I’ll be tackling with this is our main navigation. There, we set different breakpoints to go from an inline to an offscreen menu based on language. It’s the same pattern I had with the ToC: media queries plus a “pivot” selector, and duplicated CSS. Now, I’ll still have those, but they’ll just change a custom property to signal that the menu should be rearranged! Much easier to maintain.</p>
+<p>You can (and should) stack this pattern with other best-practice responsive patterns, like treating this as progressive enhancement, and starting small, and being flexible with the final display; this should be used as a way to expand your design options, not as a way to swim against the <a href="https://alistapart.com/article/dao/">ebb and flow of the web</a>.</p>
+<hr>
+<p>With this new pattern in my back pocket, I’ve now got three ways to change how a component looks: based on the viewport, based on its inherent size, and based on where it lives on the site, all without JavaScript, all without duplicating CSS, and all maintained in a component-first way. I’m already excited to use it, and hope you’ll find uses for it in your work, too.</p>
+</section>
+</div>
+        </div>
+      </div>
+    </article>
+  </main>
+    </div>
+
+    <script>(self.Astro=self.Astro||{}).only=t=>{(async()=>await(await t())())()},window.dispatchEvent(new Event("astro:only"));</script><astro-island uid="OlY8w" component-url="/Scripts.367ba398.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-FCJACSJA&quot;]}" ssr="" client="only" opts="{&quot;name&quot;:&quot;Scripts&quot;,&quot;value&quot;:true}"></astro-island>
+    <astro-island uid="1aO4nY" component-url="/Footer.f8e9b7e0.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-FCJACSJA&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Footer&quot;,&quot;value&quot;:true}" await-children=""><footer class="footer svelte-1bt7hha"><div class="inner svelte-1bt7hha"><img src="/images/me/square.jpg" alt="Headshot of Sam" class="headshot svelte-1bt7hha" loading="lazy">
+    <h2 class="svelte-1bt7hha">Sam <br><span class="aka">aka</span>
+      <a class="type--a svelte-1bt7hha" href="/links">Snugug</a></h2>
+    <p class="svelte-1bt7hha">BBQ lead, ChromeOS DevRel</p>
+    <p class="svelte-1bt7hha">Web, design, development, food</p></div>
+</footer></astro-island>
+  
+</body></html>
+
