@@ -9,7 +9,7 @@
     "prestart": "run-s import",
     "start": "astro dev",
     "prebuild": "run-s import",
-    "build": "astro build",
+    "build": "astro build --silent",
     "preview": "astro preview",
     "prepare": "cd ../ && husky install ./site/.husky",
     "import": "node ./lib/tweetback/import.js",
