@@ -86,8 +86,8 @@ const recipes = (await client.fetch(recipeQuery)).map((recipe) => ({
 <style lang="scss">
   .heading {
     --heading-font-size: clamp(4rem, 15vw, 8rem);
+    --heading-min-height: 100vh;
     background-color: hsl(171, 100%, 30%);
-    height: 100vh;
     line-height: 1;
     width: 100%;
   }
