@@ -178,6 +178,7 @@ const equipment = instructions
           </tbody>
         </table>
       </section>
+      <!-- <a href="#recipe" class="recipe--jump">Jump to Recipe</a> -->
       <hr class="type--hr" />
       <div class="recipe--content-wrapper">
         <time class="recipe--date" datetime={published.toISOString()}
@@ -196,7 +197,7 @@ const equipment = instructions
         />
       </div>
 
-      <section class="recipe--steps">
+      <section id="recipe" class="recipe--steps">
         <Recipe {instructions} />
       </section>
     </article>
@@ -208,6 +209,7 @@ const equipment = instructions
 
   .recipe {
     padding-bottom: var(--spacing);
+    scroll-behavior: smooth;
 
     &--heading {
       --heading-min-height: calc(33vh + 3rem);
@@ -303,6 +305,22 @@ const equipment = instructions
       margin-top: var(--spacing);
       max-width: calc(80ch + 4rem);
       padding: 0 var(--spacing);
+      padding-top: var(--spacing);
+    }
+
+    &--jump {
+      display: block;
+      font-size: 0.8rem;
+      margin-top: calc(var(--spacing) / 2);
+      text-align: center;
+      text-transform: uppercase;
+      width: 100%;
+
+      &::before,
+      &::after {
+        content: '▾';
+        margin-inline: 0.5rem;
+      }
     }
   }
 </style>
