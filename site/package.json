@@ -42,7 +42,7 @@
     "markdown-it": "^13.0.1",
     "parse-domain": "^7.0.1",
     "sentiment": "^5.0.2",
-    "sqlite3": "^5.1.2",
+    "sqlite3": "^5.1.5",
     "svelte": "^3.52.0",
     "the-new-css-reset": "^1.7.3",
     "vite-plugin-pwa": "^0.13.1",
