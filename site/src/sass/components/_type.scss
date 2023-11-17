@@ -65,7 +65,7 @@ picture {
     }
   }
 
-  * + *:not(:empty):not(li) {
+  * + *:not(:empty):not(li):not(dd) {
     margin-top: 1rem;
   }
 
@@ -155,6 +155,7 @@ picture {
     text-wrap: balance;
   }
 
+  figure,
   ul:not([class]),
   ol:not([class]) {
     margin-left: 2em;
@@ -167,6 +168,19 @@ picture {
 
   ol:not([class]) {
     list-style: decimal;
+  }
+
+  dt {
+    color: var(--light-pink);
+    font-weight: bold;
+  }
+  
+  dd {
+    margin-left: 2em;
+  }
+
+  figcaption {
+    font-size: .8em;
   }
 
   &--hr,
