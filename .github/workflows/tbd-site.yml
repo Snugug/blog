@@ -12,6 +12,7 @@ on:
       - site/**
       - .github/workflows/tbd-site.yml
   repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   test-build:
