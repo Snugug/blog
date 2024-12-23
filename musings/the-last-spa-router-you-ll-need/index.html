@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="astro-FCJACSJA">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/fonts/dank-mono.css">
+    <link rel="me" href="https://mas.to/@snugug">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="generator" content="Astro v1.6.15">
+    <title>The Last SPA Router You&#39;ll Need | Snugug</title>
+    <meta name="description" content="The Navigation API provides a standards-based way to build a client-side router that can be used with anything you desire to build your front-end in. I'll show you how I used it to rebuild the CMS for my photography site, and why the new Runes feature of Svelte 5, when combined with this, make for a truly killer combo.">
+    <script defer data-domain="snugug.com" src="https://plausible.io/js/script.outbound-links.tagged-events.js"></script>
+  <link rel="stylesheet" href="/assets/cookbook.2da480cf.css" />
+<link rel="stylesheet" href="/assets/cookbook.ff137a49.css" />
+<link rel="stylesheet" href="/assets/_slug_.90f5b029.css" /></head>
+  <body class="body astro-FCJACSJA">
+    <style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="Z1Cnaa4" component-url="/Menu.5c4a6882.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-FCJACSJA&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Menu&quot;,&quot;value&quot;:true}" await-children=""><div><button class="toggle svelte-lkm16t" aria-expanded="false" aria-label="Open menu"></button>
+
+  <nav class="menu svelte-lkm16t" aria-expanded="false"><ul class="menu--list svelte-lkm16t"><li><a href="/" tabindex="-1">Home</a></li>
+      <li><a href="/musings" tabindex="-1">Posts</a></li>
+      <li><a href="/cookbook" tabindex="-1">Cookbook</a></li>
+      <li><a href="/me" tabindex="-1">About</a></li>
+      <li><a href="/presentations" tabindex="-1">Presentations</a></li>
+      <li><a href="/rss.xml" tabindex="-1">RSS</a></li></ul></nav>
+</div></astro-island>
+
+    <div class="body-content astro-FCJACSJA">
+      <main itemscope="" itemtype="http://schema.org/Blog" class="astro-HRZLV7RA">
+    <article class="article astro-HRZLV7RA">
+      <header class="article--heading astro-HRZLV7RA">
+        <div class="heading heading--padded astro-O3TATT2D" style="--hue: 25;--saturation: 30;--lightness: 80;--alpha: 0.2;--size: 125;">
+  <h1 class="heading--title astro-O3TATT2D" itemprop="name">The Last SPA Router You'll Need</h1>
+</div>
+
+
+      </header>
+      <div class="article--container astro-HRZLV7RA">
+        <div class="article--inner astro-HRZLV7RA">
+          <p class="article--date astro-HRZLV7RA">
+            
+            <time datetime="2024-12-23T00:00:00.000Z" class="astro-HRZLV7RA">12/23/2024
+            </time>
+          </p>
+          <div class="article--content type astro-HRZLV7RA"><p>I went through a number of iterations on how to manage my images over on <a href="https://snugug.photography">snugug.photography</a>. I started with doing everything in Lightroom (my desktop library manager of choice) and extracting the EXIF data at build time to grab everything I needed from there. This had a few problems, the biggest being that while I <em>could</em> write titles, descriptions, and alt text in Lightroom, that it was incredibly cumbersome to do so. So I pivoted, and built a tiny Firebase app to help me.</p>
+<p>This Firebase app does a couple of neat things: I drop a folder of images into a storage bucket, it reads those images, extracts and normalizes the EXIF data, and puts them into a database so I have a cache of that data. With database entries for everything, I can now manipulate the data a little easier and add site-specific metadata as I see fit. It also opens the ability to integrate external tools into my workflow, like the only thing approaching a good use for generative LLMs I’ve personally seen so far: writing alt text for images. To manage all of this, I found I needed a little content management system, and because it’s a highly interactive system with deep user sessions, it’s one of the few circumstances where a single page app (SPA) makes sense.</p>
+<p>My first run at it was pretty simple; a single <code>client:only</code> component I threw into my Astro site that had all the logic stuffed in. It worked, it was a little messy, but it did the job. I had actually tried dividing it into sub components and building it “correctly”, but I’ve both truly never liked any of the compromises most SPA routers make (namely being required to use their components to make navigation work, or hash navigation, or or surprise links are <code>div</code>s) and integrating an SPA route with subroutes into Astro in dev is a surprisingly unsolved pattern that was causing me issues. But I found the need to expand what my CMS was capable of, so I embarked on a rewrite.</p>
+<p>Because this was only for me, I decided to try playing around with the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API">Navigation API</a>, an standards-based API specifically for managing all the tricky edge cases of trying to do client-side routing. It’s available in Chromium based browsers, but has positive signals, and implementation work, from Safari and Firefox, and after using it for a morning, honestly, it can’t come soon enough to them. For a basic URL based routing system like I’ve got, the flow is basically as follows:</p>
+<ol>
+<li>Add a navigation event listener</li>
+<li>Check to see if the destination URL should be owned by your router</li>
+<li>If not, return, if so, set your view.</li>
+</ol>
+<p>It’s really only those three steps. Throw in “set initial view” and “render your view” for a total of 5 steps, and, with only a smidge of hyperbole, I can say that this is probably the simplest, easiest, client side router you’ll ever use. And the exact same pattern, with almost the <em>exact same code</em>, can be used with <em>any</em> framework (or without a framework!). It’s really a game changer. Here’s what it looks like:</p>
+<figure><pre class="language-js"><code class="language-js"><span class="token comment">// Get the initial path that's being loaded</span>
+<span class="token keyword">let</span> url <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URL</span><span class="token punctuation">(</span><span class="token dom variable">document</span><span class="token punctuation">.</span><span class="token constant">URL</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token property-access">pathname</span><span class="token punctuation">;</span>
+
+navigation<span class="token punctuation">.</span><span class="token method function property-access">addEventListener</span><span class="token punctuation">(</span><span class="token string">'navigate'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span>
+  <span class="token comment">// Get the path for the URL being navigated to</span>
+  url <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URL</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token property-access">destination</span><span class="token punctuation">.</span><span class="token property-access">url</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token property-access">pathname</span><span class="token punctuation">;</span>
+  <span class="token comment">// If it's not covered by your SPA, return and it works as normal</span>
+  <span class="token comment">// For me, this means if it's not part of my admin path</span>
+  <span class="token keyword control-flow">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>url<span class="token punctuation">.</span><span class="token method function property-access">startsWith</span><span class="token punctuation">(</span><span class="token string">'/admin'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword control-flow">return</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// If you do want deal with it, intercept the event and call a handler to change your view. It can take an async function, important for dynamically loading your routes. I'll get back to that in a second.</span>
+  e<span class="token punctuation">.</span><span class="token method function property-access">intercept</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">handler</span><span class="token operator">:</span> setView <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></figure><p>That’s it! That’s all the logic you need to set up your router! ~5 lines of vanilla, use anywhere with anything JavaScript. Write proper links with <code>a</code> tags, and this works, no special components necessary. You need to navigate programmatically? that’s covered, too, with <code>navigation.navigate()</code>, passing in the URL or path you want to navigate to. It’s so straight forward, so simple, so easy (and I really don’t like using those words when describing tech) that writing a wrapping or helper library won’t help ergonomics or understanding. It’s an <em>excellent</em> API, and hats off to the group that came up with it.</p>
+<p>Now, you’ll be asking, how does this work to actually change the view? Well, from here on out is going to be implementation specific, but the code for Svelte 5 is, again, very straight forward and you should be able to translate it into whatever tool you’re using:</p>
+<figure><pre class="language-ts"><code class="language-ts"><span class="token comment">// This is a little Svelte 5, a little TypeScript.</span>
+<span class="token comment">// The first thing I'm doing is creating a variable called View that I'm telling Svelte is going to change (the $state Rune) and should be treated a Svelte component.</span>
+<span class="token keyword">let</span> View <span class="token operator">=</span> <span class="token function">$state</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> Component<span class="token punctuation">;</span>
+
+<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">setView</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Then, write your logic! For me, I'm starting by splitting the pathname into pieces and removing the first piece, because that'll just be the leading slash and adds noise.</span>
+  <span class="token keyword">const</span> parts <span class="token operator">=</span> url<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  parts<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Then, I'm looking to see if the user is logged in</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// This is the secret sauce dynamic loading patterns, AKA a standard module import. Get the component, set it as the View.</span>
+    <span class="token comment">// Svelte 5's new Rune based state management means I can set this directly and Svelte knows it needs to run its magic. Different state managers and different frameworks will do this slightly differently, but the logic is the same.</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">default</span><span class="token operator">:</span> m <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'./admin/Login.svelte'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    View <span class="token operator">=</span> m<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>parts<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// On my index page, in my case, load all of my albums</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">default</span><span class="token operator">:</span> m <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'./admin/Albums.svelte'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    View <span class="token operator">=</span> m<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>parts<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// The logic you use here is entirely up to you. It can be more fancy than this, but it can also be this simple. I know that if I've got two items, I'm looking for an album. I've got another state manager called store that's shared between components, so I'm going to store the album from the URL in there, and the Album component will pick that up to load the correct album. I could have also done this in the Album component directly! The world is your oyster.</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">default</span><span class="token operator">:</span> m <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'./admin/Album.svelte'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    store<span class="token punctuation">.</span>album <span class="token operator">=</span> parts<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    View <span class="token operator">=</span> m<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>parts<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Second verse, same as the first. If I've got three parts, I'm going to store the album and the image in my global store for future reference</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">default</span><span class="token operator">:</span> m <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'./admin/Image.svelte'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    store<span class="token punctuation">.</span>album <span class="token operator">=</span> parts<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    store<span class="token punctuation">.</span>image <span class="token operator">=</span> parts<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    View <span class="token operator">=</span> m<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// The final thing you need to do is call serView when your app runs to get the right view in place. In Svelte 5, the way to do this is through the $effect Rune, but you could call it on DOMContentLoaded, onMount in previous versions of Svelte, or whatever similar lifecycle event your framework has</span>
+<span class="token function">$effect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token function">setView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></figure><p>That’s it! That’s the whole JS of the router! A few lines of vanilla JS and some blink-and-you’ll-miss-it integrations with a state manager. And with a modern bundler, like Vite, these <code>import</code> routes will be code split (which is why I’m not using a single, dynamic import statement here), giving you the holy grail (from a performance perspective) of SPA routers–a code-split, asynchronous routing system with 0 external dependencies that only weighs bytes, even before the gzipped and minimized size laundering that we use to describe library impact nowadays. And, like I previously said, it’s universal, bring it with you to any tool, any framework you’re using, and never learn another router again, because here we #UseThePlatform.</p>
+<p>Oh, there’s one last bit you need to do: actually render your component. While this will vary from framework to framework, implementation to implementation, one of the other reason I’m particularly happy with Svelte 5 here is, because we’ve told Svelte that View is stat that will change, that gets boiled down to this:</p>
+<figure><pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>View</span> <span class="token punctuation">/></span></span>
+</code></pre></figure></div>
+        </div>
+      </div>
+    </article>
+  </main>
+    </div>
+
+    <script>(self.Astro=self.Astro||{}).only=t=>{(async()=>await(await t())())()},window.dispatchEvent(new Event("astro:only"));</script><astro-island uid="OlY8w" component-url="/Scripts.367ba398.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-FCJACSJA&quot;]}" ssr="" client="only" opts="{&quot;name&quot;:&quot;Scripts&quot;,&quot;value&quot;:true}"></astro-island>
+    <astro-island uid="1aO4nY" component-url="/Footer.f8e9b7e0.js" component-export="default" renderer-url="/client.05ab6769.js" props="{&quot;class&quot;:[0,&quot;astro-FCJACSJA&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;Footer&quot;,&quot;value&quot;:true}" await-children=""><footer class="footer svelte-1bt7hha"><div class="inner svelte-1bt7hha"><img src="/images/me/square.jpg" alt="Headshot of Sam" class="headshot svelte-1bt7hha" loading="lazy">
+    <h2 class="svelte-1bt7hha">Sam <br><span class="aka">aka</span>
+      <a class="type--a svelte-1bt7hha" href="/links">Snugug</a></h2>
+    <p class="svelte-1bt7hha">BBQ lead, ChromeOS DevRel</p>
+    <p class="svelte-1bt7hha">Web, design, development, food</p></div>
+</footer></astro-island>
+  
+</body></html>
+
