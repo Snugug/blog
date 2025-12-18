@@ -1,4 +1,4 @@
-# Snugug [![Test, Build, Deploy - Site](https://github.com/Snugug/blog/actions/workflows/tbd-site.yml/badge.svg)](https://github.com/Snugug/blog/actions/workflows/tbd-site.yml) [![Test, Build, Deploy - CMS](https://github.com/Snugug/blog/actions/workflows/tbd-cms.yml/badge.svg)](https://github.com/Snugug/blog/actions/workflows/tbd-cms.yml)
+# Snugug [![Test, Build, Deploy - Site](https://github.com/Snugug/blog/actions/workflows/tbd-site.yml/badge.svg)](https://github.com/Snugug/blog/actions/workflows/tbd-site.yml)
 
 My personal site, [snugug.com](https://snugug.com), built with [Astro](https://astro.build/). Components in [Svelte](https://svelte.dev/), styling by [Sass](https://sass-lang.com/), service worker powered by [Workbox](https://developer.chrome.com/docs/workbox/).
 
