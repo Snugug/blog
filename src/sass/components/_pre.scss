@@ -1,0 +1,137 @@
+:root {
+  --pre-pink: #f92672;
+  --pre-green: #a6e22e;
+  --pre-blue: #819aff;
+  --pre-yellow: #e2e22e;
+  --pre-purple: #ae81ff;
+  --pre-cyan: #66d9ef;
+  --pre-orange: #fd971f;
+  --pre-red: #f44747;
+}
+
+%base--pre-build {
+  direction: ltr;
+  display: block;
+  font-family: 'dm', monospace;
+  font-weight: normal;
+  hyphens: none;
+  letter-spacing: normal;
+  overflow-y: overlay;
+  tab-size: 2;
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-spacing: normal;
+  word-wrap: break-word;
+}
+
+%base--pre {
+  @extend %base--pre-build;
+  border-radius: 3px;
+  overflow: auto;
+
+  code,
+  .base--code {
+    @extend %base--pre-build;
+    line-height: 1.45;
+    outline: 0;
+    padding: 1rem;
+    white-space: pre;
+    word-break: normal;
+    word-wrap: normal;
+  }
+}
+
+pre {
+  @extend %base--pre;
+  background: var(--black);
+  max-width: calc(100vw - 4rem);
+  border: 2px solid var(--white);
+
+  > code {
+    color: var(--white);
+  }
+}
+
+code {
+  font-family: 'dm', monospace;
+  background: var(--black);
+  padding: 0.1em 0.25em;
+  border-radius: 1px;
+}
+
+p code {
+  background: var(--dark-grey);
+  font-size: 0.8em;
+}
+
+// .token.prolog,
+// .token.doctype,
+// .token.cdata,
+// .token.punctuation {
+//   color: var(--white);
+// }
+
+// .token.comment {
+//   color: var(--grey);
+// }
+
+// .token.tag,
+// .token.constant,
+// .token.symbol,
+// .token.deleted,
+// .token.important,
+// .token.variable {
+//   color: var(--pre-cyan);
+// }
+
+// .token.unit,
+// .token.keyword,
+// .token.operator,
+// .token.parent,
+// .token.atrule {
+//   color: var(--pre-red);
+// }
+
+// .token.boolean,
+// .token.number {
+//   color: var(--pre-purple);
+// }
+
+// .token.selector,
+// .token.attr-name,
+// .token.char,
+// .token.builtin,
+// .token.inserted,
+// .token.function,
+// .token.module-modifier {
+//   color: var(--pre-green);
+// }
+
+// .token.string,
+// .token.attr-value {
+//   color: var(--pre-yellow);
+// }
+
+// .token.entity,
+// .token.url,
+// .language-css .token.string,
+// .style .token.string {
+//   color: var(--light-pink);
+// }
+
+// .token.property {
+//   color: var(--light-teal);
+// }
+
+// .token.regex {
+//   color: var(--pre-orange);
+// }
+
+// .token.italic {
+//   font-style: italic;
+// }
+
+// .token.entity {
+//   cursor: help;
+// }

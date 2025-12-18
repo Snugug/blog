@@ -1,0 +1,61 @@
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:list';
+
+//////////////////////////////
+// Offset-Shade Mixin, inspired by http://practice.typekit.com/lesson/using-shades/
+// - $background: The color of the background the text is on
+// - $shade: The color of the shadow
+// - $from: Direction shadow comes from. Options are `top right`, `top left`, `bottom right`, `bottom left`
+// - $offset: The distance you want the shade to be offset
+// - $size: The size you want the shade to be.
+//////////////////////////////
+@mixin offset-shade(
+  $background,
+  $shade,
+  $from: 'top right',
+  $offset: 0.01em,
+  $size: 0.03em
+) {
+  $size: $offset + $size;
+
+  $offsetShadow: '';
+  $shadeShadow: '';
+
+  @if meta.type-of($from == 'list') {
+    $from: '#{$from}';
+  }
+
+  //////////////////////////////
+  // Left/Right
+  //////////////////////////////
+  @if string.index($from, 'right') {
+    $offsetShadow: $offset * -1;
+    $shadeShadow: $size * -1;
+  } @else if string.index($from, 'left') {
+    $offsetShadow: $offset;
+    $shadeShadow: $size;
+  } @else {
+    $offsetShadow: 0;
+    $shadeShadow: 0;
+  }
+
+  //////////////////////////////
+  // Top/Bottom
+  //////////////////////////////
+  @if string.index($from, 'top') {
+    $offsetShadow: list.append($offsetShadow, $offset, space);
+    $shadeShadow: list.append($shadeShadow, $size, space);
+  } @else if string.index($from, 'bottom') {
+    $offsetShadow: list.append($offsetShadow, $offset * -1, space);
+    $shadeShadow: list.append($shadeShadow, $size * -1, space);
+  }
+
+  //////////////////////////////
+  // Colors and Shadow
+  //////////////////////////////
+  $offsetShadow: list.append($offsetShadow, $background, space);
+  $shadeShadow: list.append($shadeShadow, $shade, space);
+
+  text-shadow: $offsetShadow, $shadeShadow;
+}

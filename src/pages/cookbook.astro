@@ -1,0 +1,27 @@
+---
+import Layout from '$layouts/Listing.astro';
+import Recipecard from '$components/Recipecard.svelte';
+import { getCollection } from 'astro:content';
+
+const allRecipes = await getCollection('recipes');
+
+const items = allRecipes.map((recipe) => ({
+  title: recipe.data.title,
+  slug: recipe.id,
+  image: recipe.data.image,
+  published: recipe.data.published || new Date(),
+  updated: recipe.data.published || new Date(),
+}));
+---
+
+<Layout
+  title="Cookbook"
+  hue={345}
+  saturation={100}
+  lightness={28}
+  size={50}
+  alpha={0.5}
+  background="var(--red)"
+  items={items}
+  Card={Recipecard}
+/>

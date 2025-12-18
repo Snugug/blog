@@ -1,0 +1,171 @@
+---
+import '$sass/style.scss';
+import Scripts from '$components/Scripts.svelte';
+import Footer from '$components/Footer.svelte';
+import github from '$components/icons/fontawesome/github.svg?raw';
+import mastodon from '$components/icons/fontawesome/mastodon.svg?raw';
+import instagram from '$components/icons/fontawesome/instagram.svg?raw';
+import camera from '$components/icons/fontawesome/camera.svg?raw';
+import rss from '$components/icons/fontawesome/rss.svg?raw';
+import blog from '$components/icons/fontawesome/house-chimney.svg?raw';
+import linkedIn from '$components/icons/fontawesome/linkedin-in.svg?raw';
+import git from '$components/icons/fontawesome/git-alt.svg?raw';
+import user from '$components/icons/fontawesome/user-astronaut.svg?raw';
+import twitter from '$components/icons/fontawesome/twitter.svg?raw';
+
+const title = 'Links';
+const summary = 'List of links to my stuff';
+
+const links = [
+  {
+    name: 'Blog',
+    icon: blog,
+    url: '/',
+  },
+  {
+    name: 'Photography',
+    icon: camera,
+    url: 'https://snugug.photography',
+  },
+  {
+    name: 'About Me',
+    icon: user,
+    url: '/me',
+  },
+  {
+    name: 'RSS',
+    icon: rss,
+    url: '/rss.xml',
+  },
+  {
+    name: 'Mastodon',
+    icon: mastodon,
+    url: 'https://mas.to/@snugug',
+  },
+  {
+    name: 'Instagram',
+    icon: instagram,
+    url: 'https://instagram.com/snugug',
+  },
+  {
+    name: 'GitHub',
+    icon: github,
+    url: 'https://github.com/snugug',
+  },
+  {
+    name: 'LinkedIn',
+    icon: linkedIn,
+    url: 'https://www.linkedin.com/in/sam-richard-67036513/',
+  },
+
+  {
+    name: 'Twitter Archive',
+    icon: twitter,
+    url: '/archive/twitter',
+  },
+  {
+    name: 'Site Source',
+    icon: git,
+    url: 'https://github.com/snugug/blog',
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/fonts/dank-mono.css" />
+    <link rel="me" href="https://mas.to/@snugug" />
+    {
+      import.meta.env.MODE !== 'development' ? (
+        <link rel="manifest" href="/manifest.webmanifest" />
+      ) : (
+        ''
+      )
+    }
+    <meta name="generator" content={Astro.generator} />
+    <title>{title ? `${title} | ` : ''}</title></head
+  >Snugug
+  <meta name="description" content={summary} />
+  <script
+    defer
+    data-domain="snugug.com"
+    src="https://plausible.io/js/script.outbound-links.js"></script>
+
+  <body class="body">
+    <main class="container">
+      <header class="container--heading">
+        <Footer link="/" />
+      </header>
+      <article>
+        <ul class="links">
+          {
+            links.map((l) => (
+              <li>
+                <a
+                  rel={
+                    l.url.startsWith('http') ? 'me noopener noreferrer' : null
+                  }
+                  target={l.url.startsWith('http') ? '_blank' : null}
+                  class="link"
+                  href={l.url}
+                >
+                  <span class="icon" set:html={l.icon} />
+                  <span>{l.name}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </main>
+
+    <Scripts client:only />
+  </body>
+
+  <style lang="scss">
+    .container--heading {
+      background-color: var(--plum);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1rem, 3vw, 2rem);
+      margin: 0 auto;
+      max-width: 60ch;
+      padding: clamp(1rem, 3vw, 2rem);
+    }
+
+    .link {
+      align-items: center;
+      border: 3px solid var(--white);
+      border-radius: 1rem;
+      display: grid;
+      font-size: clamp(1rem, 3vw, 2rem);
+      gap: clamp(0.5rem, 1.5vw, 1.5rem);
+      grid-template-columns: clamp(1rem, 3vw, 2rem) auto;
+      justify-content: center;
+      line-height: 1;
+      padding: clamp(1rem, 3vw, 2rem);
+
+      &:hover,
+      &:focus-within {
+        background-color: var(--plum);
+      }
+    }
+
+    .icon {
+      fill: var(--white);
+
+      :global(svg) {
+        aspect-ratio: 1 / 1;
+      }
+    }
+  </style>
+
+
+</html>

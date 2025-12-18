@@ -1,0 +1,88 @@
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:list';
+
+//////////////////////////////
+// Reverse-Shade Mixin, inspired by http://practice.typekit.com/lesson/using-shades/
+// - $depth: The color for the depth shade
+// - $shadow: The color for the shadow
+// - $from: Direction shadow comes from. Options are `top right`, `top left`, `bottom right`, `bottom left`
+// - $depth-distance: The distance you want the depth to extend. Must be a positive integer
+// - $shadow-distance: The distance you want the shadow to extend. Must be a positive integer
+// - $size: The size you want each slice.
+//////////////////////////////
+@mixin reverse-shade(
+  $depth,
+  $shadow,
+  $from: 'top right',
+  $depth-distance: 25,
+  $shadow-distance: 40,
+  $size: 0.005em
+) {
+  $holder: ();
+
+  $Left: 0;
+  $Top: 0;
+
+  $LeftAdd: 0;
+  $TopAdd: 0;
+
+  @if meta.type-of($from == 'list') {
+    $from: '#{$from}';
+  }
+
+  //////////////////////////////
+  // Left/Right
+  //////////////////////////////
+  @if string.index($from, 'right') {
+    $Left: $size * -1;
+    $LeftAdd: $size * -1;
+  }
+  @if string.index($from, 'left') {
+    $Left: $size;
+    $LeftAdd: $size;
+  }
+
+  //////////////////////////////
+  // Top/Bottom
+  //////////////////////////////
+  @if string.index($from, 'top') {
+    $Top: $size * 2;
+    $TopAdd: $size;
+  } @else if string.index($from, 'bottom') {
+    $Top: $size * -2;
+    $TopAdd: $size * -1;
+  }
+
+  //////////////////////////////
+  // Shading
+  //////////////////////////////
+  @for $i from 1 through $depth-distance + $shadow-distance {
+    @if $i != 1 {
+      @if $i % 2 == 0 {
+        @if ($i <= $depth-distance) {
+          $Left: $Left + $LeftAdd;
+        } @else {
+          $Left: $Left - $LeftAdd;
+        }
+
+        $Top: $Top - $TopAdd;
+      } @else if $i % 2 == 1 {
+        $Top: $Top + ($TopAdd * 2);
+      }
+    }
+
+    $shadowHolder: ();
+
+    $shadowHolder: list.append($shadowHolder, $Left, space);
+    $shadowHolder: list.append($shadowHolder, $Top, space);
+    @if $i <= $depth-distance {
+      $shadowHolder: list.append($shadowHolder, $depth, space);
+    } @else {
+      $shadowHolder: list.append($shadowHolder, $shadow, space);
+    }
+
+    $holder: list.append($holder, $shadowHolder, comma);
+  }
+  text-shadow: $holder;
+}

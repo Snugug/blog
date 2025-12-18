@@ -1,0 +1,39 @@
+---
+import Layout from '$layouts/Listing.astro';
+import Postcard from '$components/Postcard.svelte';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.archived);
+
+const items = allPosts.map((post) => ({
+  title: post.data.title,
+  summary: post.data.summary,
+  slug: post.id,
+  published: post.data.published,
+  updated: post.data.updated || post.data.published,
+}));
+---
+
+<Layout
+  title="Posts"
+  hue={270}
+  saturation={70}
+  lightness={40}
+  size={40}
+  alpha={0.5}
+  background="var(--plum)"
+  items={items}
+  Card={Postcard}
+>
+  <section class="post-section">
+    <h2 class="type--h2">
+      <a href="/musings/archive" class="type--a post-archive">Archive</a>
+    </h2>
+  </section>
+</Layout>
+
+<style>
+  .post-archive {
+    display: block;
+  }
+</style>

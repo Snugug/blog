@@ -1,0 +1,149 @@
+---
+import Layout from '$layouts/Donut.astro';
+import Heading from '$components/Heading.astro';
+import Postcard from '$components/Postcard.svelte';
+import Recipecard from '$components/Recipecard.svelte';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.archived);
+const allRecipes = await getCollection('recipes');
+
+const posts = allPosts
+  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime())
+  .slice(0, 8)
+  .map((post) => ({
+    title: post.data.title,
+    summary: post.data.summary,
+    slug: post.id,
+    published: post.data.published,
+    updated: post.data.updated || post.data.published,
+  }));
+
+const recipes = allRecipes
+  .sort(
+    (a, b) =>
+      (b.data.published?.getTime() || 0) - (a.data.published?.getTime() || 0),
+  )
+  .slice(0, 5)
+  .map((recipe) => ({
+    title: recipe.data.title,
+    slug: recipe.id,
+    image: recipe.data.image,
+    published: recipe.data.published,
+  }));
+---
+
+<Layout title="" summary="Sam Richard's blog">
+  <main>
+    <div class="heading">
+      <Heading
+        title="Hi <br />I'm Sam <br /><span class='aka'>aka</span> Snugug"
+        hue={171}
+        saturation={60}
+        lightness={25}
+        size={70}
+        alpha={0.5}
+      />
+    </div>
+    <section class="home-section">
+      <h2 class="type--h2">Recent posts</h2>
+      <ul class="home-content">
+        {
+          posts.map((content) => (
+            <li>
+              <Postcard {content} />
+            </li>
+          ))
+        }
+        <li class="all-content posts">
+          <Heading
+            title="Posts"
+            hue={270}
+            saturation={70}
+            lightness={40}
+            size={40}
+            alpha={0.5}
+            link="/musings"
+          />
+        </li>
+      </ul>
+    </section>
+    <section class="home-section section__cookbook">
+      <h2 class="type--h2">Recent recipes</h2>
+      <ul class="home-content">
+        {
+          recipes.map((content) => (
+            <li>
+              <Recipecard {content} />
+            </li>
+          ))
+        }
+        <li class="all-content cookbook">
+          <Heading
+            title="Cookbook"
+            hue={345}
+            saturation={100}
+            lightness={28}
+            size={50}
+            alpha={0.5}
+            link="/cookbook"
+          />
+        </li>
+      </ul>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .heading {
+    --heading-font-size: clamp(4rem, 15vw, 8rem);
+    --heading-min-height: 100vh;
+    background-color: hsl(171, 100%, 30%);
+    line-height: 1;
+    width: 100%;
+  }
+
+  .home-section {
+    margin: 0 auto;
+    max-width: 120ch;
+    padding: 1rem var(--spacing);
+
+    &:last-of-type {
+      padding-bottom: var(--spacing);
+    }
+
+    &:first-of-type {
+      padding-top: var(--spacing);
+    }
+  }
+
+  .home-content {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 25ch), 1fr));
+    padding: 1rem var(--spacing);
+
+    li {
+      height: 100%;
+    }
+  }
+
+  .all-content {
+    // aspect-ratio: 1 / 1;
+    --heading-font-size: var(--spacing);
+    display: block;
+    height: 100%;
+  }
+
+  .cookbook {
+    background: var(--red);
+  }
+
+  .posts {
+    background: var(--plum);
+  }
+
+  .section__cookbook {
+    --highlight-color: var(--red);
+  }
+</style>

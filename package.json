@@ -1,0 +1,66 @@
+{
+  "name": "snugug-blog",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "predev": "run-s import",
+    "dev": "astro dev",
+    "prestart": "run-s import",
+    "start": "astro dev",
+    "build": "astro build --silent",
+    "prebuild": "run-s import",
+    "preview": "astro preview",
+    "import": "node ./lib/tweetback/import.js",
+    "astro": "astro",
+    "pretest": "run-s lint",
+    "test": "run-s build",
+    "lint": "run-p *:lint",
+    "fix": "run-p *:fix",
+    "prettier:lint": "prettier -c .",
+    "prettier:fix": "prettier --write .",
+    "import:twitter-archive": "node lib/tweetback/import.js"
+  },
+  "dependencies": {
+    "@11ty/eleventy-img": "^2.0.1",
+    "@astrojs/markdown-remark": "^6.3.10",
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/svelte": "^7.2.4",
+    "@tweetback/canonical": "^2.0.48",
+    "astro": "^5.16.6",
+    "chartist": "^1.5.0",
+    "cli-progress": "^3.12.0",
+    "css-paint-polyfill": "^3.4.0",
+    "hastscript": "^9.0.1",
+    "markdown-it": "^13.0.2",
+    "parse-domain": "^7.0.1",
+    "remark-attributes": "^0.3.2",
+    "remark-definition-list": "^2.0.0",
+    "remark-directive": "^4.0.0",
+    "remark-extended-table": "^2.0.3",
+    "sentiment": "^5.0.2",
+    "sharp": "^0.34.5",
+    "sqlite3": "^5.1.7",
+    "svelte": "^5.46.0",
+    "the-new-css-reset": "^1.11.3",
+    "unist-util-visit": "^5.0.0",
+    "vite-plugin-pwa": "^1.2.0",
+    "workbox-precaching": "^7.4.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.7.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-svelte": "^3.4.1",
+    "sass": "^1.97.0",
+    "yaml": "^2.8.2"
+  },
+  "engines": {
+    "node": "24.12.0"
+  },
+  "volta": {
+    "node": "24.12.0"
+  },
+  "packageManager": "pnpm@10.26.0+sha512.3b3f6c725ebe712506c0ab1ad4133cf86b1f4b687effce62a9b38b4d72e3954242e643190fc51fa1642949c735f403debd44f5cb0edd657abe63a8b6a7e1e402"
+}
