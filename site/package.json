@@ -78,7 +78,8 @@
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recommended": "^9.0.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
-    "stylelint-config-standard": "^29.0.0"
+    "stylelint-config-standard": "^29.0.0",
+    "yaml": "^2.8.2"
   },
   "lint-staged": {
     "**/*.{css,scss,svelte,astro}": "stylelint",
