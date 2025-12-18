@@ -89,8 +89,11 @@ Content based breakpoints are surprisingly easy, as Stephen says, keep expanding
 // Baz wants to use min-width, but change media type, so min-width needs to be re-declare. Baz will gen @media tv and (min-width: 700px)
 // Qux goes all out and has a full unique media query. Qux will get @media tv and (max-width: 900px)
 
-$breakpoints: 'foo' 500px, 'bar' 700px 'max-width', 'baz' 700px 'min-width' tv, 'qux'
-    900px 'max-width' tv;
+$breakpoints:
+  'foo' 500px,
+  'bar' 700px 'max-width',
+  'baz' 700px 'min-width' tv,
+  'qux' 900px 'max-width' tv;
 
 // Let's call respond-to!
 #waldo {

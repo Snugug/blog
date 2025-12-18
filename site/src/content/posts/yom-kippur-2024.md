@@ -5,13 +5,13 @@ summary: 'I was in Poland during Yom Kippur, and went to  Auschwitz and Birkenau
 updated: '2024-10-12'
 ---
 
-!!! aside.note--error
+:::message{.error}
 **Content warning: The Holocaust**.
 
 This was originally a [thread](https://mas.to/@snugug/113294430431389512) I posted on Mastodon. I'm moving it here, in its entirety, to preserve it. I've set this post's date to the date of the original thread.
 
 You can see the pictures I took in the [Auschwitz-Birkenau album](https://snugug.photography/auschwitz-birkenau) on my photography site.
-!!!
+:::
 
 I haven't observed Yom Kippur in a number of years, but today I happen to be in Krakow and chose to observe it by going to Auschwitz-Birkenau.
 

@@ -5,9 +5,9 @@ summary: 'My current thoughts on this subject have been codified in North'
 updated: '2014-01-17'
 ---
 
-!!! aside.note--warning
+:::message{.warning}
 My current thoughts on this subject have been codified in [North](https://github.com/snugug/north).
-!!!
+:::
 
 Part of what I do at work is creating and maintaining our front-end standards, and this includes a CSS strategy. The first, and if you know any of my work most obvious, part of this strategy is the use of Sass for CSS Preprocessing. Sass adds so much for large scale maintainability that this is really a no-brainer. That's the how, but what about the what? What are we going to be writing with our CSS Preprocessor? What's our class naming strategy? This has been bugging me a lot. Right now, there are three prevailing thoughts on CSS strategy: [SMACSS](https://smacss.com/), [OOCSS](http://oocss.org/), and [BEM](http://bem.info/). I dislike all of them. I find that SMACSS is too loose of a convention (that at times contradicts its own advice) to work at scale with a large distributed team. OOCSS stores all of its styling knowledge in the HTML instead of the CSS where it belongs, and is also pretty loose in its naming conventions. BEM's conventions work against how CSS natively parses and frankly destroys the cascade, the one thing that CSS is excellent at. While I may not like SMACSS's `.pod .pod-body.is-active`, I absolutely despise BEM's `.slider__figure--is-active`. None of the current strategies really seem to cover architecture (the core pieces that make up your styling, think framework) and implementation (the details of a single site).
 

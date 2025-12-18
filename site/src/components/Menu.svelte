@@ -73,7 +73,9 @@
     right: 0;
     top: 0;
     transform: translatex(calc(100% + 1em));
-    transition: transform 0.3s ease-in-out, color 0.3s ease-in;
+    transition:
+      transform 0.3s ease-in-out,
+      color 0.3s ease-in;
     width: calc(100% + 2px);
     z-index: 100;
 

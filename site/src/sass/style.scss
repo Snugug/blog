@@ -1,6 +1,6 @@
-@import 'global/reset';
-@import 'global/fonts';
+@use 'global/reset';
+@use 'global/fonts';
 
-@import 'components/type';
-@import 'components/pre';
-@import 'components/notes';
+@use 'components/type';
+@use 'components/pre';
+@use 'components/notes';

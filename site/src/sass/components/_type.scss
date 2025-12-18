@@ -200,10 +200,14 @@ picture {
       $l1: (20% - $i * 5%);
       $l0: (20% - ($i - 1) * 5%);
       @if $l1 < 0% {
-        $bkg: $bkg, hsl($h, $s, $l + $l0) calc(100% / 9 * $i),
+        $bkg:
+          $bkg,
+          hsl($h, $s, $l + $l0) calc(100% / 9 * $i),
           hsl($h, $s, $l + $l1) calc(100% / 9 * $i);
       } @else {
-        $bkg: $bkg, hsl($h, $s, $l - $l0) calc(100% / 9 * $i),
+        $bkg:
+          $bkg,
+          hsl($h, $s, $l - $l0) calc(100% / 9 * $i),
           hsl($h, $s, $l - $l1) calc(100% / 9 * $i);
       }
     }

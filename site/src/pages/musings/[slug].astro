@@ -1,40 +1,29 @@
 ---
 import Layout from '$layouts/Donut.astro';
 import Heading from '$components/Heading.astro';
-import { client } from '$lib/sanity';
-import md from 'chromeos-dev-markdown';
+import { getCollection, render } from 'astro:content';
 
 /**
- * Builds statuc path data for the pages
+ * Builds static path data for the pages
  * @return {Object} The static path data
  */
 export async function getStaticPaths() {
-  const query = '*[_type == "post" &&  !(_id in path("drafts.**"))]';
+  const posts = await getCollection('posts');
 
-  const posts = await client.fetch(query);
-
-  return posts.map((post) => {
-    return {
-      params: {
-        slug: post.slug.current,
-      },
-      props: {
-        title: post.title,
-        summary: post.summary,
-        body: post.body,
-        published: post.published,
-        updated: post.updated,
-      },
-    };
-  });
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
 }
 
-const { title, summary, body, published, updated } = Astro.props;
+const { post } = Astro.props;
+const { title, summary, published, updated } = post.data;
+const { Content } = await render(post);
 
 const date = new Date(published);
-const up = new Date(updated);
+const up = updated ? new Date(updated) : null;
 
-const dateDiff = updated ? date.getTime() !== up.getTime() : false;
+const dateDiff = up ? date.getTime() !== up.getTime() : false;
 ---
 
 <Layout title={title} summary={summary}>
@@ -91,7 +80,9 @@ const dateDiff = updated ? date.getTime() !== up.getTime() : false;
               }
             </time>
           </p>
-          <div class="article--content type" set:html={md.render(body)} />
+          <div class="article--content type">
+            <Content />
+          </div>
         </div>
       </div>
     </article>

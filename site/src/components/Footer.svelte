@@ -45,8 +45,6 @@
 </footer>
 
 <style lang="scss">
-  @import 'letterform-shades/stylesheets/letterform-shades';
-
   .footer {
     --base-hue: 171;
     --max-saturation: 20;
@@ -55,7 +53,8 @@
     --paint-alpha: 0.5;
     background-color: hsl(var(--base-hue), 10%, 20%);
     background-image: paint(triangles);
-    box-shadow: inset 0 -0.05rem 1rem rgba(0, 0, 0, 0.25),
+    box-shadow:
+      inset 0 -0.05rem 1rem rgba(0, 0, 0, 0.25),
       inset 0.05em 0 1rem rgba(0, 0, 0, 0.25),
       inset -0.05em 0 1rem rgba(0, 0, 0, 0.25);
     color: var(--snow);
@@ -88,7 +87,10 @@
   }
 
   h2 {
-    @include close-shade(#111, #111, 'bottom right', 15);
+    text-shadow:
+      1px 1px 0 #111,
+      2px 2px 0 #111,
+      3px 3px 0 #111;
     font-size: 2rem;
     font-weight: 700;
     line-height: 1;

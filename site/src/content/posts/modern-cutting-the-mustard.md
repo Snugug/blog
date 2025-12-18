@@ -35,7 +35,7 @@ Starting with ES2015, or ES6, new JavaScript functionality started to be added t
 
 Let's get straight to the code, then we'll explain it:
 
-```markup
+```html
 <script type="module" src="./mustard.js"></script>
 <script nomodule src="./no-mustard.js"></script>
 

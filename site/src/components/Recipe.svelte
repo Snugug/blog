@@ -1,6 +1,21 @@
 <script>
-  import md from 'chromeos-dev-markdown';
-  export let instructions = [];
+  import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+  import { markdown } from '$lib/markdown';
+
+  let { instructions } = $props();
+
+  const md = await createMarkdownProcessor(markdown);
+
+  const i = await Promise.all(
+    instructions.map(async (ins) => {
+      const procedure = await Promise.all(
+        ins.procedure.map(async (step) => (await md.render(step)).code),
+      );
+      ins.procedure = procedure;
+
+      return ins;
+    }),
+  );
 </script>
 
 <div class="container" />
@@ -13,7 +28,7 @@
     </tr>
   </thead>
   <tbody class="recipe--instructions">
-    {#each instructions as instruction}
+    {#each i as instruction}
       <tr>
         <td colspan="3" class="recipe--timing">
           <span class="recipe--active">
@@ -37,9 +52,7 @@
             <tbody>
               {#each instruction.ingredients as ingredient}
                 <tr itemprop="recipeIngredient">
-                  <td aria-labelledby="ingredient"
-                    >{ingredient.ingredient_name}</td
-                  >
+                  <td aria-labelledby="ingredient">{ingredient.name}</td>
                   <td aria-labelledby="amount">{ingredient.amount}</td>
                 </tr>
               {/each}
@@ -49,7 +62,7 @@
         <td>
           <ol class="recipe--steps" itemprop="recipeInstructions">
             {#each instruction.procedure as step}
-              <li class="type">{@html md.render(step)}</li>
+              <li class="type">{@html step}</li>
             {/each}
           </ol>
         </td>

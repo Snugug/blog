@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import { VitePWA as pwa } from 'vite-plugin-pwa';
+import { markdown } from './lib/markdown';
 
 // https://astro.build/config
 import svelte from '@astrojs/svelte';
@@ -11,6 +12,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://snugug.com',
   integrations: [svelte(), sitemap()],
+  markdown,
   vite: {
     plugins: [
       pwa({

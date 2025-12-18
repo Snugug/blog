@@ -53,81 +53,85 @@ pre {
   }
 }
 
-code:not([class]) {
+code {
   font-family: 'dm', monospace;
-  background: var(--dark-grey);
-  font-size: 0.8em;
+  background: var(--black);
   padding: 0.1em 0.25em;
   border-radius: 1px;
 }
 
-.token.prolog,
-.token.doctype,
-.token.cdata,
-.token.punctuation {
-  color: var(--white);
+p code {
+  background: var(--dark-grey);
+  font-size: 0.8em;
 }
 
-.token.comment {
-  color: var(--grey);
-}
+// .token.prolog,
+// .token.doctype,
+// .token.cdata,
+// .token.punctuation {
+//   color: var(--white);
+// }
 
-.token.tag,
-.token.constant,
-.token.symbol,
-.token.deleted,
-.token.important,
-.token.variable {
-  color: var(--pre-cyan);
-}
+// .token.comment {
+//   color: var(--grey);
+// }
 
-.token.unit,
-.token.keyword,
-.token.operator,
-.token.parent,
-.token.atrule {
-  color: var(--pre-red);
-}
+// .token.tag,
+// .token.constant,
+// .token.symbol,
+// .token.deleted,
+// .token.important,
+// .token.variable {
+//   color: var(--pre-cyan);
+// }
 
-.token.boolean,
-.token.number {
-  color: var(--pre-purple);
-}
+// .token.unit,
+// .token.keyword,
+// .token.operator,
+// .token.parent,
+// .token.atrule {
+//   color: var(--pre-red);
+// }
 
-.token.selector,
-.token.attr-name,
-.token.char,
-.token.builtin,
-.token.inserted,
-.token.function,
-.token.module-modifier {
-  color: var(--pre-green);
-}
+// .token.boolean,
+// .token.number {
+//   color: var(--pre-purple);
+// }
 
-.token.string,
-.token.attr-value {
-  color: var(--pre-yellow);
-}
+// .token.selector,
+// .token.attr-name,
+// .token.char,
+// .token.builtin,
+// .token.inserted,
+// .token.function,
+// .token.module-modifier {
+//   color: var(--pre-green);
+// }
 
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: var(--light-pink);
-}
+// .token.string,
+// .token.attr-value {
+//   color: var(--pre-yellow);
+// }
 
-.token.property {
-  color: var(--light-teal);
-}
+// .token.entity,
+// .token.url,
+// .language-css .token.string,
+// .style .token.string {
+//   color: var(--light-pink);
+// }
 
-.token.regex {
-  color: var(--pre-orange);
-}
+// .token.property {
+//   color: var(--light-teal);
+// }
 
-.token.italic {
-  font-style: italic;
-}
+// .token.regex {
+//   color: var(--pre-orange);
+// }
 
-.token.entity {
-  cursor: help;
-}
+// .token.italic {
+//   font-style: italic;
+// }
+
+// .token.entity {
+//   cursor: help;
+// }

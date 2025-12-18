@@ -6,17 +6,17 @@ updated: '2013-04-03'
 archived: true
 ---
 
-!!! aside.note--warning
+:::message{.warning}
 **Update 1/04/2014**
 
 At the time of this article's writing, Susy Next was to be the successor to Singularity. As of April 3rd of last year, the previous update, that is no longer the case. The two projects have taken divergent paths and pretty much this entire article is out of date. Both Susy Next and Singularity are being developed separately and both are still active projects.
-!!!
+:::
 
-!!! aside.note--warning
+:::message{.warning}
 **Update 4/03/2013**
 
 While work on Susy Next continues, Scott and I have decided that there is room for Singularity and have restarted development on it, having [released a 1.0](http://snugug.com/musings/singularity-10). As such, right now, my recommendation is to use Singularity 1.0.
-!!!
+:::
 
 <hr>
 

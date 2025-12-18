@@ -61,9 +61,8 @@ What I'm doing in this pattern is defining properties directly underneath `.foo`
     // Inline the SVG so that advanced browsers and future tech doesn't need the extra HTTP requests for the SVG
     background-image: inline-image('social/twitter.svg');
     // Background size only needed if the SVG is larger than the PNG.
-    background-size: image-width('social/twitter.png') image-height(
-        'social/twitter.png'
-      );
+    background-size: image-width('social/twitter.png')
+      image-height('social/twitter.png');
   }
   // Default
   .no-svg &,
@@ -111,9 +110,8 @@ I can hear you now, though, saying: "Hey Sam, that looks like a lot I've got to 
     // Inline the SVG so that advanced browsers and future tech doesn't need the extra HTTP requests for the SVG
     background-image: inline-image('#{$path-from-images}/#{$image-name}.svg');
     // Background size only needed if the SVG is larger than the PNG.
-    background-size: image-width('#{$path-from-images}/#{$image-name}.png') image-height(
-        '#{$path-from-images}/#{$image-name}.png'
-      );
+    background-size: image-width('#{$path-from-images}/#{$image-name}.png')
+      image-height('#{$path-from-images}/#{$image-name}.png');
   }
   // Default
   .no-svg &,

@@ -1,6 +1,5 @@
 ---
-import { client } from '$lib/sanity';
-import md from 'chromeos-dev-markdown';
+import { getCollection, render } from 'astro:content';
 import Layout from '$layouts/Donut.astro';
 import Heading from '$components/Heading.astro';
 
@@ -9,12 +8,18 @@ import Heading from '$components/Heading.astro';
  * @return {Object[]} - Array of page data info
  */
 export async function getStaticPaths() {
-  const query = `*[_type == "page" &&  !(_id in path("drafts.**"))] { "params": { "slug": slug.current }, "props": { title, summary, body} }`;
-  return await client.fetch(query);
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({
+    params: { slug: page.id },
+    props: { page },
+  }));
 }
 
+const { page } = Astro.props;
 const { slug } = Astro.params;
-const { title, summary, body } = Astro.props;
+const { title, summary } = page.data;
+const { Content } = await render(page);
+
 const backgrounds = {
   me: 'var(--orange)',
   presentations: 'var(--teal)',
@@ -36,7 +41,9 @@ const highlight = backgrounds[slug];
       />
     </header>
     <div class="container">
-      <div class="page--content type" set:html={md.render(body)} />
+      <div class="page--content type">
+        <Content />
+      </div>
     </div>
   </article>
 </Layout>

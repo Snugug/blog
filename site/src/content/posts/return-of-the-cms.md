@@ -31,9 +31,9 @@ Highly structured YAML frontmatter for meta-information. Folder based content st
 
 Like I said at the top, I've been doing CMSes for a long time. I started my career working in Drupal (even back then 10+ years ago advocating for what are now known as headless CMSes). I took a stab at building one while at IBM we called Punchcard. I've even tried CMSes that live on top of flat Markdown files, like the Netlify CMS. With all this in my back pocket I've gotta say, the current generation of headless CMSes are _really_ good.
 
-!!! aside.note
+:::message{.info}
 While individual definitions may vary, to me, a headless CMS is one that focuses on managing content but _not_ on rendering the page a user sees (the "head"). It instead provides APIs for other systems to pull the content and display it.
-!!!
+:::
 
 I've never like fat stack CMSes because I always found they did a bad job at rendering the final website; in my Drupal days I worked really hard to undo most of what it gave me on the front-end. With Markdown files treated as code, you've got the same tight coupling problem, but in reverse! You've got a "bodyless" CMS! The tight coupling of code to content can also lead to awkward states where to deploy a feature you need to deploy content, or vice versa. For a few, small things this may be OK, but when looking to scale, thing get tough. In addition to all of the above things you need to look out for, you also now need to figure out:
 

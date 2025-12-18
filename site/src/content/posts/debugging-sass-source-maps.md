@@ -5,9 +5,9 @@ summary: 'One of the super exciting features in Sass 3.3, currently in developme
 updated: '2013-07-06'
 ---
 
-!!! aside.note--warning
+:::message{.warning}
 After some user confusion about the difference between Source Maps and Debug Info, this article has been updated to more clearly focus on Source Maps. This update incorporates the previous update in which Paul Irish pointed out that the UI for individual properties have been added to Canary's Source Map implementation.
-!!!
+:::
 
 One of the super exciting features in Sass 3.3, currently in development, is the introduction of native [Source Maps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/) in Sass. Source Maps are a generic mapping format written in JSON that can be utilized by any processed file to create relations between pre-processed files and post-processed files, for instance between pre-compressed JavaScript and the expanded development files or, as in our case, between compiled CSS and the development Sass files. If you've ever used [FireSass](https://addons.mozilla.org/en-us/firefox/addon/firesass-for-firebug/) or Sass's `--debug-info` flag, you can think of Source Maps as their successor.
 

@@ -1,138 +1,128 @@
 ---
 import Layout from '$layouts/Donut.astro';
-import { client } from '$lib/sanity';
+import { getCollection, render } from 'astro:content';
 import Heading from '$components/Heading.astro';
 import Recipe from '$components/Recipe.svelte';
 import { buildTiming } from '$js/time.js';
-import md from 'chromeos-dev-markdown';
 
 /**
- * Builds statuc path data for the pages
+ * Builds static path data for the pages
  * @return {Object} The static path data
  */
 export async function getStaticPaths() {
-  const query =
-    '*[_type == "recipe" &&  !(_id in path("drafts.**"))]{"image": mainImage.asset->url, title, slug, published, instructions, difficulty, yield, body}';
+  const recipes = await getCollection('recipes');
 
-  const recipes = await client.fetch(query);
-
-  return recipes.map((recipe) => {
-    return {
-      params: {
-        slug: recipe.slug.current,
-      },
-      props: {
-        title: recipe.title,
-        body: recipe.body,
-        published: new Date(recipe.published),
-        instructions: recipe.instructions,
-        difficulty: recipe.difficulty,
-        yield: recipe.yield,
-        image: recipe.image,
-      },
-    };
-  });
+  return recipes.map((recipe) => ({
+    params: { slug: recipe.id },
+    props: { recipe },
+  }));
 }
 
+const { recipe } = Astro.props;
 const {
   title,
-  body,
   published,
+  instructions,
   difficulty,
   yield: servings,
   image,
-  instructions,
-} = Astro.props;
+} = recipe.data;
+const { Content } = await render(recipe);
+
+const publishedDate = published ? new Date(published) : new Date();
 
 // Build overall timing
 const timing = instructions
-  .map((step) => [step?.time?.active, step?.time?.inactive, step?.time?.rest])
-  .reduce(
-    (acc, cur, ci, arr) => {
-      for (let i = 0; i < cur.length; i++) {
-        const time = cur[i];
-        if (time) {
-          let min = 0;
-          let max = 0;
-          const t = time.split(' ');
-          const d = t[0];
-          if (d.includes('-')) {
-            [min, max] = d.split('-');
-          } else {
-            min = d;
-            max = d;
+  ? instructions
+      .map((step) => [
+        step?.time?.active,
+        step?.time?.inactive,
+        step?.time?.rest,
+      ])
+      .reduce(
+        (acc, cur, ci, arr) => {
+          for (let i = 0; i < cur.length; i++) {
+            const time = cur[i];
+            if (time) {
+              let min = 0;
+              let max = 0;
+              const t = time.split(' ');
+              const d = t[0];
+              if (d.includes('-')) {
+                [min, max] = d.split('-');
+              } else {
+                min = d;
+                max = d;
+              }
+
+              min = Number(min);
+              max = Number(max);
+
+              if (t[1].includes('hour')) {
+                min *= 60;
+                max *= 60;
+              }
+
+              if (i === 0) {
+                acc.active.min += min;
+                acc.active.max += max;
+              } else if (i === 1) {
+                acc.inactive.min += min;
+                acc.inactive.max += max;
+              } else if (i === 2) {
+                acc.rest.min += min;
+                acc.rest.max += max;
+              }
+            }
           }
 
-          min = Number(min);
-          max = Number(max);
+          if (arr.length - 1 === ci) {
+            const t = {
+              active: buildTiming(acc.active),
+              inactive: buildTiming(acc.inactive),
+              rest: buildTiming(acc.rest),
+              overall: buildTiming({
+                min: acc.active.min + acc.inactive.min,
+                max: acc.active.max + acc.inactive.max,
+              }),
+            };
 
-          if (t[1].includes('hour')) {
-            min *= 60;
-            max *= 60;
+            let output = `<time itemprop="totalTime">${t.overall}</time>`;
+
+            if (t.rest) {
+              output += `, plus <time itemprop="prepTime">${t.rest}</time> resting`;
+            } else if (t.active && t.inactive) {
+              output += `, with <time itemprop="cookTime">${t.active}</time> active and <time itemprop="prepTime">${t.inactive}</time> inactive`;
+            }
+
+            return output;
           }
 
-          if (i === 0) {
-            acc.active.min += min;
-            acc.active.max += max;
-          } else if (i === 1) {
-            acc.inactive.min += min;
-            acc.inactive.max += max;
-          } else if (i === 2) {
-            acc.rest.min += min;
-            acc.rest.max += max;
-          }
-        }
-      }
-
-      if (arr.length - 1 === ci) {
-        const t = {
-          active: buildTiming(acc.active),
-          inactive: buildTiming(acc.inactive),
-          rest: buildTiming(acc.rest),
-          overall: buildTiming({
-            min: acc.active.min + acc.inactive.min,
-            max: acc.active.max + acc.inactive.max,
-          }),
-        };
-
-        let output = `<time itemprop="totalTime">${t.overall}</time>`;
-
-        if (t.rest) {
-          output += `, plus <time itemprop="prepTime">${t.rest}</time> resting`;
-        } else if (t.active && t.inactive) {
-          output += `, with <time itemprop="cookTime">${t.active}</time> active and <time itemprop="prepTime">${t.inactive}</time> inactive`;
-        }
-
-        return output;
-      }
-
-      return acc;
-    },
-    {
-      active: {
-        min: 0,
-        max: 0,
-      },
-      inactive: {
-        min: 0,
-        max: 0,
-      },
-      rest: {
-        min: 0,
-        max: 0,
-      },
-    },
-  );
+          return acc;
+        },
+        {
+          active: {
+            min: 0,
+            max: 0,
+          },
+          inactive: {
+            min: 0,
+            max: 0,
+          },
+          rest: {
+            min: 0,
+            max: 0,
+          },
+        },
+      )
+  : '';
 
 const equipment = instructions
-  .map((step) => step?.equipment)
-  .filter((e) => e)
-  .flat();
-
-// console.log(equipment);
-// console.log(timing);
-
-// console.log(instructions);
+  ? instructions
+      .map((step) => step?.equipment)
+      .filter((e) => e)
+      .flat()
+  : [];
 ---
 
 <Layout title={title} summary={'Recipe for ' + title + ' by Sam Richard'}>
@@ -148,9 +138,13 @@ const equipment = instructions
           alpha={0.5}
         />
       </header>
-      <div class="recipe--image">
-        <img itemprop="image" src={image} alt={title} />
-      </div>
+      {
+        image && (
+          <div class="recipe--image">
+            <img itemprop="image" src={image} alt={title} />
+          </div>
+        )
+      }
 
       <section class="recipe--overview-container">
         <table class="recipe--overview">
@@ -181,25 +175,27 @@ const equipment = instructions
       <!-- <a href="#recipe" class="recipe--jump">Jump to Recipe</a> -->
       <hr class="type--hr" />
       <div class="recipe--content-wrapper">
-        <time class="recipe--date" datetime={published.toISOString()}
+        <time class="recipe--date" datetime={publishedDate.toISOString()}
           >{
-            published.toLocaleDateString([], {
+            publishedDate.toLocaleDateString([], {
               year: 'numeric',
               month: 'numeric',
               day: 'numeric',
             })
           }
         </time>
-        <section
-          class="recipe--content type"
-          itemprop="description"
-          set:html={md.render(body)}
-        />
+        <section class="recipe--content type" itemprop="description">
+          <Content />
+        </section>
       </div>
 
-      <section id="recipe" class="recipe--steps">
-        <Recipe {instructions} />
-      </section>
+      {
+        instructions && (
+          <section id="recipe" class="recipe--steps">
+            <Recipe {instructions} />
+          </section>
+        )
+      }
     </article>
   </main>
 </Layout>

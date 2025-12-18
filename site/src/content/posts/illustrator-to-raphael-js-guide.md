@@ -56,12 +56,15 @@ Those two things will surround quotes with the path inside. The path will start 
 
 Open up your source HTML code, link Raphaël and [jQuery](http://www.jquery.com/) to it, and create a div tag with an ID that you want to import your Raphael code into! I'm going to call mine snugug-head.
 
-```markup
+```html
 <html>
   <head>
     <title>Illustrator to Raphaël Import</title>
     <script type="text/javascript" src="raphael-min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"
+    ></script>
   </head>
   <body>
     <div id="snugug-head"></div>

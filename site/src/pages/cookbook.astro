@@ -1,26 +1,17 @@
 ---
 import Layout from '$layouts/Listing.astro';
 import Recipecard from '$components/Recipecard.svelte';
+import { getCollection } from 'astro:content';
 
-const query =
-  '*[_type == "recipe" && archived != true &&  !(_id in path("drafts.**"))]{"image": mainImage.asset->url, title, slug, published}';
+const allRecipes = await getCollection('recipes');
 
-/**
- * Structures the content from Sanity`
- * @param {Object} recipe - The recipe object
- * @return {Object} - The structured recipe object`
- */
-function structure(recipe) {
-  return {
-    title: recipe.title,
-    slug: recipe.slug.current,
-    image: recipe.image,
-    published: new Date(recipe.published),
-    updated: recipe.updated
-      ? new Date(recipe.updated)
-      : new Date(recipe.published),
-  };
-}
+const items = allRecipes.map((recipe) => ({
+  title: recipe.data.title,
+  slug: recipe.id,
+  image: recipe.data.image,
+  published: recipe.data.published || new Date(),
+  updated: recipe.data.published || new Date(),
+}));
 ---
 
 <Layout
@@ -31,7 +22,6 @@ function structure(recipe) {
   size={50}
   alpha={0.5}
   background="var(--red)"
-  query={query}
+  items={items}
   Card={Recipecard}
-  {structure}
 />

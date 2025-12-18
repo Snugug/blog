@@ -4,11 +4,11 @@ published: '2022-10-26'
 summary: "My personal story about what I've learned over the past year since getting diagnosed with diabetes."
 ---
 
-!!! aside.note--error
+:::message{.error}
 _**I am not a doctor**. This is my personal story about what I've learned over the past year and what I've done under my doctor's supervision. Please talk to your doctor before changing how you manage your health._
 
 _Content warning, medical stuff_
-!!!
+:::
 
 My story starts Labor Day weekend 2021. My partner and I were on vacation in Lake George, NY. It was our first vacation since the pandemic began. We rented a little house all to ourselves on the lake. It was a lovely trip. On our drive home, we picked up an early dinner. When we got home, instead of eating it, I fell asleep for the rest of the day. I didn't think anything of it, I thought I was just tired.
 

@@ -10,9 +10,10 @@ export interface Props {
 }
 
 const { title, summary } = Astro.props;
+const t = (title ? `${title} | ` : '') + 'Snugug';
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -28,7 +29,7 @@ const { title, summary } = Astro.props;
       )
     }
     <meta name="generator" content={Astro.generator} />
-    <title>{title ? `${title} | ` : ''}Snugug</title>
+    <title>{t}</title>
     <meta name="description" content={summary} />
     <script
       defer

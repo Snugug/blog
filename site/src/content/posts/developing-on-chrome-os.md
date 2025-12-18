@@ -4,9 +4,9 @@ published: '2018-10-31'
 summary: 'After joining Google, I was given a Google Pixelbook as my main computer. This is my journey to get it set up for web development'
 ---
 
-!!! aside.note--warning
+:::message{.warning}
 _Disclaimer: I now work for Google, and while this post is about me setting up my work Google Pixelbook, these are my personal thoughts and not Google's._
-!!!
+:::
 
 So, like the introduction says, I just joined Google! My first order of business, clearly, was getting my new Pixelbook set up to do some webdev on it. Now, being most comfortable developing on a Mac, I immediately reached for the Terminal which... wasn't there. I thought I was stuck, knowing that I'm most comfortable developing when I'm zooming around in `zsh`, but then a coworker helped me get [Crostini](https://www.reddit.com/r/Crostini/) set up. This is the key to being a happy web developer (or probably most any developer) on Chrome OS.
 

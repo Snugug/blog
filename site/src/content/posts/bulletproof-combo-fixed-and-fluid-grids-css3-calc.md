@@ -66,13 +66,13 @@ I love [Singularity](https://github.com/Team-Sass/Singularity/) and I'm really p
 
 Here's the HTML and the Sass for the second video:
 
-```markup
+```html
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Test</title>
-    <link rel="stylesheet" href="css/test.css">
+    <link rel="stylesheet" href="css/test.css" />
   </head>
   <body>
     <div class="main"></div>

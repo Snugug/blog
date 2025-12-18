@@ -3,23 +3,34 @@ import Layout from '$layouts/Donut.astro';
 import Heading from '$components/Heading.astro';
 import Postcard from '$components/Postcard.svelte';
 import Recipecard from '$components/Recipecard.svelte';
-import { client } from '$lib/sanity';
+import { getCollection } from 'astro:content';
 
-const postQuery =
-  '*[_type == "post" && archived != true &&  !(_id in path("drafts.**"))] | order(published desc) {title, summary, "slug": slug.current, published, updated}[0...8]';
-const recipeQuery =
-  '*[_type == "recipe" && archived != true &&  !(_id in path("drafts.**"))] | order(published desc) {"image": mainImage.asset->url, title, "slug": slug.current, published}[0...5]';
+const allPosts = await getCollection('posts', ({ data }) => !data.archived);
+const allRecipes = await getCollection('recipes');
 
-const posts = (await client.fetch(postQuery)).map((post) => ({
-  ...post,
-  published: new Date(post.published),
-  updated: post.updated ? new Date(post.updated) : new Date(post.published),
-}));
+const posts = allPosts
+  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime())
+  .slice(0, 8)
+  .map((post) => ({
+    title: post.data.title,
+    summary: post.data.summary,
+    slug: post.id,
+    published: post.data.published,
+    updated: post.data.updated || post.data.published,
+  }));
 
-const recipes = (await client.fetch(recipeQuery)).map((recipe) => ({
-  ...recipe,
-  published: new Date(recipe.published),
-}));
+const recipes = allRecipes
+  .sort(
+    (a, b) =>
+      (b.data.published?.getTime() || 0) - (a.data.published?.getTime() || 0),
+  )
+  .slice(0, 5)
+  .map((recipe) => ({
+    title: recipe.data.title,
+    slug: recipe.id,
+    image: recipe.data.image,
+    published: recipe.data.published,
+  }));
 ---
 
 <Layout title="" summary="Sam Richard's blog">

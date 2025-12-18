@@ -1,28 +1,32 @@
 import rss from '@astrojs/rss';
-import { client } from '$lib/sanity.js';
+import { getCollection } from 'astro:content';
 
-const query =
-  '*[(_type == "post" || _type == "recipe") && archived != true && !(_id in path("drafts.**"))] | order(published desc) {title, "link": slug.current, "type": _type, "pubDate": published, "description": summary}';
+export async function GET(context) {
+  const posts = await getCollection('posts', ({ data }) => !data.archived);
+  const recipes = await getCollection('recipes');
 
-const items = (await client.fetch(query)).map((i) => {
-  const item = { ...i };
-  if (item.type === 'post') {
-    item.link = `musings/${item.link}`;
-  } else if (item.type === 'recipe') {
-    item.link = `cookbook/${item.link}`;
-    delete item.description;
-  }
+  const postItems = posts.map((post) => ({
+    title: post.data.title,
+    link: `musings/${post.id}`,
+    pubDate: post.data.published,
+    description: post.data.summary,
+  }));
 
-  delete item.type;
+  const recipeItems = recipes.map((recipe) => ({
+    title: recipe.data.title,
+    link: `cookbook/${recipe.id}`,
+    pubDate: recipe.data.published || new Date(),
+  }));
 
-  return item;
-});
+  const items = [...postItems, ...recipeItems].sort(
+    (a, b) => b.pubDate.getTime() - a.pubDate.getTime(),
+  );
 
-export const get = () =>
-  rss({
+  return rss({
     title: 'Snugug',
     description: `Sam's personal blog: recipes and musings`,
-    site: 'https://snugug.com',
+    site: context.site,
     items,
     stylesheet: '/rss.xsl',
   });
+}

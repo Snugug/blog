@@ -6,11 +6,11 @@ updated: '2013-01-29'
 archived: true
 ---
 
-!!! aside.note--warning
+:::message{.warning}
 **Update 1/29/2013**
 
 After having extensive conversations with John Albin Wilkins, I've realized that some of the basic assumptions I made when I first went to test this are in fact incorrect and that I was working under the wrong mental model. When working under the correct mental model, the Isolation method clears rows perfectly fine; however, it's a mental model significantly differently than the one I'm use to and anyone who has used traditional Float style grids or Susy are use to. I am keeping up the original article as record.
-!!!
+:::
 
 If, for some reason, over the past few months you haven't read [John Albin Wilkins'](https://twitter.com/johnalbin) article [Responsive Design’s Dirty Little Secret](http://palantir.net/blog/responsive-design-s-dirty-little-secret). I highly suggest reading the whole article, as this is more or less a response to it. The basic gist of it is that browsers are really _really_ bad at rounding percentages, and where it becomes a real issue is with percentage widths in Responsive Web Design. The issue stems from the fact that some browsers, when handed (or calculate) non-whole-pixel value, round only in one direction and not how we would round if we were doing it by hand. IE6 and IE7 round up, Opera and Webkit round down, and FireFox does sub-pixel rendering, which in a nutshell means they round correctly. This is an issue because, when calculating a bunch of fluid grids in, say, a responsive grid, the rounding errors compound upon themselves so being one pixel off on each of ten columns means the last column is 10 pixels off. This can present serious layout problems.
 
