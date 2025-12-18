@@ -17,8 +17,8 @@
     "test": "run-s build",
     "lint": "run-p *:lint",
     "fix": "run-p *:fix",
-    "prettier:lint": "prettier --plugin-search-dir=. -c .",
-    "prettier:fix": "prettier --plugin-search-dir=. --write .",
+    "prettier:lint": "prettier -c .",
+    "prettier:fix": "prettier --write .",
     "import:twitter-archive": "node lib/tweetback/import.js"
   },
   "dependencies": {
