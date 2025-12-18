@@ -3,7 +3,7 @@ title: 'Lobster Mac & Cheese'
 published: '2019-10-30'
 yield: '4 servings'
 difficulty: 'easy'
-image: '/src/images/recipes/lobster-mac-and-cheese.jpg'
+image: '/images/recipes/lobster-mac-and-cheese.jpg'
 instructions:
   - time:
       active: '5 minutes'

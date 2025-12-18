@@ -3,7 +3,7 @@ title: 'Slow Scrambled Egg Toast'
 published: '2019-09-14'
 yield: '2 servings'
 difficulty: 'medium'
-image: '/src/images/recipes/slow-scrambled-egg-toast.jpg'
+image: '/images/recipes/slow-scrambled-egg-toast.jpg'
 instructions:
   - time:
       active: '30 minutes'

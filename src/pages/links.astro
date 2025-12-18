@@ -94,73 +94,77 @@ const links = [
     defer
     data-domain="snugug.com"
     src="https://plausible.io/js/script.outbound-links.js"></script>
-</html>
-<body class="body">
-  <main class="container">
-    <header class="container--heading">
-      <Footer link="/" />
-    </header>
-    <article>
-      <ul class="links">
-        {
-          links.map((l) => (
-            <li>
-              <a
-                rel={l.url.startsWith('http') ? 'me noopener noreferrer' : null}
-                target={l.url.startsWith('http') ? '_blank' : null}
-                class="link"
-                href={l.url}
-              >
-                <span class="icon" set:html={l.icon} />
-                <span>{l.name}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </article>
-  </main>
 
-  <Scripts client:only />
-</body>
+  <body class="body">
+    <main class="container">
+      <header class="container--heading">
+        <Footer link="/" />
+      </header>
+      <article>
+        <ul class="links">
+          {
+            links.map((l) => (
+              <li>
+                <a
+                  rel={
+                    l.url.startsWith('http') ? 'me noopener noreferrer' : null
+                  }
+                  target={l.url.startsWith('http') ? '_blank' : null}
+                  class="link"
+                  href={l.url}
+                >
+                  <span class="icon" set:html={l.icon} />
+                  <span>{l.name}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </main>
 
-<style lang="scss">
-  .container--heading {
-    background-color: var(--plum);
-  }
+    <Scripts client:only />
+  </body>
 
-  .links {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(1rem, 3vw, 2rem);
-    margin: 0 auto;
-    max-width: 60ch;
-    padding: clamp(1rem, 3vw, 2rem);
-  }
-
-  .link {
-    align-items: center;
-    border: 3px solid var(--white);
-    border-radius: 1rem;
-    display: grid;
-    font-size: clamp(1rem, 3vw, 2rem);
-    gap: clamp(0.5rem, 1.5vw, 1.5rem);
-    grid-template-columns: clamp(1rem, 3vw, 2rem) auto;
-    justify-content: center;
-    line-height: 1;
-    padding: clamp(1rem, 3vw, 2rem);
-
-    &:hover,
-    &:focus-within {
+  <style lang="scss">
+    .container--heading {
       background-color: var(--plum);
     }
-  }
 
-  .icon {
-    fill: var(--white);
-
-    :global(svg) {
-      aspect-ratio: 1 / 1;
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1rem, 3vw, 2rem);
+      margin: 0 auto;
+      max-width: 60ch;
+      padding: clamp(1rem, 3vw, 2rem);
     }
-  }
-</style>
+
+    .link {
+      align-items: center;
+      border: 3px solid var(--white);
+      border-radius: 1rem;
+      display: grid;
+      font-size: clamp(1rem, 3vw, 2rem);
+      gap: clamp(0.5rem, 1.5vw, 1.5rem);
+      grid-template-columns: clamp(1rem, 3vw, 2rem) auto;
+      justify-content: center;
+      line-height: 1;
+      padding: clamp(1rem, 3vw, 2rem);
+
+      &:hover,
+      &:focus-within {
+        background-color: var(--plum);
+      }
+    }
+
+    .icon {
+      fill: var(--white);
+
+      :global(svg) {
+        aspect-ratio: 1 / 1;
+      }
+    }
+  </style>
+
+</html>

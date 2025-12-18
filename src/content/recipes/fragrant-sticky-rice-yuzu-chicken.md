@@ -3,7 +3,7 @@ title: 'Fragrant Sticky Rice with Yuzu Chicken'
 published: '2019-12-07'
 yield: '2 servings'
 difficulty: 'easy'
-image: '/src/images/recipes/fragrant-sticky-rice-yuzu-chicken.jpg'
+image: '/images/recipes/fragrant-sticky-rice-yuzu-chicken.jpg'
 instructions:
   - time:
       active: '5 minutes'

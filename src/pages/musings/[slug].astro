@@ -90,7 +90,7 @@ const dateDiff = up ? date.getTime() !== up.getTime() : false;
 </Layout>
 
 <style lang="scss">
-  @import 'letterform-shades/stylesheets/letterform-shades';
+  @use '$sass/vendors/letterform-shades/letterform-shades' as *;
 
   .article {
     &--heading {

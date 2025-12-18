@@ -1,0 +1,64 @@
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:list';
+
+//////////////////////////////
+// Close-Shade Mixin, inspired by http://practice.typekit.com/lesson/using-shades/
+// - $vertical: The color for the vertical shade (consider a lowercase `r`)
+// - $horizontal: The color for the horizontal shade (consider the lowercase `r`)
+// - $from: Direction shadow comes from. Options are `top right`, `top left`, `bottom right`, `bottom left`
+// - $distance: The distance you want the shadow to extend. Must be a positive integer
+// - $size: The size you want each slice.
+//////////////////////////////
+@mixin close-shade(
+  $vertical,
+  $horizontal,
+  $from: 'top right',
+  $distance: 10,
+  $size: 0.005em
+) {
+  $holder: ();
+
+  $vbs1: 0;
+  $vbs2: $size;
+  $vs1: $size * -1;
+  $vs2: 0;
+
+  @if meta.type-of($from == 'list') {
+    $from: '#{$from}';
+  }
+
+  @for $i from 0 to $distance {
+    $offset: $size * $i;
+    $value-bottom: ();
+    $value: ();
+
+    @if (string.index($from, 'right')) {
+      $value-bottom: $vbs1 - $offset;
+      $value: $vs1 - $offset;
+    } @else if (string.index($from, 'left')) {
+      $value-bottom: $vbs1 + $offset;
+      $value: -1 * $vs1 + $offset;
+    } @else {
+      $value-bottom: 0;
+      $value: 0;
+    }
+
+    @if (string.index($from, 'top')) {
+      $value-bottom: list.join($value-bottom, ($vbs2 + $offset));
+      $value: list.join($value, ($vs2 + $offset));
+    } @else if (string.index($from, 'bottom')) {
+      $value-bottom: list.join($value-bottom, (-1 * $vbs2 - $offset));
+      $value: list.join($value, (-1 * $vs2 - $offset));
+    } @else {
+      $value-bottom: list.join($value-bottom, 0);
+      $value: list.join($value, 0);
+    }
+
+    $value-bottom: list.join($value-bottom, $horizontal);
+    $value: list.join($value, $vertical);
+    $holder: list.append($holder, $value-bottom, comma);
+    $holder: list.append($holder, $value, comma);
+  }
+  text-shadow: $holder;
+}

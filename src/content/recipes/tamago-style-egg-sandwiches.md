@@ -3,7 +3,7 @@ title: 'Tamago-Style Egg Sandwiches'
 published: '2023-01-14'
 yield: '4 Sandwiches'
 difficulty: 'easy'
-image: '/src/images/recipes/tamago-style-egg-sandwiches.jpg'
+image: '/images/recipes/tamago-style-egg-sandwiches.jpg'
 instructions:
   - time:
       active: '5 minutes'

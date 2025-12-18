@@ -3,7 +3,7 @@ title: 'Vegan Peanut Butter Chocolate Chunk Cookies'
 published: '2020-01-20'
 yield: '18 cookies'
 difficulty: 'easy'
-image: '/src/images/recipes/vegan-peanut-butter-chocolate-chunk-cookies.jpg'
+image: '/images/recipes/vegan-peanut-butter-chocolate-chunk-cookies.jpg'
 instructions:
   - time:
       active: '5 minutes'

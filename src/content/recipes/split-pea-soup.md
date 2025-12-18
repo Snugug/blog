@@ -3,7 +3,7 @@ title: 'Split Pea Soup'
 published: '2020-02-01'
 yield: '8 servings'
 difficulty: 'easy'
-image: '/src/images/recipes/split-pea-soup.jpg'
+image: '/images/recipes/split-pea-soup.jpg'
 instructions:
   - time:
       active: '10 minutes'

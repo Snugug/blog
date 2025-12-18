@@ -1,0 +1,85 @@
+@use 'sass:meta';
+@use 'sass:string';
+@use 'sass:list';
+
+//////////////////////////////
+// Sandwich-Shade Mixin, inspired by http://practice.typekit.com/lesson/using-shades/
+// - $cookie: The color for the "cookie"
+// - $flavor: The color for the "ice cream"
+// - $from: Direction shadow comes from. Options are `top right`, `top left`, `bottom right`, `bottom left`
+// - $cookie-distance: The distance you want the cookie to extend. Must be a positive integer
+// - $flavor-distance: The distance you want the flavor to extend. Must be a positive integer
+// - $size: The size you want each slice.
+//////////////////////////////
+@mixin sandwich-shade(
+  $cookie,
+  $flavor,
+  $from: 'top right',
+  $cookie-distance: 12,
+  $flavor-distance: 29,
+  $size: 0.005em
+) {
+  $holder: ();
+
+  $Left: 0;
+  $Top: 0;
+
+  $LeftAdd: 0;
+  $TopAdd: 0;
+
+  @if meta.type-of($from == 'list') {
+    $from: '#{$from}';
+  }
+
+  //////////////////////////////
+  // Left/Right
+  //////////////////////////////
+  @if string.index($from, 'right') {
+    $Left: $size * -1;
+    $LeftAdd: $size * -1;
+  }
+  @if string.index($from, 'left') {
+    $Left: $size;
+    $LeftAdd: $size;
+  }
+
+  //////////////////////////////
+  // Top/Bottom
+  //////////////////////////////
+  @if string.index($from, 'top') {
+    $Top: $size * 2;
+    $TopAdd: $size;
+  } @else if string.index($from, 'bottom') {
+    $Top: $size * -2;
+    $TopAdd: $size * -1;
+  }
+
+  //////////////////////////////
+  // Top Cookie
+  //////////////////////////////
+  @for $i from 1 through $cookie-distance * 2 + $flavor-distance {
+    @if $i != 1 {
+      @if $i % 2 == 0 {
+        $Left: $Left + $LeftAdd;
+        $Top: $Top - $TopAdd;
+      } @else if $i % 2 == 1 {
+        $Top: $Top + ($TopAdd * 2);
+      }
+    }
+
+    $shadow: ();
+
+    $shadow: list.append($shadow, $Left, space);
+    $shadow: list.append($shadow, $Top, space);
+    @if $i > $cookie-distance and $i < $cookie-distance + $flavor-distance {
+      $shadow: list.append($shadow, $flavor, space);
+    } @else {
+      $shadow: list.append($shadow, $cookie, space);
+    }
+
+    $holder: list.append($holder, $shadow, comma);
+  }
+
+  color: $cookie;
+  text-shadow: $holder;
+}

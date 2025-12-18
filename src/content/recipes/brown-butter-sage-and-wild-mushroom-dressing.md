@@ -3,7 +3,7 @@ title: 'Brown Butter, Sage, and Wild Mushroom Dressing'
 published: '2023-10-31'
 yield: '6-8 portions'
 difficulty: 'medium'
-image: '/src/images/recipes/brown-butter-sage-and-wild-mushroom-dressing.jpg'
+image: '/images/recipes/brown-butter-sage-and-wild-mushroom-dressing.jpg'
 instructions:
   - time:
       active: '15 minutes'

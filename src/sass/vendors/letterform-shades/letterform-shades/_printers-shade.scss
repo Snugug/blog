@@ -1,0 +1,17 @@
+@use 'close-shade';
+
+//////////////////////////////
+// Printers-Shade Mixin, inspired by http://practice.typekit.com/lesson/using-shades/
+// - $shade: The color for the shade
+// - $from: Direction shadow comes from. Options are `top right`, `top left`, `bottom right`, `bottom left`
+// - $distance: The distance you want the shadow to extend. Must be a positive integer
+// - $size: The size you want each slice.
+//////////////////////////////
+@mixin printers-shade(
+  $shade,
+  $from: 'top right',
+  $distance: 10,
+  $size: 0.005em
+) {
+  @include close-shade.close-shade($shade, $shade, $from, $distance, $size);
+}
