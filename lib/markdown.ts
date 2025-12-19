@@ -54,7 +54,7 @@ function remarkContainers() {
           }
 
           const data = node.data || (node.data = {});
-          const tagName = node.type === 'textDirective' ? 'span' : 'div';
+          const tagName = node.type === 'textDirective' ? 'span' : 'aside';
 
           data.hName = tagName;
           data.hProperties = h(tagName, node.attributes || {}).properties;

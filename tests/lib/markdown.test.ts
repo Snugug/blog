@@ -19,18 +19,16 @@ describe('markdown configuration', () => {
 });
 
 describe('remarkContainers - message directive', () => {
-  it('should transform :::message into a div with class "message"', async () => {
+  it('should transform :::message into an aside with class "message"', async () => {
     const processor = await createMarkdownProcessor(markdown);
-    const result = await processor.render(`
-:::message
-This is a message
-:::
-`);
-    assert.ok(result.code.includes('<div class="message">'));
-    assert.ok(result.code.includes('This is a message'));
+    const result = await processor.render(':::message\nThis is a message\n:::');
+    assert.strictEqual(
+      result.code.trim(),
+      '<aside class="message"><p>This is a message</p></aside>',
+    );
   });
 
-  it('should transform :::message{.warning} into div with classes "warning message" and data-type', async () => {
+  it('should transform :::message{.warning} into aside with classes "warning message" and data-type', async () => {
     const processor = await createMarkdownProcessor(markdown);
     const result = await processor.render(`
 :::message{.warning}
@@ -45,9 +43,13 @@ Warning message content
       result.code.includes('data-type="warning"'),
       `Expected data-type="warning" in: ${result.code}`,
     );
+    assert.ok(
+      result.code.includes('<aside'),
+      `Expected aside element in: ${result.code}`,
+    );
   });
 
-  it('should transform :::message{.error} into div with classes "error message"', async () => {
+  it('should transform :::message{.error} into aside with classes "error message"', async () => {
     const processor = await createMarkdownProcessor(markdown);
     const result = await processor.render(`
 :::message{.error}
@@ -61,6 +63,10 @@ Error message content
     assert.ok(
       result.code.includes('data-type="error"'),
       `Expected data-type="error" in: ${result.code}`,
+    );
+    assert.ok(
+      result.code.includes('<aside'),
+      `Expected aside element in: ${result.code}`,
     );
   });
 
@@ -98,29 +104,25 @@ Message body here
 
   it('should handle message with multiple paragraphs', async () => {
     const processor = await createMarkdownProcessor(markdown);
-    const result = await processor.render(`
-:::message
-Paragraph 1
-
-Paragraph 2
-:::
-`);
-    assert.ok(result.code.includes('Paragraph 1'), 'Expected paragraph 1');
-    assert.ok(result.code.includes('Paragraph 2'), 'Expected paragraph 2');
+    const result = await processor.render(
+      ':::message\nParagraph 1\n\nParagraph 2\n:::',
+    );
+    assert.strictEqual(
+      result.code.trim(),
+      '<aside class="message"><p>Paragraph 1</p><p>Paragraph 2</p></aside>',
+    );
   });
 });
 
 describe('remarkContainers - figure directive', () => {
   it('should transform :::figure into a figure element', async () => {
     const processor = await createMarkdownProcessor(markdown);
-    const result = await processor.render(`
-:::figure
-![Alt text](image.png)
-:::
-`);
-    assert.ok(
-      result.code.includes('<figure'),
-      `Expected figure element in: ${result.code}`,
+    const result = await processor.render(
+      ':::figure\n![Alt text](image.png)\n:::',
+    );
+    assert.strictEqual(
+      result.code.trim(),
+      '<figure><p><img src="image.png" alt="Alt text"></p></figure>',
     );
   });
 
@@ -177,27 +179,12 @@ describe('remarkContainers - figure directive', () => {
 
   it('should handle figure with multiple paragraphs', async () => {
     const processor = await createMarkdownProcessor(markdown);
-    const result = await processor.render(`
-:::figure[Multi Paragraph Caption]
-![Alt text](image.png)
-
-This is paragraph 1.
-
-This is paragraph 2.
-:::
-`);
-    assert.ok(result.code.includes('<figure'), 'Expected figure element');
-    assert.ok(
-      result.code.includes('Multi Paragraph Caption'),
-      'Expected caption',
+    const result = await processor.render(
+      ':::figure[Multi Paragraph Caption]\n![Alt text](image.png)\n\nThis is paragraph 1.\n\nThis is paragraph 2.\n:::',
     );
-    assert.ok(
-      result.code.includes('This is paragraph 1'),
-      'Expected paragraph 1',
-    );
-    assert.ok(
-      result.code.includes('This is paragraph 2'),
-      'Expected paragraph 2',
+    assert.strictEqual(
+      result.code.trim(),
+      '<figure><p><img src="image.png" alt="Alt text"></p><p>This is paragraph 1.</p><p>This is paragraph 2.</p><figcaption>Multi Paragraph Caption</figcaption></figure>',
     );
   });
 });
