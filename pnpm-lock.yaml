@@ -84,6 +84,9 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0
     devDependencies:
+      '@types/node':
+        specifier: ^25.0.3
+        version: 25.0.3
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -5350,7 +5353,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 25.0.3
 
   '@types/trusted-types@2.0.7': {}
 

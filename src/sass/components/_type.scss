@@ -155,6 +155,10 @@ picture {
     text-wrap: balance;
   }
 
+  figure blockquote {
+    margin: 0;
+  }
+
   figure,
   ul:not([class]),
   ol:not([class]) {

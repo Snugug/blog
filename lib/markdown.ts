@@ -71,13 +71,13 @@ function remarkContainers() {
           }
 
           // Find Figcaption
-          const label = node.children.findIndex((c) => c.data.directiveLabel);
+          const label = node.children.findIndex((c) => c.data?.directiveLabel);
           if (label >= 0) {
             const capt = node.children[label];
             const captData = capt.data || {};
             captData.hName = 'figcaption';
             captData.hProperties = h('figcaption', capt || {}).properties;
-            node.children = node.children.splice(label - 1, 1);
+            node.children.splice(label, 1);
             node.children.push(capt);
           }
 
@@ -98,7 +98,7 @@ function remarkContainers() {
 export const markdown = {
   shikiConfig: {
     theme: 'monokai',
-  },
+  } as const,
   remarkPlugins: [
     remarkDefinitionList,
     remarkDirective,
