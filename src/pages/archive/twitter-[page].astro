@@ -13,7 +13,7 @@ export async function getStaticPaths() {
   for (let i = 1; i < total; i++) {
     pages.push({
       params: {
-        page: i,
+        page: String(i),
       },
       props: {
         tweets: Twitter.tweets.slice(i * 25, (i + 1) * 25),

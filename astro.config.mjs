@@ -8,6 +8,11 @@ import svelte from '@astrojs/svelte';
 // https://astro.build/config
 import sitemap from '@astrojs/sitemap';
 
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://snugug.com',
