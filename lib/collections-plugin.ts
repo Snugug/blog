@@ -3,6 +3,7 @@ import {
   lstatSync,
   readlinkSync,
   readdirSync,
+  rmSync,
   symlinkSync,
   unlinkSync,
 } from 'node:fs';
@@ -78,9 +79,13 @@ function collectionsVitePlugin(logger: AstroIntegrationLogger) {
           if (linkTarget === source) {
             return; // Symlink is correct, nothing to do
           }
+          unlinkSync(target);
+        } else if (targetStat.isDirectory()) {
+          // rmSync needed because unlinkSync cannot remove directories
+          rmSync(target, { recursive: true });
+        } else {
+          unlinkSync(target);
         }
-        // Wrong target, broken symlink, or not a symlink — remove it
-        unlinkSync(target);
       }
 
       // Create relative symlink for portability

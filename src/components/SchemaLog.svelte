@@ -8,9 +8,17 @@
    */
   onMount(async () => {
     for (const [name, url] of Object.entries(schemas)) {
-      const res = await fetch(url);
-      const schema = await res.json();
-      console.log(name, schema);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          console.error(`Failed to fetch schema "${name}": ${res.status}`);
+          continue;
+        }
+        const schema = await res.json();
+        console.log(name, schema);
+      } catch (err) {
+        console.error(`Error loading schema "${name}":`, err);
+      }
     }
   });
 </script>
