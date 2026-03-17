@@ -48,11 +48,11 @@ declare module 'virtual:collections' {
 
 ## Files to Create/Modify
 
-| File | Action |
-|------|--------|
-| `lib/collections-plugin.ts` | Create -- integration + Vite plugin |
-| `lib/collections-plugin.d.ts` | Create -- type declarations for virtual module |
-| `astro.config.mjs` | Modify -- add `collections()` to integrations |
-| `.gitignore` | Modify -- add `public/collections` |
-| `src/pages/schemas.astro` | Create -- sample page |
-| `src/components/SchemaLog.svelte` | Create -- sample component |
+| File                              | Action                                         |
+| --------------------------------- | ---------------------------------------------- |
+| `lib/collections-plugin.ts`       | Create -- integration + Vite plugin            |
+| `lib/collections-plugin.d.ts`     | Create -- type declarations for virtual module |
+| `astro.config.mjs`                | Modify -- add `collections()` to integrations  |
+| `.gitignore`                      | Modify -- add `public/collections`             |
+| `src/pages/schemas.astro`         | Create -- sample page                          |
+| `src/components/SchemaLog.svelte` | Create -- sample component                     |

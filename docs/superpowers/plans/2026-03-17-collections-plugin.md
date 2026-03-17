@@ -17,6 +17,7 @@
 ### Task 1: Create the integration and Vite plugin
 
 **Files:**
+
 - Create: `lib/collections-plugin.ts`
 
 - [ ] **Step 1: Create `lib/collections-plugin.ts`**
@@ -24,7 +25,14 @@
 This file exports a function that returns an Astro integration. The integration uses `astro:config:setup` to inject a Vite plugin with three capabilities: symlink management (`buildStart`), virtual module resolution (`resolveId`), and virtual module content generation (`load`).
 
 ```ts
-import { existsSync, lstatSync, readlinkSync, readdirSync, symlinkSync, unlinkSync } from 'node:fs';
+import {
+  existsSync,
+  lstatSync,
+  readlinkSync,
+  readdirSync,
+  symlinkSync,
+  unlinkSync,
+} from 'node:fs';
 import { resolve, relative, dirname } from 'node:path';
 import type { AstroIntegration, AstroIntegrationLogger } from 'astro';
 
@@ -74,7 +82,9 @@ function collectionsVitePlugin(logger: AstroIntegrationLogger) {
 
       // Guard: skip if .astro/collections doesn't exist yet
       if (!existsSync(source)) {
-        logger.warn('`.astro/collections` not found — skipping symlink. Run `pnpm sync` first.');
+        logger.warn(
+          '`.astro/collections` not found — skipping symlink. Run `pnpm sync` first.',
+        );
         return;
       }
 
@@ -83,7 +93,11 @@ function collectionsVitePlugin(logger: AstroIntegrationLogger) {
       // and returns false for broken symlinks, which would cause symlinkSync to
       // throw EEXIST on dangling links.
       let targetStat: ReturnType<typeof lstatSync> | null = null;
-      try { targetStat = lstatSync(target); } catch { /* doesn't exist at all */ }
+      try {
+        targetStat = lstatSync(target);
+      } catch {
+        /* doesn't exist at all */
+      }
 
       if (targetStat !== null) {
         if (targetStat.isSymbolicLink()) {
@@ -124,11 +138,15 @@ function collectionsVitePlugin(logger: AstroIntegrationLogger) {
 
       // Guard: return empty object if directory doesn't exist
       if (!existsSync(collectionsDir)) {
-        logger.warn('`.astro/collections` not found — virtual:collections will be empty.');
+        logger.warn(
+          '`.astro/collections` not found — virtual:collections will be empty.',
+        );
         return 'export default {};';
       }
 
-      const files = readdirSync(collectionsDir).filter((f) => f.endsWith('.schema.json'));
+      const files = readdirSync(collectionsDir).filter((f) =>
+        f.endsWith('.schema.json'),
+      );
 
       const entries = files.map((f) => {
         const name = f.replace('.schema.json', '');
@@ -156,6 +174,7 @@ git commit -m "Add collections Astro integration and Vite plugin"
 ### Task 2: Create the type declarations for the virtual module
 
 **Files:**
+
 - Create: `lib/collections-plugin.d.ts`
 
 - [ ] **Step 1: Create `lib/collections-plugin.d.ts`**
@@ -180,6 +199,7 @@ git commit -m "Add type declarations for virtual:collections"
 ### Task 3: Register the integration and update gitignore
 
 **Files:**
+
 - Modify: `astro.config.mjs`
 - Modify: `.gitignore`
 
@@ -223,6 +243,7 @@ git commit -m "Register collections integration and gitignore symlink"
 ### Task 4: Create the SchemaLog Svelte component
 
 **Files:**
+
 - Create: `src/components/SchemaLog.svelte`
 
 - [ ] **Step 1: Create `src/components/SchemaLog.svelte`**
@@ -260,6 +281,7 @@ git commit -m "Add SchemaLog component for schema debugging"
 ### Task 5: Create the sample page
 
 **Files:**
+
 - Create: `src/pages/schemas.astro`
 
 - [ ] **Step 1: Create `src/pages/schemas.astro`**
@@ -298,6 +320,7 @@ First check if the dev server is already running (e.g., `lsof -i :4321` or `curl
 - [ ] **Step 2: Visit `http://localhost:4321/schemas` in a browser**
 
 Expected:
+
 - Page loads without errors
 - Browser console shows 4 log entries (categories, pages, posts, recipes), each with their parsed JSON schema object
 
