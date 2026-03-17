@@ -10,13 +10,14 @@ import sitemap from '@astrojs/sitemap';
 
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import collections from './lib/collections-plugin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://snugug.com',
-  integrations: [svelte(), sitemap()],
+  integrations: [svelte(), sitemap(), collections()],
   markdown,
   vite: {
     plugins: [
