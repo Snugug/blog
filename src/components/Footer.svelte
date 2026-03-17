@@ -39,7 +39,7 @@
       Sam <br /><span class="aka">aka</span>
       <a class="type--a" href={link}>Snugug</a>
     </h2>
-    <p>BBQ lead, ChromeOS DevRel</p>
+    <p>BBQ lead, Chrome DevRel</p>
     <p>Web, design, development, food</p>
   </div>
 </footer>
