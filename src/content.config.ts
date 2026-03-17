@@ -36,10 +36,22 @@ const pages = defineCollection({
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
   schema: z.object({
-    title: z.string(),
-    published: z.coerce.date(),
-    updated: z.coerce.date().optional(),
-    summary: z.string(),
+    title: z.string().meta({
+      title: 'Title',
+      description: 'My Title',
+    }),
+    published: z.coerce.date().meta({
+      title: 'Published',
+      format: 'YYYY-MM-DD',
+    }),
+    updated: z.coerce.date().optional().meta({
+      title: 'Updated',
+      format: 'YYYY-MM-DD',
+    }),
+    summary: z.string().max(350).meta({
+      title: 'Summary',
+      description: 'Used in blog cards and for social media previews',
+    }),
     categories: z.array(z.string()).optional(),
     archived: z.boolean().optional(),
   }),

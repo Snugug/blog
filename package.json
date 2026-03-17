@@ -11,6 +11,7 @@
     "build": "astro build --silent",
     "prebuild": "run-s import",
     "preview": "astro preview",
+    "sync": "astro sync",
     "import": "node ./lib/tweetback/import.js",
     "astro": "astro",
     "pretest": "run-s lint",

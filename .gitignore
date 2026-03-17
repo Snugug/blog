@@ -26,3 +26,4 @@ pnpm-debug.log*
 
 # Symlink to .astro/collections (created by collections plugin)
 public/collections
+/.playwright-mcp
