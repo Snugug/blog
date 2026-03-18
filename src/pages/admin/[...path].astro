@@ -1,0 +1,8 @@
+---
+import Layout from '$layouts/Donut.astro';
+import Admin from '$components/admin/Admin.svelte';
+---
+
+<Layout title="Admin" summary="Content management interface">
+  <Admin client:only="svelte" />
+</Layout>
