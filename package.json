@@ -35,6 +35,7 @@
     "cli-progress": "^3.12.0",
     "css-paint-polyfill": "^3.4.0",
     "hastscript": "^9.0.1",
+    "js-yaml": "^4.1.1",
     "markdown-it": "^13.0.2",
     "parse-domain": "^7.0.1",
     "remark-attributes": "^0.3.2",
@@ -51,6 +52,7 @@
     "workbox-precaching": "^7.4.0"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^25.0.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.7.4",
