@@ -1,6 +1,19 @@
 ---
 import Layout from '$layouts/Donut.astro';
 import Admin from '$components/admin/Admin.svelte';
+import schemas from 'virtual:collections';
+
+/**
+ * Pre-renders /admin and /admin/{collection} for each known collection.
+ * All paths serve the same SPA shell -- client-side Navigation API handles routing.
+ */
+export function getStaticPaths() {
+  const collections = Object.keys(schemas);
+  return [
+    { params: { path: undefined } },
+    ...collections.map((name) => ({ params: { path: name } })),
+  ];
+}
 ---
 
 <Layout title="Admin" summary="Content management interface">
