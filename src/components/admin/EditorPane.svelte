@@ -12,8 +12,6 @@
   let container: HTMLDivElement;
   /** The CodeMirror EditorView instance */
   let view: EditorView | undefined;
-  /** Compartment for swapping document content on file change */
-  const docCompartment = new Compartment();
 
   /**
    * Highlight style that makes markdown visually styled while showing raw syntax.
