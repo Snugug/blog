@@ -211,7 +211,7 @@
     border-radius: 4px;
     overflow: hidden;
     // Subtract the toolbar, tabs, and wrapper padding from viewport height.
-    height: calc(100dvh - 7.5rem);
+    height: calc(100dvh - 9rem);
   }
 
   .editor-pane {

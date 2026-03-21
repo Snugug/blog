@@ -125,7 +125,7 @@
     background: var(--near-black, #2a2a2e);
     border: 1px solid var(--dark-grey);
     border-radius: 4px;
-    padding: 0.5rem;
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
     font-size: 1rem;
     color: var(--white);
     cursor: pointer;

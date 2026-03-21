@@ -96,8 +96,11 @@ export async function loadFile(
   // how the form will serialize them back to YAML.
   formData = JSON.parse(JSON.stringify(data));
   lastSavedFormData = JSON.stringify(formData);
-  body = split.body;
-  lastSavedBody = split.body;
+  // Strip leading/trailing newlines from body for cleaner editing —
+  // they get added back on save when reconstituting the file
+  const trimmedBody = split.body.replace(/^\n+/, '').replace(/\n+$/, '');
+  body = trimmedBody;
+  lastSavedBody = trimmedBody;
   dirty = false;
   saving = false;
   filename = fileHandle.name;
@@ -126,8 +129,9 @@ export async function saveFile(): Promise<void> {
 
   try {
     // dump() adds a trailing newline, so the template omits a \n before ---
+    // Add leading newline before body and trailing newline after for clean file format
     const yaml = dump(formData, { lineWidth: -1 });
-    const content = `---\n${yaml}---\n${body}`;
+    const content = `---\n${yaml}---\n\n${body}\n`;
 
     const writable = await handle.createWritable();
     await writable.write(content);
