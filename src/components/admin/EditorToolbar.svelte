@@ -15,15 +15,15 @@
 {#if file}
   <header class="toolbar">
     <div class="toolbar__info">
-      <span class="toolbar__title">
+      <h1 class="toolbar__title">
         {title}
         <span
           class="dirty-indicator"
           class:dirty-indicator--visible={file.dirty}
           title={file.dirty ? 'Unsaved changes' : ''}>&bull;</span
         >
-      </span>
-      <span class="toolbar__filename">{file.filename}</span>
+      </h1>
+      <p class="toolbar__filename">{file.filename}</p>
     </div>
     <button
       class="save-button"
@@ -46,11 +46,11 @@
 
   .toolbar__info {
     display: grid;
-    gap: 0.25rem;
   }
 
   .toolbar__title {
     font-size: 1rem;
+    font-weight: normal;
     color: var(--white);
   }
 
