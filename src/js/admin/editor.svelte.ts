@@ -90,8 +90,11 @@ export async function loadFile(
   const text = await file.text();
   const split = splitFrontmatter(text);
 
-  // Clone to avoid mutating the caller's object
-  formData = structuredClone(data);
+  // Deep-clone to avoid mutating the caller's object.
+  // JSON round-trip instead of structuredClone because js-yaml parses
+  // dates as Date objects which become strings through JSON — matching
+  // how the form will serialize them back to YAML.
+  formData = JSON.parse(JSON.stringify(data));
   lastSavedFormData = JSON.stringify(formData);
   body = split.body;
   lastSavedBody = split.body;

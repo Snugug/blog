@@ -243,4 +243,16 @@ describe('getFieldsForTab', () => {
     const result = getFieldsForTab(schema, 'Meta');
     assert.deepStrictEqual(result, ['description', 'date']);
   });
+
+  it('filters out $schema property', () => {
+    const schemaWithMeta = {
+      type: 'object',
+      properties: {
+        title: { type: 'string' },
+        $schema: { type: 'string' },
+      },
+    };
+    const result = getFieldsForTab(schemaWithMeta, null);
+    assert.deepStrictEqual(result, ['title']);
+  });
 });

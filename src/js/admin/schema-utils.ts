@@ -215,12 +215,16 @@ export function getFieldsForTab(
     | undefined;
   if (!properties) return [];
 
+  // Filter out $schema — it's a JSON Schema meta-property that Astro adds
+  // to every generated schema, not a user-editable frontmatter field
+  const keys = Object.keys(properties).filter((k) => k !== '$schema');
+
   // null means "all fields" — no tab filtering applied
   if (tab === null) {
-    return Object.keys(properties);
+    return keys;
   }
 
-  return Object.keys(properties).filter((key) => {
+  return keys.filter((key) => {
     const fieldTab = properties[key]['tab'];
     return Array.isArray(fieldTab) && (fieldTab as string[]).includes(tab);
   });
