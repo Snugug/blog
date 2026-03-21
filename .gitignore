@@ -28,3 +28,4 @@ pnpm-debug.log*
 public/collections
 /.playwright-mcp
 .worktrees/
+/.superpowers
