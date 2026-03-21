@@ -106,7 +106,7 @@
           <button
             class="sort-btn"
             title={SORT_MODES[sortMode].label}
-            interestfor={popoverId}
+            onclick={() => popoverEl?.togglePopover()}
           >
             <span class="material-symbols-outlined">
               {SORT_MODES[sortMode].icon}
@@ -116,7 +116,7 @@
           <div
             id={popoverId}
             class="sort-popover"
-            popover="hint"
+            popover
             bind:this={popoverEl}
           >
             {#each popoverOptions as mode}
@@ -200,9 +200,9 @@
 
   .search-input {
     width: 100%;
-    padding: 0.5rem;
-    background: var(--dark-grey);
-    border: 1px solid var(--grey);
+    padding: 0.25rem 0.5rem;
+    background: var(--black);
+    border: 1px solid var(--dark-grey);
     border-radius: 0.25rem;
     color: var(--white);
     font-size: 0.875rem;
@@ -220,18 +220,15 @@
   .sort-btn {
     anchor-name: --sort-btn;
     background: none;
-    border: 1px solid var(--grey);
-    border-radius: 0.25rem;
-    color: var(--white);
-    padding: 0.25rem;
+    border: none;
+    color: var(--grey);
+    padding: 0;
     cursor: pointer;
     display: grid;
     place-items: center;
-    width: 2rem;
-    height: 2rem;
 
     &:hover {
-      background: var(--dark-grey);
+      color: var(--white);
     }
   }
 
@@ -248,6 +245,8 @@
     padding: 0.25rem;
     display: grid;
     gap: 0.25rem;
+    // Prevent width from changing when popover content changes
+    min-width: 10rem;
   }
 
   .sort-option {
