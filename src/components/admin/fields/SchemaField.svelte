@@ -20,9 +20,21 @@
     required?: boolean;
     /** Callback fired when the value changes */
     onchange: (value: unknown) => void;
+    /**
+     * When true, object fields render without a fieldset wrapper.
+     * Used by ArrayItem to avoid redundant grouping.
+     */
+    inline?: boolean;
   }
 
-  let { name, schema, value, required = false, onchange }: Props = $props();
+  let {
+    name,
+    schema,
+    value,
+    required = false,
+    onchange,
+    inline = false,
+  }: Props = $props();
 
   /** Resolve the schema node to a field type descriptor */
   const fieldType = $derived(resolveFieldType(schema));
@@ -92,5 +104,5 @@
 {:else if fieldType.kind === 'array'}
   <ArrayField {name} {schema} {value} {required} {onchange} />
 {:else if fieldType.kind === 'object'}
-  <ObjectField {name} {schema} {value} {required} {onchange} />
+  <ObjectField {name} {schema} {value} {required} {onchange} {inline} />
 {/if}

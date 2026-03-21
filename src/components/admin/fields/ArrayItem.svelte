@@ -35,15 +35,15 @@
     onmovedown: (index: number) => void;
     /** Fired when the collapse/expand toggle is clicked */
     ontogglecollapse: (index: number) => void;
-    /** Native dragstart handler — attached to the draggable wrapper div */
+    /** Native dragstart handler */
     ondragstart: (e: DragEvent) => void;
-    /** Native dragover handler — attached to the draggable wrapper div */
+    /** Native dragover handler */
     ondragover: (e: DragEvent) => void;
-    /** Native dragleave handler — attached to the draggable wrapper div */
+    /** Native dragleave handler */
     ondragleave: (e: DragEvent) => void;
-    /** Native drop handler — attached to the draggable wrapper div */
+    /** Native drop handler */
     ondrop: (e: DragEvent) => void;
-    /** Native dragend handler — attached to the draggable wrapper div */
+    /** Native dragend handler */
     ondragend: (e: DragEvent) => void;
   }
 
@@ -71,13 +71,17 @@
     ondragend,
   }: Props = $props();
 
+  /** Schema title for the item type, if present (e.g., "Step") */
+  const itemTitle = $derived(itemSchema['title'] as string | undefined);
+
   /**
-   * Derives a brief summary string for collapsed object items.
-   * Uses the first string-typed property value found, or falls back to "Item N".
-   * @returns Summary label string for the collapsed header
+   * Header label for object items.
+   * Uses "{title} {N}" if schema has a title (e.g., "Step 1"),
+   * otherwise derives from first string value or falls back to "Item N".
    */
-  const summary = $derived.by(() => {
+  const headerLabel = $derived.by(() => {
     if (!isObject) return '';
+    if (itemTitle) return `${itemTitle} ${index + 1}`;
     if (typeof item !== 'object' || item === null) return `Item ${index + 1}`;
     const obj = item as Record<string, unknown>;
     const firstString = Object.values(obj).find(
@@ -87,29 +91,30 @@
   });
 </script>
 
-<!-- Single array item with drag-and-drop and reorder controls -->
-<div
-  class="array-item"
-  class:array-item--dragging={dragging}
-  class:array-item--drop-target={dropTarget}
-  draggable="true"
-  role="listitem"
-  {ondragstart}
-  {ondragover}
-  {ondragleave}
-  {ondrop}
-  {ondragend}
->
-  <!-- Controls bar: drag handle, collapse toggle, summary, reorder arrows, remove -->
-  <div class="array-item__controls">
-    <span
-      class="array-item__drag-handle"
-      aria-hidden="true"
-      title="Drag to reorder">⠿</span
-    >
-
-    {#if isObject}
-      <!-- Collapse/expand toggle — only shown for object items -->
+<!--
+  Object items use <fieldset> for semantic grouping with a <legend> in
+  the controls bar. Primitive items use a plain <div> — their parent
+  ArrayField is the <fieldset>.
+-->
+{#if isObject}
+  <fieldset
+    class="array-item"
+    class:array-item--dragging={dragging}
+    class:array-item--drop-target={dropTarget}
+    draggable="true"
+    {ondragstart}
+    {ondragover}
+    {ondragleave}
+    {ondrop}
+    {ondragend}
+  >
+    <!-- Controls bar with legend for the fieldset label -->
+    <div class="array-item__controls">
+      <span
+        class="array-item__drag-handle"
+        aria-hidden="true"
+        title="Drag to reorder">⠿</span
+      >
       <button
         class="array-item__btn"
         type="button"
@@ -118,51 +123,98 @@
       >
         {collapsed ? '▶' : '▼'}
       </button>
-      <span class="array-item__summary">{summary}</span>
-    {/if}
-
-    <span class="array-item__spacer"></span>
-
-    <!-- Move up -->
-    <button
-      class="array-item__btn"
-      type="button"
-      aria-label="Move item up"
-      disabled={isFirst}
-      onclick={() => onmoveup(index)}>▲</button
-    >
-
-    <!-- Move down -->
-    <button
-      class="array-item__btn"
-      type="button"
-      aria-label="Move item down"
-      disabled={isLast}
-      onclick={() => onmovedown(index)}>▼</button
-    >
-
-    <!-- Remove -->
-    <button
-      class="array-item__btn array-item__btn--remove"
-      type="button"
-      aria-label="Remove item"
-      disabled={!canRemove}
-      onclick={() => onremove(index)}>✕</button
-    >
-  </div>
-
-  <!-- Item content — hidden when collapsed for object items -->
-  {#if !isObject || !collapsed}
-    <div class="array-item__content">
-      <SchemaField
-        name={`${name}[${index}]`}
-        schema={itemSchema}
-        value={item}
-        onchange={(v) => onupdate(index, v)}
-      />
+      <legend class="array-item__legend">{headerLabel}</legend>
+      <span class="array-item__spacer"></span>
+      <button
+        class="array-item__btn"
+        type="button"
+        aria-label="Move item up"
+        disabled={isFirst}
+        onclick={() => onmoveup(index)}>▲</button
+      >
+      <button
+        class="array-item__btn"
+        type="button"
+        aria-label="Move item down"
+        disabled={isLast}
+        onclick={() => onmovedown(index)}>▼</button
+      >
+      <button
+        class="array-item__btn array-item__btn--remove"
+        type="button"
+        aria-label="Remove item"
+        disabled={!canRemove}
+        onclick={() => onremove(index)}>✕</button
+      >
     </div>
-  {/if}
-</div>
+
+    {#if !collapsed}
+      <div class="array-item__content">
+        <!-- inline=true skips the ObjectField fieldset wrapper -->
+        <SchemaField
+          name={`${name}[${index}]`}
+          schema={itemSchema}
+          value={item}
+          onchange={(v) => onupdate(index, v)}
+          inline={true}
+        />
+      </div>
+    {/if}
+  </fieldset>
+{:else}
+  <!-- Primitive item: input sits inline between drag handle and buttons -->
+  <div
+    class="array-item array-item--primitive"
+    class:array-item--dragging={dragging}
+    class:array-item--drop-target={dropTarget}
+    draggable="true"
+    role="listitem"
+    {ondragstart}
+    {ondragover}
+    {ondragleave}
+    {ondrop}
+    {ondragend}
+  >
+    <div class="array-item__controls">
+      <span
+        class="array-item__drag-handle"
+        aria-hidden="true"
+        title="Drag to reorder">⠿</span
+      >
+      <!-- Inline input with aria-label only, no visible label -->
+      <div class="array-item__inline-field">
+        <SchemaField
+          name={`${name}[${index}]`}
+          schema={itemSchema}
+          value={item}
+          onchange={(v) => onupdate(index, v)}
+          inline={true}
+        />
+      </div>
+      <button
+        class="array-item__btn"
+        type="button"
+        aria-label="Move item up"
+        disabled={isFirst}
+        onclick={() => onmoveup(index)}>▲</button
+      >
+      <button
+        class="array-item__btn"
+        type="button"
+        aria-label="Move item down"
+        disabled={isLast}
+        onclick={() => onmovedown(index)}>▼</button
+      >
+      <button
+        class="array-item__btn array-item__btn--remove"
+        type="button"
+        aria-label="Remove item"
+        disabled={!canRemove}
+        onclick={() => onremove(index)}>✕</button
+      >
+    </div>
+  </div>
+{/if}
 
 <style lang="scss">
   .array-item {
@@ -172,14 +224,16 @@
     transition:
       opacity 0.15s,
       border-color 0.15s;
+    // Reset fieldset defaults
+    margin: 0;
+    padding: 0;
+    min-width: 0;
   }
 
-  // Dragging: fade out the item being dragged
   .array-item--dragging {
     opacity: 0.5;
   }
 
-  // Drop target: highlight border with accent colour
   .array-item--drop-target {
     border-color: var(--plum);
   }
@@ -191,7 +245,6 @@
     padding: 0.5rem;
   }
 
-  // Drag handle — not interactive itself; drag is on the parent div
   .array-item__drag-handle {
     color: var(--grey);
     cursor: grab;
@@ -204,18 +257,41 @@
     }
   }
 
-  .array-item__summary {
+  // Legend rendered inline in the controls flex row
+  .array-item__legend {
     font-size: 0.875rem;
     color: var(--grey);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     min-width: 0;
+    // Reset legend defaults so it participates in flex layout
+    padding: 0;
+    float: unset;
+    width: auto;
   }
 
-  // Pushes action buttons to the right
   .array-item__spacer {
     flex: 1;
+  }
+
+  // Primitive items: input fills space between drag handle and buttons
+  .array-item__inline-field {
+    flex: 1;
+    min-width: 0;
+
+    // Hide the label and description from leaf fields — only aria-label
+    // is needed since the parent ArrayField provides the visible label
+    :global(.field-label),
+    :global(.field-help) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
   }
 
   .array-item__btn {
@@ -237,7 +313,6 @@
     }
   }
 
-  // Remove button gets a red hover to signal destructive action
   .array-item__btn--remove {
     &:hover:not(:disabled) {
       color: var(--light-red);

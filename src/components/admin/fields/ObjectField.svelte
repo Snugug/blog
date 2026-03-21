@@ -13,9 +13,22 @@
     required?: boolean;
     /** Callback fired when the value changes */
     onchange: (value: unknown) => void;
+    /**
+     * When true, renders fields directly without a fieldset wrapper.
+     * Used when the object is inside an ArrayItem that already provides
+     * its own grouping and label.
+     */
+    inline?: boolean;
   }
 
-  let { name, schema, value, required = false, onchange }: Props = $props();
+  let {
+    name,
+    schema,
+    value,
+    required = false,
+    onchange,
+    inline = false,
+  }: Props = $props();
 
   /** Converts name to Title Case for label fallback */
   function toTitleCase(str: string): string {
@@ -58,28 +71,44 @@
   }
 </script>
 
-<fieldset class="object-field">
-  <legend class="object-field__legend">
-    {label}
-    {#if required}<span class="object-field__required">*</span>{/if}
-  </legend>
-  {#each Object.entries(properties) as [key, propSchema]}
-    <SchemaField
-      name={key}
-      schema={propSchema}
-      value={objValue[key]}
-      required={requiredFields.includes(key)}
-      onchange={(v) => handleFieldChange(key, v)}
-    />
-  {/each}
-</fieldset>
+{#if inline}
+  <!-- Inline mode: no fieldset wrapper, used inside ArrayItem -->
+  <div class="object-field--inline">
+    {#each Object.entries(properties) as [key, propSchema]}
+      <SchemaField
+        name={key}
+        schema={propSchema}
+        value={objValue[key]}
+        required={requiredFields.includes(key)}
+        onchange={(v) => handleFieldChange(key, v)}
+      />
+    {/each}
+  </div>
+{:else}
+  <fieldset class="object-field">
+    <legend class="object-field__legend">
+      {label}
+      {#if required}<span class="object-field__required">*</span>{/if}
+    </legend>
+    {#each Object.entries(properties) as [key, propSchema]}
+      <SchemaField
+        name={key}
+        schema={propSchema}
+        value={objValue[key]}
+        required={requiredFields.includes(key)}
+        onchange={(v) => handleFieldChange(key, v)}
+      />
+    {/each}
+  </fieldset>
+{/if}
 
 <style lang="scss">
   .object-field {
     border: 1px solid var(--dark-grey);
     border-radius: 4px;
     padding: 1rem;
-    margin-bottom: 1.25rem;
+    display: grid;
+    gap: 1.25rem;
   }
 
   .object-field__legend {
@@ -91,5 +120,11 @@
   .object-field__required {
     color: var(--light-plum);
     margin-left: 0.25rem;
+  }
+
+  // Inline mode: no border/padding, just stack the fields
+  .object-field--inline {
+    display: grid;
+    gap: 1.25rem;
   }
 </style>

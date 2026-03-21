@@ -216,17 +216,32 @@
   const canRemove = $derived(minItems == null || items.length > minItems);
 </script>
 
-<div class="array-field">
-  <p class="array-field__label">
-    {label}{#if required}<span class="array-field__required" aria-hidden="true"
-        >*</span
-      >{/if}
-  </p>
+<!--
+  Primitive arrays use <fieldset> as the semantic wrapper since each item
+  is just an input. Object arrays use <div> because each ArrayItem is
+  its own <fieldset>.
+-->
+{@const Tag = isObjectItems ? 'div' : 'fieldset'}
+<svelte:element this={Tag} class="array-field">
+  {#if isObjectItems}
+    <p class="array-field__label">
+      {label}{#if required}<span
+          class="array-field__required"
+          aria-hidden="true">*</span
+        >{/if}
+    </p>
+  {:else}
+    <legend class="array-field__label">
+      {label}{#if required}<span
+          class="array-field__required"
+          aria-hidden="true">*</span
+        >{/if}
+    </legend>
+  {/if}
 
   {#if items.length === 0}
     <p class="array-field__empty">No items</p>
   {:else}
-    <!-- Item list — role="list" pairs with role="listitem" on each ArrayItem -->
     <div class="array-field__list" role="list">
       {#each items as item, i (i)}
         <ArrayItem
@@ -256,7 +271,6 @@
     </div>
   {/if}
 
-  <!-- Add item button — dashed border signals an additive action -->
   <button
     class="array-field__add"
     type="button"
@@ -265,12 +279,17 @@
   >
     + Add item
   </button>
-</div>
+</svelte:element>
 
 <style lang="scss">
   .array-field {
     display: grid;
     gap: 0.5rem;
+    // Reset fieldset defaults when used for primitive arrays
+    border: none;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
   }
 
   .array-field__label {
