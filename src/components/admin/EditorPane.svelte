@@ -204,16 +204,17 @@
     padding: 1.5rem;
     max-width: 80ch;
     margin: 0 auto;
-    // Fill the scrollable content area, then subtract own padding
-    // so the bordered box fits exactly with padding visible around it
-    height: calc(100% - 3rem);
   }
 
   .editor-box {
     border: 1px solid var(--dark-grey);
     border-radius: 4px;
     overflow: hidden;
-    height: 100%;
+    // Subtract the toolbar, tabs, wrapper padding, and border from viewport.
+    // Toolbar ~2.75rem (0.5rem padding * 2 + line height + 1px border),
+    // tabs ~2.75rem (0.5rem padding * 2 + line height + 1px border),
+    // wrapper padding 3rem (1.5rem * 2), box border 2px.
+    height: calc(100dvh - 12.5rem);
   }
 
   .editor-pane {

@@ -226,11 +226,13 @@
     border-left: 1px solid var(--dark-grey);
   }
 
-  // Scrollable content area below the pinned toolbar and tabs.
-  // min-height: 0 overrides the grid default (min-content) so the
-  // 1fr row can actually shrink to the available space.
+  // Content area below the pinned toolbar and tabs.
+  // overflow-y: auto for metadata scrolling, overflow-x: hidden
+  // to prevent horizontal scroll. min-height: 0 lets the 1fr
+  // grid row shrink to available space.
   .editor-content {
     overflow-y: auto;
+    overflow-x: hidden;
     min-height: 0;
   }
 </style>

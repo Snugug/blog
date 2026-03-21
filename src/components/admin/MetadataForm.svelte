@@ -46,8 +46,6 @@
 </div>
 
 <style lang="scss">
-  // Center and constrain the form for comfortable reading/editing
-  // Scrolling is handled by the parent .editor-content container
   .metadata-form {
     display: grid;
     gap: 1.25rem;
