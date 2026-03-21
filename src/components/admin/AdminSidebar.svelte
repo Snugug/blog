@@ -291,7 +291,7 @@
 
   .sidebar-items {
     overflow-y: auto;
-    padding: 0 1rem 1rem;
+    padding: 0 0 1rem;
   }
 
   .status {
@@ -311,8 +311,7 @@
 
   .sidebar-link {
     display: block;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
     color: var(--white);
     text-decoration: none;
     font-size: 1rem;
@@ -323,6 +322,8 @@
       background: var(--dark-grey);
     }
 
+    // Active highlight extends to sidebar borders (no border-radius,
+    // full-width padding matches the sidebar edge)
     &[aria-current='page'] {
       background: var(--plum);
     }

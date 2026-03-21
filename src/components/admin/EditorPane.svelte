@@ -210,11 +210,8 @@
     border: 1px solid var(--dark-grey);
     border-radius: 4px;
     overflow: hidden;
-    // Subtract the toolbar, tabs, wrapper padding, and border from viewport.
-    // Toolbar ~2.75rem (0.5rem padding * 2 + line height + 1px border),
-    // tabs ~2.75rem (0.5rem padding * 2 + line height + 1px border),
-    // wrapper padding 3rem (1.5rem * 2), box border 2px.
-    height: calc(100dvh - 12.5rem);
+    // Subtract the toolbar, tabs, and wrapper padding from viewport height.
+    height: calc(100dvh - 7.5rem);
   }
 
   .editor-pane {
@@ -231,13 +228,11 @@
     min-width: 0 !important;
   }
 
-  // The Unicode Line Break Algorithm allows breaks between ] (Close
-  // Punctuation) and ( (Open Punctuation) in markdown links, causing URLs
-  // to jump to the next line. A ViewPlugin wraps Link nodes in .cm-link-wrap
-  // spans, and break-all here makes all positions equally valid break points
-  // so the browser fills each line to capacity — URLs start on the same
-  // line as link text and break mid-URL at the edge.
+  // Wrap long URLs in markdown links at word boundaries where possible,
+  // falling back to breaking mid-word only when necessary. Uses
+  // overflow-wrap: break-word instead of word-break: break-all so that
+  // link *text* wraps at natural word boundaries while URLs still break.
   .editor-pane :global(.cm-link-wrap) {
-    word-break: break-all;
+    overflow-wrap: break-word;
   }
 </style>

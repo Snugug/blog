@@ -54,10 +54,10 @@
       : undefined,
   );
 
-  /** Collection names mapped to SidebarItems */
+  /** Collection names mapped to SidebarItems, title-cased for display */
   const collectionItems = $derived(
     getCollections().map((name) => ({
-      label: name,
+      label: name.charAt(0).toUpperCase() + name.slice(1),
       href: `/admin/${name}`,
     })),
   );
