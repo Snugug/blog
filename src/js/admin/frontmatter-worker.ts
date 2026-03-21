@@ -66,7 +66,11 @@ self.addEventListener('message', async (event) => {
       [];
 
     for await (const [name, entry] of dir.entries()) {
-      if (entry.kind !== 'file' || !name.endsWith('.md')) continue;
+      if (
+        entry.kind !== 'file' ||
+        (!name.endsWith('.md') && !name.endsWith('.mdx'))
+      )
+        continue;
 
       const file = await entry.getFile();
       const text = await file.text();
