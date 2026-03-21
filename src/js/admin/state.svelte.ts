@@ -61,6 +61,37 @@ export function getContentList(): ContentItem[] {
 }
 
 /**
+ * Retrieves a FileSystemFileHandle for a content file by slug.
+ * Traverses root → src → content → {collection} and matches the slug
+ * against the content list to determine the full filename with extension.
+ * @param collection - The collection name
+ * @param slug - The filename without extension
+ * @returns The file handle, or null if not found
+ */
+export async function getFileHandle(
+  collection: string,
+  slug: string,
+): Promise<FileSystemFileHandle | null> {
+  if (!directoryHandle) return null;
+
+  // Find the full filename from the content list
+  const item = contentList.find((i) => {
+    const name = i.filename.replace(/\.mdx?$/, '');
+    return name === slug;
+  });
+  if (!item) return null;
+
+  try {
+    const src = await directoryHandle.getDirectoryHandle('src');
+    const content = await src.getDirectoryHandle('content');
+    const collectionDir = await content.getDirectoryHandle(collection);
+    return collectionDir.getFileHandle(item.filename);
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Returns the current error message (reactive).
  * @returns Error string or null
  */
@@ -126,7 +157,7 @@ export async function restoreHandle(): Promise<void> {
       return;
     }
 
-    const perm = await stored.queryPermission({ mode: 'read' });
+    const perm = await stored.queryPermission({ mode: 'readwrite' });
     directoryHandle = stored;
     permissionState = perm;
 
@@ -146,7 +177,7 @@ export async function restoreHandle(): Promise<void> {
 export async function requestPermission(): Promise<void> {
   if (!directoryHandle) return;
   try {
-    const perm = await directoryHandle.requestPermission({ mode: 'read' });
+    const perm = await directoryHandle.requestPermission({ mode: 'readwrite' });
     permissionState = perm;
     if (perm === 'granted') {
       navigateToFirstCollectionIfHome();
@@ -163,7 +194,7 @@ export async function requestPermission(): Promise<void> {
  */
 export async function pickDirectory(): Promise<void> {
   try {
-    const handle = await window.showDirectoryPicker({ mode: 'read' });
+    const handle = await window.showDirectoryPicker({ mode: 'readwrite' });
     directoryHandle = handle;
     permissionState = 'granted';
     await saveHandle(handle);
