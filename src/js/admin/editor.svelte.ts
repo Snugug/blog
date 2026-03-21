@@ -47,10 +47,10 @@ export function getEditorFile(): EditorFile | null {
 export async function loadFile(
   fileHandle: FileSystemFileHandle,
 ): Promise<void> {
-  handle = fileHandle;
-  filename = fileHandle.name;
-  saving = false;
-
+  // Read and split the file BEFORE setting any reactive state.
+  // Setting `handle` triggers EditorPane's $effect which reads `body` —
+  // if we set handle first, the effect sees stale/empty body and creates
+  // CodeMirror with an empty document.
   const file = await fileHandle.getFile();
   const text = await file.text();
   const split = splitFrontmatter(text);
@@ -59,6 +59,9 @@ export async function loadFile(
   body = split.body;
   lastSavedBody = split.body;
   dirty = false;
+  saving = false;
+  filename = fileHandle.name;
+  handle = fileHandle;
 }
 
 /**

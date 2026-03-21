@@ -9,9 +9,11 @@
   <header class="toolbar">
     <span class="filename">
       {file.filename}
-      {#if file.dirty}
-        <span class="dirty-indicator" title="Unsaved changes">&bull;</span>
-      {/if}
+      <span
+        class="dirty-indicator"
+        class:dirty-indicator--visible={file.dirty}
+        title={file.dirty ? 'Unsaved changes' : ''}>&bull;</span
+      >
     </span>
     <button
       class="save-button"
@@ -37,11 +39,16 @@
     color: var(--white);
   }
 
+  // Always rendered to reserve space and prevent layout shift when toggling
   .dirty-indicator {
-    color: var(--gold);
+    color: transparent;
     font-size: 1.25rem;
     vertical-align: middle;
     margin-left: 0.25rem;
+  }
+
+  .dirty-indicator--visible {
+    color: var(--gold);
   }
 
   .save-button {

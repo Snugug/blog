@@ -1,6 +1,6 @@
 <script lang="ts">
   import { EditorView, keymap } from '@codemirror/view';
-  import { EditorState, Compartment } from '@codemirror/state';
+  import { EditorState } from '@codemirror/state';
   import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
   import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
   import { languages } from '@codemirror/language-data';
@@ -90,7 +90,12 @@
     },
     '.cm-content': {
       fontFamily: "'SF Mono', 'Fira Code', 'Cascadia Code', monospace",
+      caretColor: 'hsl(15, 80%, 51%)',
+      maxWidth: '80ch',
+      margin: '0 auto',
       padding: '1rem',
+      borderLeft: '1px solid var(--white)',
+      borderRight: '1px solid var(--white)',
     },
     '.cm-scroller': {
       overflow: 'auto',
@@ -101,8 +106,10 @@
     '.cm-line': {
       padding: '0 0.25rem',
     },
+    // Hardcoded because CodeMirror's cursor style has high specificity
+    // and CSS custom properties from :root don't reliably override it
     '.cm-cursor': {
-      borderLeftColor: 'var(--white)',
+      borderLeftColor: 'hsl(15, 80%, 51%)',
     },
     '.cm-selectionBackground': {
       background: 'var(--plum) !important',
