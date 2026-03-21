@@ -1,5 +1,5 @@
 ---
-import Layout from '$layouts/Donut.astro';
+import '../../sass/style.scss';
 import Admin from '$components/admin/Admin.svelte';
 import schemas from 'virtual:collections';
 
@@ -31,11 +31,49 @@ export function getStaticPaths() {
 }
 ---
 
-<Layout title="Admin" summary="Content management interface">
-  <link
-    slot="head"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=hourglass_arrow_down,hourglass_arrow_up,sort_by_alpha&display=block"
-    rel="stylesheet"
-  />
-  <Admin client:only="svelte" />
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/fonts/dank-mono.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=hourglass_arrow_down,hourglass_arrow_up,sort_by_alpha&display=block"
+      rel="stylesheet"
+    />
+    <link rel="me" href="https://mas.to/@snugug" />
+    {
+      import.meta.env.MODE !== 'development' ? (
+        <link rel="manifest" href="/manifest.webmanifest" />
+      ) : (
+        ''
+      )
+    }
+    <meta name="generator" content={Astro.generator} />
+    <title>Admin</title>
+    <script
+      defer
+      data-domain="snugug.com"
+      src="https://plausible.io/js/script.outbound-links.tagged-events.js"
+    ></script>
+    <slot name="head" />
+  </head>
+  <body class="body">
+    <div class="body-content">
+      <Admin client:only="svelte" />
+    </div>
+  </body>
+</html>
+
+<style>
+  .body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .body-content {
+    flex: 1;
+  }
+</style>

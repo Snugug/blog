@@ -175,6 +175,8 @@
     grid-template-rows: auto 1fr;
     height: 100dvh;
     border-right: 1px solid var(--dark-grey);
+    position: sticky;
+    top: 0;
   }
 
   .sidebar-header {
