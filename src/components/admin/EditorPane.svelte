@@ -7,6 +7,7 @@
   import { syntaxHighlighting, HighlightStyle } from '@codemirror/language';
   import { tags as t } from '@lezer/highlight';
   import { getEditorFile, updateBody, saveFile } from '$js/admin/editor.svelte';
+  import { linkWrapPlugin } from '$js/admin/cm-link-wrap';
 
   /** Container element for CodeMirror */
   let container: HTMLDivElement;
@@ -89,11 +90,7 @@
     '.cm-content': {
       fontFamily: "'SF Mono', 'Fira Code', 'Cascadia Code', monospace",
       caretColor: 'hsl(15, 80%, 51%)',
-      maxWidth: '80ch',
-      margin: '0 auto',
       padding: '1rem',
-      borderLeft: '1px solid var(--white)',
-      borderRight: '1px solid var(--white)',
     },
     '.cm-scroller': {
       overflow: 'auto',
@@ -140,6 +137,7 @@
       }),
       syntaxHighlighting(markdownHighlight),
       EditorView.lineWrapping,
+      linkWrapPlugin,
       EditorView.updateListener.of((update) => {
         if (update.docChanged) {
           updateBody(update.state.doc.toString());
@@ -201,6 +199,29 @@
 <style lang="scss">
   .editor-pane {
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
+    max-width: 80ch;
+    margin: 0 auto;
+    border-left: 1px solid var(--white);
+    border-right: 1px solid var(--white);
+  }
+
+  // CodeMirror's .cm-content is a flex item that won't shrink below its
+  // longest unbroken word (a URL) due to min-width: auto. Force it to
+  // shrink so overflow-wrap can break long URLs inline.
+  // Uses scoped parent + :global child (allowed per :global policy for
+  // library-generated DOM that scoped CSS cannot reach).
+  .editor-pane :global(.cm-content) {
+    min-width: 0 !important;
+  }
+
+  // The Unicode Line Break Algorithm allows breaks between ] (Close
+  // Punctuation) and ( (Open Punctuation) in markdown links, causing URLs
+  // to jump to the next line. A ViewPlugin wraps Link nodes in .cm-link-wrap
+  // spans, and break-all here makes all positions equally valid break points
+  // so the browser fills each line to capacity — URLs start on the same
+  // line as link text and break mid-URL at the edge.
+  .editor-pane :global(.cm-link-wrap) {
+    word-break: break-all;
   }
 </style>
