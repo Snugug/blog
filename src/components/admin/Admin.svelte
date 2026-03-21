@@ -1,22 +1,20 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { initRouter, getRoute } from '$js/admin/router.svelte';
   import {
+    getCollections,
     getDirectoryHandle,
     getPermissionState,
     restoreHandle,
     loadCollection,
-    getFileHandle,
     getContentList,
+    getFileHandle,
+    isLoading,
+    getError,
   } from '$js/admin/state.svelte';
-  import {
-    loadFile,
-    clearEditor,
-    getEditorFile,
-  } from '$js/admin/editor.svelte';
+  import { loadFile, clearEditor } from '$js/admin/editor.svelte';
   import DirectoryPicker from './DirectoryPicker.svelte';
-  import CollectionSidebar from './CollectionSidebar.svelte';
-  import ContentList from './ContentList.svelte';
+  import AdminSidebar from './AdminSidebar.svelte';
   import EditorToolbar from './EditorToolbar.svelte';
   import EditorPane from './EditorPane.svelte';
 
@@ -28,8 +26,56 @@
   /** The current route for tracking collection changes */
   const currentRoute = $derived(getRoute());
 
+  /** Whether a collection is currently selected */
+  const hasCollection = $derived(
+    currentRoute.view === 'collection' || currentRoute.view === 'file',
+  );
+
+  /** The active collection name, if any */
+  const activeCollection = $derived(
+    currentRoute.view === 'collection' || currentRoute.view === 'file'
+      ? currentRoute.collection
+      : null,
+  );
+
   /** Whether a file is currently open in the editor */
   const fileOpen = $derived(currentRoute.view === 'file');
+
+  /** The active file href for highlighting in the content sidebar */
+  const activeFileHref = $derived(
+    currentRoute.view === 'file'
+      ? `/admin/${currentRoute.collection}/${currentRoute.slug}`
+      : undefined,
+  );
+
+  /** Collection names mapped to SidebarItems */
+  const collectionItems = $derived(
+    getCollections().map((name) => ({
+      label: name,
+      href: `/admin/${name}`,
+    })),
+  );
+
+  /** Content items mapped to SidebarItems for the active collection */
+  const contentItems = $derived(
+    getContentList().map((item) => {
+      const title =
+        typeof item.data.title === 'string' ? item.data.title : item.filename;
+      const published = item.data.published;
+      const slug = item.filename.replace(/\.mdx?$/, '');
+      return {
+        label: title,
+        href: `/admin/${activeCollection}/${slug}`,
+        subtitle: item.filename,
+        // js-yaml parses unquoted dates as Date objects, quoted dates as strings
+        ...(published instanceof Date
+          ? { date: published }
+          : typeof published === 'string'
+            ? { date: new Date(published) }
+            : {}),
+      };
+    }),
+  );
 
   /**
    * Dispatch worker when collection changes.
@@ -74,13 +120,27 @@
 <div
   class="admin"
   class:admin--connected={ready}
+  class:admin--collection={ready && hasCollection}
   class:admin--file-open={ready && fileOpen}
 >
   {#if !ready}
     <DirectoryPicker />
   {:else}
-    <CollectionSidebar />
-    <ContentList />
+    <AdminSidebar
+      title="Collections"
+      items={collectionItems}
+      activeItem={activeCollection ? `/admin/${activeCollection}` : undefined}
+    />
+    {#if hasCollection && activeCollection}
+      <AdminSidebar
+        title={activeCollection}
+        items={contentItems}
+        activeItem={activeFileHref}
+        storageKey={activeCollection}
+        loading={isLoading()}
+        error={getError() ?? undefined}
+      />
+    {/if}
     {#if fileOpen}
       <div class="editor-area">
         <EditorToolbar />
@@ -98,6 +158,10 @@
   .admin--connected {
     display: grid;
     grid-template-columns: 15rem 1fr;
+  }
+
+  .admin--collection {
+    grid-template-columns: 15rem 15rem 1fr;
   }
 
   .admin--file-open {

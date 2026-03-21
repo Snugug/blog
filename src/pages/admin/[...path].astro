@@ -4,14 +4,29 @@ import Admin from '$components/admin/Admin.svelte';
 import schemas from 'virtual:collections';
 
 /**
- * Pre-renders /admin and /admin/{collection} for each known collection.
- * All paths serve the same SPA shell -- client-side Navigation API handles routing.
+ * Pre-renders /admin, /admin/{collection}, and /admin/{collection}/{slug} paths.
+ * All paths serve the same SPA shell — client-side Navigation API handles routing.
+ * File-level paths use import.meta.glob to enumerate content files at build time.
  */
 export function getStaticPaths() {
   const collections = Object.keys(schemas);
+  const files = import.meta.glob('/src/content/**/*.{md,mdx}', {
+    eager: false,
+  });
+
   return [
     { params: { path: undefined } },
     ...collections.map((name) => ({ params: { path: name } })),
+    ...collections.flatMap((name) => {
+      const prefix = `/src/content/${name}/`;
+      return Object.keys(files)
+        .filter((filePath) => filePath.startsWith(prefix))
+        .map((filePath) => {
+          const filename = filePath.slice(prefix.length);
+          const slug = filename.replace(/\.mdx?$/, '');
+          return { params: { path: `${name}/${slug}` } };
+        });
+    }),
   ];
 }
 ---

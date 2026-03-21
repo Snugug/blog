@@ -127,21 +127,21 @@ Currently opens in `'read'` mode. The editor needs `'readwrite'` mode. This requ
 
 ### New Files
 
-| File | Purpose |
-|------|---------|
-| `src/js/admin/editor.svelte.ts` | Editor reactive state module |
-| `src/components/admin/EditorPane.svelte` | Mounts CodeMirror, manages EditorView lifecycle |
-| `src/components/admin/EditorToolbar.svelte` | Filename display, dirty indicator, save button |
+| File                                        | Purpose                                         |
+| ------------------------------------------- | ----------------------------------------------- |
+| `src/js/admin/editor.svelte.ts`             | Editor reactive state module                    |
+| `src/components/admin/EditorPane.svelte`    | Mounts CodeMirror, manages EditorView lifecycle |
+| `src/components/admin/EditorToolbar.svelte` | Filename display, dirty indicator, save button  |
 
 ### Modified Files
 
-| File | Change |
-|------|--------|
-| `src/js/admin/state.svelte.ts` | Expose file handle lookup by slug (match against content list, traverse directory), upgrade permission to `'readwrite'` |
-| `src/js/admin/router.svelte.ts` | Route state gains `slug` field: `{ view: 'file'; collection: string; slug: string }`. Navigation guard checks dirty state before in-app navigation. |
-| `src/js/admin/frontmatter-worker.ts` | Iterate both `.md` and `.mdx` files (currently only `.md`) |
-| `src/components/admin/Admin.svelte` | Render EditorToolbar + EditorPane in `1fr` column when file route is active |
-| Sidebar component (AdminSidebar or ContentList) | Content items render as `<a>` elements linking to `/admin/{collection}/{slug}` |
+| File                                            | Change                                                                                                                                              |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/js/admin/state.svelte.ts`                  | Expose file handle lookup by slug (match against content list, traverse directory), upgrade permission to `'readwrite'`                             |
+| `src/js/admin/router.svelte.ts`                 | Route state gains `slug` field: `{ view: 'file'; collection: string; slug: string }`. Navigation guard checks dirty state before in-app navigation. |
+| `src/js/admin/frontmatter-worker.ts`            | Iterate both `.md` and `.mdx` files (currently only `.md`)                                                                                          |
+| `src/components/admin/Admin.svelte`             | Render EditorToolbar + EditorPane in `1fr` column when file route is active                                                                         |
+| Sidebar component (AdminSidebar or ContentList) | Content items render as `<a>` elements linking to `/admin/{collection}/{slug}`                                                                      |
 
 ## Out of Scope
 

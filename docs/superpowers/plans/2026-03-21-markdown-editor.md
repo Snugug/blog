@@ -16,29 +16,30 @@
 
 ### New Files
 
-| File | Responsibility |
-|------|---------------|
-| `src/js/admin/frontmatter.ts` | Pure function: splits markdown file into raw frontmatter YAML and body content |
-| `src/js/admin/editor.svelte.ts` | Editor reactive state: file handle, body, raw frontmatter, dirty tracking, save |
-| `src/components/admin/EditorPane.svelte` | Mounts CodeMirror EditorView, configures extensions, syncs content with editor state |
-| `src/components/admin/EditorToolbar.svelte` | Filename display, dirty indicator, save button |
-| `tests/js/admin/frontmatter.test.ts` | Unit tests for frontmatter/body splitting logic |
+| File                                        | Responsibility                                                                       |
+| ------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `src/js/admin/frontmatter.ts`               | Pure function: splits markdown file into raw frontmatter YAML and body content       |
+| `src/js/admin/editor.svelte.ts`             | Editor reactive state: file handle, body, raw frontmatter, dirty tracking, save      |
+| `src/components/admin/EditorPane.svelte`    | Mounts CodeMirror EditorView, configures extensions, syncs content with editor state |
+| `src/components/admin/EditorToolbar.svelte` | Filename display, dirty indicator, save button                                       |
+| `tests/js/admin/frontmatter.test.ts`        | Unit tests for frontmatter/body splitting logic                                      |
 
 ### Modified Files
 
-| File | Change |
-|------|--------|
-| `src/js/admin/frontmatter-worker.ts:67` | Accept `.mdx` files in addition to `.md` |
-| `src/js/admin/router.svelte.ts:2-4,14-23,50-71` | Add `file` route variant, parse slug from path, add navigation guard for dirty state |
-| `src/js/admin/state.svelte.ts:129,149,166` | Change `mode: 'read'` to `mode: 'readwrite'` in three locations. Add `getFileHandle()` for slug-based file lookup. |
-| `src/components/admin/ContentList.svelte:24-29` | Convert content items from `<span>` to `<a>` elements with `/admin/{collection}/{slug}` hrefs |
-| `src/components/admin/Admin.svelte:1-56` | Import editor components, add file route handling, update grid to accommodate editor |
+| File                                            | Change                                                                                                             |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `src/js/admin/frontmatter-worker.ts:67`         | Accept `.mdx` files in addition to `.md`                                                                           |
+| `src/js/admin/router.svelte.ts:2-4,14-23,50-71` | Add `file` route variant, parse slug from path, add navigation guard for dirty state                               |
+| `src/js/admin/state.svelte.ts:129,149,166`      | Change `mode: 'read'` to `mode: 'readwrite'` in three locations. Add `getFileHandle()` for slug-based file lookup. |
+| `src/components/admin/ContentList.svelte:24-29` | Convert content items from `<span>` to `<a>` elements with `/admin/{collection}/{slug}` hrefs                      |
+| `src/components/admin/Admin.svelte:1-56`        | Import editor components, add file route handling, update grid to accommodate editor                               |
 
 ---
 
 ### Task 1: Install CodeMirror Dependencies
 
 **Files:**
+
 - Modify: `package.json`
 
 - [ ] **Step 1: Install dependencies**
@@ -62,6 +63,7 @@ git commit -m "Add CodeMirror 6 dependencies"
 ### Task 2: Update Frontmatter Worker to Accept .mdx Files
 
 **Files:**
+
 - Modify: `src/js/admin/frontmatter-worker.ts:67`
 
 - [ ] **Step 1: Update file extension filter**
@@ -75,7 +77,8 @@ if (entry.kind !== 'file' || !name.endsWith('.md')) continue;
 to:
 
 ```typescript
-if (entry.kind !== 'file' || (!name.endsWith('.md') && !name.endsWith('.mdx'))) continue;
+if (entry.kind !== 'file' || (!name.endsWith('.md') && !name.endsWith('.mdx')))
+  continue;
 ```
 
 - [ ] **Step 2: Run lint and format**
@@ -95,6 +98,7 @@ git commit -m "Support .mdx files in frontmatter worker"
 ### Task 3: Update Router With File Route and Navigation Guard
 
 **Files:**
+
 - Modify: `src/js/admin/router.svelte.ts`
 
 The router needs three changes: a new `file` route variant, slug parsing in `parsePathname`, and a dirty-state navigation guard.
@@ -151,23 +155,23 @@ export function registerDirtyChecker(checker: () => boolean): void {
 }
 ```
 
-Then update the `initRouter` function's navigate event handler to check dirty state *before* intercepting. The dirty check must happen before `event.intercept()` — if it happens inside the handler, the URL will update even when the user cancels (because `intercept()` has already claimed the navigation). Replace the `event.intercept` block and the lines immediately before it:
+Then update the `initRouter` function's navigate event handler to check dirty state _before_ intercepting. The dirty check must happen before `event.intercept()` — if it happens inside the handler, the URL will update even when the user cancels (because `intercept()` has already claimed the navigation). Replace the `event.intercept` block and the lines immediately before it:
 
 ```typescript
-    // Block navigation if editor has unsaved changes and user cancels
-    if (
-      dirtyChecker?.() &&
-      !confirm('You have unsaved changes. Leave without saving?')
-    ) {
-      event.preventDefault();
-      return;
-    }
+// Block navigation if editor has unsaved changes and user cancels
+if (
+  dirtyChecker?.() &&
+  !confirm('You have unsaved changes. Leave without saving?')
+) {
+  event.preventDefault();
+  return;
+}
 
-    event.intercept({
-      handler() {
-        route = parsePathname(url.pathname);
-      },
-    });
+event.intercept({
+  handler() {
+    route = parsePathname(url.pathname);
+  },
+});
 ```
 
 - [ ] **Step 3: Add beforeunload listener in initRouter**
@@ -175,11 +179,11 @@ Then update the `initRouter` function's navigate event handler to check dirty st
 Add a `beforeunload` listener inside `initRouter`, after the `navigate` listener:
 
 ```typescript
-  window.addEventListener('beforeunload', (event) => {
-    if (dirtyChecker?.()) {
-      event.preventDefault();
-    }
-  });
+window.addEventListener('beforeunload', (event) => {
+  if (dirtyChecker?.()) {
+    event.preventDefault();
+  }
+});
 ```
 
 - [ ] **Step 4: Run lint and format**
@@ -199,6 +203,7 @@ git commit -m "Add file route variant and dirty-state navigation guard"
 ### Task 4: Update State for readwrite Permission and File Handle Lookup
 
 **Files:**
+
 - Modify: `src/js/admin/state.svelte.ts`
 
 - [ ] **Step 1: Change permission mode from `'read'` to `'readwrite'`**
@@ -206,18 +211,21 @@ git commit -m "Add file route variant and dirty-state navigation guard"
 Three locations need updating:
 
 Line 129 in `restoreHandle()`:
+
 ```typescript
-    const perm = await stored.queryPermission({ mode: 'readwrite' });
+const perm = await stored.queryPermission({ mode: 'readwrite' });
 ```
 
 Line 149 in `requestPermission()`:
+
 ```typescript
-    const perm = await directoryHandle.requestPermission({ mode: 'readwrite' });
+const perm = await directoryHandle.requestPermission({ mode: 'readwrite' });
 ```
 
 Line 166 in `pickDirectory()`:
+
 ```typescript
-    const handle = await window.showDirectoryPicker({ mode: 'readwrite' });
+const handle = await window.showDirectoryPicker({ mode: 'readwrite' });
 ```
 
 - [ ] **Step 2: Add `getFileHandle` function**
@@ -274,6 +282,7 @@ git commit -m "Upgrade to readwrite permission, add file handle lookup"
 ### Task 5: Create Frontmatter Splitter and Editor State Module
 
 **Files:**
+
 - Create: `src/js/admin/frontmatter.ts`
 - Create: `src/js/admin/editor.svelte.ts`
 - Create: `tests/js/admin/frontmatter.test.ts`
@@ -529,6 +538,7 @@ git commit -m "Add frontmatter splitter and editor state module"
 ### Task 6: Create EditorPane Component
 
 **Files:**
+
 - Create: `src/components/admin/EditorPane.svelte`
 
 This component mounts CodeMirror 6, configures all extensions, and syncs content with editor state.
@@ -544,10 +554,7 @@ Create `src/components/admin/EditorPane.svelte`:
   import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
   import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
   import { languages } from '@codemirror/language-data';
-  import {
-    syntaxHighlighting,
-    HighlightStyle,
-  } from '@codemirror/language';
+  import { syntaxHighlighting, HighlightStyle } from '@codemirror/language';
   import { tags as t } from '@lezer/highlight';
   import { getEditorFile, updateBody, saveFile } from '$js/admin/editor.svelte';
 
@@ -565,9 +572,24 @@ Create `src/components/admin/EditorPane.svelte`:
    */
   const markdownHighlight = HighlightStyle.define([
     // Headings — larger, bold
-    { tag: t.heading1, fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--white)' },
-    { tag: t.heading2, fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--white)' },
-    { tag: t.heading3, fontSize: '1rem', fontWeight: 'bold', color: 'var(--white)' },
+    {
+      tag: t.heading1,
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+      color: 'var(--white)',
+    },
+    {
+      tag: t.heading2,
+      fontSize: '1.25rem',
+      fontWeight: 'bold',
+      color: 'var(--white)',
+    },
+    {
+      tag: t.heading3,
+      fontSize: '1rem',
+      fontWeight: 'bold',
+      color: 'var(--white)',
+    },
     // Emphasis
     { tag: t.strong, fontWeight: 'bold', color: 'var(--white)' },
     { tag: t.emphasis, fontStyle: 'italic', color: 'var(--white)' },
@@ -746,6 +768,7 @@ git commit -m "Add EditorPane component with CodeMirror 6 integration"
 ### Task 7: Create EditorToolbar Component
 
 **Files:**
+
 - Create: `src/components/admin/EditorToolbar.svelte`
 
 - [ ] **Step 1: Create the component**
@@ -837,6 +860,7 @@ git commit -m "Add EditorToolbar component"
 ### Task 8: Convert Content List Items to Links
 
 **Files:**
+
 - Modify: `src/components/admin/ContentList.svelte`
 
 Content items must be `<a>` elements (per project semantic HTML rules) linking to `/admin/{collection}/{slug}` where slug = filename without extension.
@@ -863,21 +887,21 @@ In `src/components/admin/ContentList.svelte`, the `collection` derived value cur
 Then replace the `<li>` items (lines 24-29) with `<a>` elements. Replace the `{#each}` block:
 
 ```svelte
-        {#each getContentList() as item}
-          {@const slug = item.filename.replace(/\.mdx?$/, '')}
-          <li>
-            <a
-              href="/admin/{collection}/{slug}"
-              class="file-link"
-              aria-current={activeSlug === slug ? 'page' : undefined}
-            >
-              <span class="file-title">{item.title ?? item.filename}</span>
-              {#if item.title}
-                <span class="file-name">{item.filename}</span>
-              {/if}
-            </a>
-          </li>
-        {/each}
+{#each getContentList() as item}
+  {@const slug = item.filename.replace(/\.mdx?$/, '')}
+  <li>
+    <a
+      href="/admin/{collection}/{slug}"
+      class="file-link"
+      aria-current={activeSlug === slug ? 'page' : undefined}
+    >
+      <span class="file-title">{item.title ?? item.filename}</span>
+      {#if item.title}
+        <span class="file-name">{item.filename}</span>
+      {/if}
+    </a>
+  </li>
+{/each}
 ```
 
 - [ ] **Step 2: Update styles**
@@ -885,24 +909,24 @@ Then replace the `<li>` items (lines 24-29) with `<a>` elements. Replace the `{#
 Replace the `.file-item` styles with `.file-link` styles. Remove the `.file-item` block and add:
 
 ```scss
-  .file-link {
-    display: grid;
-    gap: 0.25rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
-    text-decoration: none;
-    color: inherit;
-    // Override global link box-shadow underline — list items use background highlight instead
-    box-shadow: none;
+.file-link {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: inherit;
+  // Override global link box-shadow underline — list items use background highlight instead
+  box-shadow: none;
 
-    &:hover {
-      background: var(--dark-grey);
-    }
-
-    &[aria-current='page'] {
-      background: var(--plum);
-    }
+  &:hover {
+    background: var(--dark-grey);
   }
+
+  &[aria-current='page'] {
+    background: var(--plum);
+  }
+}
 ```
 
 - [ ] **Step 3: Run lint and format**
@@ -922,6 +946,7 @@ git commit -m "Convert content list items to navigable links"
 ### Task 9: Wire Up Admin.svelte
 
 **Files:**
+
 - Modify: `src/components/admin/Admin.svelte`
 
 This connects all the pieces: editor components render in the `1fr` column when a file route is active, and the grid adjusts.
@@ -969,7 +994,10 @@ Replace the entire `<script>` block:
    * State module owns the worker, this effect just triggers it.
    */
   $effect(() => {
-    if (ready && (currentRoute.view === 'collection' || currentRoute.view === 'file')) {
+    if (
+      ready &&
+      (currentRoute.view === 'collection' || currentRoute.view === 'file')
+    ) {
       loadCollection(currentRoute.collection);
     }
   });
@@ -1072,6 +1100,7 @@ git commit -m "Wire editor components into admin shell"
 ### Task 10: Fix Static Paths and Manual Verification
 
 **Files:**
+
 - Modify: `src/pages/admin/[...path].astro`
 
 The admin route's `getStaticPaths` only generates `/admin` and `/admin/{collection}`. File routes (`/admin/{collection}/{slug}`) will 404 in a static build because no page is generated for them. Since the admin is a client-only SPA (same HTML shell for all routes), add a wildcard catch-all path that covers any depth of URL segments.
@@ -1090,7 +1119,9 @@ export function getStaticPaths() {
       // Read content directory for this collection to generate file-level paths
       const contentDir = `src/content/${name}`;
       try {
-        const files = import.meta.glob('/src/content/**/*.{md,mdx}', { eager: false });
+        const files = import.meta.glob('/src/content/**/*.{md,mdx}', {
+          eager: false,
+        });
         const prefix = `/src/content/${name}/`;
         return Object.keys(files)
           .filter((path) => path.startsWith(prefix))

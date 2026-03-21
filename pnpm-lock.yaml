@@ -23,12 +23,24 @@ importers:
       '@astrojs/svelte':
         specifier: ^8.0.0
         version: 8.0.0(@types/node@25.0.3)(astro@6.0.4(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(sass@1.97.0)(svelte@5.46.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2)
+      '@codemirror/commands':
+        specifier: ^6.10.3
+        version: 6.10.3
       '@codemirror/lang-markdown':
         specifier: ^6.5.0
         version: 6.5.0
+      '@codemirror/language':
+        specifier: ^6.12.2
+        version: 6.12.2
       '@codemirror/language-data':
         specifier: ^6.5.2
         version: 6.5.2
+      '@codemirror/state':
+        specifier: ^6.6.0
+        version: 6.6.0
+      '@codemirror/view':
+        specifier: ^6.40.0
+        version: 6.40.0
       '@lezer/highlight':
         specifier: ^1.2.3
         version: 1.2.3

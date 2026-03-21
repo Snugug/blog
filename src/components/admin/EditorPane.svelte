@@ -1,5 +1,5 @@
-<script>
-  import { EditorView, keymap, lineWrapping } from '@codemirror/view';
+<script lang="ts">
+  import { EditorView, keymap } from '@codemirror/view';
   import { EditorState, Compartment } from '@codemirror/state';
   import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
   import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
@@ -134,7 +134,7 @@
         codeLanguages: languages,
       }),
       syntaxHighlighting(markdownHighlight),
-      lineWrapping,
+      EditorView.lineWrapping,
       EditorView.updateListener.of((update) => {
         if (update.docChanged) {
           updateBody(update.state.doc.toString());
