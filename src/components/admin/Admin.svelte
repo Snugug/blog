@@ -201,7 +201,9 @@
 
 <style lang="scss">
   .admin {
-    min-height: 80vh;
+    // Lock to viewport height so the page never scrolls —
+    // all scrolling happens inside editor-content or sidebars
+    height: 100dvh;
   }
 
   .admin--connected {
@@ -224,7 +226,11 @@
     border-left: 1px solid var(--dark-grey);
   }
 
+  // Scrollable content area below the pinned toolbar and tabs.
+  // min-height: 0 overrides the grid default (min-content) so the
+  // 1fr row can actually shrink to the available space.
   .editor-content {
     overflow-y: auto;
+    min-height: 0;
   }
 </style>

@@ -204,8 +204,8 @@
     padding: 1.5rem;
     max-width: 80ch;
     margin: 0 auto;
-    // Fill available vertical space from the parent grid row (1fr)
-    // then subtract our own top+bottom padding so the box fits exactly
+    // Fill the scrollable content area, then subtract own padding
+    // so the bordered box fits exactly with padding visible around it
     height: calc(100% - 3rem);
   }
 
