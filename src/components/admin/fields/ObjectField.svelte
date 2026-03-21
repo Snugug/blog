@@ -1,14 +1,95 @@
 <script lang="ts">
-  /** Placeholder — implemented in Task 7 */
-  let {
-    name,
-  }: {
+  import type { SchemaNode } from '$js/admin/schema-utils';
+  import SchemaField from './SchemaField.svelte';
+
+  interface Props {
+    /** Property name for labeling */
     name: string;
-    schema: any;
+    /** JSON Schema node describing this object */
+    schema: SchemaNode;
+    /** Current object value */
     value: unknown;
+    /** Whether this field is required */
     required?: boolean;
-    onchange: (v: unknown) => void;
-  } = $props();
+    /** Callback fired when the value changes */
+    onchange: (value: unknown) => void;
+  }
+
+  let { name, schema, value, required = false, onchange }: Props = $props();
+
+  /** Converts name to Title Case for label fallback */
+  function toTitleCase(str: string): string {
+    return str
+      .replace(/([a-z])([A-Z])/g, '$1 $2')
+      .replace(/[-_]/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  }
+
+  /** Display label from schema title or property name */
+  const label = $derived(
+    (schema['title'] as string | undefined) ?? toTitleCase(name),
+  );
+
+  /** Properties map from the schema */
+  const properties = $derived(
+    (schema['properties'] as Record<string, SchemaNode>) ?? {},
+  );
+
+  /** Required field names within this object */
+  const requiredFields = $derived(
+    Array.isArray(schema['required']) ? (schema['required'] as string[]) : [],
+  );
+
+  /** Current object value, defaulting to empty object */
+  const objValue = $derived(
+    (typeof value === 'object' && value !== null ? value : {}) as Record<
+      string,
+      unknown
+    >,
+  );
+
+  /**
+   * Updates a property within this object and dispatches the full updated object.
+   * @param key - The property name
+   * @param newValue - The new property value
+   */
+  function handleFieldChange(key: string, newValue: unknown) {
+    onchange({ ...objValue, [key]: newValue });
+  }
 </script>
 
-<div>ObjectField: {name} (placeholder)</div>
+<fieldset class="object-field">
+  <legend class="object-field__legend">
+    {label}
+    {#if required}<span class="object-field__required">*</span>{/if}
+  </legend>
+  {#each Object.entries(properties) as [key, propSchema]}
+    <SchemaField
+      name={key}
+      schema={propSchema}
+      value={objValue[key]}
+      required={requiredFields.includes(key)}
+      onchange={(v) => handleFieldChange(key, v)}
+    />
+  {/each}
+</fieldset>
+
+<style lang="scss">
+  .object-field {
+    border: 1px solid var(--dark-grey);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .object-field__legend {
+    font-size: 0.875rem;
+    color: var(--white);
+    padding: 0 0.5rem;
+  }
+
+  .object-field__required {
+    color: var(--light-plum);
+    margin-left: 0.25rem;
+  }
+</style>
