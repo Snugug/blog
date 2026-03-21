@@ -130,21 +130,21 @@
         type="button"
         aria-label="Move item up"
         disabled={isFirst}
-        onclick={() => onmoveup(index)}><span class="material-symbols-outlined">arrow_upward_alt</span></button
+        onclick={() => onmoveup(index)}><span class="material-symbols-outlined">arrow_upward</span></button
       >
       <button
         class="array-item__btn"
         type="button"
         aria-label="Move item down"
         disabled={isLast}
-        onclick={() => onmovedown(index)}><span class="material-symbols-outlined">arrow_downward_alt</span></button
+        onclick={() => onmovedown(index)}><span class="material-symbols-outlined">arrow_downward</span></button
       >
       <button
         class="array-item__btn array-item__btn--remove"
         type="button"
         aria-label="Remove item"
         disabled={!canRemove}
-        onclick={() => onremove(index)}><span class="material-symbols-outlined">close_small</span></button
+        onclick={() => onremove(index)}><span class="material-symbols-outlined">close</span></button
       >
     </div>
 
@@ -196,21 +196,21 @@
         type="button"
         aria-label="Move item up"
         disabled={isFirst}
-        onclick={() => onmoveup(index)}><span class="material-symbols-outlined">arrow_upward_alt</span></button
+        onclick={() => onmoveup(index)}><span class="material-symbols-outlined">arrow_upward</span></button
       >
       <button
         class="array-item__btn"
         type="button"
         aria-label="Move item down"
         disabled={isLast}
-        onclick={() => onmovedown(index)}><span class="material-symbols-outlined">arrow_downward_alt</span></button
+        onclick={() => onmovedown(index)}><span class="material-symbols-outlined">arrow_downward</span></button
       >
       <button
         class="array-item__btn array-item__btn--remove"
         type="button"
         aria-label="Remove item"
         disabled={!canRemove}
-        onclick={() => onremove(index)}><span class="material-symbols-outlined">close_small</span></button
+        onclick={() => onremove(index)}><span class="material-symbols-outlined">close</span></button
       >
     </div>
   </div>
@@ -273,6 +273,11 @@
     // Ensure vertical centering in flex row
     display: grid;
     place-items: center;
+  }
+
+  // Smaller icons for action buttons (arrows + close)
+  .array-item__btn .material-symbols-outlined {
+    font-size: 1rem;
   }
 
   // Legend rendered inline in the controls flex row, with space after
