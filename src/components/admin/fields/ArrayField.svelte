@@ -259,32 +259,15 @@
   </button>
 {/snippet}
 
-<!--
-  Primitive arrays use <fieldset> with <legend> for semantic grouping.
-  Object arrays use <div> with <p> label because each ArrayItem is
-  its own <fieldset>.
--->
-{#if isObjectItems}
-  <div class="array-field">
-    <p class="array-field__label">
-      {label}{#if required}<span
-          class="array-field__required"
-          aria-hidden="true">*</span
-        >{/if}
-    </p>
-    {@render arrayContent()}
-  </div>
-{:else}
-  <fieldset class="array-field">
-    <legend class="array-field__label">
-      {label}{#if required}<span
-          class="array-field__required"
-          aria-hidden="true">*</span
-        >{/if}
-    </legend>
-    {@render arrayContent()}
-  </fieldset>
-{/if}
+<fieldset class="array-field">
+  <legend class="array-field__label">
+    {label}{#if required}<span
+        class="array-field__required"
+        aria-hidden="true">*</span
+      >{/if}
+  </legend>
+  {@render arrayContent()}
+</fieldset>
 
 <style lang="scss">
   .array-field {
@@ -300,7 +283,8 @@
   .array-field__label {
     font-size: 0.875rem;
     color: var(--white);
-    margin: 0;
+    padding: 0;
+    margin-bottom: 0.25rem;
   }
 
   .array-field__required {
