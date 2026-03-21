@@ -12,7 +12,7 @@
     isLoading,
     getError,
   } from '$js/admin/state.svelte';
-  import { loadFile, clearEditor } from '$js/admin/editor.svelte';
+  import { loadFile, clearEditor, saveFile } from '$js/admin/editor.svelte';
   import { fetchSchema, getSchema, clearSchema } from '$js/admin/schema.svelte';
   import DirectoryPicker from './DirectoryPicker.svelte';
   import AdminSidebar from './AdminSidebar.svelte';
@@ -177,7 +177,13 @@
     {/if}
     {#if fileOpen}
       {@const currentSchema = getSchema()}
-      <div class="editor-area">
+      <form
+        class="editor-area"
+        onsubmit={(e) => {
+          e.preventDefault();
+          saveFile();
+        }}
+      >
         <EditorToolbar />
         <EditorTabs
           schema={currentSchema}
@@ -194,7 +200,7 @@
             />
           {/if}
         </div>
-      </div>
+      </form>
     {/if}
   {/if}
 </div>

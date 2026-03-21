@@ -119,6 +119,8 @@
   }
 
   .field-select {
+    // Restore native dropdown arrow stripped by CSS reset
+    appearance: auto;
     width: auto;
     background: var(--near-black, #2a2a2e);
     border: 1px solid var(--dark-grey);

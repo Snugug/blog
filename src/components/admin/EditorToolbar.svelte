@@ -1,23 +1,33 @@
 <script>
-  import { getEditorFile, saveFile } from '$js/admin/editor.svelte';
+  import { getEditorFile } from '$js/admin/editor.svelte';
 
   /** Current editor file state */
   const file = $derived(getEditorFile());
+
+  /** Display title from formData, falling back to filename */
+  const title = $derived(
+    file && typeof file.formData.title === 'string'
+      ? file.formData.title
+      : file?.filename ?? '',
+  );
 </script>
 
 {#if file}
   <header class="toolbar">
-    <span class="filename">
-      {file.filename}
-      <span
-        class="dirty-indicator"
-        class:dirty-indicator--visible={file.dirty}
-        title={file.dirty ? 'Unsaved changes' : ''}>&bull;</span
-      >
-    </span>
+    <div class="toolbar__info">
+      <span class="toolbar__title">
+        {title}
+        <span
+          class="dirty-indicator"
+          class:dirty-indicator--visible={file.dirty}
+          title={file.dirty ? 'Unsaved changes' : ''}>&bull;</span
+        >
+      </span>
+      <span class="toolbar__filename">{file.filename}</span>
+    </div>
     <button
       class="save-button"
-      onclick={saveFile}
+      type="submit"
       disabled={!file.dirty || file.saving}
     >
       {file.saving ? 'Saving...' : 'Save'}
@@ -34,9 +44,19 @@
     border-bottom: 1px solid var(--dark-grey);
   }
 
-  .filename {
-    font-size: 0.875rem;
+  .toolbar__info {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .toolbar__title {
+    font-size: 1rem;
     color: var(--white);
+  }
+
+  .toolbar__filename {
+    font-size: 0.75rem;
+    color: var(--grey);
   }
 
   // Always rendered to reserve space and prevent layout shift when toggling
