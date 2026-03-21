@@ -76,29 +76,51 @@ Follows the existing pattern of `state.svelte.ts` and `router.svelte.ts` — rea
 **Exported functions:**
 
 - `getEditorFile()` — Returns current file state or `null` if no file selected
-- `loadFile(handle: FileSystemFileHandle)` — Reads file content, splits frontmatter from body using the existing frontmatter worker, populates state
+- `loadFile(handle: FileSystemFileHandle)` — Reads file content, splits frontmatter from body on the main thread (simple string split on `---` delimiters — not CPU-intensive enough to warrant a worker), populates state
 - `updateBody(content: string)` — Called by CM6's update listener. Sets body content, computes dirty state by comparing against `lastSavedBody`
 - `saveFile()` — Serializes full file: `---\n` + raw frontmatter YAML + `---\n\n` + body. Writes via `FileSystemWritableFileStream`. Updates `lastSavedBody`, clears dirty flag.
 
+### File Handle Lookup
+
+The current `ContentItem` type only stores `{ filename, title }` — no `FileSystemFileHandle`. When a file route is active, the editor state module obtains the file handle by:
+
+1. Traversing the directory handle to the collection's content directory: `root` → `src` → `content` → `{collection}`
+2. Looking up the content list to find the `ContentItem` whose filename (minus extension) matches the slug — this gives us the full filename including extension (`.md` or `.mdx`)
+3. Calling `collectionDirHandle.getFileHandle(filename)` with the full filename
+
+This avoids guessing file extensions and sidesteps the fact that `FileSystemFileHandle` cannot be sent via `postMessage` without explicit transfer. The frontmatter worker should also be updated to iterate both `.md` and `.mdx` files so that MDX files appear in the content list.
+
+### Router Update
+
+The `AdminRoute` union type gains a third variant:
+
+```typescript
+type AdminRoute =
+  | { view: 'home' }
+  | { view: 'collection'; collection: string }
+  | { view: 'file'; collection: string; slug: string };
+```
+
+`parsePathname` extracts `segments[1]` as the slug when present.
+
 ### Data Flow
 
-1. User clicks content item in sidebar → router navigates to `/admin/{collection}/{slug}`
-2. Route change triggers file handle lookup in state (slug matched against filenames without extension)
-3. `loadFile()` reads file via File System Access API, sends to frontmatter worker
-4. Worker splits frontmatter from body, returns both
-5. Editor state populated → CodeMirror renders body content
-6. User edits → CM6 `updateListener` calls `updateBody()` → dirty flag set
-7. User saves (`Cmd+S` or save button) → `saveFile()` reconstitutes full file (frontmatter + body), writes via writable stream
+1. User clicks content item in sidebar (content items are `<a>` elements linking to `/admin/{collection}/{slug}`) → router navigates
+2. Route change triggers `loadFile()` in editor state — slug matched against content list to get full filename, then file handle obtained by traversing `root → src → content → {collection}` and calling `getFileHandle(filename)`
+3. `loadFile()` reads file content, splits frontmatter from body on the main thread (string split on `---` delimiters)
+4. Editor state populated → CodeMirror renders body content
+5. User edits → CM6 `updateListener` calls `updateBody()` → dirty flag set
+6. User saves (`Cmd+S` or save button) → `saveFile()` reconstitutes full file (frontmatter + body), writes via writable stream
 
 ### File System Access API
 
-Currently opens in `'read'` mode. The editor needs `'readwrite'` mode — a single parameter change when requesting permission in `state.svelte.ts`.
+Currently opens in `'read'` mode. The editor needs `'readwrite'` mode. This requires updating `showDirectoryPicker`, `queryPermission`, and `requestPermission` calls in `state.svelte.ts`.
 
 ### Dirty State & Save
 
 - **Dirty tracking** — Compare current body against `lastSavedBody` snapshot
 - **Save** — Reconstitutes full file: `---\n` + raw frontmatter YAML + `---\n\n` + body. Writes via `handle.createWritable()` → `write()` → `close()`.
-- **`beforeunload`** — Warn if navigating away with unsaved changes
+- **Navigation guard** — The Navigation API's `navigate` event handler in `router.svelte.ts` checks dirty state before in-app navigation. `beforeunload` handles browser-level navigation (tab close, URL bar navigation).
 - **Keyboard shortcut** — `Cmd+S` / `Ctrl+S` intercepted by a CM6 keymap extension
 
 ## File Organization
@@ -115,9 +137,11 @@ Currently opens in `'read'` mode. The editor needs `'readwrite'` mode — a sing
 
 | File | Change |
 |------|--------|
-| `src/js/admin/state.svelte.ts` | Expose file handle lookup by slug, upgrade permission to `'readwrite'` |
-| `src/js/admin/router.svelte.ts` | Route state gains `slug` field: `{ view: 'file'; collection: string; slug: string }` |
+| `src/js/admin/state.svelte.ts` | Expose file handle lookup by slug (match against content list, traverse directory), upgrade permission to `'readwrite'` |
+| `src/js/admin/router.svelte.ts` | Route state gains `slug` field: `{ view: 'file'; collection: string; slug: string }`. Navigation guard checks dirty state before in-app navigation. |
+| `src/js/admin/frontmatter-worker.ts` | Iterate both `.md` and `.mdx` files (currently only `.md`) |
 | `src/components/admin/Admin.svelte` | Render EditorToolbar + EditorPane in `1fr` column when file route is active |
+| Sidebar component (AdminSidebar or ContentList) | Content items render as `<a>` elements linking to `/admin/{collection}/{slug}` |
 
 ## Out of Scope
 
