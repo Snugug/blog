@@ -113,7 +113,8 @@
       <span
         class="array-item__drag-handle"
         aria-hidden="true"
-        title="Drag to reorder"><span class="material-symbols-outlined">drag_indicator</span></span
+        title="Drag to reorder"
+        ><span class="material-symbols-outlined">drag_indicator</span></span
       >
       <button
         class="array-item__btn"
@@ -121,7 +122,11 @@
         aria-label={collapsed ? 'Expand item' : 'Collapse item'}
         onclick={() => ontogglecollapse(index)}
       >
-        <span class="material-symbols-outlined array-item__collapse-icon" class:array-item__collapse-icon--collapsed={collapsed}>chevron_right</span>
+        <span
+          class="material-symbols-outlined array-item__collapse-icon"
+          class:array-item__collapse-icon--collapsed={collapsed}
+          >chevron_right</span
+        >
       </button>
       <legend class="array-item__legend">{headerLabel}</legend>
       <span class="array-item__spacer"></span>
@@ -130,21 +135,24 @@
         type="button"
         aria-label="Move item up"
         disabled={isFirst}
-        onclick={() => onmoveup(index)}><span class="material-symbols-outlined">arrow_upward</span></button
+        onclick={() => onmoveup(index)}
+        ><span class="material-symbols-outlined">arrow_upward</span></button
       >
       <button
         class="array-item__btn"
         type="button"
         aria-label="Move item down"
         disabled={isLast}
-        onclick={() => onmovedown(index)}><span class="material-symbols-outlined">arrow_downward</span></button
+        onclick={() => onmovedown(index)}
+        ><span class="material-symbols-outlined">arrow_downward</span></button
       >
       <button
         class="array-item__btn array-item__btn--remove"
         type="button"
         aria-label="Remove item"
         disabled={!canRemove}
-        onclick={() => onremove(index)}><span class="material-symbols-outlined">close</span></button
+        onclick={() => onremove(index)}
+        ><span class="material-symbols-outlined">close</span></button
       >
     </div>
 
@@ -179,7 +187,8 @@
       <span
         class="array-item__drag-handle"
         aria-hidden="true"
-        title="Drag to reorder"><span class="material-symbols-outlined">drag_indicator</span></span
+        title="Drag to reorder"
+        ><span class="material-symbols-outlined">drag_indicator</span></span
       >
       <!-- Inline input with aria-label only, no visible label -->
       <div class="array-item__inline-field">
@@ -196,21 +205,24 @@
         type="button"
         aria-label="Move item up"
         disabled={isFirst}
-        onclick={() => onmoveup(index)}><span class="material-symbols-outlined">arrow_upward</span></button
+        onclick={() => onmoveup(index)}
+        ><span class="material-symbols-outlined">arrow_upward</span></button
       >
       <button
         class="array-item__btn"
         type="button"
         aria-label="Move item down"
         disabled={isLast}
-        onclick={() => onmovedown(index)}><span class="material-symbols-outlined">arrow_downward</span></button
+        onclick={() => onmovedown(index)}
+        ><span class="material-symbols-outlined">arrow_downward</span></button
       >
       <button
         class="array-item__btn array-item__btn--remove"
         type="button"
         aria-label="Remove item"
         disabled={!canRemove}
-        onclick={() => onremove(index)}><span class="material-symbols-outlined">close</span></button
+        onclick={() => onremove(index)}
+        ><span class="material-symbols-outlined">close</span></button
       >
     </div>
   </div>

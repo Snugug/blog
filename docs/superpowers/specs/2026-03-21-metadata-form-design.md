@@ -91,16 +91,16 @@ Admin.svelte
 
 ## Schema-to-Input Mapping
 
-| Schema Pattern | Component | HTML Element |
-|---|---|---|
-| `type: "string"` | `StringField` | `<input type="text">` |
-| `type: "string", enum: [...]` | `EnumField` | `<select>` |
-| `type: "string", format: "date-time"` | `DateField` | `<input type="date">` |
-| `type: "boolean"` | `BooleanField` | `<input type="checkbox">` |
-| `type: "number"` / `type: "integer"` | `NumberField` | `<input type="number">` |
-| `type: "array"` | `ArrayField` | List with add/remove/reorder |
-| `type: "object"` | `ObjectField` | Fieldset grouping, recurse |
-| `anyOf: [{type: T}, {type: "null"}]` | Dispatch for type T | Nullable — unwrap the non-null type from `anyOf` and dispatch to whatever field that type normally produces. Empty input saves as `null`. |
+| Schema Pattern                        | Component           | HTML Element                                                                                                                              |
+| ------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `type: "string"`                      | `StringField`       | `<input type="text">`                                                                                                                     |
+| `type: "string", enum: [...]`         | `EnumField`         | `<select>`                                                                                                                                |
+| `type: "string", format: "date-time"` | `DateField`         | `<input type="date">`                                                                                                                     |
+| `type: "boolean"`                     | `BooleanField`      | `<input type="checkbox">`                                                                                                                 |
+| `type: "number"` / `type: "integer"`  | `NumberField`       | `<input type="number">`                                                                                                                   |
+| `type: "array"`                       | `ArrayField`        | List with add/remove/reorder                                                                                                              |
+| `type: "object"`                      | `ObjectField`       | Fieldset grouping, recurse                                                                                                                |
+| `anyOf: [{type: T}, {type: "null"}]`  | Dispatch for type T | Nullable — unwrap the non-null type from `anyOf` and dispatch to whatever field that type normally produces. Empty input saves as `null`. |
 
 ### Note on `$schema` Property
 

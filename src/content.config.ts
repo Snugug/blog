@@ -79,25 +79,29 @@ const recipes = defineCollection({
     categories: z.array(z.string()).optional(),
     instructions: z
       .array(
-        z.object({
-          time: z
-            .object({
-              active: z.string().optional(),
-              inactive: z.string().optional(),
-              rest: z.string().optional(),
-            })
-            .optional(),
-          equipment: z.array(z.string()).optional(),
-          ingredients: z
-            .array(
-              z.object({
-                name: z.string(),
-                amount: z.string(),
-              }),
-            )
-            .optional(),
-          procedure: z.array(z.string()).optional(),
-        }),
+        z
+          .object({
+            time: z
+              .object({
+                active: z.string().optional(),
+                inactive: z.string().optional(),
+                rest: z.string().optional(),
+              })
+              .optional(),
+            equipment: z.array(z.string()).optional(),
+            ingredients: z
+              .array(
+                z.object({
+                  name: z.string(),
+                  amount: z.string(),
+                }),
+              )
+              .optional(),
+            procedure: z.array(z.string()).optional(),
+          })
+          .meta({
+            title: 'Step',
+          }),
       )
       .optional(),
   }),

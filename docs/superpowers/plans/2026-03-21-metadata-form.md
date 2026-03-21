@@ -16,30 +16,30 @@
 
 ### New Files
 
-| File | Responsibility |
-|------|---------------|
-| `src/js/admin/schema-utils.ts` | Pure functions: resolve schema types, extract tabs, create defaults, path-based object access |
-| `src/js/admin/schema.svelte.ts` | Reactive state: fetch/cache JSON Schemas per collection |
-| `src/components/admin/EditorTabs.svelte` | Tab bar: Metadata, Body, custom tabs from schema |
-| `src/components/admin/MetadataForm.svelte` | Walks schema properties, renders SchemaField per property |
-| `src/components/admin/fields/SchemaField.svelte` | Recursive dispatcher: reads schema node, renders correct field |
-| `src/components/admin/fields/StringField.svelte` | `<input type="text">` with label, description, constraints |
-| `src/components/admin/fields/NumberField.svelte` | `<input type="number">` with min/max/step |
-| `src/components/admin/fields/BooleanField.svelte` | `<input type="checkbox">` with label |
-| `src/components/admin/fields/EnumField.svelte` | `<select>` with enum options |
-| `src/components/admin/fields/DateField.svelte` | `<input type="date">` |
-| `src/components/admin/fields/ArrayField.svelte` | Array container: manages items list, add button, empty state |
-| `src/components/admin/fields/ArrayItem.svelte` | Single array item: controls (drag, arrows, remove), collapse, renders SchemaField |
-| `src/components/admin/fields/ObjectField.svelte` | Fieldset grouping, recurses SchemaField per property |
-| `tests/js/admin/schema-utils.test.ts` | Tests for pure schema utility functions |
+| File                                              | Responsibility                                                                                |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `src/js/admin/schema-utils.ts`                    | Pure functions: resolve schema types, extract tabs, create defaults, path-based object access |
+| `src/js/admin/schema.svelte.ts`                   | Reactive state: fetch/cache JSON Schemas per collection                                       |
+| `src/components/admin/EditorTabs.svelte`          | Tab bar: Metadata, Body, custom tabs from schema                                              |
+| `src/components/admin/MetadataForm.svelte`        | Walks schema properties, renders SchemaField per property                                     |
+| `src/components/admin/fields/SchemaField.svelte`  | Recursive dispatcher: reads schema node, renders correct field                                |
+| `src/components/admin/fields/StringField.svelte`  | `<input type="text">` with label, description, constraints                                    |
+| `src/components/admin/fields/NumberField.svelte`  | `<input type="number">` with min/max/step                                                     |
+| `src/components/admin/fields/BooleanField.svelte` | `<input type="checkbox">` with label                                                          |
+| `src/components/admin/fields/EnumField.svelte`    | `<select>` with enum options                                                                  |
+| `src/components/admin/fields/DateField.svelte`    | `<input type="date">`                                                                         |
+| `src/components/admin/fields/ArrayField.svelte`   | Array container: manages items list, add button, empty state                                  |
+| `src/components/admin/fields/ArrayItem.svelte`    | Single array item: controls (drag, arrows, remove), collapse, renders SchemaField             |
+| `src/components/admin/fields/ObjectField.svelte`  | Fieldset grouping, recurses SchemaField per property                                          |
+| `tests/js/admin/schema-utils.test.ts`             | Tests for pure schema utility functions                                                       |
 
 ### Modified Files
 
-| File | Changes |
-|------|---------|
-| `src/js/admin/editor.svelte.ts` | Replace `rawFrontmatter` with `formData`, change `loadFile` signature, update `saveFile` to serialize via `js-yaml` `dump()`, update dirty tracking |
-| `src/components/admin/Admin.svelte` | Look up ContentItem by slug, pass `item.data` to `loadFile`, add EditorTabs, wire tabbed layout |
-| `src/components/admin/EditorPane.svelte` | Bounded box with full border, padding, max-height, toolbar slot, remove `height: 100%` |
+| File                                     | Changes                                                                                                                                             |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/js/admin/editor.svelte.ts`          | Replace `rawFrontmatter` with `formData`, change `loadFile` signature, update `saveFile` to serialize via `js-yaml` `dump()`, update dirty tracking |
+| `src/components/admin/Admin.svelte`      | Look up ContentItem by slug, pass `item.data` to `loadFile`, add EditorTabs, wire tabbed layout                                                     |
+| `src/components/admin/EditorPane.svelte` | Bounded box with full border, padding, max-height, toolbar slot, remove `height: 100%`                                                              |
 
 ---
 
@@ -61,6 +61,7 @@
 ### Task 1: Schema Utility Functions (Pure, Testable)
 
 **Files:**
+
 - Create: `src/js/admin/schema-utils.ts`
 - Create: `tests/js/admin/schema-utils.test.ts`
 
@@ -109,7 +110,10 @@ describe('resolveFieldType', () => {
   });
 
   it('returns array for type: "array"', () => {
-    const result = resolveFieldType({ type: 'array', items: { type: 'string' } });
+    const result = resolveFieldType({
+      type: 'array',
+      items: { type: 'string' },
+    });
     assert.strictEqual(result.kind, 'array');
   });
 
@@ -527,6 +531,7 @@ git commit -m "Add schema utility functions for form builder"
 ### Task 2: Schema State Module
 
 **Files:**
+
 - Create: `src/js/admin/schema.svelte.ts`
 
 This module fetches and caches JSON Schemas per collection using Svelte 5 reactive state.
@@ -600,6 +605,7 @@ git commit -m "Add schema state module for fetching/caching JSON Schemas"
 ### Task 3: Editor State Changes
 
 **Files:**
+
 - Modify: `src/js/admin/editor.svelte.ts`
 
 Replace `rawFrontmatter` with `formData`, update `loadFile` to accept pre-parsed data, update `saveFile` to serialize via `js-yaml`, update dirty tracking.
@@ -607,6 +613,7 @@ Replace `rawFrontmatter` with `formData`, update `loadFile` to accept pre-parsed
 - [ ] **Step 1: Update `editor.svelte.ts`**
 
 Key changes:
+
 1. Replace `rawFrontmatter` with `formData` and `lastSavedFormData` (as JSON string snapshot)
 2. Change `loadFile(fileHandle)` to `loadFile(fileHandle, data)`
 3. Update `saveFile()` to use `dump()` from `js-yaml`
@@ -787,6 +794,7 @@ git commit -m "Replace rawFrontmatter with formData state, update loadFile/saveF
 ### Task 4: Update Admin.svelte to Pass Pre-parsed Data
 
 **Files:**
+
 - Modify: `src/components/admin/Admin.svelte:99-112`
 
 Update the file-loading effect to look up the ContentItem by slug and pass `item.data` to `loadFile`.
@@ -858,6 +866,7 @@ git commit -m "Pass pre-parsed frontmatter data to loadFile"
 ### Task 5: Leaf Field Components
 
 **Files:**
+
 - Create: `src/components/admin/fields/StringField.svelte`
 - Create: `src/components/admin/fields/NumberField.svelte`
 - Create: `src/components/admin/fields/BooleanField.svelte`
@@ -874,7 +883,13 @@ All leaf components share a common pattern: label, input, description, required 
   import type { SchemaNode } from '$js/admin/schema-utils';
 
   /** Property name used as fallback label */
-  let { name, schema, value, required = false, onchange }: {
+  let {
+    name,
+    schema,
+    value,
+    required = false,
+    onchange,
+  }: {
     name: string;
     schema: SchemaNode;
     value: unknown;
@@ -993,7 +1008,13 @@ All leaf components share a common pattern: label, input, description, required 
 <script lang="ts">
   import type { SchemaNode } from '$js/admin/schema-utils';
 
-  let { name, schema, value, required = false, onchange }: {
+  let {
+    name,
+    schema,
+    value,
+    required = false,
+    onchange,
+  }: {
     name: string;
     schema: SchemaNode;
     value: unknown;
@@ -1054,9 +1075,9 @@ All leaf components share a common pattern: label, input, description, required 
     id={name}
     value={inputValue}
     oninput={handleInput}
-    min={min}
-    max={max}
-    step={step}
+    {min}
+    {max}
+    {step}
     readonly={!!schema.readOnly}
   />
 </div>
@@ -1103,7 +1124,12 @@ All leaf components share a common pattern: label, input, description, required 
 <script lang="ts">
   import type { SchemaNode } from '$js/admin/schema-utils';
 
-  let { name, schema, value, onchange }: {
+  let {
+    name,
+    schema,
+    value,
+    onchange,
+  }: {
     name: string;
     schema: SchemaNode;
     value: unknown;
@@ -1131,7 +1157,7 @@ All leaf components share a common pattern: label, input, description, required 
     <input
       type="checkbox"
       id={name}
-      checked={checked}
+      {checked}
       onchange={handleChange}
       disabled={!!schema.readOnly}
     />
@@ -1171,7 +1197,14 @@ All leaf components share a common pattern: label, input, description, required 
 <script lang="ts">
   import type { SchemaNode } from '$js/admin/schema-utils';
 
-  let { name, schema, value, required = false, options, onchange }: {
+  let {
+    name,
+    schema,
+    value,
+    required = false,
+    options,
+    onchange,
+  }: {
     name: string;
     schema: SchemaNode;
     value: unknown;
@@ -1270,7 +1303,13 @@ All leaf components share a common pattern: label, input, description, required 
 <script lang="ts">
   import type { SchemaNode } from '$js/admin/schema-utils';
 
-  let { name, schema, value, required = false, onchange }: {
+  let {
+    name,
+    schema,
+    value,
+    required = false,
+    onchange,
+  }: {
     name: string;
     schema: SchemaNode;
     value: unknown;
@@ -1388,6 +1427,7 @@ git commit -m "Add leaf field components: String, Number, Boolean, Enum, Date"
 ### Task 6: SchemaField Recursive Dispatcher
 
 **Files:**
+
 - Create: `src/components/admin/fields/SchemaField.svelte`
 
 This component reads a JSON Schema node and dispatches to the correct leaf component. For `array` and `object` types, it defers to `ArrayField` and `ObjectField` (created in subsequent tasks), so those branches render a placeholder until those components exist.
@@ -1407,7 +1447,13 @@ This component reads a JSON Schema node and dispatches to the correct leaf compo
   import ArrayField from './ArrayField.svelte';
   import ObjectField from './ObjectField.svelte';
 
-  let { name, schema, value, required = false, onchange }: {
+  let {
+    name,
+    schema,
+    value,
+    required = false,
+    onchange,
+  }: {
     name: string;
     schema: SchemaNode;
     value: unknown;
@@ -1441,15 +1487,45 @@ This component reads a JSON Schema node and dispatches to the correct leaf compo
 </script>
 
 {#if fieldType.kind === 'string'}
-  <StringField {name} schema={effectiveSchema} {value} {required} onchange={(v) => onchange(v)} />
+  <StringField
+    {name}
+    schema={effectiveSchema}
+    {value}
+    {required}
+    onchange={(v) => onchange(v)}
+  />
 {:else if fieldType.kind === 'number'}
-  <NumberField {name} schema={effectiveSchema} {value} {required} onchange={(v) => onchange(v)} />
+  <NumberField
+    {name}
+    schema={effectiveSchema}
+    {value}
+    {required}
+    onchange={(v) => onchange(v)}
+  />
 {:else if fieldType.kind === 'boolean'}
-  <BooleanField {name} schema={effectiveSchema} {value} onchange={(v) => onchange(v)} />
+  <BooleanField
+    {name}
+    schema={effectiveSchema}
+    {value}
+    onchange={(v) => onchange(v)}
+  />
 {:else if fieldType.kind === 'enum'}
-  <EnumField {name} schema={effectiveSchema} {value} {required} options={fieldType.options} onchange={(v) => onchange(v)} />
+  <EnumField
+    {name}
+    schema={effectiveSchema}
+    {value}
+    {required}
+    options={fieldType.options}
+    onchange={(v) => onchange(v)}
+  />
 {:else if fieldType.kind === 'date'}
-  <DateField {name} schema={effectiveSchema} {value} {required} onchange={(v) => onchange(v)} />
+  <DateField
+    {name}
+    schema={effectiveSchema}
+    {value}
+    {required}
+    onchange={(v) => onchange(v)}
+  />
 {:else if fieldType.kind === 'array'}
   <ArrayField {name} {schema} {value} {required} {onchange} />
 {:else if fieldType.kind === 'object'}
@@ -1474,6 +1550,7 @@ git commit -m "Add SchemaField recursive dispatcher component"
 ### Task 7: ObjectField Component
 
 **Files:**
+
 - Create: `src/components/admin/fields/ObjectField.svelte`
 
 Renders a fieldset-style grouping for nested objects (e.g., recipe instruction `time` with `active`/`inactive`/`rest`). Recurses into SchemaField for each property.
@@ -1486,7 +1563,13 @@ Renders a fieldset-style grouping for nested objects (e.g., recipe instruction `
   import type { SchemaNode } from '$js/admin/schema-utils';
   import SchemaField from './SchemaField.svelte';
 
-  let { name, schema, value, required = false, onchange }: {
+  let {
+    name,
+    schema,
+    value,
+    required = false,
+    onchange,
+  }: {
     name: string;
     schema: SchemaNode;
     value: unknown;
@@ -1508,9 +1591,10 @@ Renders a fieldset-style grouping for nested objects (e.g., recipe instruction `
 
   /** Current object value, defaulting to empty object */
   const objValue = $derived(
-    (typeof value === 'object' && value !== null
-      ? value
-      : {}) as Record<string, unknown>,
+    (typeof value === 'object' && value !== null ? value : {}) as Record<
+      string,
+      unknown
+    >,
   );
 
   /**
@@ -1578,6 +1662,7 @@ git commit -m "Add ObjectField component for nested object schemas"
 ### Task 8: ArrayField and ArrayItem Components
 
 **Files:**
+
 - Create: `src/components/admin/fields/ArrayField.svelte`
 - Create: `src/components/admin/fields/ArrayItem.svelte`
 
@@ -1657,11 +1742,11 @@ Split into two components to stay under 350 lines. ArrayField manages the list (
   class:array-item--dragging={dragging}
   class:array-item--drop-target={dropTarget}
   draggable="true"
-  ondragstart={ondragstart}
-  ondragover={ondragover}
-  ondragleave={ondragleave}
-  ondrop={ondrop}
-  ondragend={ondragend}
+  {ondragstart}
+  {ondragover}
+  {ondragleave}
+  {ondrop}
+  {ondragend}
   role="listitem"
 >
   <div class="array-item__controls">
@@ -1685,22 +1770,22 @@ Split into two components to stay under 350 lines. ArrayField manages the list (
         class="array-item__btn"
         onclick={onmoveup}
         disabled={isFirst}
-        aria-label="Move up"
-      >▲</button>
+        aria-label="Move up">▲</button
+      >
       <button
         type="button"
         class="array-item__btn"
         onclick={onmovedown}
         disabled={isLast}
-        aria-label="Move down"
-      >▼</button>
+        aria-label="Move down">▼</button
+      >
       <button
         type="button"
         class="array-item__btn array-item__btn--remove"
         onclick={onremove}
         disabled={!canRemove}
-        aria-label="Remove item"
-      >✕</button>
+        aria-label="Remove item">✕</button
+      >
     </div>
   </div>
 
@@ -1808,7 +1893,13 @@ Split into two components to stay under 350 lines. ArrayField manages the list (
   import { createDefaultValue, resolveFieldType } from '$js/admin/schema-utils';
   import ArrayItem from './ArrayItem.svelte';
 
-  let { name, schema, value, required = false, onchange }: {
+  let {
+    name,
+    schema,
+    value,
+    required = false,
+    onchange,
+  }: {
     name: string;
     schema: SchemaNode;
     value: unknown;
@@ -1824,7 +1915,9 @@ Split into two components to stay under 350 lines. ArrayField manages the list (
   const itemSchema = $derived((schema.items as SchemaNode) ?? {});
 
   /** Whether items are objects (collapsible cards) or primitives (inline) */
-  const isObjectItems = $derived(resolveFieldType(itemSchema).kind === 'object');
+  const isObjectItems = $derived(
+    resolveFieldType(itemSchema).kind === 'object',
+  );
 
   /** Current array value */
   const items = $derived(Array.isArray(value) ? (value as unknown[]) : []);
@@ -1931,7 +2024,10 @@ Split into two components to stay under 350 lines. ArrayField manages the list (
         ondragover={(e) => handleDragOver(e, index)}
         ondragleave={() => (dropTarget = null)}
         ondrop={() => handleDrop(index)}
-        ondragend={() => { dragIndex = null; dropTarget = null; }}
+        ondragend={() => {
+          dragIndex = null;
+          dropTarget = null;
+        }}
       />
     {/each}
   </div>
@@ -2019,6 +2115,7 @@ git commit -m "Add ArrayField and ArrayItem components with add/remove/reorder/d
 ### Task 9: MetadataForm Component
 
 **Files:**
+
 - Create: `src/components/admin/MetadataForm.svelte`
 
 Walks schema properties and renders a SchemaField for each. Accepts a `tab` filter to show only fields matching a custom tab.
@@ -2033,7 +2130,10 @@ Walks schema properties and renders a SchemaField for each. Accepts a `tab` filt
   import { getFormData, updateFormField } from '$js/admin/editor.svelte';
   import SchemaField from './fields/SchemaField.svelte';
 
-  let { schema, tab = null }: {
+  let {
+    schema,
+    tab = null,
+  }: {
     schema: SchemaNode;
     tab?: string | null;
   } = $props();
@@ -2097,6 +2197,7 @@ git commit -m "Add MetadataForm component for rendering schema-driven fields"
 ### Task 10: EditorTabs Component
 
 **Files:**
+
 - Create: `src/components/admin/EditorTabs.svelte`
 
 Tab bar with Metadata, Body, and custom tabs. Custom tab names derived from schema. Manages active tab state.
@@ -2109,7 +2210,11 @@ Tab bar with Metadata, Body, and custom tabs. Custom tab names derived from sche
   import type { SchemaNode } from '$js/admin/schema-utils';
   import { extractTabs } from '$js/admin/schema-utils';
 
-  let { schema, activeTab = 'metadata', onTabChange }: {
+  let {
+    schema,
+    activeTab = 'metadata',
+    onTabChange,
+  }: {
     schema: SchemaNode | null;
     activeTab?: string;
     onTabChange: (tab: string) => void;
@@ -2185,6 +2290,7 @@ git commit -m "Add EditorTabs component with custom tab support"
 ### Task 11: EditorPane Layout Changes
 
 **Files:**
+
 - Modify: `src/components/admin/EditorPane.svelte`
 
 Constrain CodeMirror to a bounded box with full border, padding, max-height, internal scroll, and a future toolbar slot.
@@ -2192,11 +2298,13 @@ Constrain CodeMirror to a bounded box with full border, padding, max-height, int
 - [ ] **Step 1: Update EditorPane.svelte template and styles**
 
 Change the template from:
+
 ```svelte
 <div class="editor-pane" bind:this={container}></div>
 ```
 
 To:
+
 ```svelte
 <div class="editor-wrapper">
   <div class="editor-box">
@@ -2292,6 +2400,7 @@ git commit -m "Constrain CodeMirror to bounded box with toolbar slot"
 ### Task 12: Wire Tabbed Layout into Admin.svelte
 
 **Files:**
+
 - Modify: `src/components/admin/Admin.svelte`
 
 Add imports for EditorTabs, MetadataForm, and schema state. Wire the tabbed layout so that Metadata/custom tabs show MetadataForm and Body tab shows EditorPane.
@@ -2299,6 +2408,7 @@ Add imports for EditorTabs, MetadataForm, and schema state. Wire the tabbed layo
 - [ ] **Step 1: Update Admin.svelte**
 
 Add new imports at the top of the script:
+
 ```ts
 import { fetchSchema, getSchema, clearSchema } from '$js/admin/schema.svelte';
 import EditorTabs from './EditorTabs.svelte';
@@ -2306,12 +2416,14 @@ import MetadataForm from './MetadataForm.svelte';
 ```
 
 Add active tab state:
+
 ```ts
 /** Active editor tab */
 let activeTab = $state('metadata');
 ```
 
 Add effect to fetch schema when collection changes (after the existing collection-loading effect):
+
 ```ts
 /**
  * Fetch the JSON Schema when collection changes.
@@ -2330,6 +2442,7 @@ $effect(() => {
 ```
 
 Reset active tab when file changes:
+
 ```ts
 /** Reset to Metadata tab when a new file is opened */
 $effect(() => {
@@ -2340,6 +2453,7 @@ $effect(() => {
 ```
 
 Update the editor area template from:
+
 ```svelte
 {#if fileOpen}
   <div class="editor-area">
@@ -2350,6 +2464,7 @@ Update the editor area template from:
 ```
 
 To:
+
 ```svelte
 {#if fileOpen}
   {@const currentSchema = getSchema()}
@@ -2375,6 +2490,7 @@ To:
 ```
 
 Update the `.editor-area` grid in styles:
+
 ```scss
 .editor-area {
   display: grid;
@@ -2385,6 +2501,7 @@ Update the `.editor-area` grid in styles:
 ```
 
 Add `.editor-content` style:
+
 ```scss
 .editor-content {
   overflow-y: auto;
@@ -2435,6 +2552,7 @@ Run: `pnpm fix`
 - [ ] **Step 4: Manual verification in browser**
 
 Test the following scenarios:
+
 1. **Posts collection** — All fields render: title (text), published (date), updated (date), summary (text with maxLength help text), categories (array of strings with add/remove/reorder), archived (checkbox)
 2. **Categories collection** — Simple form: title (text), description (nullable string)
 3. **Recipes collection** — Complex nested form: instructions (array of objects, each with time object, equipment array, ingredients array of objects, procedure array)

@@ -8,7 +8,7 @@
   const title = $derived(
     file && typeof file.formData.title === 'string'
       ? file.formData.title
-      : file?.filename ?? '',
+      : (file?.filename ?? ''),
   );
 </script>
 

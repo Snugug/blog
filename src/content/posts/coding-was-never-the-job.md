@@ -1,6 +1,6 @@
 ---
 title: Coding Was Never The Job
-published: 2026-03-16
+published: '2026-03-16T00:00:00.000Z'
 draft: true
 summary: Converging on an idea around what software engineering means in the world of AI coding tools.
 ---

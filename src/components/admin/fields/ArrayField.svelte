@@ -261,9 +261,8 @@
 
 <fieldset class="array-field">
   <legend class="array-field__label">
-    {label}{#if required}<span
-        class="array-field__required"
-        aria-hidden="true">*</span
+    {label}{#if required}<span class="array-field__required" aria-hidden="true"
+        >*</span
       >{/if}
   </legend>
   {@render arrayContent()}
