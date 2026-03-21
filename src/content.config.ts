@@ -42,16 +42,23 @@ const posts = defineCollection({
     }),
     published: z.coerce.date().meta({
       title: 'Published',
-      format: 'YYYY-MM-DD',
+      tab: ['dates', 'social'],
     }),
-    updated: z.coerce.date().optional().meta({
-      title: 'Updated',
-      format: 'YYYY-MM-DD',
-    }),
-    summary: z.string().max(350).meta({
-      title: 'Summary',
-      description: 'Used in blog cards and for social media previews',
-    }),
+    updated: z.coerce
+      .date()
+      .optional()
+      .meta({
+        title: 'Updated',
+        tab: ['dates'],
+      }),
+    summary: z
+      .string()
+      .max(350)
+      .meta({
+        title: 'Summary',
+        description: 'Used in blog cards and for social media previews',
+        tab: ['social'],
+      }),
     categories: z.array(z.string()).optional(),
     archived: z.boolean().optional(),
   }),
