@@ -131,7 +131,7 @@ export async function restoreHandle(): Promise<void> {
     permissionState = perm;
 
     if (perm === 'granted') {
-      navigateToFirstCollection();
+      navigateToFirstCollectionIfHome();
     }
   } catch {
     permissionState = 'denied';
@@ -149,7 +149,7 @@ export async function requestPermission(): Promise<void> {
     const perm = await directoryHandle.requestPermission({ mode: 'read' });
     permissionState = perm;
     if (perm === 'granted') {
-      navigateToFirstCollection();
+      navigateToFirstCollectionIfHome();
     }
   } catch {
     permissionState = 'denied';
@@ -167,7 +167,7 @@ export async function pickDirectory(): Promise<void> {
     directoryHandle = handle;
     permissionState = 'granted';
     await saveHandle(handle);
-    navigateToFirstCollection();
+    navigateToFirstCollectionIfHome();
   } catch (err) {
     // AbortError = user cancelled, silently ignore
     if (err instanceof DOMException && err.name === 'AbortError') return;
@@ -192,10 +192,13 @@ export async function disconnect(): Promise<void> {
 }
 
 /**
- * Navigates to the first collection alphabetically.
+ * Navigates to the first collection alphabetically, but only if the user
+ * is on /admin (home view). If already on a specific collection route
+ * (e.g., /admin/posts), stays there instead of overriding.
  */
-function navigateToFirstCollection(): void {
-  if (collectionNames.length > 0) {
+function navigateToFirstCollectionIfHome(): void {
+  const current = getRoute();
+  if (current.view === 'home' && collectionNames.length > 0) {
     navigate(`/admin/${collectionNames[0]}`);
   }
 }
