@@ -11,6 +11,7 @@
 **Spec:** `docs/superpowers/specs/2026-03-21-admin-sidebar-unification-design.md`
 
 **IMPORTANT RULES (from CLAUDE.md):**
+
 - Use `pnpm` only. Never `npm`, `npx`, or `pnpx`.
 - Run `pnpm lint` and `pnpm format` before every commit. Fix all warnings/errors.
 - ONE bash command per tool call. No `&&`, `;`, `||`, pipes, or redirects.
@@ -28,23 +29,24 @@
 
 ## File Structure
 
-| File | Action | Responsibility |
-|------|--------|---------------|
-| `src/js/admin/sort.ts` | Create | Sort types, constants, and localStorage persistence helpers |
-| `src/components/admin/AdminSidebar.svelte` | Create | Unified sidebar: header (title + search + sort), scrollable item list |
-| `src/js/admin/frontmatter-worker.ts` | Modify | Return full frontmatter as `data` instead of just `title` |
-| `src/js/admin/state.svelte.ts` | Modify | Update `ContentItem` type to `{ filename, data }` |
-| `src/components/admin/Admin.svelte` | Modify | Use `AdminSidebar` twice, map data to `SidebarItem[]`, dynamic grid |
-| `src/layouts/Donut.astro` | Modify | Add named `head` slot for per-page head content |
-| `src/pages/admin/[...path].astro` | Modify | Add Material Symbols font link via head slot |
-| `src/components/admin/CollectionSidebar.svelte` | Delete | Replaced by `AdminSidebar` |
-| `src/components/admin/ContentList.svelte` | Delete | Replaced by `AdminSidebar` |
+| File                                            | Action | Responsibility                                                        |
+| ----------------------------------------------- | ------ | --------------------------------------------------------------------- |
+| `src/js/admin/sort.ts`                          | Create | Sort types, constants, and localStorage persistence helpers           |
+| `src/components/admin/AdminSidebar.svelte`      | Create | Unified sidebar: header (title + search + sort), scrollable item list |
+| `src/js/admin/frontmatter-worker.ts`            | Modify | Return full frontmatter as `data` instead of just `title`             |
+| `src/js/admin/state.svelte.ts`                  | Modify | Update `ContentItem` type to `{ filename, data }`                     |
+| `src/components/admin/Admin.svelte`             | Modify | Use `AdminSidebar` twice, map data to `SidebarItem[]`, dynamic grid   |
+| `src/layouts/Donut.astro`                       | Modify | Add named `head` slot for per-page head content                       |
+| `src/pages/admin/[...path].astro`               | Modify | Add Material Symbols font link via head slot                          |
+| `src/components/admin/CollectionSidebar.svelte` | Delete | Replaced by `AdminSidebar`                                            |
+| `src/components/admin/ContentList.svelte`       | Delete | Replaced by `AdminSidebar`                                            |
 
 ---
 
 ### Task 1: Add Material Symbols font to admin page
 
 **Files:**
+
 - Modify: `src/layouts/Donut.astro`
 - Modify: `src/pages/admin/[...path].astro`
 
@@ -53,8 +55,7 @@
 `Donut.astro` has a `<head>` section but no mechanism for pages to inject content into it. Add a named slot `<slot name="head" />` just before the closing `</head>` tag in `src/layouts/Donut.astro`:
 
 ```astro
-    <slot name="head" />
-  </head>
+<slot name="head" />
 ```
 
 This allows any page using the layout to inject page-specific `<link>`, `<meta>`, or `<style>` elements.
@@ -82,6 +83,7 @@ Expected: Build succeeds with no errors.
 - [ ] **Step 4: Lint and commit**
 
 Run `pnpm lint` then `pnpm format`, fix any issues, then commit:
+
 ```
 feat(admin): add Material Symbols Outlined font for sort icons
 ```
@@ -91,6 +93,7 @@ feat(admin): add Material Symbols Outlined font for sort icons
 ### Task 2: Update frontmatter worker to return full data
 
 **Files:**
+
 - Modify: `src/js/admin/frontmatter-worker.ts`
 
 - [ ] **Step 1: Read the current worker file**
@@ -132,6 +135,7 @@ Expected: Build succeeds.
 - [ ] **Step 4: Lint and commit**
 
 Run `pnpm lint` then `pnpm format`, fix any issues, then commit:
+
 ```
 feat(admin): return full frontmatter data from worker
 ```
@@ -141,6 +145,7 @@ feat(admin): return full frontmatter data from worker
 ### Task 3: Update state module ContentItem type
 
 **Files:**
+
 - Modify: `src/js/admin/state.svelte.ts`
 
 - [ ] **Step 1: Read the current state file**
@@ -150,6 +155,7 @@ Read `src/js/admin/state.svelte.ts` to understand the current structure.
 - [ ] **Step 2: Update the ContentItem type**
 
 Change the `ContentItem` type from:
+
 ```ts
 export type ContentItem = {
   filename: string;
@@ -158,6 +164,7 @@ export type ContentItem = {
 ```
 
 To:
+
 ```ts
 /** Content item with full frontmatter data returned by the worker */
 export type ContentItem = {
@@ -184,6 +191,7 @@ Expected: Build succeeds. There may be type errors in components that reference 
 - [ ] **Step 5: Lint and commit**
 
 Run `pnpm lint` then `pnpm format`, fix any issues, then commit:
+
 ```
 refactor(admin): update ContentItem type to include full frontmatter data
 ```
@@ -193,6 +201,7 @@ refactor(admin): update ContentItem type to include full frontmatter data
 ### Task 4: Create sort utilities module
 
 **Files:**
+
 - Create: `src/js/admin/sort.ts`
 
 - [ ] **Step 1: Create the sort utilities file**
@@ -274,6 +283,7 @@ Expected: Build succeeds.
 - [ ] **Step 3: Lint and commit**
 
 Run `pnpm lint` then `pnpm format`, fix any issues, then commit:
+
 ```
 feat(admin): add sort utilities module
 ```
@@ -283,6 +293,7 @@ feat(admin): add sort utilities module
 ### Task 5: Create AdminSidebar component
 
 **Files:**
+
 - Create: `src/components/admin/AdminSidebar.svelte`
 
 The component imports sort types and helpers from `src/js/admin/sort.ts` to keep the file under 350 lines.
@@ -413,7 +424,12 @@ Add the template below the script block:
             </span>
           </button>
 
-          <div id={popoverId} class="sort-popover" popover="hint" bind:this={popoverEl}>
+          <div
+            id={popoverId}
+            class="sort-popover"
+            popover="hint"
+            bind:this={popoverEl}
+          >
             {#each popoverOptions as mode}
               <button
                 class="sort-option"
@@ -466,6 +482,7 @@ Add the template below the script block:
 - [ ] **Step 3: Add the styles**
 
 Add the `<style lang="scss">` block. Key layout points:
+
 - The `.sidebar` is a CSS Grid with `grid-template-rows: auto 1fr` and `height: 100dvh`
 - `.sidebar-header` has padding and does not scroll
 - `.sidebar-items` has `overflow-y: auto` and horizontal padding
@@ -634,6 +651,7 @@ Count the lines in the new file to ensure it's under 350.
 - [ ] **Step 6: Lint and commit**
 
 Run `pnpm lint` then `pnpm format`, fix any issues, then commit:
+
 ```
 feat(admin): create unified AdminSidebar component
 ```
@@ -643,6 +661,7 @@ feat(admin): create unified AdminSidebar component
 ### Task 6: Wire up Admin.svelte with new AdminSidebar
 
 **Files:**
+
 - Modify: `src/components/admin/Admin.svelte`
 - Delete: `src/components/admin/CollectionSidebar.svelte`
 - Delete: `src/components/admin/ContentList.svelte`
@@ -707,9 +726,7 @@ Replace the component to use `AdminSidebar` twice. The full updated file:
         label: title,
         href: `/admin/${activeCollection}/${slug}`,
         subtitle: item.filename,
-        ...(typeof published === 'string'
-          ? { date: new Date(published) }
-          : {}),
+        ...(typeof published === 'string' ? { date: new Date(published) } : {}),
       };
     }),
   );
@@ -730,7 +747,11 @@ Replace the component to use `AdminSidebar` twice. The full updated file:
   });
 </script>
 
-<div class="admin" class:admin--connected={ready} class:admin--collection={ready && hasCollection}>
+<div
+  class="admin"
+  class:admin--connected={ready}
+  class:admin--collection={ready && hasCollection}
+>
   {#if !ready}
     <DirectoryPicker />
   {:else}
@@ -779,6 +800,7 @@ Expected: Build succeeds with no errors.
 - [ ] **Step 5: Lint and commit**
 
 Run `pnpm lint` then `pnpm format`, fix any issues, then commit:
+
 ```
 feat(admin): wire AdminSidebar into Admin shell, remove old components
 ```
@@ -796,6 +818,7 @@ Check if the dev server is running. If not, start it with `pnpm dev`.
 - [ ] **Step 2: Verify collections sidebar**
 
 Open the admin page in Chrome. Verify:
+
 - Collections sidebar appears at 15rem wide with heading "Collections"
 - Search input filters collection names
 - No sort button (collections have no dates)
@@ -805,6 +828,7 @@ Open the admin page in Chrome. Verify:
 - [ ] **Step 3: Verify content list sidebar**
 
 Click on "posts" collection. Verify:
+
 - Second sidebar appears at 15rem wide
 - Heading shows "posts"
 - Search input filters by title
@@ -817,6 +841,7 @@ Click on "posts" collection. Verify:
 - [ ] **Step 4: Verify collections without dates**
 
 Click on "categories" or "pages". Verify:
+
 - No sort button appears
 - Search still works
 

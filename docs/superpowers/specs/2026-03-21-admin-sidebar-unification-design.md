@@ -10,11 +10,11 @@ Replaces both `CollectionSidebar.svelte` and `ContentList.svelte` with a single 
 
 ### Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `title` | `string` | Heading text (e.g. "Collections", "Posts") |
-| `items` | `SidebarItem[]` | List of items to display |
-| `activeItem` | `string \| undefined` | `href` of the currently active item (highlighted) |
+| Prop         | Type                  | Description                                                                                                          |
+| ------------ | --------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `title`      | `string`              | Heading text (e.g. "Collections", "Posts")                                                                           |
+| `items`      | `SidebarItem[]`       | List of items to display                                                                                             |
+| `activeItem` | `string \| undefined` | `href` of the currently active item (highlighted)                                                                    |
 | `storageKey` | `string \| undefined` | Collection name used to construct the localStorage key (`cms-sort-{storageKey}`). Only needed when items have dates. |
 
 ### `SidebarItem` type
@@ -32,10 +32,10 @@ type SidebarItem = {
 
 The component accepts optional props for loading/error/empty feedback (only relevant for the content sidebar):
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `loading` | `boolean` | Defaults to `false`. When `true`, shows "Loading..." instead of the list |
-| `error` | `string \| undefined` | When set, shows the error message in `var(--light-red)` instead of the list |
+| Prop      | Type                  | Description                                                                 |
+| --------- | --------------------- | --------------------------------------------------------------------------- |
+| `loading` | `boolean`             | Defaults to `false`. When `true`, shows "Loading..." instead of the list    |
+| `error`   | `string \| undefined` | When set, shows the error message in `var(--light-red)` instead of the list |
 
 When `items` is empty and `loading` is `false` and `error` is `undefined`, shows "No items found." in `var(--grey)`. The search input and sort button are hidden during loading/error states.
 
@@ -65,11 +65,11 @@ The sort button only renders when **at least one item** in the `items` array has
 
 ### Sort modes
 
-| Mode | Icon | Description |
-|------|------|-------------|
-| `alpha` | `sort_by_alpha` | Alphabetical by title (default) |
-| `date-asc` | `hourglass_arrow_down` | Oldest first (ascending published date) |
-| `date-desc` | `hourglass_arrow_up` | Newest first (descending published date) |
+| Mode        | Icon                   | Description                              |
+| ----------- | ---------------------- | ---------------------------------------- |
+| `alpha`     | `sort_by_alpha`        | Alphabetical by title (default)          |
+| `date-asc`  | `hourglass_arrow_down` | Oldest first (ascending published date)  |
+| `date-desc` | `hourglass_arrow_up`   | Newest first (descending published date) |
 
 ### Sort button
 
@@ -127,10 +127,12 @@ Only the three required icon glyphs are downloaded (~2.6KB).
 ## File changes
 
 ### Created
+
 - `src/js/admin/sort.ts` — sort types, constants, comparator, and localStorage persistence helpers
 - `src/components/admin/AdminSidebar.svelte`
 
 ### Modified
+
 - `src/components/admin/Admin.svelte` — uses `AdminSidebar` twice, dynamic grid
 - `src/js/admin/state.svelte.ts` — updated `ContentItem` type
 - `src/js/admin/frontmatter-worker.ts` — returns full frontmatter as `data`
@@ -138,5 +140,6 @@ Only the three required icon glyphs are downloaded (~2.6KB).
 - `src/pages/admin/[...path].astro` — Material Symbols font link via head slot
 
 ### Deleted
+
 - `src/components/admin/CollectionSidebar.svelte`
 - `src/components/admin/ContentList.svelte`
