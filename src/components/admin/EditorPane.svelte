@@ -85,7 +85,6 @@
   const editorTheme = EditorView.theme({
     '&': {
       fontSize: '1rem',
-      height: '100%',
     },
     '.cm-content': {
       fontFamily: "'SF Mono', 'Fira Code', 'Cascadia Code', monospace",
@@ -194,16 +193,41 @@
   });
 </script>
 
-<div class="editor-pane" bind:this={container}></div>
+<div class="editor-wrapper">
+  <div class="editor-box">
+    <div class="editor-toolbar-slot">
+      <!-- Future toolbar goes here -->
+    </div>
+    <div class="editor-pane" bind:this={container}></div>
+  </div>
+</div>
 
 <style lang="scss">
-  .editor-pane {
-    height: 100%;
-    overflow: auto;
+  .editor-wrapper {
+    padding: 1.5rem;
     max-width: 80ch;
     margin: 0 auto;
-    border-left: 1px solid var(--white);
-    border-right: 1px solid var(--white);
+    overflow-y: auto;
+  }
+
+  .editor-box {
+    border: 1px solid var(--dark-grey);
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    // Constrain height so editor doesn't fill viewport — scrolls internally
+    max-height: 70vh;
+  }
+
+  .editor-toolbar-slot {
+    // Reserve space for future toolbar — currently empty
+    border-bottom: 1px dashed var(--dark-grey);
+    min-height: 0;
+  }
+
+  .editor-pane {
+    overflow: auto;
   }
 
   // CodeMirror's .cm-content is a flex item that won't shrink below its
