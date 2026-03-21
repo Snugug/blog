@@ -53,7 +53,8 @@ async function getCollectionDir(
 
 /**
  * Worker message handler. Receives parse requests with a directory handle
- * and collection name, reads .md files, extracts frontmatter titles.
+ * and collection name, reads .md files, extracts full frontmatter data.
+ * Returns items sorted alphabetically by title, falling back to filename.
  */
 self.addEventListener('message', async (event) => {
   const { type, handle, collection } = event.data;
@@ -61,7 +62,7 @@ self.addEventListener('message', async (event) => {
 
   try {
     const dir = await getCollectionDir(handle, collection);
-    const items: Array<{ filename: string; title: string | null }> = [];
+    const items: Array<{ filename: string; data: Record<string, unknown> }> = [];
 
     for await (const [name, entry] of dir.entries()) {
       if (entry.kind !== 'file' || !name.endsWith('.md')) continue;
@@ -69,19 +70,17 @@ self.addEventListener('message', async (event) => {
       const file = await entry.getFile();
       const text = await file.text();
       const frontmatter = extractFrontmatter(text);
-      const title =
-        frontmatter && typeof frontmatter.title === 'string'
-          ? frontmatter.title
-          : null;
+      // Preserve full frontmatter so callers can access any field (e.g. `published` for date sorting)
+      const data = frontmatter ?? {};
 
-      items.push({ filename: name, title });
+      items.push({ filename: name, data });
     }
 
     // Sort alphabetically by title, falling back to filename
     items.sort((a, b) => {
-      const aKey = (a.title ?? a.filename).toLowerCase();
-      const bKey = (b.title ?? b.filename).toLowerCase();
-      return aKey.localeCompare(bKey);
+      const aTitle = typeof a.data.title === 'string' ? a.data.title : a.filename;
+      const bTitle = typeof b.data.title === 'string' ? b.data.title : b.filename;
+      return aTitle.toLowerCase().localeCompare(bTitle.toLowerCase());
     });
 
     self.postMessage({ type: 'result', items });
