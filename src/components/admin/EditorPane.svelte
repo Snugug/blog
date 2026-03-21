@@ -195,9 +195,6 @@
 
 <div class="editor-wrapper">
   <div class="editor-box">
-    <div class="editor-toolbar-slot">
-      <!-- Future toolbar goes here -->
-    </div>
     <div class="editor-pane" bind:this={container}></div>
   </div>
 </div>
@@ -207,26 +204,20 @@
     padding: 1.5rem;
     max-width: 80ch;
     margin: 0 auto;
-    overflow-y: auto;
+    // Fill available vertical space from the parent grid row (1fr)
+    // then subtract our own top+bottom padding so the box fits exactly
+    height: calc(100% - 3rem);
   }
 
   .editor-box {
     border: 1px solid var(--dark-grey);
     border-radius: 4px;
     overflow: hidden;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    // Constrain height so editor doesn't fill viewport — scrolls internally
-    max-height: 70vh;
-  }
-
-  .editor-toolbar-slot {
-    // Reserve space for future toolbar — currently empty
-    border-bottom: 1px dashed var(--dark-grey);
-    min-height: 0;
+    height: 100%;
   }
 
   .editor-pane {
+    height: 100%;
     overflow: auto;
   }
 
