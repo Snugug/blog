@@ -49,7 +49,12 @@
         label: title,
         href: `/admin/${activeCollection}/${slug}`,
         subtitle: item.filename,
-        ...(typeof published === 'string' ? { date: new Date(published) } : {}),
+        // js-yaml parses unquoted dates as Date objects, quoted dates as strings
+        ...(published instanceof Date
+          ? { date: published }
+          : typeof published === 'string'
+            ? { date: new Date(published) }
+            : {}),
       };
     }),
   );
