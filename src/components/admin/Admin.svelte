@@ -2,17 +2,23 @@
   import { onMount } from 'svelte';
   import { initRouter, getRoute } from '$js/admin/router.svelte';
   import {
-    getCollections,
     getDirectoryHandle,
     getPermissionState,
     restoreHandle,
     loadCollection,
+    getFileHandle,
     getContentList,
-    isLoading,
-    getError,
   } from '$js/admin/state.svelte';
+  import {
+    loadFile,
+    clearEditor,
+    getEditorFile,
+  } from '$js/admin/editor.svelte';
   import DirectoryPicker from './DirectoryPicker.svelte';
-  import AdminSidebar from './AdminSidebar.svelte';
+  import CollectionSidebar from './CollectionSidebar.svelte';
+  import ContentList from './ContentList.svelte';
+  import EditorToolbar from './EditorToolbar.svelte';
+  import EditorPane from './EditorPane.svelte';
 
   /** Whether the admin is ready (handle exists and permission granted) */
   const ready = $derived(
@@ -22,50 +28,40 @@
   /** The current route for tracking collection changes */
   const currentRoute = $derived(getRoute());
 
-  /** Whether a collection is currently selected */
-  const hasCollection = $derived(currentRoute.view === 'collection');
-
-  /** The active collection name, if any */
-  const activeCollection = $derived(
-    currentRoute.view === 'collection' ? currentRoute.collection : null,
-  );
-
-  /** Collection names mapped to SidebarItems */
-  const collectionItems = $derived(
-    getCollections().map((name) => ({
-      label: name,
-      href: `/admin/${name}`,
-    })),
-  );
-
-  /** Content items mapped to SidebarItems for the active collection */
-  const contentItems = $derived(
-    getContentList().map((item) => {
-      const title =
-        typeof item.data.title === 'string' ? item.data.title : item.filename;
-      const published = item.data.published;
-      const slug = item.filename.replace(/\.md$/, '');
-      return {
-        label: title,
-        href: `/admin/${activeCollection}/${slug}`,
-        subtitle: item.filename,
-        // js-yaml parses unquoted dates as Date objects, quoted dates as strings
-        ...(published instanceof Date
-          ? { date: published }
-          : typeof published === 'string'
-            ? { date: new Date(published) }
-            : {}),
-      };
-    }),
-  );
+  /** Whether a file is currently open in the editor */
+  const fileOpen = $derived(currentRoute.view === 'file');
 
   /**
    * Dispatch worker when collection changes.
    * State module owns the worker, this effect just triggers it.
    */
   $effect(() => {
-    if (ready && currentRoute.view === 'collection') {
+    if (
+      ready &&
+      (currentRoute.view === 'collection' || currentRoute.view === 'file')
+    ) {
       loadCollection(currentRoute.collection);
+    }
+  });
+
+  /**
+   * Load file when route has a slug.
+   * Reading getContentList() creates a reactive dependency so this effect
+   * re-runs when the worker finishes loading the collection — fixing the
+   * race condition where a deep-link arrives before content is loaded.
+   */
+  $effect(() => {
+    const items = getContentList();
+    if (ready && currentRoute.view === 'file' && items.length > 0) {
+      getFileHandle(currentRoute.collection, currentRoute.slug).then(
+        (fileHandle) => {
+          if (fileHandle) {
+            loadFile(fileHandle);
+          }
+        },
+      );
+    } else if (currentRoute.view !== 'file') {
+      clearEditor();
     }
   });
 
@@ -78,24 +74,18 @@
 <div
   class="admin"
   class:admin--connected={ready}
-  class:admin--collection={ready && hasCollection}
+  class:admin--file-open={ready && fileOpen}
 >
   {#if !ready}
     <DirectoryPicker />
   {:else}
-    <AdminSidebar
-      title="Collections"
-      items={collectionItems}
-      activeItem={activeCollection ? `/admin/${activeCollection}` : undefined}
-    />
-    {#if hasCollection && activeCollection}
-      <AdminSidebar
-        title={activeCollection}
-        items={contentItems}
-        storageKey={activeCollection}
-        loading={isLoading()}
-        error={getError() ?? undefined}
-      />
+    <CollectionSidebar />
+    <ContentList />
+    {#if fileOpen}
+      <div class="editor-area">
+        <EditorToolbar />
+        <EditorPane />
+      </div>
     {/if}
   {/if}
 </div>
@@ -110,7 +100,14 @@
     grid-template-columns: 15rem 1fr;
   }
 
-  .admin--collection {
+  .admin--file-open {
     grid-template-columns: 15rem 15rem 1fr;
+  }
+
+  .editor-area {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+    border-left: 1px solid var(--dark-grey);
   }
 </style>
