@@ -252,6 +252,17 @@
     // Prevent width from changing when popover content changes
     min-width: 10rem;
 
+    // Invisible bridge above the popover so the mouse can travel from the
+    // sort button to the popover without crossing a gap that kills interest
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      height: 0.25rem;
+    }
+
     &:popover-open {
       display: grid;
       gap: 0.25rem;
