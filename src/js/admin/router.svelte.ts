@@ -1,7 +1,8 @@
 /** Parsed route state for the admin SPA */
 export type AdminRoute =
   | { view: 'home' }
-  | { view: 'collection'; collection: string };
+  | { view: 'collection'; collection: string }
+  | { view: 'file'; collection: string; slug: string };
 
 /** Current route, reactive via Svelte 5 runes */
 let route = $state<AdminRoute>(parsePathname(location.pathname));
@@ -16,7 +17,10 @@ function parsePathname(pathname: string): AdminRoute {
     .replace(/^\/admin\/?/, '')
     .split('/')
     .filter(Boolean);
-  if (segments.length > 0) {
+  if (segments.length >= 2) {
+    return { view: 'file', collection: segments[0], slug: segments[1] };
+  }
+  if (segments.length === 1) {
     return { view: 'collection', collection: segments[0] };
   }
   return { view: 'home' };
@@ -37,6 +41,18 @@ export function getRoute(): AdminRoute {
  */
 export function navigate(path: string): void {
   navigation.navigate(path);
+}
+
+/** Callback to check if the editor has unsaved changes */
+let dirtyChecker: (() => boolean) | null = null;
+
+/**
+ * Registers a function that returns whether the editor has unsaved changes.
+ * Called by the editor state module during initialization.
+ * @param checker - Function returning true if there are unsaved changes
+ */
+export function registerDirtyChecker(checker: () => boolean): void {
+  dirtyChecker = checker;
 }
 
 /** Guard against duplicate listener registration (e.g., HMR remount) */
@@ -62,10 +78,27 @@ export function initRouter(): void {
 
     if (!event.canIntercept) return;
 
+    // Block navigation if editor has unsaved changes and user cancels.
+    // This check must happen before event.intercept() — if it were inside the
+    // handler, the URL would already be updated by the time the user cancels.
+    if (
+      dirtyChecker?.() &&
+      !confirm('You have unsaved changes. Leave without saving?')
+    ) {
+      event.preventDefault();
+      return;
+    }
+
     event.intercept({
       handler() {
         route = parsePathname(url.pathname);
       },
     });
+  });
+
+  window.addEventListener('beforeunload', (event) => {
+    if (dirtyChecker?.()) {
+      event.preventDefault();
+    }
   });
 }
