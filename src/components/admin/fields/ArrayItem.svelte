@@ -241,14 +241,12 @@
   .array-item__controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     padding: 0.5rem;
   }
 
   .array-item__drag-handle {
     color: var(--grey);
     cursor: grab;
-    line-height: 1;
     user-select: none;
     display: grid;
     place-items: center;
@@ -262,6 +260,7 @@
   .array-item__collapse-icon {
     transition: transform 0.15s;
     transform: rotate(90deg);
+    display: block;
   }
 
   .array-item__collapse-icon--collapsed {
@@ -271,9 +270,13 @@
   // Consistent icon size for all Material Symbols in array items
   .material-symbols-outlined {
     font-size: 1.25rem;
+    // Ensure vertical centering in flex row
+    display: grid;
+    place-items: center;
   }
 
-  // Legend rendered inline in the controls flex row
+  // Legend rendered inline in the controls flex row, with space after
+  // the drag handle + chevron group
   .array-item__legend {
     font-size: 0.875rem;
     color: var(--grey);
@@ -281,6 +284,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     min-width: 0;
+    margin-left: 0.25rem;
     // Reset legend defaults so it participates in flex layout
     padding: 0;
     float: unset;
@@ -295,6 +299,7 @@
   .array-item__inline-field {
     flex: 1;
     min-width: 0;
+    margin: 0 0.5rem;
 
     // Hide the label and description from leaf fields — only aria-label
     // is needed since the parent ArrayField provides the visible label
@@ -315,8 +320,8 @@
     border: none;
     color: var(--grey);
     cursor: pointer;
-    font-size: 0.875rem;
-    padding: 0.25rem;
+    // Minimal padding so action buttons sit tight together
+    padding: 0;
     line-height: 1;
 
     &:hover:not(:disabled) {
@@ -329,7 +334,10 @@
     }
   }
 
+  // Small gap before the remove button to visually separate it from arrows
   .array-item__btn--remove {
+    margin-left: 0.25rem;
+
     &:hover:not(:disabled) {
       color: var(--light-red);
     }
