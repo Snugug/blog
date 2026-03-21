@@ -221,6 +221,7 @@
 
   .sort-btn {
     anchor-name: --sort-btn;
+    interest-delay: 0s;
     background: none;
     border: none;
     color: var(--grey);
