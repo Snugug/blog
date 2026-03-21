@@ -107,6 +107,8 @@
             class="sort-btn"
             title={SORT_MODES[sortMode].label}
             interestfor={popoverId}
+            commandfor={popoverId}
+            command="toggle-popover"
           >
             <span class="material-symbols-outlined">
               {SORT_MODES[sortMode].icon}
