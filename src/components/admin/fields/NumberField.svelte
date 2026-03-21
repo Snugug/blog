@@ -38,7 +38,7 @@
   const inputValue = $derived(typeof value === 'number' ? value : '');
 
   /** Min attribute: minimum takes precedence, exclusiveMinimum adds 1 */
-  const min = $derived(() => {
+  const min = $derived.by(() => {
     const minimum = schema['minimum'] as number | undefined;
     const exclusiveMin = schema['exclusiveMinimum'] as number | undefined;
     if (minimum != null) return minimum;
@@ -47,7 +47,7 @@
   });
 
   /** Max attribute: maximum takes precedence, exclusiveMaximum subtracts 1 */
-  const max = $derived(() => {
+  const max = $derived.by(() => {
     const maximum = schema['maximum'] as number | undefined;
     const exclusiveMax = schema['exclusiveMaximum'] as number | undefined;
     if (maximum != null) return maximum;
@@ -76,8 +76,8 @@
    */
   const constraintText = $derived.by(() => {
     const parts: string[] = [];
-    const minVal = min();
-    const maxVal = max();
+    const minVal = min;
+    const maxVal = max;
     if (minVal != null) parts.push(`min ${minVal}`);
     if (maxVal != null) parts.push(`max ${maxVal}`);
     if (step != null) parts.push(`step ${step}`);
@@ -109,8 +109,8 @@
     id={name}
     class="field-input"
     value={inputValue}
-    min={min()}
-    max={max()}
+    {min}
+    {max}
     {step}
     readonly={readOnly}
     oninput={handleChange}
