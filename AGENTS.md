@@ -2,7 +2,7 @@
 
 **CRITICAL: ALWAYS USE `pnpm`, AND ONLY USE THE EXISTING `package.json` SCRIPTS! Never use `npm`, `npx`, or `pnpx`!** If a Node.js based CLI is not already installed and configured to be run through a `package.json` script, it should not be run.
 
-**ALWAYS RUN `pnpm lint` and `pnpm format` before committing!** You are FORBIDDEN from finalizing your code until you have no more warnings or errors from either script.
+**ALWAYS RUN `pnpm lint` and `pnpm fix` before committing!** You are FORBIDDEN from finalizing your code until you have no more warnings or errors from either script.
 
 **IMPORTANT!** Before asking to run the dev server, check to see if it already is (it is often running). Only ask to run the dev server if you've already checked and it's not running, or if you specifically need access to the dev server's output.
 
