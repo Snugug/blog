@@ -13,10 +13,13 @@
     getError,
   } from '$js/admin/state.svelte';
   import { loadFile, clearEditor } from '$js/admin/editor.svelte';
+  import { fetchSchema, getSchema, clearSchema } from '$js/admin/schema.svelte';
   import DirectoryPicker from './DirectoryPicker.svelte';
   import AdminSidebar from './AdminSidebar.svelte';
   import EditorToolbar from './EditorToolbar.svelte';
   import EditorPane from './EditorPane.svelte';
+  import EditorTabs from './EditorTabs.svelte';
+  import MetadataForm from './MetadataForm.svelte';
 
   /** Whether the admin is ready (handle exists and permission granted) */
   const ready = $derived(
@@ -40,6 +43,9 @@
 
   /** Whether a file is currently open in the editor */
   const fileOpen = $derived(currentRoute.view === 'file');
+
+  /** Active editor tab — local state, not URL-routed */
+  let activeTab = $state('metadata');
 
   /** The active file href for highlighting in the content sidebar */
   const activeFileHref = $derived(
@@ -117,6 +123,28 @@
     }
   });
 
+  /**
+   * Fetch the JSON Schema when collection changes.
+   * Uses the same reactive dependency on the route.
+   */
+  $effect(() => {
+    if (
+      ready &&
+      (currentRoute.view === 'collection' || currentRoute.view === 'file')
+    ) {
+      fetchSchema(currentRoute.collection);
+    } else {
+      clearSchema();
+    }
+  });
+
+  /** Reset to Metadata tab when a new file is opened */
+  $effect(() => {
+    if (currentRoute.view === 'file') {
+      activeTab = 'metadata';
+    }
+  });
+
   onMount(() => {
     initRouter();
     restoreHandle();
@@ -148,9 +176,24 @@
       />
     {/if}
     {#if fileOpen}
+      {@const currentSchema = getSchema()}
       <div class="editor-area">
         <EditorToolbar />
-        <EditorPane />
+        <EditorTabs
+          schema={currentSchema}
+          {activeTab}
+          onTabChange={(tab) => (activeTab = tab)}
+        />
+        <div class="editor-content">
+          {#if activeTab === 'body'}
+            <EditorPane />
+          {:else if currentSchema}
+            <MetadataForm
+              schema={currentSchema}
+              tab={activeTab === 'metadata' ? null : activeTab}
+            />
+          {/if}
+        </div>
       </div>
     {/if}
   {/if}
@@ -176,8 +219,12 @@
 
   .editor-area {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
     overflow: hidden;
     border-left: 1px solid var(--dark-grey);
+  }
+
+  .editor-content {
+    overflow-y: auto;
   }
 </style>
