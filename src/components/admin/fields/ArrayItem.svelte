@@ -113,7 +113,7 @@
       <span
         class="array-item__drag-handle"
         aria-hidden="true"
-        title="Drag to reorder">⠿</span
+        title="Drag to reorder"><span class="material-symbols-outlined">drag_indicator</span></span
       >
       <button
         class="array-item__btn"
@@ -121,7 +121,7 @@
         aria-label={collapsed ? 'Expand item' : 'Collapse item'}
         onclick={() => ontogglecollapse(index)}
       >
-        {collapsed ? '▶' : '▼'}
+        <span class="material-symbols-outlined array-item__collapse-icon" class:array-item__collapse-icon--collapsed={collapsed}>chevron_right</span>
       </button>
       <legend class="array-item__legend">{headerLabel}</legend>
       <span class="array-item__spacer"></span>
@@ -130,21 +130,21 @@
         type="button"
         aria-label="Move item up"
         disabled={isFirst}
-        onclick={() => onmoveup(index)}>▲</button
+        onclick={() => onmoveup(index)}><span class="material-symbols-outlined">arrow_upward</span></button
       >
       <button
         class="array-item__btn"
         type="button"
         aria-label="Move item down"
         disabled={isLast}
-        onclick={() => onmovedown(index)}>▼</button
+        onclick={() => onmovedown(index)}><span class="material-symbols-outlined">arrow_downward</span></button
       >
       <button
         class="array-item__btn array-item__btn--remove"
         type="button"
         aria-label="Remove item"
         disabled={!canRemove}
-        onclick={() => onremove(index)}>✕</button
+        onclick={() => onremove(index)}><span class="material-symbols-outlined">close</span></button
       >
     </div>
 
@@ -179,7 +179,7 @@
       <span
         class="array-item__drag-handle"
         aria-hidden="true"
-        title="Drag to reorder">⠿</span
+        title="Drag to reorder"><span class="material-symbols-outlined">drag_indicator</span></span
       >
       <!-- Inline input with aria-label only, no visible label -->
       <div class="array-item__inline-field">
@@ -196,21 +196,21 @@
         type="button"
         aria-label="Move item up"
         disabled={isFirst}
-        onclick={() => onmoveup(index)}>▲</button
+        onclick={() => onmoveup(index)}><span class="material-symbols-outlined">arrow_upward</span></button
       >
       <button
         class="array-item__btn"
         type="button"
         aria-label="Move item down"
         disabled={isLast}
-        onclick={() => onmovedown(index)}>▼</button
+        onclick={() => onmovedown(index)}><span class="material-symbols-outlined">arrow_downward</span></button
       >
       <button
         class="array-item__btn array-item__btn--remove"
         type="button"
         aria-label="Remove item"
         disabled={!canRemove}
-        onclick={() => onremove(index)}>✕</button
+        onclick={() => onremove(index)}><span class="material-symbols-outlined">close</span></button
       >
     </div>
   </div>
@@ -248,13 +248,29 @@
   .array-item__drag-handle {
     color: var(--grey);
     cursor: grab;
-    font-size: 1rem;
     line-height: 1;
     user-select: none;
+    display: grid;
+    place-items: center;
 
     &:active {
       cursor: grabbing;
     }
+  }
+
+  // Chevron rotates 90deg when expanded (default), points right when collapsed
+  .array-item__collapse-icon {
+    transition: transform 0.15s;
+    transform: rotate(90deg);
+  }
+
+  .array-item__collapse-icon--collapsed {
+    transform: rotate(0deg);
+  }
+
+  // Consistent icon size for all Material Symbols in array items
+  .material-symbols-outlined {
+    font-size: 1.25rem;
   }
 
   // Legend rendered inline in the controls flex row
