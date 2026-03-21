@@ -16,7 +16,7 @@
     "astro": "astro",
     "pretest": "run-s lint",
     "test": "run-s *:test build",
-    "unit:test": "node --test --experimental-strip-types tests/**/*.test.ts",
+    "unit:test": "node --test --experimental-strip-types 'tests/**/*.test.ts'",
     "lint": "run-p *:lint",
     "fix": "run-p *:fix",
     "prettier:lint": "prettier -c .",
