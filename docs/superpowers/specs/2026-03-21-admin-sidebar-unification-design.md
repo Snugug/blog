@@ -74,7 +74,7 @@ The sort button only renders when **at least one item** in the `items` array has
 ### Sort button
 
 - A `<button>` displaying the Material Symbol icon for the currently active sort mode
-- Uses `interesttarget` (Interest Invoker) to reference the popover element, displaying it on hover/focus interest
+- Uses `interestfor` (Interest Invoker) to reference the popover element, displaying it on hover/focus interest
 - The button has `anchor-name` for CSS Anchor Positioning
 
 ### Sort popover
@@ -127,13 +127,15 @@ Only the three required icon glyphs are downloaded (~2.6KB).
 ## File changes
 
 ### Created
+- `src/js/admin/sort.ts` — sort types, constants, comparator, and localStorage persistence helpers
 - `src/components/admin/AdminSidebar.svelte`
 
 ### Modified
 - `src/components/admin/Admin.svelte` — uses `AdminSidebar` twice, dynamic grid
 - `src/js/admin/state.svelte.ts` — updated `ContentItem` type
 - `src/js/admin/frontmatter-worker.ts` — returns full frontmatter as `data`
-- `src/pages/admin/[...path].astro` — Material Symbols font link
+- `src/layouts/Donut.astro` — add named `head` slot for per-page head content
+- `src/pages/admin/[...path].astro` — Material Symbols font link via head slot
 
 ### Deleted
 - `src/components/admin/CollectionSidebar.svelte`
