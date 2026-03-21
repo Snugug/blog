@@ -62,7 +62,8 @@ self.addEventListener('message', async (event) => {
 
   try {
     const dir = await getCollectionDir(handle, collection);
-    const items: Array<{ filename: string; data: Record<string, unknown> }> = [];
+    const items: Array<{ filename: string; data: Record<string, unknown> }> =
+      [];
 
     for await (const [name, entry] of dir.entries()) {
       if (entry.kind !== 'file' || !name.endsWith('.md')) continue;
@@ -78,8 +79,10 @@ self.addEventListener('message', async (event) => {
 
     // Sort alphabetically by title, falling back to filename
     items.sort((a, b) => {
-      const aTitle = typeof a.data.title === 'string' ? a.data.title : a.filename;
-      const bTitle = typeof b.data.title === 'string' ? b.data.title : b.filename;
+      const aTitle =
+        typeof a.data.title === 'string' ? a.data.title : a.filename;
+      const bTitle =
+        typeof b.data.title === 'string' ? b.data.title : b.filename;
       return aTitle.toLowerCase().localeCompare(bTitle.toLowerCase());
     });
 
