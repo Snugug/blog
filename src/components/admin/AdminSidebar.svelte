@@ -106,7 +106,7 @@
           <button
             class="sort-btn"
             title={SORT_MODES[sortMode].label}
-            onclick={() => popoverEl?.togglePopover()}
+            interestfor={popoverId}
           >
             <span class="material-symbols-outlined">
               {SORT_MODES[sortMode].icon}
@@ -116,7 +116,7 @@
           <div
             id={popoverId}
             class="sort-popover"
-            popover
+            popover="hint"
             bind:this={popoverEl}
           >
             {#each popoverOptions as mode}
@@ -232,6 +232,9 @@
     }
   }
 
+  // display: grid is in :popover-open to avoid overriding the UA's
+  // display: none on hidden popovers — CSS class specificity beats
+  // the [popover]:not(:popover-open) UA rule otherwise.
   .sort-popover {
     position-anchor: --sort-btn;
     position: fixed;
@@ -243,10 +246,13 @@
     border: 1px solid var(--grey);
     border-radius: 0.25rem;
     padding: 0.25rem;
-    display: grid;
-    gap: 0.25rem;
     // Prevent width from changing when popover content changes
     min-width: 10rem;
+
+    &:popover-open {
+      display: grid;
+      gap: 0.25rem;
+    }
   }
 
   .sort-option {
