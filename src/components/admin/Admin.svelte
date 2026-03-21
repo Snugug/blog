@@ -99,10 +99,16 @@
   $effect(() => {
     const items = getContentList();
     if (ready && currentRoute.view === 'file' && items.length > 0) {
+      // Look up the ContentItem by slug to get pre-parsed frontmatter
+      const item = items.find(
+        (i) => i.filename.replace(/\.mdx?$/, '') === currentRoute.slug,
+      );
+      if (!item) return;
+
       getFileHandle(currentRoute.collection, currentRoute.slug).then(
         (fileHandle) => {
           if (fileHandle) {
-            loadFile(fileHandle);
+            loadFile(fileHandle, item.data);
           }
         },
       );
