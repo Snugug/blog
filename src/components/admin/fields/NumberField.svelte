@@ -1,6 +1,10 @@
 <script lang="ts">
   import type { SchemaNode } from '$js/admin/schema-utils';
 
+  /**
+   * Props for the NumberField component, which renders a labeled numeric input
+   * for a JSON Schema number or integer property.
+   */
   interface Props {
     // Field name used as the input id and label fallback
     name: string;

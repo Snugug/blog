@@ -3,6 +3,10 @@
   import { createDefaultValue, resolveFieldType } from '$js/admin/schema-utils';
   import ArrayItem from './ArrayItem.svelte';
 
+  /**
+   * Props for the ArrayField component, which renders a JSON Schema array
+   * field with add, remove, reorder, and drag-and-drop controls.
+   */
   interface Props {
     // Property name for the label
     name: string;

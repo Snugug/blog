@@ -9,6 +9,10 @@
   import ArrayField from './ArrayField.svelte';
   import ObjectField from './ObjectField.svelte';
 
+  /**
+   * Props for the SchemaField component, which resolves a JSON Schema node to
+   * the appropriate leaf field component (string, number, boolean, enum, date, array, or object).
+   */
   interface Props {
     // Property name for labeling and identification
     name: string;

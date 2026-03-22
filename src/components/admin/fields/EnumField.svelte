@@ -1,6 +1,10 @@
 <script lang="ts">
   import type { SchemaNode } from '$js/admin/schema-utils';
 
+  /**
+   * Props for the EnumField component, which renders a labeled select dropdown
+   * for a JSON Schema enum property.
+   */
   interface Props {
     // Field name used as the select id and label fallback
     name: string;

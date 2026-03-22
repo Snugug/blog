@@ -4,6 +4,10 @@
   import { getFormData, updateFormField } from '$js/admin/editor.svelte';
   import SchemaField from './fields/SchemaField.svelte';
 
+  /**
+   * Props for the MetadataForm component, which renders the set of schema fields
+   * assigned to a given editor tab (or all fields when no tab is specified).
+   */
   interface Props {
     // The JSON Schema for the collection
     schema: SchemaNode;

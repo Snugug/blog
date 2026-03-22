@@ -1,6 +1,10 @@
 <script lang="ts">
   import type { SchemaNode } from '$js/admin/schema-utils';
 
+  /**
+   * Props for the StringField component, which renders a labeled text input
+   * or textarea for a JSON Schema string property.
+   */
   interface Props {
     // Field name used as the input id and label fallback
     name: string;
