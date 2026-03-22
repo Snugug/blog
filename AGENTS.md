@@ -98,6 +98,24 @@ Svelte's declarative rendering MUST be used for all UI construction. Direct DOM 
 - **Cross-component coordination** — State files MUST NOT query the DOM. Use reactive signals (counter increment pattern) so components react via `$effect` and control their own elements.
 - **Positioning** — Use CSS Anchor Positioning (`anchor-name`, `position-anchor`, `position-area`) instead of computing pixel positions with `getBoundingClientRect()` and `style.top`/`style.left`.
 
+## Rule Compliance
+
+The rules in this file are literal requirements, not guidelines. Do not invent exceptions, even if industry convention differs. If a rule doesn't list an exception, there is no exception.
+
+Before writing or modifying code, re-read this entire file. Do not work from memory of the rules — memory introduces drift and invented exceptions. Do not decide which sections are "relevant" and skip the rest; rules interact and a section you think doesn't apply often does.
+
 ## Subagent Delegation
 
 When delegating tasks to subagents, you MUST copy the relevant rules from BOTH this project's CLAUDE.md AND the global CLAUDE.md verbatim into the subagent prompt. Do NOT paraphrase, summarize, or add your own interpretations of the rules. If you need to add task-specific context, keep it clearly separate from the rules themselves. Subagents do not have access to CLAUDE.md files, so they will only follow what you put in their prompt — if you reword, omit, or "helpfully" add exceptions, the subagent will produce work that violates the actual rules.
+
+## Mandatory Code Review Before Completion
+
+After any agent or subagent finishes writing code, you MUST NOT mark the work as done until a compliance review has been performed. This review MUST:
+
+1. Load the FULL text of BOTH this project's CLAUDE.md AND the global CLAUDE.md — not just sections you think are relevant, the entire files
+2. Check every line of changed code against those rules verbatim — not from memory, not paraphrased, the actual text of the rules
+3. Flag ANY violation, no matter how minor or how "standard" the alternative practice might be
+4. The reviewer MUST NOT rationalize a violation as acceptable. If the code doesn't match what the rule literally says, it's a violation and must be fixed
+5. All flagged violations must be fixed and re-reviewed before the work can be marked complete
+
+This review applies to your own direct work as well as work produced by subagents. "It looks right" is not a substitute for checking against the rules.
