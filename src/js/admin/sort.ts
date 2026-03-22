@@ -6,6 +6,10 @@ export type SidebarItem = {
   href: string;
   subtitle?: string;
   date?: Date;
+  // Draft-specific fields
+  draftId?: string;
+  isDraft?: boolean;
+  isOutdated?: boolean;
 };
 
 /**

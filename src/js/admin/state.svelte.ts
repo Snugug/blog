@@ -249,3 +249,13 @@ export function loadCollection(collection: string): void {
   loadedCollection = collection;
   dispatchWorker(collection);
 }
+
+/**
+ * Forces a reload of the current collection by resetting the loaded-collection guard.
+ * @param {string} collection - The collection to reload
+ * @return {void}
+ */
+export function reloadCollection(collection: string): void {
+  loadedCollection = '';
+  dispatchWorker(collection);
+}

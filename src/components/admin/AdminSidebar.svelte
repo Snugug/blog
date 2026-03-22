@@ -2,12 +2,14 @@
   import {
     type SidebarItem,
     type SortMode,
-    SORT_MODES,
-    SORT_ORDER,
     readSortMode,
-    writeSortMode,
     createComparator,
   } from '$js/admin/sort';
+  import DraftChip from './DraftChip.svelte';
+  import AdminSidebarSort from './AdminSidebarSort.svelte';
+  import { navigate } from '$js/admin/router.svelte';
+  import { saveDraft } from '$js/admin/draft-storage';
+  import { reloadCollection } from '$js/admin/state.svelte';
 
   export type { SidebarItem };
 
@@ -29,6 +31,10 @@
     error?: string;
     // Whether this collection has date fields, enabling sort controls
     hasDates?: boolean;
+    // Collection name — used for the add button's navigation target
+    collection?: string;
+    // Whether to show the add button
+    showAdd?: boolean;
   }
 
   let {
@@ -39,6 +45,8 @@
     loading = false,
     error,
     hasDates = false,
+    collection,
+    showAdd = false,
   }: Props = $props();
 
   // Search query for filtering items by label
@@ -58,21 +66,25 @@
     }
   });
 
-  // Sort options available in the popover (all modes except the active one)
-  const popoverOptions = $derived(
-    SORT_ORDER.filter((mode) => mode !== sortMode),
-  );
-
   /**
-   * Handles sort option selection from the popover.
-   * @param {SortMode} mode - The selected sort mode to apply and persist
-   * @return {void}
+   * Creates a new empty draft in IndexedDB and navigates to it.
+   * @return {Promise<void>}
    */
-  function selectSort(mode: SortMode): void {
-    sortMode = mode;
-    if (storageKey) {
-      writeSortMode(storageKey, mode);
-    }
+  async function handleAdd(): Promise<void> {
+    if (!collection) return;
+    const id = crypto.randomUUID();
+    await saveDraft({
+      id,
+      collection,
+      filename: null,
+      isNew: true,
+      formData: {},
+      body: '',
+      snapshot: null,
+      createdAt: new Date().toISOString(),
+    });
+    reloadCollection(collection);
+    navigate(`/admin/${collection}/draft/${id}`);
   }
 
   // Items filtered by search query and sorted by current mode
@@ -83,19 +95,22 @@
       : items;
     return [...filtered].sort(createComparator(sortMode));
   });
-
-  // Unique ID for the sort popover element, reactive to title changes
-  const popoverId = $derived(
-    `sort-popover-${title.toLowerCase().replace(/\s+/g, '-')}`,
-  );
-
-  // Bound reference to the popover element for imperative hidePopover() calls
-  let popoverEl = $state<HTMLDivElement | null>(null);
 </script>
 
 <nav class="sidebar" aria-label={title}>
   <div class="sidebar-header">
-    <h2 class="sidebar-heading">{title}</h2>
+    <div class="sidebar-heading-row">
+      <h2 class="sidebar-heading">{title}</h2>
+      {#if showAdd}
+        <button
+          class="add-btn"
+          title="New {title.toLowerCase()}"
+          onclick={handleAdd}
+        >
+          <span class="material-symbols-outlined">add</span>
+        </button>
+      {/if}
+    </div>
 
     <div class="toolbar" class:toolbar--search-only={!hasDates}>
       <input
@@ -106,39 +121,7 @@
       />
 
       {#if hasDates}
-        <button
-          class="sort-btn"
-          title={SORT_MODES[sortMode].label}
-          interestfor={popoverId}
-          commandfor={popoverId}
-          command="toggle-popover"
-        >
-          <span class="material-symbols-outlined">
-            {SORT_MODES[sortMode].icon}
-          </span>
-        </button>
-
-        <div
-          id={popoverId}
-          class="sort-popover"
-          popover="hint"
-          bind:this={popoverEl}
-        >
-          {#each popoverOptions as mode}
-            <button
-              class="sort-option"
-              onclick={() => {
-                selectSort(mode);
-                popoverEl?.hidePopover();
-              }}
-            >
-              <span class="material-symbols-outlined">
-                {SORT_MODES[mode].icon}
-              </span>
-              {SORT_MODES[mode].label}
-            </button>
-          {/each}
-        </div>
+        <AdminSidebarSort bind:sortMode {storageKey} />
       {/if}
     </div>
   </div>
@@ -159,7 +142,15 @@
               class="sidebar-link"
               aria-current={activeItem === item.href ? 'page' : undefined}
             >
-              {item.label}
+              <span class="item-label-row">
+                <span class="item-label-text">{item.label}</span>
+                {#if item.isDraft}
+                  <DraftChip variant="draft" />
+                {/if}
+                {#if item.isOutdated}
+                  <DraftChip variant="outdated" />
+                {/if}
+              </span>
               {#if item.subtitle}
                 <span class="item-subtitle">{item.subtitle}</span>
               {/if}
@@ -190,7 +181,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--grey);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0;
   }
 
   .toolbar {
@@ -215,76 +206,6 @@
 
     &::placeholder {
       color: var(--grey);
-    }
-  }
-
-  // Shared icon size for sort button and popover options
-  .material-symbols-outlined {
-    font-size: 1.25rem;
-  }
-
-  .sort-btn {
-    anchor-name: --sort-btn;
-    interest-delay: 0s;
-    background: none;
-    border: none;
-    color: var(--grey);
-    padding: 0;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-
-    &:hover {
-      color: var(--white);
-    }
-  }
-
-  // display: grid is in :popover-open to avoid overriding the UA's display: none on hidden popovers
-  .sort-popover {
-    position-anchor: --sort-btn;
-    position: fixed;
-    inset: unset;
-    top: anchor(bottom);
-    right: anchor(right);
-    margin-top: 0.25rem;
-    background: var(--dark-grey);
-    border: 1px solid var(--grey);
-    border-radius: 0.25rem;
-    padding: 0.25rem;
-    // Prevent width from changing when popover content changes
-    min-width: 10rem;
-
-    // Invisible bridge between the sort button and popover so hover interest isn't broken by the gap
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      right: 0;
-      height: 0.25rem;
-    }
-
-    &:popover-open {
-      display: grid;
-      gap: 0.25rem;
-    }
-  }
-
-  .sort-option {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    font-size: 0.875rem;
-    color: var(--white);
-    background: none;
-    border: none;
-    white-space: nowrap;
-
-    &:hover {
-      background: var(--grey);
     }
   }
 
@@ -332,5 +253,39 @@
     font-size: 0.75rem;
     color: var(--grey);
     margin-top: 0.25rem;
+  }
+
+  .sidebar-heading-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .add-btn {
+    background: none;
+    border: none;
+    color: var(--grey);
+    padding: 0;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+
+    &:hover {
+      color: var(--white);
+    }
+  }
+
+  // Flex is appropriate here because chips need inline flow with wrapping
+  .item-label-row {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  .item-label-text {
+    // Prevent long titles from pushing chips to a new line unnecessarily
+    min-width: 0;
   }
 </style>
