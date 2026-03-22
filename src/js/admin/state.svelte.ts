@@ -189,18 +189,20 @@ export async function restoreBackend(): Promise<void> {
       }
       // If perm is 'prompt', BackendPicker shows re-auth button
     } else {
-      // GitHub -- validate by initializing the adapter (which calls validate())
-      try {
-        await storageClient.init({ type: 'init', backend: config });
-        backendType = 'github';
-        backendReady = true;
-        navigateToFirstCollectionIfHome();
-      } catch {
-        // Token expired or repo gone -- clear and show picker
+      // GitHub — show UI optimistically, validate in background
+      backendType = 'github';
+      backendReady = true;
+      navigateToFirstCollectionIfHome();
+      storageClient.init({ type: 'init', backend: config }).catch(async () => {
+        // Token expired or repo gone — clear and show picker
         await clearBackend();
         backendType = null;
         backendReady = false;
-      }
+        contentList = [];
+        contentCache.clear();
+        loadedCollection = '';
+        navigate('/admin');
+      });
     }
   } catch {
     backendType = null;
