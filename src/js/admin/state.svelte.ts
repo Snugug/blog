@@ -1,6 +1,14 @@
 import schemas from 'virtual:collections';
 import { loadHandle, saveHandle, clearHandle } from './storage';
 import { getRoute, navigate } from './router.svelte';
+import {
+  getDrafts,
+  getOutdatedMap,
+  mergeDrafts,
+  resetDraftMerge,
+} from './draft-merge.svelte';
+
+export { getDrafts, getOutdatedMap };
 
 /**
  * Content item with full frontmatter data returned by the worker.
@@ -127,6 +135,10 @@ function ensureWorker(): Worker {
       contentList = data.items;
       loading = false;
       error = null;
+      // Merge drafts from IndexedDB and check for outdated snapshots
+      if (directoryHandle && loadedCollection) {
+        mergeDrafts(loadedCollection, directoryHandle);
+      }
     } else if (data.type === 'error') {
       error = data.message;
       loading = false;
@@ -218,6 +230,7 @@ export async function pickDirectory(): Promise<void> {
 export async function disconnect(): Promise<void> {
   worker?.terminate();
   worker = null;
+  resetDraftMerge();
   await clearHandle();
   directoryHandle = null;
   permissionState = 'denied';
