@@ -94,7 +94,8 @@ export function preloadFile(
   if (filename === itemFilename && fileOpen) return;
 
   // Deep-clone to avoid mutating the caller's object
-  formData = structuredClone(data);
+  // $state.snapshot strips Svelte reactive proxies to get a plain object
+  formData = $state.snapshot(data) as Record<string, unknown>;
   lastSavedFormData = JSON.stringify(formData);
   body = '';
   lastSavedBody = '';
