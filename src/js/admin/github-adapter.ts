@@ -245,6 +245,8 @@ export class GitHubAdapter implements StorageAdapter {
       method,
       headers,
       body: body ? JSON.stringify(body) : undefined,
+      // API responses must never be served from browser cache
+      cache: 'no-store',
     });
   }
 }
