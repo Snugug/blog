@@ -51,6 +51,16 @@ export function writeSortMode(key: string, mode: SortMode): void {
 }
 
 /**
+ * Coerces a frontmatter published value (Date object or ISO string) into a Date for sorting. Returns undefined if the value is not a recognized date type.
+ * @param {unknown} val - The published value from frontmatter
+ * @return {Date | undefined} The resolved Date, or undefined
+ */
+export function toSortDate(val: unknown): Date | undefined {
+  if (val instanceof Date) return val;
+  return typeof val === 'string' ? new Date(val) : undefined;
+}
+
+/**
  * Returns a comparator function for sorting SidebarItems by the given mode.
  * @param {SortMode} mode - The sort mode to use
  * @return {(a: SidebarItem, b: SidebarItem) => number} A comparator function suitable for Array.sort

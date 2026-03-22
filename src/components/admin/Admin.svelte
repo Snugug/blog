@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { initRouter, getRoute } from '$js/admin/router.svelte';
+  import { toSortDate } from '$js/admin/sort';
   import {
     getCollections,
     getDirectoryHandle,
@@ -91,21 +92,16 @@
     const liveItems = getContentList().map((item) => {
       const title =
         typeof item.data.title === 'string' ? item.data.title : item.filename;
-      const published = item.data.published;
       const slug = item.filename.replace(/\.mdx?$/, '');
       const draft = getDrafts().find(
         (d) => !d.isNew && d.filename === item.filename,
       );
+      const date = toSortDate(item.data.published);
       return {
         label: title,
         href: `/admin/${activeCollection}/${slug}`,
         subtitle: item.filename,
-        // js-yaml parses unquoted dates as Date objects, quoted dates as strings
-        ...(published instanceof Date
-          ? { date: published }
-          : typeof published === 'string'
-            ? { date: new Date(published) }
-            : {}),
+        ...(date ? { date } : {}),
         ...(draft
           ? {
               draftId: draft.id,
@@ -117,17 +113,20 @@
     });
     const newDraftItems = getDrafts()
       .filter((d) => d.isNew)
-      .map((d) => ({
-        label:
-          typeof d.formData.title === 'string'
-            ? d.formData.title
-            : 'Untitled Draft',
-        href: `/admin/${activeCollection}/draft-${d.id}`,
-        draftId: d.id,
-        isDraft: true as const,
-        isOutdated: false,
-        date: new Date(d.createdAt),
-      }));
+      .map((d) => {
+        const date = toSortDate(d.formData.published);
+        return {
+          label:
+            typeof d.formData.title === 'string'
+              ? d.formData.title
+              : 'Untitled Draft',
+          href: `/admin/${activeCollection}/draft-${d.id}`,
+          draftId: d.id,
+          isDraft: true as const,
+          isOutdated: false,
+          ...(date ? { date } : {}),
+        };
+      });
     return [...liveItems, ...newDraftItems];
   });
 
