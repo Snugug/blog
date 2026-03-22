@@ -78,11 +78,26 @@
             </span>
             <input type="password" bind:value={token} placeholder="ghp_..." />
           </label>
-          <div id="pat-info" class="pat-tooltip" popover="hint">
-            <p class="pat-tooltip-title">Required PAT permissions</p>
-            <ul>
-              <li><strong>Contents</strong> — read and write</li>
-            </ul>
+          <div id="pat-info" class="pat-tooltip" popover="hint" role="tooltip">
+            <p class="pat-tooltip-heading">
+              Create a <a
+                href="https://github.com/settings/personal-access-tokens"
+                target="_blank"
+                rel="noopener noreferrer">fine-grained PAT</a
+              > with:
+            </p>
+            <dl class="pat-permissions">
+              <div class="pat-permission">
+                <dt>Contents</dt>
+                <dd>Read and write</dd>
+              </div>
+              <div class="pat-permission">
+                <dt>Metadata</dt>
+                <dd>
+                  Read-only <span class="pat-note">(included by default)</span>
+                </dd>
+              </div>
+            </dl>
           </div>
           <label>
             <span class="field-label">Repository</span>
@@ -174,11 +189,13 @@
     color: var(--grey);
   }
 
+  // Override generic button styles for the inline info icon
   .info-btn {
     anchor-name: --pat-info-btn;
     interest-delay: 0s;
     background: none;
     border: none;
+    border-radius: 0;
     color: var(--grey);
     padding: 0;
     cursor: pointer;
@@ -190,6 +207,7 @@
     }
 
     &:hover {
+      background: none;
       color: var(--white);
     }
   }
@@ -204,8 +222,8 @@
     background: var(--dark-grey);
     border: 1px solid var(--grey);
     border-radius: 0.25rem;
-    padding: 0.75rem;
-    max-width: 16rem;
+    padding: 0.75rem 1rem;
+    max-width: 18rem;
     text-align: left;
 
     // Invisible bridge so hover interest isn't broken by the gap
@@ -219,18 +237,40 @@
     }
   }
 
-  .pat-tooltip-title {
+  .pat-tooltip-heading {
     font-size: 0.875rem;
-    color: var(--white);
+    color: var(--grey);
     margin: 0 0 0.5rem;
-    font-weight: 600;
+
+    a {
+      color: var(--white);
+    }
   }
 
-  .pat-tooltip ul {
+  .pat-permissions {
     margin: 0;
-    padding-left: 1.25rem;
+  }
+
+  .pat-permission {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
     font-size: 0.875rem;
-    color: var(--white);
+
+    dt {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0;
+      color: var(--grey);
+    }
+  }
+
+  .pat-note {
+    font-size: 0.75rem;
   }
 
   input {
