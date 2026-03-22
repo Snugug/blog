@@ -94,7 +94,7 @@ export function preloadFile(
   if (filename === itemFilename && fileOpen) return;
 
   // Deep-clone to avoid mutating the caller's object
-  formData = JSON.parse(JSON.stringify(data));
+  formData = structuredClone(data);
   lastSavedFormData = JSON.stringify(formData);
   body = '';
   lastSavedBody = '';
