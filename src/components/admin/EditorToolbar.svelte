@@ -1,14 +1,30 @@
-<script>
+<script lang="ts">
   import { getEditorFile } from '$js/admin/editor.svelte';
+
+  /**
+   * Props for the editor toolbar.
+   */
+  interface Props {
+    // Handler for saving a draft to IndexedDB
+    onSave: () => void;
+    // Handler for publishing to the filesystem
+    onPublish: () => void;
+    // Handler for deleting the current draft
+    onDelete: () => void;
+    // Whether the publish button should be disabled (missing required fields or filename)
+    publishDisabled: boolean;
+  }
+
+  let { onSave, onPublish, onDelete, publishDisabled }: Props = $props();
 
   // Current editor file state
   const file = $derived(getEditorFile());
 
-  // Display title from formData, falling back to filename
+  // Display title from formData, falling back to filename or "Untitled Draft"
   const title = $derived(
     file && typeof file.formData.title === 'string'
       ? file.formData.title
-      : (file?.filename ?? ''),
+      : file?.filename || 'Untitled Draft',
   );
 </script>
 
@@ -23,23 +39,41 @@
           title={file.dirty ? 'Unsaved changes' : ''}>&bull;</span
         >
       </h1>
-      <p class="toolbar__filename">{file.filename}</p>
+      {#if file.filename}
+        <p class="toolbar__filename">{file.filename}</p>
+      {/if}
     </div>
-    <button
-      class="save-button"
-      type="submit"
-      disabled={!file.dirty || file.saving || !file.bodyLoaded}
-    >
-      {file.saving ? 'Saving...' : 'Save'}
-    </button>
+    <div class="toolbar__actions">
+      {#if file.draftId}
+        <button class="btn btn--delete" type="button" onclick={onDelete}>
+          Delete Draft
+        </button>
+      {/if}
+      <button
+        class="btn btn--save"
+        type="button"
+        disabled={!file.dirty || file.saving}
+        onclick={onSave}
+      >
+        {file.saving ? 'Saving...' : 'Save'}
+      </button>
+      <button
+        class="btn btn--publish"
+        type="button"
+        disabled={publishDisabled || file.saving}
+        onclick={onPublish}
+      >
+        Publish
+      </button>
+    </div>
   </header>
 {/if}
 
 <style lang="scss">
   .toolbar {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
-    justify-content: space-between;
     padding: 0.5rem 1rem;
     border-bottom: 1px solid var(--dark-grey);
   }
@@ -71,8 +105,14 @@
     color: var(--gold);
   }
 
-  .save-button {
-    background: var(--plum);
+  .toolbar__actions {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn {
     border: none;
     border-radius: 0.25rem;
     color: var(--white);
@@ -80,13 +120,37 @@
     font-size: 0.875rem;
     padding: 0.25rem 0.75rem;
 
-    &:hover:not(:disabled) {
-      background: var(--light-plum);
-    }
-
     &:disabled {
       opacity: 0.5;
       cursor: default;
+    }
+  }
+
+  .btn--save {
+    background: var(--plum);
+
+    &:hover:not(:disabled) {
+      background: var(--light-plum);
+    }
+  }
+
+  .btn--publish {
+    background: var(--light-green);
+    color: var(--black);
+
+    &:hover:not(:disabled) {
+      background: var(--green);
+    }
+  }
+
+  .btn--delete {
+    background: none;
+    border: 1px solid var(--light-red);
+    color: var(--light-red);
+
+    &:hover {
+      background: var(--light-red);
+      color: var(--white);
     }
   }
 </style>
