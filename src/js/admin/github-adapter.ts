@@ -233,6 +233,8 @@ export class GitHubAdapter implements StorageAdapter {
     const headers: Record<string, string> = {
       Authorization: `Bearer ${this.token}`,
       'X-GitHub-Api-Version': '2026-03-10',
+      // Default to JSON so the browser cache distinguishes from raw content requests
+      Accept: 'application/vnd.github+json',
       ...extraHeaders,
     };
     if (body) {
