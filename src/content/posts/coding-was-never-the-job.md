@@ -2,7 +2,7 @@
 title: Coding Was Never The Job
 published: 2026-03-16T00:00:00.000Z
 draft: true
-summary: Converging on an idea around what software engineering means in the world of AI coding tools.
+summary: Converging on an idea around what software engineering means in the world of AI coding tools
 ---
 
 Last week was an interesting week at work. I moved to Canada midway through January and, despite being at Google for nearly 7.5 years, I'm a "Noogler" again, and got to go through Noogler training. Almost everyone in my cohort last week was a new grad from the University of Waterloo or University of Toronto (Canada, eh?) and it was really interesting hearing the questions that they had about working at both Google and being out in industry for the first time. 
