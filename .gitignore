@@ -23,3 +23,12 @@ pnpm-debug.log*
 
 .cache
 .astro
+
+# Symlink to .astro/collections (created by collections plugin)
+public/collections
+
+# Agent generated folders
+/.playwright-mcp
+.worktrees/
+/.superpowers
+docs/superpowers

@@ -1,0 +1,340 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { initRouter, getRoute } from '$js/admin/router.svelte';
+  import { toSortDate } from '$js/admin/sort';
+  import {
+    getCollections,
+    isBackendReady,
+    restoreBackend,
+    loadCollection,
+    getContentList,
+    isLoading,
+    getError,
+    getDrafts,
+    getOutdatedMap,
+  } from '$js/admin/state.svelte';
+  import {
+    preloadFile,
+    loadFileBody,
+    clearEditor,
+    getActiveTab,
+    getEditorFile,
+    loadDraftById,
+  } from '$js/admin/editor.svelte';
+  import {
+    fetchSchema,
+    getSchema,
+    clearSchema,
+    prefetchAllSchemas,
+    collectionHasDates,
+  } from '$js/admin/schema.svelte';
+  import {
+    handleSave,
+    handlePublish,
+    handleDeleteDraft,
+    handleFilenameConfirm,
+    computePublishDisabled,
+  } from '$js/admin/admin-handlers';
+  import BackendPicker from './BackendPicker.svelte';
+  import AdminSidebar from './AdminSidebar.svelte';
+  import EditorToolbar from './EditorToolbar.svelte';
+  import EditorPane from './EditorPane.svelte';
+  import EditorTabs from './EditorTabs.svelte';
+  import MetadataForm from './MetadataForm.svelte';
+  import FilenameDialog from './FilenameDialog.svelte';
+  import DeleteDraftDialog from './DeleteDraftDialog.svelte';
+
+  // Whether the admin backend is ready to serve content
+  const ready = $derived(isBackendReady());
+
+  // The current route for tracking collection changes
+  const currentRoute = $derived(getRoute());
+
+  // Whether a collection is currently selected (including draft view)
+  const hasCollection = $derived(currentRoute.view !== 'home');
+
+  // The active collection name, if any
+  const activeCollection = $derived(
+    currentRoute.view !== 'home' ? currentRoute.collection : null,
+  );
+
+  // Whether a file or draft is currently open in the editor
+  const fileOpen = $derived(
+    currentRoute.view === 'file' || currentRoute.view === 'draft',
+  );
+
+  // Active editor tab from shared editor state
+  const activeTab = $derived(getActiveTab());
+
+  // The active file/draft href for highlighting in the content sidebar
+  const activeFileHref = $derived.by(() => {
+    if (currentRoute.view === 'file')
+      return `/admin/${currentRoute.collection}/${currentRoute.slug}`;
+    if (currentRoute.view === 'draft')
+      return `/admin/${currentRoute.collection}/draft-${currentRoute.draftId}`;
+    return undefined;
+  });
+
+  // Collection names mapped to SidebarItems, title-cased for display
+  const collectionItems = $derived(
+    getCollections().map((name) => ({
+      label: name.charAt(0).toUpperCase() + name.slice(1),
+      href: `/admin/${name}`,
+    })),
+  );
+
+  // Content items merged with draft data (DRAFT/OUTDATED chips) plus new draft items
+  const contentItems = $derived.by(() => {
+    const liveItems = getContentList().map((item) => {
+      const title =
+        typeof item.data.title === 'string' ? item.data.title : item.filename;
+      const slug = item.filename.replace(/\.mdx?$/, '');
+      const draft = getDrafts().find(
+        (d) => !d.isNew && d.filename === item.filename,
+      );
+      const date = toSortDate(item.data.published);
+      return {
+        label: title,
+        href: `/admin/${activeCollection}/${slug}`,
+        subtitle: item.filename,
+        ...(date ? { date } : {}),
+        ...(draft
+          ? {
+              draftId: draft.id,
+              isDraft: true,
+              isOutdated: getOutdatedMap()[draft.id] ?? false,
+            }
+          : {}),
+      };
+    });
+    const newDraftItems = getDrafts()
+      .filter((d) => d.isNew)
+      .map((d) => {
+        const date = toSortDate(d.formData.published);
+        return {
+          label:
+            typeof d.formData.title === 'string'
+              ? d.formData.title
+              : 'Untitled Draft',
+          href: `/admin/${activeCollection}/draft-${d.id}`,
+          draftId: d.id,
+          isDraft: true as const,
+          isOutdated: false,
+          ...(date ? { date } : {}),
+        };
+      });
+    return [...liveItems, ...newDraftItems];
+  });
+
+  // Whether the active collection has date fields for sort controls
+  const contentHasDates = $derived(
+    activeCollection ? collectionHasDates(activeCollection) : false,
+  );
+
+  // Whether the publish button should be disabled (missing required fields)
+  const publishDisabled = $derived(
+    computePublishDisabled(getSchema(), getEditorFile()?.formData ?? {}),
+  );
+
+  // Existing filenames for uniqueness validation in the filename dialog — includes both live files and drafts with filenames
+  const existingFilenames = $derived([
+    ...getContentList().map((item) => item.filename),
+    ...getDrafts()
+      .filter((d) => d.filename)
+      .map((d) => d.filename!),
+  ]);
+
+  // Dialog visibility state
+  let showFilenameDialog = $state(false);
+  let showDeleteDialog = $state(false);
+
+  // Trigger collection loading when route changes to a collection, file, or draft view
+  $effect(() => {
+    if (ready && currentRoute.view !== 'home') {
+      loadCollection(currentRoute.collection);
+    }
+  });
+
+  // Loads content for the file or draft view. Both branches gate on `ready`
+  // so they re-run when the directory handle is restored on page load.
+  $effect(() => {
+    const items = getContentList();
+    if (ready && currentRoute.view === 'file' && items.length > 0) {
+      const item = items.find(
+        (i) => i.filename.replace(/\.mdx?$/, '') === currentRoute.slug,
+      );
+      if (!item) return;
+
+      // preloadFile is async — it checks IDB for a draft first
+      preloadFile(currentRoute.collection, item.filename, item.data).then(
+        () => {
+          // If preloadFile loaded a draft (body already present), skip disk read
+          const editorFile = getEditorFile();
+          if (editorFile?.draftId) return;
+
+          loadFileBody(currentRoute.collection, item.filename);
+        },
+      );
+    } else if (ready && currentRoute.view === 'draft') {
+      loadDraftById(currentRoute.draftId, currentRoute.collection);
+    } else if (currentRoute.view !== 'file' && currentRoute.view !== 'draft') {
+      clearEditor();
+    }
+  });
+
+  // Fetch the JSON Schema when the active collection changes
+  $effect(() => {
+    if (ready && currentRoute.view !== 'home') {
+      fetchSchema(currentRoute.collection);
+    } else {
+      clearSchema();
+    }
+  });
+
+  /**
+   * Handles the publish button click, showing the filename dialog if needed.
+   * @return {Promise<void>}
+   */
+  async function onPublish(): Promise<void> {
+    const result = await handlePublish(activeCollection);
+    if (result.status === 'needs-filename') {
+      showFilenameDialog = true;
+    }
+  }
+
+  /**
+   * Handles filename dialog confirmation.
+   * @param {string} filename - The chosen filename
+   * @return {Promise<void>}
+   */
+  async function onFilenameConfirm(filename: string): Promise<void> {
+    showFilenameDialog = false;
+    await handleFilenameConfirm(filename, activeCollection);
+  }
+
+  /**
+   * Handles delete draft confirmation.
+   * @return {Promise<void>}
+   */
+  async function onDeleteConfirm(): Promise<void> {
+    showDeleteDialog = false;
+    await handleDeleteDraft(activeCollection);
+  }
+
+  onMount(() => {
+    initRouter();
+    restoreBackend();
+    prefetchAllSchemas();
+  });
+</script>
+
+<div
+  class="admin"
+  class:admin--connected={ready}
+  class:admin--collection={ready && hasCollection}
+  class:admin--file-open={ready && fileOpen}
+>
+  {#if !ready}
+    <BackendPicker />
+  {:else}
+    <AdminSidebar
+      title="Collections"
+      items={collectionItems}
+      activeItem={activeCollection ? `/admin/${activeCollection}` : undefined}
+      showFooter={true}
+    />
+    {#if hasCollection && activeCollection}
+      <AdminSidebar
+        title={activeCollection}
+        items={contentItems}
+        activeItem={activeFileHref}
+        storageKey={activeCollection}
+        loading={isLoading()}
+        error={getError() ?? undefined}
+        hasDates={contentHasDates}
+        collection={activeCollection}
+        showAdd={true}
+      />
+    {/if}
+    {#if fileOpen}
+      {@const currentSchema = getSchema()}
+      <div class="editor-area">
+        <EditorToolbar
+          onSave={() => handleSave(activeCollection)}
+          {onPublish}
+          onDelete={() => {
+            showDeleteDialog = true;
+          }}
+          {publishDisabled}
+        />
+        <EditorTabs schema={currentSchema} />
+        <div class="editor-content">
+          {#if activeTab === 'body'}
+            <EditorPane />
+          {:else if currentSchema}
+            <MetadataForm
+              schema={currentSchema}
+              tab={activeTab === 'metadata' ? null : activeTab}
+            />
+          {/if}
+        </div>
+      </div>
+    {/if}
+  {/if}
+</div>
+
+{#if showFilenameDialog}
+  {@const file = getEditorFile()}
+  <FilenameDialog
+    title={typeof file?.formData.title === 'string' ? file.formData.title : ''}
+    {existingFilenames}
+    onConfirm={onFilenameConfirm}
+    onCancel={() => {
+      showFilenameDialog = false;
+    }}
+  />
+{/if}
+
+{#if showDeleteDialog}
+  <DeleteDraftDialog
+    onConfirm={onDeleteConfirm}
+    onCancel={() => {
+      showDeleteDialog = false;
+    }}
+  />
+{/if}
+
+<style lang="scss">
+  .admin {
+    // Lock to viewport height so the page never scrolls —
+    // all scrolling happens inside editor-content or sidebars
+    height: 100dvh;
+  }
+
+  .admin--connected {
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+  }
+
+  .admin--collection {
+    grid-template-columns: 15rem 15rem 1fr;
+  }
+
+  .admin--file-open {
+    grid-template-columns: 15rem 15rem 1fr;
+  }
+
+  .editor-area {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    overflow: hidden;
+    border-left: 1px solid var(--dark-grey);
+  }
+
+  // Scrollable content area; min-height: 0 allows the 1fr grid row to shrink
+  .editor-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+  }
+</style>

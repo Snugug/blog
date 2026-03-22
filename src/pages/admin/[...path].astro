@@ -1,0 +1,81 @@
+---
+import '../../sass/style.scss';
+import Admin from '$components/admin/Admin.svelte';
+import schemas from 'virtual:collections';
+
+/**
+ * Pre-renders /admin, /admin/{collection}, and /admin/{collection}/{slug} paths.
+ * All paths serve the same SPA shell — client-side Navigation API handles routing.
+ * File-level paths use import.meta.glob to enumerate content files at build time.
+ */
+export function getStaticPaths() {
+  const collections = Object.keys(schemas);
+  const files = import.meta.glob('/src/content/**/*.{md,mdx}', {
+    eager: false,
+  });
+
+  return [
+    { params: { path: undefined } },
+    ...collections.map((name) => ({ params: { path: name } })),
+    ...collections.flatMap((name) => {
+      const prefix = `/src/content/${name}/`;
+      return Object.keys(files)
+        .filter((filePath) => filePath.startsWith(prefix))
+        .map((filePath) => {
+          const filename = filePath.slice(prefix.length);
+          const slug = filename.replace(/\.mdx?$/, '');
+          return { params: { path: `${name}/${slug}` } };
+        });
+    }),
+    // Fallback entry for draft routes — uses draft-placeholder as a 2-segment slug
+    // so it matches the same URL depth as regular files. The SPA router parses the
+    // actual draft ID from the draft-{uuid} prefix at runtime.
+    ...collections.map((name) => ({
+      params: { path: `${name}/draft-placeholder` },
+    })),
+  ];
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/fonts/dank-mono.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,arrow_downward,arrow_upward,chevron_right,close,drag_indicator,hourglass_arrow_down,hourglass_arrow_up,info,logout,sort_by_alpha&display=block"
+      rel="stylesheet"
+    />
+    <link rel="me" href="https://mas.to/@snugug" />
+    {
+      import.meta.env.MODE !== 'development' ? (
+        <link rel="manifest" href="/manifest.webmanifest" />
+      ) : (
+        ''
+      )
+    }
+    <meta name="generator" content={Astro.generator} />
+    <title>Admin</title>
+    <script
+      defer
+      data-domain="snugug.com"
+      src="https://plausible.io/js/script.outbound-links.tagged-events.js"
+    ></script>
+    <slot name="head" />
+  </head>
+  <body class="body">
+    <div class="body-content">
+      <Admin client:only="svelte" />
+    </div>
+  </body>
+</html>
+
+<style>
+  .body {
+    display: grid;
+    grid-template-rows: 1fr;
+    min-height: 100vh;
+  }
+</style>

@@ -36,6 +36,7 @@ const t = (title ? `${title} | ` : '') + 'Snugug';
       data-domain="snugug.com"
       src="https://plausible.io/js/script.outbound-links.tagged-events.js"
     ></script>
+    <slot name="head" />
   </head>
   <body class="body">
     <Menu client:load />
