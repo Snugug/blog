@@ -2,6 +2,7 @@ import {
   saveDraftToIDB,
   publishFile,
   deleteCurrentDraft,
+  clearEditor,
   getEditorFile,
   setFilename,
 } from './editor.svelte';
@@ -60,16 +61,33 @@ export async function handlePublish(
 }
 
 /**
- * Deletes the current draft and navigates back to the collection view.
- * @param {string | null} activeCollection - The collection to navigate back to
+ * Deletes the current draft. For drafts of live content, navigates to the live file's URL so the live version reloads in-place. For new drafts, navigates back to the collection list.
+ * @param {string | null} activeCollection - The collection to navigate within
  * @return {Promise<void>}
  */
 export async function handleDeleteDraft(
   activeCollection: string | null,
 ): Promise<void> {
+  const file = getEditorFile();
+  const wasNewDraft = file?.isNewDraft ?? true;
+  const liveFilename = file?.filename;
+
   await deleteCurrentDraft();
-  if (activeCollection) {
-    reloadCollection(activeCollection);
+
+  if (!activeCollection) return;
+
+  reloadCollection(activeCollection);
+
+  // Clear editor so the route change triggers a fresh load (preloadFile has
+  // an early return if the same filename is already open)
+  clearEditor();
+
+  if (!wasNewDraft && liveFilename) {
+    // Draft of live content — navigate to the live file so it reloads from disk
+    const slug = liveFilename.replace(/\.mdx?$/, '');
+    navigate(`/admin/${activeCollection}/${slug}`);
+  } else {
+    // New draft — no live file to return to, go to collection list
     navigate(`/admin/${activeCollection}`);
   }
 }
