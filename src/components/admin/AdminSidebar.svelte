@@ -84,7 +84,7 @@
       createdAt: new Date().toISOString(),
     });
     reloadCollection(collection);
-    navigate(`/admin/${collection}/draft/${id}`);
+    navigate(`/admin/${collection}/draft-${id}`);
   }
 
   // Items filtered by search query and sorted by current mode

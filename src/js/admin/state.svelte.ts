@@ -5,10 +5,11 @@ import {
   getDrafts,
   getOutdatedMap,
   mergeDrafts,
+  refreshDrafts,
   resetDraftMerge,
 } from './draft-merge.svelte';
 
-export { getDrafts, getOutdatedMap };
+export { getDrafts, getOutdatedMap, refreshDrafts };
 
 /**
  * Content item with full frontmatter data returned by the worker.

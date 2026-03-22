@@ -116,6 +116,16 @@ export async function mergeDrafts(
 }
 
 /**
+ * Re-reads drafts from IndexedDB for the given collection and updates the reactive drafts list.
+ * Used after saving/deleting a draft so the sidebar reflects changes immediately without a full collection reload.
+ * @param {string} collection - The collection to refresh drafts for
+ * @return {Promise<void>}
+ */
+export async function refreshDrafts(collection: string): Promise<void> {
+  drafts = await loadDrafts(collection);
+}
+
+/**
  * Resets draft-related state and terminates the diff worker. Called during disconnect.
  * @return {void}
  */

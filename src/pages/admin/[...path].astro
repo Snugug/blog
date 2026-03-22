@@ -27,10 +27,11 @@ export function getStaticPaths() {
           return { params: { path: `${name}/${slug}` } };
         });
     }),
-    // Fallback entries for draft routes — the SPA shell is identical,
-    // and the client-side router parses the actual draft ID.
+    // Fallback entry for draft routes — uses draft-placeholder as a 2-segment slug
+    // so it matches the same URL depth as regular files. The SPA router parses the
+    // actual draft ID from the draft-{uuid} prefix at runtime.
     ...collections.map((name) => ({
-      params: { path: `${name}/draft/placeholder` },
+      params: { path: `${name}/draft-placeholder` },
     })),
   ];
 }

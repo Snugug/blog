@@ -6,15 +6,25 @@ import {
   getEditorFile,
   setFilename,
 } from './editor.svelte';
-import { getDirectoryHandle, reloadCollection } from './state.svelte';
+import {
+  getDirectoryHandle,
+  reloadCollection,
+  refreshDrafts,
+} from './state.svelte';
 import { navigate } from './router.svelte';
 
 /**
- * Saves the current editor content as a draft to IndexedDB.
+ * Saves the current editor content as a draft to IndexedDB and refreshes the sidebar's draft list so changes appear immediately.
+ * @param {string | null} activeCollection - The active collection for refreshing the draft list
  * @return {Promise<void>}
  */
-export async function handleSave(): Promise<void> {
+export async function handleSave(
+  activeCollection: string | null,
+): Promise<void> {
   await saveDraftToIDB();
+  if (activeCollection) {
+    await refreshDrafts(activeCollection);
+  }
 }
 
 /**

@@ -34,9 +34,11 @@
 </dialog>
 
 <style lang="scss">
+  // dialog renders in the top layer — CSS custom properties may not be inherited,
+  // so use a hardcoded fallback for the background
   .confirm-dialog {
-    background: var(--near-black);
-    color: var(--white);
+    background: var(--near-black, #1e1e22);
+    color: var(--white, #e0e0e0);
     border: 1px solid var(--dark-grey);
     border-radius: 0.5rem;
     padding: 1.5rem;
@@ -72,6 +74,7 @@
     font-size: 0.875rem;
     cursor: pointer;
     border: none;
+    text-align: center;
   }
 
   .btn--cancel {

@@ -19,13 +19,12 @@
 </span>
 
 <style lang="scss">
+  // Visually sized closer to the subtitle than the main label text
   .chip {
     font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.25rem 0.5rem;
-    border-radius: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
+    font-weight: 600;
+    padding: 0 0.25rem;
+    border-radius: 3px;
     line-height: 1;
     white-space: nowrap;
   }

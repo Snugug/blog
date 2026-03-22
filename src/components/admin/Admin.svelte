@@ -74,7 +74,7 @@
     if (currentRoute.view === 'file')
       return `/admin/${currentRoute.collection}/${currentRoute.slug}`;
     if (currentRoute.view === 'draft')
-      return `/admin/${currentRoute.collection}/draft/${currentRoute.draftId}`;
+      return `/admin/${currentRoute.collection}/draft-${currentRoute.draftId}`;
     return undefined;
   });
 
@@ -122,7 +122,7 @@
           typeof d.formData.title === 'string'
             ? d.formData.title
             : 'Untitled Draft',
-        href: `/admin/${activeCollection}/draft/${d.id}`,
+        href: `/admin/${activeCollection}/draft-${d.id}`,
         draftId: d.id,
         isDraft: true as const,
         isOutdated: false,
@@ -163,6 +163,9 @@
   // Loads the file when the route has a slug (file view).
   // Phase 1: preloadFile checks IDB for a draft, otherwise sets metadata immediately.
   // Phase 2 (async): loadFileBody reads the body from disk if no draft was found.
+  // Load file from disk (file view) or draft from IndexedDB (draft view).
+  // Both branches gate on `ready` as a reactive dependency so they re-run
+  // when the directory handle is restored on page load.
   $effect(() => {
     const items = getContentList();
     if (ready && currentRoute.view === 'file' && items.length > 0) {
@@ -185,12 +188,9 @@
           );
         },
       );
-    } else if (currentRoute.view === 'draft') {
-      // Draft route — load draft directly from IndexedDB
-      if (ready) {
-        loadDraftById(currentRoute.draftId, currentRoute.collection);
-      }
-    } else if (currentRoute.view !== 'file') {
+    } else if (ready && currentRoute.view === 'draft') {
+      loadDraftById(currentRoute.draftId, currentRoute.collection);
+    } else if (currentRoute.view !== 'file' && currentRoute.view !== 'draft') {
       clearEditor();
     }
   });
@@ -272,7 +272,7 @@
       {@const currentSchema = getSchema()}
       <div class="editor-area">
         <EditorToolbar
-          onSave={handleSave}
+          onSave={() => handleSave(activeCollection)}
           {onPublish}
           onDelete={() => {
             showDeleteDialog = true;

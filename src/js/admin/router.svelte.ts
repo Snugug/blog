@@ -20,8 +20,14 @@ function parsePathname(pathname: string): AdminRoute {
     .replace(/^\/admin\/?/, '')
     .split('/')
     .filter(Boolean);
-  if (segments.length >= 3 && segments[1] === 'draft') {
-    return { view: 'draft', collection: segments[0], draftId: segments[2] };
+  // Draft URLs use a 2-segment pattern: /admin/{collection}/draft-{draftId}
+  // This keeps the same URL depth as regular files so Astro static paths work
+  if (segments.length >= 2 && segments[1].startsWith('draft-')) {
+    return {
+      view: 'draft',
+      collection: segments[0],
+      draftId: segments[1].slice('draft-'.length),
+    };
   }
   if (segments.length >= 2) {
     return { view: 'file', collection: segments[0], slug: segments[1] };
