@@ -53,6 +53,8 @@ let error = $state<string | null>(null);
 let loading = $state(false);
 let worker: Worker | null = null;
 let loadedCollection = '';
+// Per-collection content cache — instant sidebar on collection switch
+const contentCache = new Map<string, ContentItem[]>();
 
 /**
  * Returns the sorted list of collection names.
@@ -111,15 +113,6 @@ export function isLoading(): boolean {
   return loading;
 }
 /**
- * Bridges a MessagePort to the SharedWorker so dedicated workers get direct access.
- * @param {MessagePort} port - The port to bridge
- * @return {void}
- */
-function bridgePortToSharedWorker(port: MessagePort): void {
-  sharedWorker.port.postMessage({ type: 'connect-port' }, [port]);
-}
-
-/**
  * Initializes the singleton frontmatter worker and bridges a port to the SharedWorker.
  * @return {Worker} The existing or newly created worker instance
  */
@@ -132,6 +125,7 @@ function ensureWorker(): Worker {
     const data = event.data;
     if (data.type === 'result') {
       contentList = data.items;
+      if (loadedCollection) contentCache.set(loadedCollection, data.items);
       loading = false;
       error = null;
       if (backendReady && loadedCollection) {
@@ -147,13 +141,13 @@ function ensureWorker(): Worker {
   // Bridge a port so the frontmatter worker can talk to the storage SharedWorker
   const channel = new MessageChannel();
   worker.postMessage({ type: 'port' }, [channel.port1]);
-  bridgePortToSharedWorker(channel.port2);
+  sharedWorker.port.postMessage({ type: 'connect-port' }, [channel.port2]);
 
   return worker;
 }
 
 /**
- * Sends a parse request to the frontmatter worker for the given collection. When refreshing (e.g. after publish), keeps the current content visible instead of blanking the sidebar.
+ * Sends a parse request to the frontmatter worker. Refresh mode keeps current sidebar visible.
  * @param {string} collection - The collection name to parse
  * @param {boolean} refresh - If true, keep current contentList and skip loading state
  * @return {void}
@@ -286,6 +280,7 @@ export async function disconnect(): Promise<void> {
   backendReady = false;
   permissionState = 'denied';
   contentList = [];
+  contentCache.clear();
   loadedCollection = '';
   error = null;
   loading = false;
@@ -304,18 +299,26 @@ function navigateToFirstCollectionIfHome(): void {
 }
 
 /**
- * Triggers worker parsing for the given collection. Skips if already loaded.
+ * Loads a collection. Serves from cache instantly if available, then background refreshes.
  * @param {string} collection - The collection name to load
  * @return {void}
  */
 export function loadCollection(collection: string): void {
   if (collection === loadedCollection) return;
   loadedCollection = collection;
-  dispatchWorker(collection);
+  const cached = contentCache.get(collection);
+  if (cached) {
+    // Serve cached items instantly, then refresh in background
+    contentList = cached;
+    refreshDrafts(collection);
+    dispatchWorker(collection, true);
+  } else {
+    dispatchWorker(collection);
+  }
 }
 
 /**
- * Forces a background reload of the current collection. Keeps the sidebar visible with current items while fetching fresh data.
+ * Forces a background reload of the current collection, keeping the sidebar visible.
  * @param {string} collection - The collection to reload
  * @return {void}
  */
@@ -325,7 +328,7 @@ export function reloadCollection(collection: string): void {
 }
 
 /**
- * Optimistically updates a single item's frontmatter in the content list without re-fetching from the backend. Used after publish to instantly reflect changes in the sidebar.
+ * Optimistically updates a single item's frontmatter in the content list and cache.
  * @param {string} filename - The filename to update
  * @param {Record<string, unknown>} data - The new frontmatter data
  * @return {void}
@@ -334,7 +337,9 @@ export function updateContentItem(
   filename: string,
   data: Record<string, unknown>,
 ): void {
-  contentList = contentList.map((item) =>
+  const updated = contentList.map((item) =>
     item.filename === filename ? { ...item, data } : item,
   );
+  contentList = updated;
+  if (loadedCollection) contentCache.set(loadedCollection, updated);
 }
