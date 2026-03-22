@@ -16,7 +16,11 @@
 
   let { name, schema, value, required = false, onchange }: Props = $props();
 
-  /** Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores. */
+  /**
+   * Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores.
+   * @param {string} str - The raw property name to convert
+   * @return {string} The title-cased display string
+   */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -44,7 +48,10 @@
   /** Whether empty input should emit null (nullable anyOf-unwrapped types) */
   const nullable = $derived(!!(schema['_nullable'] as boolean | undefined));
 
-  /** Handles checkbox change. Preserves null for nullable fields only while the value is already null and unchecked. */
+  /**
+   * Handles checkbox change. Preserves null for nullable fields only while the value is already null and unchecked.
+   * @param {Event} e - The change event from the checkbox input element
+   */
   function handleChange(e: Event): void {
     const isChecked = (e.target as HTMLInputElement).checked;
     onchange(nullable && value === null && !isChecked ? null : isChecked);

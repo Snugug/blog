@@ -22,14 +22,15 @@ export type FieldType =
  */
 export type PathSegment = string | number;
 
-// ---------------------------------------------------------------------------
+//////////////////////////////
 // resolveFieldType
-// ---------------------------------------------------------------------------
+//////////////////////////////
 
 /**
  * Resolves a JSON Schema node to a `FieldType` discriminated union.
  * Handles anyOf nullable unwrapping, enum detection, and date-time format.
- * @param schema - The JSON Schema node to resolve
+ * @param {SchemaNode} schema - The JSON Schema node to resolve
+ * @return {FieldType} The resolved field type descriptor
  */
 export function resolveFieldType(schema: SchemaNode): FieldType {
   // Unwrap nullable anyOf: [<innerType>, { type: 'null' }]
@@ -65,13 +66,14 @@ export function resolveFieldType(schema: SchemaNode): FieldType {
   return { kind: 'unknown' };
 }
 
-// ---------------------------------------------------------------------------
+//////////////////////////////
 // extractTabs
-// ---------------------------------------------------------------------------
+//////////////////////////////
 
 /**
  * Scans an object schema's properties for `tab` arrays and returns a sorted, deduplicated list of all tab names found.
- * @param schema - A JSON Schema node with an optional `properties` map
+ * @param {SchemaNode} schema - A JSON Schema node with an optional `properties` map
+ * @return {string[]} Sorted, deduplicated list of tab names
  */
 export function extractTabs(schema: SchemaNode): string[] {
   const properties = schema['properties'] as
@@ -93,14 +95,15 @@ export function extractTabs(schema: SchemaNode): string[] {
   return Array.from(tabs).sort();
 }
 
-// ---------------------------------------------------------------------------
+//////////////////////////////
 // createDefaultValue
-// ---------------------------------------------------------------------------
+//////////////////////////////
 
 /**
  * Returns a type-appropriate default value for a given JSON Schema node.
  * Honors `schema.default` when present, returns null for nullable types, and recurses into object properties.
- * @param schema - The JSON Schema node to generate a default value for
+ * @param {SchemaNode} schema - The JSON Schema node to generate a default value for
+ * @return {unknown} A default value appropriate for the schema type
  */
 export function createDefaultValue(schema: SchemaNode): unknown {
   // Honour an explicit schema default first
@@ -137,15 +140,16 @@ export function createDefaultValue(schema: SchemaNode): unknown {
   return null;
 }
 
-// ---------------------------------------------------------------------------
+//////////////////////////////
 // getByPath
-// ---------------------------------------------------------------------------
+//////////////////////////////
 
 /**
  * Reads a deeply nested value from an object by following path segments.
  * Returns `undefined` if any segment along the path is missing.
- * @param obj - The root object to traverse
- * @param path - Ordered path segments (string keys or numeric indices)
+ * @param {unknown} obj - The root object to traverse
+ * @param {PathSegment[]} path - Ordered path segments (string keys or numeric indices)
+ * @return {unknown} The value at the resolved path, or undefined if any segment is missing
  */
 export function getByPath(obj: unknown, path: PathSegment[]): unknown {
   let current: unknown = obj;
@@ -156,15 +160,16 @@ export function getByPath(obj: unknown, path: PathSegment[]): unknown {
   return current;
 }
 
-// ---------------------------------------------------------------------------
+//////////////////////////////
 // setByPath
-// ---------------------------------------------------------------------------
+//////////////////////////////
 
 /**
  * Sets a deeply nested value in an object by following path segments, creating intermediate objects as needed.
- * @param obj - The root object to mutate
- * @param path - Ordered path segments (string keys or numeric indices)
- * @param value - The value to assign at the resolved path
+ * @param {unknown} obj - The root object to mutate
+ * @param {PathSegment[]} path - Ordered path segments (string keys or numeric indices)
+ * @param {unknown} value - The value to assign at the resolved path
+ * @return {void}
  */
 export function setByPath(
   obj: unknown,
@@ -187,15 +192,16 @@ export function setByPath(
   current[path[path.length - 1]] = value;
 }
 
-// ---------------------------------------------------------------------------
+//////////////////////////////
 // getFieldsForTab
-// ---------------------------------------------------------------------------
+//////////////////////////////
 
 /**
  * Returns property names from a schema that belong to the given tab.
  * When `tab` is `null`, all property names are returned (no filtering — every field appears in the catch-all Metadata view).
- * @param schema - A JSON Schema node with an optional `properties` map
- * @param tab - Tab name to filter by, or `null` to return all fields
+ * @param {SchemaNode} schema - A JSON Schema node with an optional `properties` map
+ * @param {string | null} tab - Tab name to filter by, or `null` to return all fields
+ * @return {string[]} Array of property names belonging to the specified tab
  */
 export function getFieldsForTab(
   schema: SchemaNode,

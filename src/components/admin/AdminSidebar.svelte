@@ -62,7 +62,7 @@
 
   /**
    * Handles sort option selection from the popover.
-   * @param mode - The selected sort mode
+   * @param {SortMode} mode - The selected sort mode to apply and persist
    */
   function selectSort(mode: SortMode): void {
     sortMode = mode;

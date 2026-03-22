@@ -16,7 +16,11 @@
 
   let { name, schema, value, required = false, onchange }: Props = $props();
 
-  /** Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores. */
+  /**
+   * Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores.
+   * @param {string} str - The raw property name to convert
+   * @return {string} The title-cased display string
+   */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -76,7 +80,10 @@
     return parts.join(', ');
   });
 
-  /** Handles input change, emitting null for empty nullable fields or 0 for non-nullable. */
+  /**
+   * Handles input change, emitting null for empty nullable fields or 0 for non-nullable.
+   * @param {Event} e - The input event from the number input element
+   */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLInputElement).value;
     if (raw === '') {

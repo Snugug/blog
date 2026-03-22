@@ -7,7 +7,8 @@ export type SplitResult = {
 /**
  * Splits a markdown/MDX file into raw YAML frontmatter and body content.
  * Handles BOM stripping, CRLF normalization, and horizontal rule rejection.
- * @param content - Raw file content
+ * @param {string} content - Raw file content
+ * @return {SplitResult} The separated frontmatter and body strings
  */
 export function splitFrontmatter(content: string): SplitResult {
   let str = content.startsWith('\uFEFF') ? content.slice(1) : content;

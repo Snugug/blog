@@ -116,8 +116,9 @@
   });
 
   /**
-   * Creates the full set of CodeMirror extensions.
-   * @param doc - Initial document content
+   * Creates the full set of CodeMirror extensions for the markdown editor.
+   * @param {string} doc - Initial document content used to configure the update listener
+   * @return {Extension[]} The array of CodeMirror extensions to apply
    */
   function createExtensions(doc: string) {
     return [

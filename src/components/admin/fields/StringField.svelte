@@ -16,7 +16,11 @@
 
   let { name, schema, value, required = false, onchange }: Props = $props();
 
-  /** Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores. */
+  /**
+   * Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores.
+   * @param {string} str - The raw property name to convert
+   * @return {string} The title-cased display string
+   */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -53,7 +57,10 @@
   /** Whether to render as a textarea (widget: "textarea" in schema meta) */
   const isTextarea = $derived(schema['widget'] === 'textarea');
 
-  /** Handles input change, emitting null for empty nullable fields. */
+  /**
+   * Handles input change, emitting null for empty nullable fields.
+   * @param {Event} e - The input or change event from the text input or textarea
+   */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLInputElement | HTMLTextAreaElement).value;
     onchange(nullable && raw === '' ? null : raw);

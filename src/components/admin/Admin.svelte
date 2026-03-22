@@ -105,7 +105,9 @@
   });
 
   /**
-   * Load file when route has a slug. Phase 1 (synchronous): preloadFile sets metadata immediately so the toolbar, tabs, and form render instantly. Phase 2 (async): loadFileBody reads the file for the body content.
+   * Loads the file when the route has a slug.
+   * Phase 1 (synchronous): preloadFile sets metadata immediately so the toolbar, tabs, and form render instantly.
+   * Phase 2 (async): loadFileBody reads the file for the body content.
    */
   $effect(() => {
     const items = getContentList();

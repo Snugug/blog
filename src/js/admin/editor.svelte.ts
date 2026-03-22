@@ -40,7 +40,10 @@ let bodyLoaded = $state(false);
 // Register dirty checker with router for navigation guards
 registerDirtyChecker(() => dirty);
 
-/** Recomputes dirty state by comparing body and formData against their saved snapshots. */
+/**
+ * Recomputes dirty state by comparing body and formData against their saved snapshots.
+ * @return {void}
+ */
 function recomputeDirty(): void {
   dirty =
     body !== lastSavedBody || JSON.stringify(formData) !== lastSavedFormData;
@@ -49,21 +52,26 @@ function recomputeDirty(): void {
 /**
  * Returns the current editor file state, or null if no file is open.
  * Returns immediately once preloadFile is called, before the body finishes loading.
+ * @return {EditorFile | null} The current editor file state, or null if no file is open
  */
 export function getEditorFile(): EditorFile | null {
   if (!fileOpen) return null;
   return { handle, body, formData, dirty, saving, filename, bodyLoaded };
 }
 
-/** Returns the current formData object (reactive). */
+/**
+ * Returns the current formData object (reactive).
+ * @return {Record<string, unknown>} The current form data
+ */
 export function getFormData(): Record<string, unknown> {
   return formData;
 }
 
 /**
  * Updates a single field within formData by path and recomputes dirty state.
- * @param path - Ordered path segments addressing the field to update
- * @param value - The new value to assign at the given path
+ * @param {PathSegment[]} path - Ordered path segments addressing the field to update
+ * @param {unknown} value - The new value to assign at the given path
+ * @return {void}
  */
 export function updateFormField(path: PathSegment[], value: unknown): void {
   setByPath(formData, path, value);
@@ -71,10 +79,10 @@ export function updateFormField(path: PathSegment[], value: unknown): void {
 }
 
 /**
- * Immediately populates the editor with metadata from the content list so the UI renders
- * without waiting for the async file read. Call before loadFileBody.
- * @param itemFilename - The content file's name
- * @param data - Pre-parsed frontmatter data
+ * Immediately populates the editor with metadata from the content list so the UI renders without waiting for the async file read. Call before loadFileBody.
+ * @param {string} itemFilename - The content file's name
+ * @param {Record<string, unknown>} data - Pre-parsed frontmatter data
+ * @return {void}
  */
 export function preloadFile(
   itemFilename: string,
@@ -99,7 +107,8 @@ export function preloadFile(
 
 /**
  * Loads the body content from disk for an already-preloaded file, completing the two-phase load.
- * @param fileHandle - The file handle to read
+ * @param {FileSystemFileHandle} fileHandle - The file handle to read
+ * @return {Promise<void>}
  */
 export async function loadFileBody(
   fileHandle: FileSystemFileHandle,
@@ -119,14 +128,18 @@ export async function loadFileBody(
 
 /**
  * Updates the editor body content and recomputes dirty state.
- * @param content - The new body content
+ * @param {string} content - The new body content
+ * @return {void}
  */
 export function updateBody(content: string): void {
   body = content;
   recomputeDirty();
 }
 
-/** Serializes formData to YAML, reconstitutes the full frontmatter + body document, and writes it to disk. */
+/**
+ * Serializes formData to YAML, reconstitutes the full frontmatter + body document, and writes it to disk.
+ * @return {Promise<void>}
+ */
 export async function saveFile(): Promise<void> {
   if (!handle) return;
   saving = true;
@@ -149,7 +162,10 @@ export async function saveFile(): Promise<void> {
   }
 }
 
-/** Resets all editor state. */
+/**
+ * Resets all editor state.
+ * @return {void}
+ */
 export function clearEditor(): void {
   handle = null;
   body = '';

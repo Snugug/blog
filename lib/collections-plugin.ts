@@ -15,7 +15,10 @@ const VIRTUAL_ID = 'virtual:collections';
 /** Vite convention: resolved virtual IDs are prefixed with \0 */
 const RESOLVED_ID = '\0' + VIRTUAL_ID;
 
-/** Astro integration that exposes content collection JSON schemas to client-side JavaScript via a symlink and virtual module. */
+/**
+ * Astro integration that exposes content collection JSON schemas to client-side JavaScript via a symlink and virtual module.
+ * @return {AstroIntegration} The configured Astro integration object
+ */
 export default function collections(): AstroIntegration {
   return {
     name: 'collections',
@@ -33,13 +36,17 @@ export default function collections(): AstroIntegration {
 
 /**
  * Vite plugin that handles symlink creation and virtual module resolution.
- * @param logger - Astro integration logger for warnings
+ * @param {AstroIntegrationLogger} logger - Astro integration logger for warnings
+ * @return {object} A Vite plugin object with buildStart, resolveId, and load hooks
  */
 function collectionsVitePlugin(logger: AstroIntegrationLogger) {
   return {
     name: 'vite-plugin-collections',
 
-    /** Creates symlink from public/collections to .astro/collections. */
+    /**
+     * Creates symlink from public/collections to .astro/collections.
+     * @return {void}
+     */
     buildStart() {
       const root = process.cwd();
       const source = resolve(root, '.astro/collections');
@@ -81,12 +88,20 @@ function collectionsVitePlugin(logger: AstroIntegrationLogger) {
       symlinkSync(relPath, target);
     },
 
-    /** Resolves the virtual:collections import to a Vite-internal ID. */
+    /**
+     * Resolves the virtual:collections import to a Vite-internal ID.
+     * @param {string} id - The module ID being resolved
+     * @return {string | undefined} The resolved internal ID, or undefined if not handled
+     */
     resolveId(id: string) {
       if (id === VIRTUAL_ID) return RESOLVED_ID;
     },
 
-    /** Generates the virtual module by reading .astro/collections/ and mapping collection names to schema fetch URLs. */
+    /**
+     * Generates the virtual module by reading .astro/collections/ and mapping collection names to schema fetch URLs.
+     * @param {string} id - The resolved module ID to load
+     * @return {string | undefined} Generated module source code, or undefined if not handled
+     */
     load(id: string) {
       if (id !== RESOLVED_ID) return;
 

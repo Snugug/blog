@@ -7,7 +7,8 @@ const linkMark = Decoration.mark({ class: 'cm-link-wrap' });
 
 /**
  * Builds a DecorationSet marking all Link nodes in the syntax tree with the cm-link-wrap class.
- * @param state - The current editor state
+ * @param {EditorState} state - The current editor state
+ * @return {DecorationSet} The decoration set with all link ranges marked
  */
 function buildDecorations(state: EditorState): DecorationSet {
   const builder = new RangeSetBuilder<Decoration>();

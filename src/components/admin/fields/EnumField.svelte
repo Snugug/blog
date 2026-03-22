@@ -25,7 +25,11 @@
     onchange,
   }: Props = $props();
 
-  /** Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores. */
+  /**
+   * Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores.
+   * @param {string} str - The raw property name to convert
+   * @return {string} The title-cased display string
+   */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -56,7 +60,10 @@
   /** Whether to show the empty placeholder option — when not required or no value is set */
   const showEmptyOption = $derived(!required || value == null);
 
-  /** Handles select change, emitting null when empty option is selected on nullable fields. */
+  /**
+   * Handles select change, emitting null when empty option is selected on nullable fields.
+   * @param {Event} e - The change event from the select element
+   */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLSelectElement).value;
     onchange(raw === '' ? (nullable ? null : '') : raw);

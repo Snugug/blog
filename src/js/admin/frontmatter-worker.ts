@@ -3,7 +3,8 @@ import { load } from 'js-yaml';
 /**
  * Extracts and parses YAML frontmatter from a markdown string.
  * Handles BOM stripping, CRLF normalization, horizontal rule rejection, and empty/missing frontmatter.
- * @param content - Raw markdown file content
+ * @param {string} content - Raw markdown file content
+ * @return {Record<string, unknown> | null} Parsed frontmatter data, or null if none is found
  */
 function extractFrontmatter(content: string): Record<string, unknown> | null {
   // Strip BOM if present
@@ -36,8 +37,9 @@ function extractFrontmatter(content: string): Record<string, unknown> | null {
 
 /**
  * Traverses from the project root to src/content/{collection}/.
- * @param root - The project root directory handle
- * @param collection - The collection name
+ * @param {FileSystemDirectoryHandle} root - The project root directory handle
+ * @param {string} collection - The collection name
+ * @return {Promise<FileSystemDirectoryHandle>} The directory handle for the collection
  */
 async function getCollectionDir(
   root: FileSystemDirectoryHandle,

@@ -26,7 +26,11 @@
     inline = false,
   }: Props = $props();
 
-  /** Converts name to Title Case for label fallback */
+  /**
+   * Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores.
+   * @param {string} str - The raw property name to convert
+   * @return {string} The title-cased display string
+   */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -57,7 +61,11 @@
     >,
   );
 
-  /** Updates a single property and dispatches the full updated object. */
+  /**
+   * Updates a single property and dispatches the full updated object via onchange.
+   * @param {string} key - The property key to update within the object
+   * @param {unknown} newValue - The new value for the given property key
+   */
   function handleFieldChange(key: string, newValue: unknown) {
     onchange({ ...objValue, [key]: newValue });
   }

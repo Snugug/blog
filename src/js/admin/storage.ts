@@ -9,7 +9,7 @@ const HANDLE_KEY = 'projectRoot';
 
 /**
  * Opens the IndexedDB database, creating the object store if needed.
- * @returns Promise resolving to the database instance
+ * @return {Promise<IDBDatabase>} Promise resolving to the database instance
  */
 function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -27,7 +27,8 @@ function openDB(): Promise<IDBDatabase> {
 
 /**
  * Stores a FileSystemDirectoryHandle in IndexedDB for persistence across sessions.
- * @param handle - The directory handle to store
+ * @param {FileSystemDirectoryHandle} handle - The directory handle to store
+ * @return {Promise<void>}
  */
 export async function saveHandle(
   handle: FileSystemDirectoryHandle,
@@ -43,7 +44,7 @@ export async function saveHandle(
 
 /**
  * Retrieves a previously stored FileSystemDirectoryHandle from IndexedDB.
- * @returns The stored handle, or null if none exists
+ * @return {Promise<FileSystemDirectoryHandle | null>} The stored handle, or null if none exists
  */
 export async function loadHandle(): Promise<FileSystemDirectoryHandle | null> {
   const db = await openDB();
@@ -57,6 +58,7 @@ export async function loadHandle(): Promise<FileSystemDirectoryHandle | null> {
 
 /**
  * Removes the stored directory handle from IndexedDB.
+ * @return {Promise<void>}
  */
 export async function clearHandle(): Promise<void> {
   const db = await openDB();

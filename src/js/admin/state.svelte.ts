@@ -30,22 +30,34 @@ let worker: Worker | null = null;
 /** The collection currently loaded (or being loaded) to avoid redundant dispatches */
 let loadedCollection = '';
 
-/** Returns the sorted list of collection names. */
+/**
+ * Returns the sorted list of collection names.
+ * @return {string[]} Alphabetically sorted collection names
+ */
 export function getCollections(): string[] {
   return collectionNames;
 }
 
-/** Returns the current directory handle (reactive). */
+/**
+ * Returns the current directory handle (reactive).
+ * @return {FileSystemDirectoryHandle | null} The project root directory handle, or null if not set
+ */
 export function getDirectoryHandle(): FileSystemDirectoryHandle | null {
   return directoryHandle;
 }
 
-/** Returns the current permission state (reactive). */
+/**
+ * Returns the current permission state (reactive).
+ * @return {PermissionState} The current readwrite permission state for the stored directory handle
+ */
 export function getPermissionState(): PermissionState {
   return permissionState;
 }
 
-/** Returns the content list for the selected collection (reactive). */
+/**
+ * Returns the content list for the selected collection (reactive).
+ * @return {ContentItem[]} The list of parsed content items for the active collection
+ */
 export function getContentList(): ContentItem[] {
   return contentList;
 }
@@ -53,8 +65,9 @@ export function getContentList(): ContentItem[] {
 /**
  * Retrieves a FileSystemFileHandle for a content file by slug, traversing root → src → content → {collection}.
  * Matches the slug against the content list to resolve the full filename with extension.
- * @param collection - The collection name
- * @param slug - The filename without extension
+ * @param {string} collection - The collection name
+ * @param {string} slug - The filename without extension
+ * @return {Promise<FileSystemFileHandle | null>} The file handle, or null if not found or no directory is open
  */
 export async function getFileHandle(
   collection: string,
@@ -79,17 +92,26 @@ export async function getFileHandle(
   }
 }
 
-/** Returns the current error message (reactive). */
+/**
+ * Returns the current error message (reactive).
+ * @return {string | null} The error message, or null if there is no error
+ */
 export function getError(): string | null {
   return error;
 }
 
-/** Returns whether the worker is currently loading (reactive). */
+/**
+ * Returns whether the worker is currently loading (reactive).
+ * @return {boolean} True if the worker is actively parsing files
+ */
 export function isLoading(): boolean {
   return loading;
 }
 
-/** Initializes the singleton worker and sets up its message handler. */
+/**
+ * Initializes the singleton worker and sets up its message handler.
+ * @return {Worker} The existing or newly created worker instance
+ */
 function ensureWorker(): Worker {
   if (worker) return worker;
   worker = new Worker(new URL('./frontmatter-worker.ts', import.meta.url), {
@@ -112,7 +134,8 @@ function ensureWorker(): Worker {
 
 /**
  * Sends a parse request to the worker for the given collection.
- * @param collection - The collection name to parse
+ * @param {string} collection - The collection name to parse
+ * @return {void}
  */
 function dispatchWorker(collection: string): void {
   if (!directoryHandle) return;
@@ -123,7 +146,10 @@ function dispatchWorker(collection: string): void {
   w.postMessage({ type: 'parse', handle: directoryHandle, collection });
 }
 
-/** Restores a stored directory handle from IndexedDB and checks its permission state. */
+/**
+ * Restores a stored directory handle from IndexedDB and checks its permission state.
+ * @return {Promise<void>}
+ */
 export async function restoreHandle(): Promise<void> {
   try {
     const stored = await loadHandle();
@@ -147,6 +173,7 @@ export async function restoreHandle(): Promise<void> {
 /**
  * Requests readwrite permission on the stored handle.
  * Must be called from a user gesture (click handler).
+ * @return {Promise<void>}
  */
 export async function requestPermission(): Promise<void> {
   if (!directoryHandle) return;
@@ -164,6 +191,7 @@ export async function requestPermission(): Promise<void> {
 /**
  * Opens the directory picker, persists the handle, and navigates into the admin.
  * Must be called from a user gesture (click handler).
+ * @return {Promise<void>}
  */
 export async function pickDirectory(): Promise<void> {
   try {
@@ -179,7 +207,10 @@ export async function pickDirectory(): Promise<void> {
   }
 }
 
-/** Clears the stored handle, terminates the worker, and resets all state. */
+/**
+ * Clears the stored handle, terminates the worker, and resets all state.
+ * @return {Promise<void>}
+ */
 export async function disconnect(): Promise<void> {
   worker?.terminate();
   worker = null;
@@ -193,7 +224,10 @@ export async function disconnect(): Promise<void> {
   navigate('/admin');
 }
 
-/** Navigates to the first collection alphabetically, but only if currently on the /admin home view. */
+/**
+ * Navigates to the first collection alphabetically, but only if currently on the /admin home view.
+ * @return {void}
+ */
 function navigateToFirstCollectionIfHome(): void {
   const current = getRoute();
   if (current.view === 'home' && collectionNames.length > 0) {
@@ -202,9 +236,9 @@ function navigateToFirstCollectionIfHome(): void {
 }
 
 /**
- * Triggers worker parsing for the given collection. Skips the dispatch if already loaded to avoid
- * rebuilding the sidebar on file-level navigation.
- * @param collection - The collection name to load
+ * Triggers worker parsing for the given collection. Skips the dispatch if already loaded to avoid rebuilding the sidebar on file-level navigation.
+ * @param {string} collection - The collection name to load
+ * @return {void}
  */
 export function loadCollection(collection: string): void {
   if (collection === loadedCollection) return;
