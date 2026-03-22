@@ -219,12 +219,13 @@
     top: anchor(bottom);
     right: anchor(right);
     margin-top: 0.25rem;
-    background: var(--dark-grey);
-    border: 1px solid var(--grey);
+    background: var(--black);
+    border: 1px solid var(--dark-grey);
     border-radius: 0.25rem;
-    padding: 0.75rem 1rem;
-    max-width: 18rem;
+    padding: 0.5rem 0.75rem;
+    max-width: 16rem;
     text-align: left;
+    font-size: 0.75rem;
 
     // Invisible bridge so hover interest isn't broken by the gap
     &::before {
@@ -237,10 +238,11 @@
     }
   }
 
-  .pat-tooltip-heading {
-    font-size: 0.875rem;
+  // Higher specificity to override .picker-option p { color: var(--grey) }
+  .pat-tooltip .pat-tooltip-heading {
     color: var(--white);
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.25rem;
+    font-size: 0.75rem;
 
     a {
       color: var(--white);
@@ -256,8 +258,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 0.5rem;
-    padding: 0.25rem 0;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
 
     dt {
       color: var(--white);
@@ -271,7 +272,6 @@
   }
 
   .pat-note {
-    font-size: 0.75rem;
     color: var(--grey);
   }
 
