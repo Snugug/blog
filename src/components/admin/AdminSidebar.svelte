@@ -93,52 +93,50 @@
   <div class="sidebar-header">
     <h2 class="sidebar-heading">{title}</h2>
 
-    {#if !loading && !error}
-      <div class="toolbar" class:toolbar--search-only={!hasDates}>
-        <input
-          type="text"
-          class="search-input"
-          placeholder="Filter..."
-          bind:value={searchQuery}
-        />
+    <div class="toolbar" class:toolbar--search-only={!hasDates}>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Filter..."
+        bind:value={searchQuery}
+      />
 
-        {#if hasDates}
-          <button
-            class="sort-btn"
-            title={SORT_MODES[sortMode].label}
-            interestfor={popoverId}
-            commandfor={popoverId}
-            command="toggle-popover"
-          >
-            <span class="material-symbols-outlined">
-              {SORT_MODES[sortMode].icon}
-            </span>
-          </button>
+      {#if hasDates}
+        <button
+          class="sort-btn"
+          title={SORT_MODES[sortMode].label}
+          interestfor={popoverId}
+          commandfor={popoverId}
+          command="toggle-popover"
+        >
+          <span class="material-symbols-outlined">
+            {SORT_MODES[sortMode].icon}
+          </span>
+        </button>
 
-          <div
-            id={popoverId}
-            class="sort-popover"
-            popover="hint"
-            bind:this={popoverEl}
-          >
-            {#each popoverOptions as mode}
-              <button
-                class="sort-option"
-                onclick={() => {
-                  selectSort(mode);
-                  popoverEl?.hidePopover();
-                }}
-              >
-                <span class="material-symbols-outlined">
-                  {SORT_MODES[mode].icon}
-                </span>
-                {SORT_MODES[mode].label}
-              </button>
-            {/each}
-          </div>
-        {/if}
-      </div>
-    {/if}
+        <div
+          id={popoverId}
+          class="sort-popover"
+          popover="hint"
+          bind:this={popoverEl}
+        >
+          {#each popoverOptions as mode}
+            <button
+              class="sort-option"
+              onclick={() => {
+                selectSort(mode);
+                popoverEl?.hidePopover();
+              }}
+            >
+              <span class="material-symbols-outlined">
+                {SORT_MODES[mode].icon}
+              </span>
+              {SORT_MODES[mode].label}
+            </button>
+          {/each}
+        </div>
+      {/if}
+    </div>
   </div>
 
   <div class="sidebar-items">
