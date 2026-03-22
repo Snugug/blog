@@ -232,7 +232,7 @@ export class GitHubAdapter implements StorageAdapter {
   ): Promise<Response> {
     const headers: Record<string, string> = {
       Authorization: `Bearer ${this.token}`,
-      'X-GitHub-Api-Version': '2024-11-28',
+      'X-GitHub-Api-Version': '2026-03-10',
       ...extraHeaders,
     };
     if (body) {
