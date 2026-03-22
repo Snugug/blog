@@ -1,29 +1,7 @@
-// Database name for admin CMS persistence
-const DB_NAME = 'cms-admin';
-// Database version
-const DB_VERSION = 1;
-// Object store for directory handles
-const STORE_NAME = 'handles';
+import { openDB } from './db';
+
 // Fixed key for the project root handle
 const HANDLE_KEY = 'projectRoot';
-
-/**
- * Opens the IndexedDB database, creating the object store if needed.
- * @return {Promise<IDBDatabase>} Promise resolving to the database instance
- */
-function openDB(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
-    request.onupgradeneeded = () => {
-      const db = request.result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME);
-      }
-    };
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-}
 
 /**
  * Stores a FileSystemDirectoryHandle in IndexedDB for persistence across sessions.
@@ -35,8 +13,8 @@ export async function saveHandle(
 ): Promise<void> {
   const db = await openDB();
   return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readwrite');
-    tx.objectStore(STORE_NAME).put(handle, HANDLE_KEY);
+    const tx = db.transaction('handles', 'readwrite');
+    tx.objectStore('handles').put(handle, HANDLE_KEY);
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
   });
@@ -49,8 +27,8 @@ export async function saveHandle(
 export async function loadHandle(): Promise<FileSystemDirectoryHandle | null> {
   const db = await openDB();
   return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readonly');
-    const request = tx.objectStore(STORE_NAME).get(HANDLE_KEY);
+    const tx = db.transaction('handles', 'readonly');
+    const request = tx.objectStore('handles').get(HANDLE_KEY);
     request.onsuccess = () => resolve(request.result ?? null);
     request.onerror = () => reject(request.error);
   });
@@ -63,8 +41,8 @@ export async function loadHandle(): Promise<FileSystemDirectoryHandle | null> {
 export async function clearHandle(): Promise<void> {
   const db = await openDB();
   return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readwrite');
-    tx.objectStore(STORE_NAME).delete(HANDLE_KEY);
+    const tx = db.transaction('handles', 'readwrite');
+    tx.objectStore('handles').delete(HANDLE_KEY);
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
   });
