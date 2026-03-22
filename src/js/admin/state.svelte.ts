@@ -146,9 +146,12 @@ function ensureWorker(): Worker {
  * Sends a parse request to the frontmatter worker. Refresh mode keeps current sidebar visible.
  * @param {string} collection - The collection name to parse
  * @param {boolean} refresh - If true, keep current contentList and skip loading state
- * @return {void}
+ * @return {Promise<void>}
  */
-function dispatchWorker(collection: string, refresh = false): void {
+async function dispatchWorker(
+  collection: string,
+  refresh = false,
+): Promise<void> {
   if (!backendReady) return;
   if (!refresh) {
     loading = true;
