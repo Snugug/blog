@@ -25,16 +25,10 @@ export type ContentItem = {
   data: Record<string, unknown>;
 };
 
-/**
- * Permission state for the stored FSA directory handle.
- */
+/** Permission state for the stored FSA directory handle. */
 type PermissionState = 'granted' | 'prompt' | 'denied';
-
-/**
- * Backend type discriminator.
- */
+/** Backend type discriminator. */
 type BackendType = 'fsa' | 'github' | null;
-
 const collectionNames = Object.keys(schemas).sort();
 
 // SharedWorker + StorageClient singleton
@@ -53,6 +47,8 @@ let error = $state<string | null>(null);
 let loading = $state(false);
 let worker: Worker | null = null;
 let loadedCollection = '';
+// Resolves when the SharedWorker adapter is ready — dispatchWorker awaits this
+let initPromise: Promise<void> | null = null;
 // Per-collection content cache — instant sidebar on collection switch
 const contentCache = new Map<string, ContentItem[]>();
 
@@ -64,49 +60,49 @@ export function getCollections(): string[] {
   return collectionNames;
 }
 /**
- * Returns the current backend type (reactive).
- * @return {BackendType} The active backend type, or null if not connected
+ * Returns the active backend type, or null if not connected.
+ * @return {BackendType}
  */
 export function getBackendType(): BackendType {
   return backendType;
 }
 /**
- * Returns whether the backend is ready (reactive). This is the "logged in" check.
- * @return {boolean} True if a backend is initialized and ready
+ * Returns whether the backend is ready — the "logged in" check.
+ * @return {boolean}
  */
 export function isBackendReady(): boolean {
   return backendReady;
 }
 /**
- * Returns the current FSA permission state (reactive). Only meaningful when backendType === 'fsa'.
- * @return {PermissionState} The current permission state
+ * Returns the FSA permission state. Only meaningful when backendType === 'fsa'.
+ * @return {PermissionState}
  */
 export function getPermissionState(): PermissionState {
   return permissionState;
 }
 /**
- * Returns the main-thread StorageClient for direct I/O from state/editor code.
- * @return {StorageClient} The storage client connected to the SharedWorker
+ * Returns the main-thread StorageClient for direct I/O.
+ * @return {StorageClient}
  */
 export function getStorageClient(): StorageClient {
   return storageClient;
 }
 /**
- * Returns the content list for the selected collection (reactive).
- * @return {ContentItem[]} The list of parsed content items
+ * Returns the content list for the selected collection.
+ * @return {ContentItem[]}
  */
 export function getContentList(): ContentItem[] {
   return contentList;
 }
 /**
- * Returns the current error message (reactive).
- * @return {string | null} The error message, or null
+ * Returns the current error message, or null.
+ * @return {string | null}
  */
 export function getError(): string | null {
   return error;
 }
 /**
- * Returns whether the worker is currently loading (reactive).
+ * Returns whether the worker is currently loading.
  * @return {boolean} True if actively parsing
  */
 export function isLoading(): boolean {
@@ -159,6 +155,8 @@ function dispatchWorker(collection: string, refresh = false): void {
     contentList = [];
   }
   error = null;
+  // Wait for the SharedWorker adapter to be ready before dispatching
+  if (initPromise) await initPromise;
   const w = ensureWorker();
   w.postMessage({ type: 'parse', collection });
 }
@@ -193,16 +191,20 @@ export async function restoreBackend(): Promise<void> {
       backendType = 'github';
       backendReady = true;
       navigateToFirstCollectionIfHome();
-      storageClient.init({ type: 'init', backend: config }).catch(async () => {
-        // Token expired or repo gone — clear and show picker
-        await clearBackend();
-        backendType = null;
-        backendReady = false;
-        contentList = [];
-        contentCache.clear();
-        loadedCollection = '';
-        navigate('/admin');
-      });
+      initPromise = storageClient
+        .init({ type: 'init', backend: config })
+        .catch(async () => {
+          await clearBackend();
+          backendType = null;
+          backendReady = false;
+          contentList = [];
+          contentCache.clear();
+          loadedCollection = '';
+          navigate('/admin');
+        })
+        .finally(() => {
+          initPromise = null;
+        });
     }
   } catch {
     backendType = null;
@@ -211,7 +213,7 @@ export async function restoreBackend(): Promise<void> {
 }
 
 /**
- * Requests readwrite permission on the stored FSA handle. Must be called from a user gesture.
+ * Re-requests FSA permission. Must be called from a user gesture.
  * @return {Promise<void>}
  */
 export async function requestPermission(): Promise<void> {
@@ -231,7 +233,7 @@ export async function requestPermission(): Promise<void> {
 }
 
 /**
- * Opens the directory picker, initializes the FSA backend, and persists the config. Must be called from a user gesture.
+ * Opens the directory picker and initializes the FSA backend. Must be called from a user gesture.
  * @return {Promise<void>}
  */
 export async function pickDirectory(): Promise<void> {
@@ -251,7 +253,7 @@ export async function pickDirectory(): Promise<void> {
 }
 
 /**
- * Connects to a GitHub repository via PAT, initializes the GitHub backend, and persists the config.
+ * Connects to a GitHub repository via PAT and persists the config.
  * @param {string} token - GitHub Personal Access Token
  * @param {string} repo - Repository in "owner/repo" format
  * @return {Promise<void>}
@@ -269,7 +271,7 @@ export async function connectGitHub(
 }
 
 /**
- * Tears down the backend, clears persisted config, and resets all state.
+ * Disconnects the backend, clears credentials, and resets all state.
  * @return {Promise<void>}
  */
 export async function disconnect(): Promise<void> {
