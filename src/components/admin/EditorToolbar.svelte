@@ -1,10 +1,10 @@
 <script>
   import { getEditorFile } from '$js/admin/editor.svelte';
 
-  /** Current editor file state */
+  // Current editor file state
   const file = $derived(getEditorFile());
 
-  /** Display title from formData, falling back to filename */
+  // Display title from formData, falling back to filename
   const title = $derived(
     file && typeof file.formData.title === 'string'
       ? file.formData.title

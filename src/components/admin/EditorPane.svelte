@@ -9,12 +9,12 @@
   import { getEditorFile, updateBody, saveFile } from '$js/admin/editor.svelte';
   import { linkWrapPlugin } from '$js/admin/cm-link-wrap';
 
-  /** Container element for CodeMirror */
+  // Container element for CodeMirror
   let container: HTMLDivElement;
-  /** The CodeMirror EditorView instance */
+  // The CodeMirror EditorView instance
   let view: EditorView | undefined;
 
-  /** Highlight style for the markdown editor — headings are sized, syntax markers are dimmed. */
+  // Highlight style for the markdown editor — headings are sized, syntax markers are dimmed.
   const markdownHighlight = HighlightStyle.define([
     // Headings — larger, bold
     {
@@ -66,7 +66,7 @@
     { tag: t.meta, color: 'var(--grey)' },
   ]);
 
-  /** Keymap for saving with Cmd+S / Ctrl+S */
+  // Keymap for saving with Cmd+S / Ctrl+S
   const saveKeymap = keymap.of([
     {
       key: 'Mod-s',
@@ -77,7 +77,7 @@
     },
   ]);
 
-  /** Base editor theme matching the admin color scheme */
+  // Base editor theme matching the admin color scheme
   const editorTheme = EditorView.theme({
     '&': {
       fontSize: '1rem',
@@ -142,7 +142,7 @@
     ];
   }
 
-  /** Track the last loaded filename to detect file changes */
+  // Track the last loaded filename to detect file changes
   let lastFilename = '';
 
   $effect(() => {

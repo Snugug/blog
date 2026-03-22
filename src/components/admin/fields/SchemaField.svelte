@@ -33,10 +33,10 @@
     inline = false,
   }: Props = $props();
 
-  /** Resolve the schema node to a field type descriptor */
+  // Resolve the schema node to a field type descriptor
   const fieldType = $derived(resolveFieldType(schema));
 
-  /** For nullable anyOf schemas, merges outer annotations onto the inner type and sets _nullable so leaf fields emit null for empty values. */
+  // For nullable anyOf schemas, merges outer annotations onto the inner type and sets _nullable so leaf fields emit null for empty values.
   const effectiveSchema = $derived.by(() => {
     if (Array.isArray(schema['anyOf'])) {
       const nonNull = (schema['anyOf'] as SchemaNode[]).find(

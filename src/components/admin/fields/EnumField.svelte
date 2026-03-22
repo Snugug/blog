@@ -37,27 +37,27 @@
       .replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
-  /** Display label — schema.title if present, otherwise title-cased name */
+  // Display label — schema.title if present, otherwise title-cased name
   const label = $derived(
     (schema['title'] as string | undefined) ?? toTitleCase(name),
   );
 
-  /** String representation of the current value for select binding */
+  // String representation of the current value for select binding
   const selectedValue = $derived(value != null ? String(value) : '');
 
-  /** Description from schema */
+  // Description from schema
   const description = $derived(schema['description'] as string | undefined);
 
-  /** Whether field is read-only */
+  // Whether field is read-only
   const readOnly = $derived(!!(schema['readOnly'] as boolean | undefined));
 
-  /** Whether field is deprecated — dims the entire field */
+  // Whether field is deprecated — dims the entire field
   const deprecated = $derived(!!(schema['deprecated'] as boolean | undefined));
 
-  /** Whether empty selection should emit null (nullable anyOf-unwrapped types) */
+  // Whether empty selection should emit null (nullable anyOf-unwrapped types)
   const nullable = $derived(!!(schema['_nullable'] as boolean | undefined));
 
-  /** Whether to show the empty placeholder option — when not required or no value is set */
+  // Whether to show the empty placeholder option — when not required or no value is set
   const showEmptyOption = $derived(!required || value == null);
 
   /**

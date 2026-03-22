@@ -18,24 +18,24 @@
 
   let { name, schema, value, required = false, onchange }: Props = $props();
 
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
   // Derived schema metadata
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
 
-  /** Schema for each item in the array */
+  // Schema for each item in the array
   const itemSchema = $derived(
     (schema['items'] as SchemaNode | undefined) ?? {},
   );
 
-  /** Whether items are objects — enables collapse UI in ArrayItem */
+  // Whether items are objects — enables collapse UI in ArrayItem
   const isObjectItems = $derived(
     resolveFieldType(itemSchema).kind === 'object',
   );
 
-  /** Minimum number of items allowed (from schema) */
+  // Minimum number of items allowed (from schema)
   const minItems = $derived(schema['minItems'] as number | undefined);
 
-  /** Maximum number of items allowed (from schema) */
+  // Maximum number of items allowed (from schema)
   const maxItems = $derived(schema['maxItems'] as number | undefined);
 
   /**
@@ -50,19 +50,19 @@
       .replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
-  /** Display label — schema.title if present, otherwise title-cased name */
+  // Display label — schema.title if present, otherwise title-cased name
   const label = $derived(
     (schema['title'] as string | undefined) ?? toTitleCase(name),
   );
 
-  /** Current items array, falling back to empty array if value is not an array */
+  // Current items array, falling back to empty array if value is not an array
   const items = $derived(Array.isArray(value) ? (value as unknown[]) : []);
 
-  // ---------------------------------------------------------------------------
-  // Collapse state — one boolean per item slot
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
+  // Collapse state
+  //////////////////////////////
 
-  /** Collapsed state per item slot; grows/shrinks reactively with the items array. */
+  // Collapsed state per item slot; grows/shrinks reactively with the items array.
   let collapsed = $state<boolean[]>([]);
 
   // Keep collapsed array length in sync with items without wiping existing state
@@ -76,23 +76,24 @@
     }
   });
 
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
   // Drag-and-drop state
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
 
-  /** Index of the item currently being dragged, or -1 when idle */
+  // Index of the item currently being dragged, or -1 when idle
   let dragIndex = $state(-1);
 
-  /** Index of the item currently hovered over as a drop target, or -1 when none */
+  // Index of the item currently hovered over as a drop target, or -1 when none
   let dropTarget = $state(-1);
 
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
   // Array mutation helpers
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
 
   /**
    * Appends a new default item to the array, using the item schema to create a default value.
    * Guards against maxItems even when the button is disabled.
+   * @return {void}
    */
   function addItem(): void {
     if (maxItems != null && items.length >= maxItems) return;
@@ -146,9 +147,9 @@
     collapsed = collapsed.map((c, i) => (i === index ? !c : c));
   }
 
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
   // Drag-and-drop handlers
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
 
   /**
    * Marks an item as the drag source and sets the drag effect.
@@ -197,20 +198,21 @@
 
   /**
    * Resets drag state after a drag operation ends, including cancelled drags.
+   * @return {void}
    */
   function handleDragEnd(): void {
     dragIndex = -1;
     dropTarget = -1;
   }
 
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
   // Derived constraint checks
-  // ---------------------------------------------------------------------------
+  //////////////////////////////
 
-  /** Whether the add button should be disabled */
+  // Whether the add button should be disabled
   const atMax = $derived(maxItems != null && items.length >= maxItems);
 
-  /** Whether removal is permitted (need more than minItems) */
+  // Whether removal is permitted (need more than minItems)
   const canRemove = $derived(minItems == null || items.length > minItems);
 </script>
 

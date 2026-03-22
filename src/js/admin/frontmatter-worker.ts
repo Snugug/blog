@@ -50,10 +50,8 @@ async function getCollectionDir(
   return content.getDirectoryHandle(collection);
 }
 
-/**
- * Worker message handler. Receives parse requests, reads .md/.mdx files from the collection directory,
- * extracts frontmatter, and returns items sorted alphabetically by title (falling back to filename).
- */
+// Worker message handler. Receives parse requests, reads .md/.mdx files from the collection directory,
+// extracts frontmatter, and returns items sorted alphabetically by title (falling back to filename).
 self.addEventListener('message', async (event) => {
   const { type, handle, collection } = event.data;
   if (type !== 'parse') return;

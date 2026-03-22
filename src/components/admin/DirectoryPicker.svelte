@@ -7,12 +7,12 @@
     requestPermission,
   } from '$js/admin/state.svelte';
 
-  /** Whether the stored handle needs re-authorization */
+  // Whether the stored handle needs re-authorization
   const needsReauth = $derived(
     getDirectoryHandle() !== null && getPermissionState() === 'prompt',
   );
 
-  /** Whether to show the initial picker */
+  // Whether to show the initial picker
   const showPicker = $derived(
     getDirectoryHandle() === null || getPermissionState() === 'denied',
   );

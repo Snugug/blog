@@ -38,15 +38,15 @@
     hasDates = false,
   }: Props = $props();
 
-  /** Search query for filtering items by label */
+  // Search query for filtering items by label
   let searchQuery = $state('');
 
-  /** Current sort mode, initialized from localStorage if storageKey is provided */
+  // Current sort mode, initialized from localStorage if storageKey is provided
   let sortMode = $state<SortMode>(
     storageKey ? readSortMode(storageKey) : 'alpha',
   );
 
-  /** Re-read sort mode when storageKey changes (switching collections) */
+  // Re-read sort mode when storageKey changes (switching collections)
   $effect(() => {
     if (storageKey) {
       sortMode = readSortMode(storageKey);
@@ -55,7 +55,7 @@
     }
   });
 
-  /** Sort options available in the popover (all modes except the active one) */
+  // Sort options available in the popover (all modes except the active one)
   const popoverOptions = $derived(
     SORT_ORDER.filter((mode) => mode !== sortMode),
   );
@@ -63,6 +63,7 @@
   /**
    * Handles sort option selection from the popover.
    * @param {SortMode} mode - The selected sort mode to apply and persist
+   * @return {void}
    */
   function selectSort(mode: SortMode): void {
     sortMode = mode;
@@ -71,7 +72,7 @@
     }
   }
 
-  /** Items filtered by search query and sorted by current mode */
+  // Items filtered by search query and sorted by current mode
   const displayedItems = $derived.by(() => {
     const query = searchQuery.toLowerCase();
     const filtered = query
@@ -80,12 +81,12 @@
     return [...filtered].sort(createComparator(sortMode));
   });
 
-  /** Unique ID for the sort popover element, reactive to title changes */
+  // Unique ID for the sort popover element, reactive to title changes
   const popoverId = $derived(
     `sort-popover-${title.toLowerCase().replace(/\s+/g, '-')}`,
   );
 
-  /** Bound reference to the popover element for imperative hidePopover() calls */
+  // Bound reference to the popover element for imperative hidePopover() calls
   let popoverEl = $state<HTMLDivElement | null>(null);
 </script>
 

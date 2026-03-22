@@ -1,10 +1,10 @@
-/** Parsed route state for the admin SPA */
+// Parsed route state for the admin SPA
 export type AdminRoute =
   | { view: 'home' }
   | { view: 'collection'; collection: string }
   | { view: 'file'; collection: string; slug: string };
 
-/** Current route, reactive via Svelte 5 runes */
+// Current route, reactive via Svelte 5 runes
 let route = $state<AdminRoute>(parsePathname(location.pathname));
 
 /**
@@ -43,7 +43,7 @@ export function navigate(path: string): void {
   navigation.navigate(path);
 }
 
-/** Callback to check if the editor has unsaved changes */
+// Callback to check if the editor has unsaved changes
 let dirtyChecker: (() => boolean) | null = null;
 
 /**
@@ -55,7 +55,7 @@ export function registerDirtyChecker(checker: () => boolean): void {
   dirtyChecker = checker;
 }
 
-/** Guard against duplicate listener registration (e.g., HMR remount) */
+// Guard against duplicate listener registration (e.g., HMR remount)
 let initialized = false;
 
 /**

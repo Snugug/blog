@@ -28,33 +28,33 @@
       .replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
-  /** Display label — schema.title if present, otherwise title-cased name */
+  // Display label — schema.title if present, otherwise title-cased name
   const label = $derived(
     (schema['title'] as string | undefined) ?? toTitleCase(name),
   );
 
-  /** Current string value for the input */
+  // Current string value for the input
   const inputValue = $derived(typeof value === 'string' ? value : '');
 
-  /** Max length constraint from schema, if any */
+  // Max length constraint from schema, if any
   const maxLength = $derived(schema['maxLength'] as number | undefined);
 
-  /** Pattern constraint from schema, if any */
+  // Pattern constraint from schema, if any
   const pattern = $derived(schema['pattern'] as string | undefined);
 
-  /** Description from schema */
+  // Description from schema
   const description = $derived(schema['description'] as string | undefined);
 
-  /** Whether field is read-only */
+  // Whether field is read-only
   const readOnly = $derived(!!(schema['readOnly'] as boolean | undefined));
 
-  /** Whether field is deprecated — dims the entire field */
+  // Whether field is deprecated — dims the entire field
   const deprecated = $derived(!!(schema['deprecated'] as boolean | undefined));
 
-  /** Whether empty input should emit null (nullable anyOf-unwrapped types) */
+  // Whether empty input should emit null (nullable anyOf-unwrapped types)
   const nullable = $derived(!!(schema['_nullable'] as boolean | undefined));
 
-  /** Whether to render as a textarea (widget: "textarea" in schema meta) */
+  // Whether to render as a textarea (widget: "textarea" in schema meta)
   const isTextarea = $derived(schema['widget'] === 'textarea');
 
   /**

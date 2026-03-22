@@ -1,15 +1,15 @@
 import schemas from 'virtual:collections';
 
-/** JSON Schema object type */
+// JSON Schema object type
 type JsonSchema = Record<string, unknown>;
 
-/** Cache of fetched schemas keyed by collection name */
+// Cache of fetched schemas keyed by collection name
 const cache = new Map<string, JsonSchema>();
 
-/** Currently active schema for the selected collection */
+// Currently active schema for the selected collection
 let schema = $state<JsonSchema | null>(null);
 
-/** Whether all schemas have been prefetched */
+// Whether all schemas have been prefetched
 let allFetched = $state(false);
 
 /**

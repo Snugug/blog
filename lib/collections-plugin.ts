@@ -10,9 +10,9 @@ import {
 import { resolve, relative, dirname } from 'node:path';
 import type { AstroIntegration, AstroIntegrationLogger } from 'astro';
 
-/** Vite virtual module ID for collection schema paths */
+// Vite virtual module ID for collection schema paths
 const VIRTUAL_ID = 'virtual:collections';
-/** Vite convention: resolved virtual IDs are prefixed with \0 */
+// Vite convention: resolved virtual IDs are prefixed with \0
 const RESOLVED_ID = '\0' + VIRTUAL_ID;
 
 /**

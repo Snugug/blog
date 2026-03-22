@@ -1,10 +1,10 @@
-/** Database name for admin CMS persistence */
+// Database name for admin CMS persistence
 const DB_NAME = 'cms-admin';
-/** Database version */
+// Database version
 const DB_VERSION = 1;
-/** Object store for directory handles */
+// Object store for directory handles
 const STORE_NAME = 'handles';
-/** Fixed key for the project root handle */
+// Fixed key for the project root handle
 const HANDLE_KEY = 'projectRoot';
 
 /**

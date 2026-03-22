@@ -1,11 +1,9 @@
-/** A generic JSON Schema node represented as a plain object */
+// A generic JSON Schema node represented as a plain object
 export type SchemaNode = Record<string, unknown>;
 
-/**
- * Discriminated union describing the resolved type of a schema field.
- * All variants carry an optional `nullable` flag set when the field
- * was expressed as `anyOf: [<type>, { type: 'null' }]`.
- */
+// Discriminated union describing the resolved type of a schema field.
+// All variants carry an optional `nullable` flag set when the field
+// was expressed as `anyOf: [<type>, { type: 'null' }]`.
 export type FieldType =
   | { kind: 'string'; nullable?: boolean }
   | { kind: 'number'; nullable?: boolean }
@@ -16,10 +14,8 @@ export type FieldType =
   | { kind: 'object'; nullable?: boolean }
   | { kind: 'unknown'; nullable?: boolean };
 
-/**
- * A path segment used to address nested values.
- * Strings address object keys; numbers address array indices.
- */
+// A path segment used to address nested values.
+// Strings address object keys; numbers address array indices.
 export type PathSegment = string | number;
 
 //////////////////////////////

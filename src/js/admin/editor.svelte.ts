@@ -4,7 +4,7 @@ import { dump } from 'js-yaml';
 import { setByPath } from './schema-utils';
 import type { PathSegment } from './schema-utils';
 
-/** Editor file state exposed via getEditorFile() */
+// Editor file state exposed via getEditorFile()
 export type EditorFile = {
   handle: FileSystemFileHandle | null;
   body: string;
@@ -16,25 +16,25 @@ export type EditorFile = {
   bodyLoaded: boolean;
 };
 
-/** Current file handle — set once the async file read completes */
+// Current file handle — set once the async file read completes
 let handle = $state<FileSystemFileHandle | null>(null);
-/** Markdown/MDX body content (without frontmatter) */
+// Markdown/MDX body content (without frontmatter)
 let body = $state('');
-/** Parsed frontmatter data object, bound by the form editor */
+// Parsed frontmatter data object, bound by the form editor
 let formData = $state<Record<string, unknown>>({});
-/** Whether body or formData has changed since last save */
+// Whether body or formData has changed since last save
 let dirty = $state(false);
-/** Whether a save is in progress */
+// Whether a save is in progress
 let saving = $state(false);
-/** Snapshot of body at last save, for dirty comparison */
+// Snapshot of body at last save, for dirty comparison
 let lastSavedBody = '';
-/** JSON snapshot of formData at last save, for dirty comparison */
+// JSON snapshot of formData at last save, for dirty comparison
 let lastSavedFormData = '{}';
-/** Current filename for display */
+// Current filename for display
 let filename = $state('');
-/** Whether the file is open (metadata available, body may still be loading) */
+// Whether the file is open (metadata available, body may still be loading)
 let fileOpen = $state(false);
-/** Whether the body content has finished loading from disk */
+// Whether the body content has finished loading from disk
 let bodyLoaded = $state(false);
 
 // Register dirty checker with router for navigation guards

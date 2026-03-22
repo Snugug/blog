@@ -71,10 +71,10 @@
     ondragend,
   }: Props = $props();
 
-  /** Schema title for the item type, if present (e.g., "Step") */
+  // Schema title for the item type, if present (e.g., "Step")
   const itemTitle = $derived(itemSchema['title'] as string | undefined);
 
-  /** Header label: "{title} N" if schema has a title, first string value, or "Item N". */
+  // Header label: "{title} N" if schema has a title, first string value, or "Item N".
   const headerLabel = $derived.by(() => {
     if (!isObject) return '';
     if (itemTitle) return `${itemTitle} ${index + 1}`;

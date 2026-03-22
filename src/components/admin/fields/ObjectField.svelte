@@ -38,22 +38,22 @@
       .replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
-  /** Display label from schema title or property name */
+  // Display label from schema title or property name
   const label = $derived(
     (schema['title'] as string | undefined) ?? toTitleCase(name),
   );
 
-  /** Properties map from the schema */
+  // Properties map from the schema
   const properties = $derived(
     (schema['properties'] as Record<string, SchemaNode>) ?? {},
   );
 
-  /** Required field names within this object */
+  // Required field names within this object
   const requiredFields = $derived(
     Array.isArray(schema['required']) ? (schema['required'] as string[]) : [],
   );
 
-  /** Current object value, defaulting to empty object */
+  // Current object value, defaulting to empty object
   const objValue = $derived(
     (typeof value === 'object' && value !== null ? value : {}) as Record<
       string,

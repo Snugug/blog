@@ -1,7 +1,5 @@
-/**
- * Sidebar item displayed as a link in the admin navigation.
- * Used by AdminSidebar for both collections and content lists.
- */
+// Sidebar item displayed as a link in the admin navigation.
+// Used by AdminSidebar for both collections and content lists.
 export type SidebarItem = {
   label: string;
   href: string;
@@ -9,17 +7,17 @@ export type SidebarItem = {
   date?: Date;
 };
 
-/** Sort mode identifiers */
+// Sort mode identifiers
 export type SortMode = 'alpha' | 'date-asc' | 'date-desc';
 
-/** Sort mode configuration: icon name and display label */
+// Sort mode configuration: icon name and display label
 export const SORT_MODES: Record<SortMode, { icon: string; label: string }> = {
   alpha: { icon: 'sort_by_alpha', label: 'Alphabetical' },
   'date-asc': { icon: 'hourglass_arrow_down', label: 'Oldest first' },
   'date-desc': { icon: 'hourglass_arrow_up', label: 'Newest first' },
 };
 
-/** Fixed display order for sort options in the popover */
+// Fixed display order for sort options in the popover
 export const SORT_ORDER: SortMode[] = ['alpha', 'date-asc', 'date-desc'];
 
 /**

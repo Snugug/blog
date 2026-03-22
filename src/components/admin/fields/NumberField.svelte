@@ -28,15 +28,15 @@
       .replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
-  /** Display label — schema.title if present, otherwise title-cased name */
+  // Display label — schema.title if present, otherwise title-cased name
   const label = $derived(
     (schema['title'] as string | undefined) ?? toTitleCase(name),
   );
 
-  /** Numeric value for the input, coerced from the value prop */
+  // Numeric value for the input, coerced from the value prop
   const inputValue = $derived(typeof value === 'number' ? value : '');
 
-  /** Min attribute: minimum takes precedence, exclusiveMinimum adds 1 */
+  // Min attribute: minimum takes precedence, exclusiveMinimum adds 1
   const min = $derived.by(() => {
     const minimum = schema['minimum'] as number | undefined;
     const exclusiveMin = schema['exclusiveMinimum'] as number | undefined;
@@ -45,7 +45,7 @@
     return undefined;
   });
 
-  /** Max attribute: maximum takes precedence, exclusiveMaximum subtracts 1 */
+  // Max attribute: maximum takes precedence, exclusiveMaximum subtracts 1
   const max = $derived.by(() => {
     const maximum = schema['maximum'] as number | undefined;
     const exclusiveMax = schema['exclusiveMaximum'] as number | undefined;
@@ -54,22 +54,22 @@
     return undefined;
   });
 
-  /** Step attribute from multipleOf */
+  // Step attribute from multipleOf
   const step = $derived(schema['multipleOf'] as number | undefined);
 
-  /** Description from schema */
+  // Description from schema
   const description = $derived(schema['description'] as string | undefined);
 
-  /** Whether field is read-only */
+  // Whether field is read-only
   const readOnly = $derived(!!(schema['readOnly'] as boolean | undefined));
 
-  /** Whether field is deprecated — dims the entire field */
+  // Whether field is deprecated — dims the entire field
   const deprecated = $derived(!!(schema['deprecated'] as boolean | undefined));
 
-  /** Whether empty input should emit null (nullable anyOf-unwrapped types) */
+  // Whether empty input should emit null (nullable anyOf-unwrapped types)
   const nullable = $derived(!!(schema['_nullable'] as boolean | undefined));
 
-  /** Human-readable constraint summary (e.g. "min 0, max 100, step 5"), or empty string. */
+  // Human-readable constraint summary (e.g. "min 0, max 100, step 5"), or empty string.
   const constraintText = $derived.by(() => {
     const parts: string[] = [];
     const minVal = min;

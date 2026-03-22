@@ -13,10 +13,10 @@
 
   let { schema, activeTab = 'metadata', onTabChange }: Props = $props();
 
-  /** Custom tab names derived from schema, sorted alphabetically */
+  // Custom tab names derived from schema, sorted alphabetically
   const customTabs = $derived(schema ? extractTabs(schema) : []);
 
-  /** All tabs: Metadata, Body, then custom tabs */
+  // All tabs: Metadata, Body, then custom tabs
   const allTabs = $derived(['metadata', 'body', ...customTabs]);
 </script>
 

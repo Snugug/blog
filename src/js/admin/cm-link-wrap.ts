@@ -2,7 +2,7 @@ import { ViewPlugin, Decoration, type DecorationSet } from '@codemirror/view';
 import { syntaxTree } from '@codemirror/language';
 import { RangeSetBuilder, type EditorState } from '@codemirror/state';
 
-/** Mark decoration that adds the cm-link-wrap class to link nodes */
+// Mark decoration that adds the cm-link-wrap class to link nodes
 const linkMark = Decoration.mark({ class: 'cm-link-wrap' });
 
 /**
@@ -22,11 +22,9 @@ function buildDecorations(state: EditorState): DecorationSet {
   return builder.finish();
 }
 
-/**
- * ViewPlugin that adds a word-break: break-all wrapper around markdown links.
- * This prevents the Unicode Line Break Algorithm from breaking between ] and (
- * in [text](url) syntax, which causes URLs to jump to the next line.
- */
+// ViewPlugin that adds a word-break: break-all wrapper around markdown links.
+// This prevents the Unicode Line Break Algorithm from breaking between ] and (
+// in [text](url) syntax, which causes URLs to jump to the next line.
 export const linkWrapPlugin = ViewPlugin.define(
   (view) => ({
     decorations: buildDecorations(view.state),

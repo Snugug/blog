@@ -13,20 +13,20 @@
 
   let { schema, tab = null }: Props = $props();
 
-  /** List of property names to render for this tab */
+  // List of property names to render for this tab
   const fieldNames = $derived(getFieldsForTab(schema, tab));
 
-  /** Schema properties map */
+  // Schema properties map
   const properties = $derived(
     (schema['properties'] as Record<string, SchemaNode>) ?? {},
   );
 
-  /** Required field names */
+  // Required field names
   const requiredFields = $derived(
     Array.isArray(schema['required']) ? (schema['required'] as string[]) : [],
   );
 
-  /** Current form data */
+  // Current form data
   const formData = $derived(getFormData());
 </script>
 

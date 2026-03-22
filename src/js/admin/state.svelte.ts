@@ -2,32 +2,32 @@ import schemas from 'virtual:collections';
 import { loadHandle, saveHandle, clearHandle } from './storage';
 import { getRoute, navigate } from './router.svelte';
 
-/** Content item with full frontmatter data returned by the worker */
+// Content item with full frontmatter data returned by the worker
 export type ContentItem = {
   filename: string;
   data: Record<string, unknown>;
 };
 
-/** Permission state for the stored directory handle */
+// Permission state for the stored directory handle
 type PermissionState = 'granted' | 'prompt' | 'denied';
 
-/** Collection names derived from virtual:collections, sorted alphabetically */
+// Collection names derived from virtual:collections, sorted alphabetically
 const collectionNames = Object.keys(schemas).sort();
 
-/** The project root directory handle */
+// The project root directory handle
 let directoryHandle = $state<FileSystemDirectoryHandle | null>(null);
-/** Current permission state -- starts as 'denied' to show picker until restore completes */
+// Current permission state -- starts as 'denied' to show picker until restore completes
 let permissionState = $state<PermissionState>('denied');
-/** Content items for the selected collection */
+// Content items for the selected collection
 let contentList = $state<ContentItem[]>([]);
-/** Error message, or null if no error */
+// Error message, or null if no error
 let error = $state<string | null>(null);
-/** Whether the worker is currently parsing */
+// Whether the worker is currently parsing
 let loading = $state(false);
 
-/** Singleton web worker instance */
+// Singleton web worker instance
 let worker: Worker | null = null;
-/** The collection currently loaded (or being loaded) to avoid redundant dispatches */
+// The collection currently loaded (or being loaded) to avoid redundant dispatches
 let loadedCollection = '';
 
 /**
