@@ -63,9 +63,27 @@
           }}
         >
           <label>
-            <span class="field-label">Personal Access Token</span>
+            <span class="field-label">
+              Personal Access Token
+              <button
+                class="info-btn"
+                type="button"
+                title="Required permissions"
+                interestfor="pat-info"
+                commandfor="pat-info"
+                command="toggle-popover"
+              >
+                <span class="material-symbols-outlined">info</span>
+              </button>
+            </span>
             <input type="password" bind:value={token} placeholder="ghp_..." />
           </label>
+          <div id="pat-info" class="pat-tooltip" popover="hint">
+            <p class="pat-tooltip-title">Required PAT permissions</p>
+            <ul>
+              <li><strong>Contents</strong> — read and write</li>
+            </ul>
+          </div>
           <label>
             <span class="field-label">Repository</span>
             <input type="text" bind:value={repo} placeholder="owner/repo" />
@@ -147,9 +165,72 @@
     gap: 0.25rem;
   }
 
+  // Flex to align label text and info icon inline
   .field-label {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     font-size: 0.875rem;
     color: var(--grey);
+  }
+
+  .info-btn {
+    anchor-name: --pat-info-btn;
+    interest-delay: 0s;
+    background: none;
+    border: none;
+    color: var(--grey);
+    padding: 0;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+
+    .material-symbols-outlined {
+      font-size: 1rem;
+    }
+
+    &:hover {
+      color: var(--white);
+    }
+  }
+
+  .pat-tooltip {
+    position-anchor: --pat-info-btn;
+    position: fixed;
+    inset: unset;
+    top: anchor(bottom);
+    right: anchor(right);
+    margin-top: 0.25rem;
+    background: var(--dark-grey);
+    border: 1px solid var(--grey);
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    max-width: 16rem;
+    text-align: left;
+
+    // Invisible bridge so hover interest isn't broken by the gap
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      height: 0.25rem;
+    }
+  }
+
+  .pat-tooltip-title {
+    font-size: 0.875rem;
+    color: var(--white);
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+  }
+
+  .pat-tooltip ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--white);
   }
 
   input {
