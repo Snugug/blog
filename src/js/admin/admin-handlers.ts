@@ -86,7 +86,9 @@ export async function handleDeleteDraft(
 
   if (!activeCollection) return;
 
-  reloadCollection(activeCollection);
+  // Refresh drafts list only — live content hasn't changed, so no need to
+  // reload the full collection (which re-reads all files and causes a flash)
+  await refreshDrafts(activeCollection);
 
   // Clear editor so the route change triggers a fresh load (preloadFile has
   // an early return if the same filename is already open)
