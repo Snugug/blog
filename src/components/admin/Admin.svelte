@@ -117,7 +117,7 @@
       if (!item) return;
 
       // Phase 1: instant metadata render
-      preloadFile(item.filename, item.data);
+      preloadFile(currentRoute.collection, item.filename, item.data);
 
       // Phase 2: async body load
       getFileHandle(currentRoute.collection, currentRoute.slug).then(
