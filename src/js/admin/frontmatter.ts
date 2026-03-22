@@ -1,4 +1,6 @@
-// Result of splitting a file into frontmatter and body
+/**
+ * Result of splitting a file into frontmatter and body.
+ */
 export type SplitResult = {
   rawFrontmatter: string;
   body: string;

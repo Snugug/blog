@@ -74,6 +74,7 @@
   /**
    * Handles date input change, emitting null for empty nullable fields.
    * @param {Event} e - The input event from the date input element
+   * @return {void}
    */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLInputElement).value;

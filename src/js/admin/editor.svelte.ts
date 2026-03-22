@@ -4,7 +4,9 @@ import { dump } from 'js-yaml';
 import { setByPath } from './schema-utils';
 import type { PathSegment } from './schema-utils';
 
-// Editor file state exposed via getEditorFile()
+/**
+ * Editor file state exposed via getEditorFile().
+ */
 export type EditorFile = {
   handle: FileSystemFileHandle | null;
   body: string;
@@ -34,6 +36,8 @@ let lastSavedFormData = '{}';
 let filename = $state('');
 // Whether the file is open (metadata available, body may still be loading)
 let fileOpen = $state(false);
+// Currently active editor tab
+let activeTab = $state('metadata');
 // Whether the body content has finished loading from disk
 let bodyLoaded = $state(false);
 
@@ -65,6 +69,23 @@ export function getEditorFile(): EditorFile | null {
  */
 export function getFormData(): Record<string, unknown> {
   return formData;
+}
+
+/**
+ * Returns the currently active editor tab (reactive).
+ * @return {string} The active tab identifier
+ */
+export function getActiveTab(): string {
+  return activeTab;
+}
+
+/**
+ * Sets the active editor tab.
+ * @param {string} tab - The tab identifier to activate
+ * @return {void}
+ */
+export function setActiveTab(tab: string): void {
+  activeTab = tab;
 }
 
 /**
@@ -102,6 +123,7 @@ export function preloadFile(
   filename = itemFilename;
   handle = null;
   bodyLoaded = false;
+  activeTab = 'metadata';
   fileOpen = true;
 }
 
@@ -177,4 +199,5 @@ export function clearEditor(): void {
   filename = '';
   fileOpen = false;
   bodyLoaded = false;
+  activeTab = 'metadata';
 }

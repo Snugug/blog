@@ -68,8 +68,9 @@
    * Updates a single property and dispatches the full updated object via onchange.
    * @param {string} key - The property key to update within the object
    * @param {unknown} newValue - The new value for the given property key
+   * @return {void}
    */
-  function handleFieldChange(key: string, newValue: unknown) {
+  function handleFieldChange(key: string, newValue: unknown): void {
     onchange({ ...objValue, [key]: newValue });
   }
 </script>

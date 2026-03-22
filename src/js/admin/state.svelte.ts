@@ -2,13 +2,17 @@ import schemas from 'virtual:collections';
 import { loadHandle, saveHandle, clearHandle } from './storage';
 import { getRoute, navigate } from './router.svelte';
 
-// Content item with full frontmatter data returned by the worker
+/**
+ * Content item with full frontmatter data returned by the worker.
+ */
 export type ContentItem = {
   filename: string;
   data: Record<string, unknown>;
 };
 
-// Permission state for the stored directory handle
+/**
+ * Permission state for the stored directory handle.
+ */
 type PermissionState = 'granted' | 'prompt' | 'denied';
 
 // Collection names derived from virtual:collections, sorted alphabetically

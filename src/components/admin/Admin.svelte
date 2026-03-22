@@ -17,6 +17,7 @@
     loadFileBody,
     clearEditor,
     saveFile,
+    getActiveTab,
   } from '$js/admin/editor.svelte';
   import {
     fetchSchema,
@@ -55,8 +56,8 @@
   // Whether a file is currently open in the editor
   const fileOpen = $derived(currentRoute.view === 'file');
 
-  // Active editor tab — local state, not URL-routed
-  let activeTab = $state('metadata');
+  // Active editor tab from shared editor state
+  const activeTab = $derived(getActiveTab());
 
   // The active file href for highlighting in the content sidebar
   const activeFileHref = $derived(
@@ -144,12 +145,6 @@
   });
 
   // Reset to Metadata tab when a new file is opened
-  $effect(() => {
-    if (currentRoute.view === 'file') {
-      activeTab = 'metadata';
-    }
-  });
-
   // Whether the active collection has date fields for sort controls
   const contentHasDates = $derived(
     activeCollection ? collectionHasDates(activeCollection) : false,
@@ -197,11 +192,7 @@
         }}
       >
         <EditorToolbar />
-        <EditorTabs
-          schema={currentSchema}
-          {activeTab}
-          onTabChange={(tab) => (activeTab = tab)}
-        />
+        <EditorTabs schema={currentSchema} />
         <div class="editor-content">
           {#if activeTab === 'body'}
             <EditorPane />

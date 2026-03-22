@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { SchemaNode } from '$js/admin/schema-utils';
   import { extractTabs } from '$js/admin/schema-utils';
+  import { getActiveTab, setActiveTab } from '$js/admin/editor.svelte';
 
   /**
    * Props for the EditorTabs component, which renders the tab bar above the editor, including the default Metadata and Body tabs plus any custom schema-defined tabs.
@@ -8,13 +9,12 @@
   interface Props {
     // The JSON Schema for the current collection (null if not loaded yet)
     schema: SchemaNode | null;
-    // The currently active tab identifier
-    activeTab?: string;
-    // Callback fired when a tab is clicked
-    onTabChange: (tab: string) => void;
   }
 
-  let { schema, activeTab = 'metadata', onTabChange }: Props = $props();
+  let { schema }: Props = $props();
+
+  // Active tab from shared editor state
+  const activeTab = $derived(getActiveTab());
 
   // Custom tab names derived from schema, sorted alphabetically
   const customTabs = $derived(schema ? extractTabs(schema) : []);
@@ -29,7 +29,7 @@
       class="tabs__tab"
       class:tabs__tab--active={activeTab === tab}
       type="button"
-      onclick={() => onTabChange(tab)}
+      onclick={() => setActiveTab(tab)}
       aria-selected={activeTab === tab}
       role="tab"
     >
@@ -55,7 +55,7 @@
     color: var(--grey);
     background: none;
     border: none;
-    // Bottom border reserve space to avoid layout shift on active state
+    // Bottom border reserves space to avoid layout shift on active state
     border-bottom: 2px solid transparent;
     cursor: pointer;
 

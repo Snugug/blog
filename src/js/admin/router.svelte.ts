@@ -1,4 +1,6 @@
-// Parsed route state for the admin SPA
+/**
+ * Parsed route state for the admin SPA.
+ */
 export type AdminRoute =
   | { view: 'home' }
   | { view: 'collection'; collection: string }

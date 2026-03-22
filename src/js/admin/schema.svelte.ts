@@ -1,6 +1,8 @@
 import schemas from 'virtual:collections';
 
-// JSON Schema object type
+/**
+ * JSON Schema object type.
+ */
 type JsonSchema = Record<string, unknown>;
 
 // Cache of fetched schemas keyed by collection name

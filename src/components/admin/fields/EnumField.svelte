@@ -66,6 +66,7 @@
   /**
    * Handles select change, emitting null when empty option is selected on nullable fields.
    * @param {Event} e - The change event from the select element
+   * @return {void}
    */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLSelectElement).value;

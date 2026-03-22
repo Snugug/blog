@@ -1,5 +1,6 @@
-// Sidebar item displayed as a link in the admin navigation.
-// Used by AdminSidebar for both collections and content lists.
+/**
+ * Sidebar item displayed as a link in the admin navigation. Used by AdminSidebar for both collections and content lists.
+ */
 export type SidebarItem = {
   label: string;
   href: string;
@@ -7,7 +8,9 @@ export type SidebarItem = {
   date?: Date;
 };
 
-// Sort mode identifiers
+/**
+ * Sort mode identifiers.
+ */
 export type SortMode = 'alpha' | 'date-asc' | 'date-desc';
 
 // Sort mode configuration: icon name and display label

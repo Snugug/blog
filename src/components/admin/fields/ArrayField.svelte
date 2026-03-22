@@ -107,6 +107,7 @@
   /**
    * Removes the item at the given index. Guards against minItems even when the button is disabled.
    * @param {number} index - Zero-based index of the item to remove
+   * @return {void}
    */
   function removeItem(index: number): void {
     if (minItems != null && items.length <= minItems) return;
@@ -118,6 +119,7 @@
    * Moves an item from one index to another, keeping collapsed state in sync with the reorder.
    * @param {number} from - Zero-based source index of the item to move
    * @param {number} to - Zero-based destination index to move the item to
+   * @return {void}
    */
   function moveItem(from: number, to: number): void {
     if (to < 0 || to >= items.length) return;
@@ -136,6 +138,7 @@
    * Replaces the item at the given index with a new value and dispatches the updated array.
    * @param {number} index - Zero-based index of the item to update
    * @param {unknown} newValue - The replacement value for the item
+   * @return {void}
    */
   function updateItem(index: number, newValue: unknown): void {
     const next = items.map((item, i) => (i === index ? newValue : item));
@@ -145,6 +148,7 @@
   /**
    * Toggles the collapsed state for the item at the given index.
    * @param {number} index - Zero-based index of the item whose collapse state to toggle
+   * @return {void}
    */
   function toggleCollapse(index: number): void {
     collapsed = collapsed.map((c, i) => (i === index ? !c : c));
@@ -158,6 +162,7 @@
    * Marks an item as the drag source and sets the drag effect.
    * @param {DragEvent} e - The native dragstart event
    * @param {number} index - Zero-based index of the item being dragged
+   * @return {void}
    */
   function handleDragStart(e: DragEvent, index: number): void {
     dragIndex = index;
@@ -170,6 +175,7 @@
    * Updates the drop target index while dragging over an item.
    * @param {DragEvent} e - The native dragover event (preventDefault allows drop)
    * @param {number} index - Zero-based index of the item currently being dragged over
+   * @return {void}
    */
   function handleDragOver(e: DragEvent, index: number): void {
     e.preventDefault();
@@ -182,6 +188,7 @@
   /**
    * Clears the drop target highlight when the drag leaves an item.
    * @param {number} index - Zero-based index of the item being left
+   * @return {void}
    */
   function handleDragLeave(index: number): void {
     if (dropTarget === index) dropTarget = -1;
@@ -190,6 +197,7 @@
   /**
    * Completes the drag-and-drop reorder when an item is dropped onto a target slot.
    * @param {number} index - Zero-based index of the slot where the dragged item was dropped
+   * @return {void}
    */
   function handleDrop(index: number): void {
     if (dragIndex !== -1 && dragIndex !== index) {
@@ -301,8 +309,7 @@
   }
 
   .array-field__list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 0.5rem;
   }
 

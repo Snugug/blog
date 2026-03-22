@@ -63,6 +63,7 @@
   /**
    * Handles input change, emitting null for empty nullable fields.
    * @param {Event} e - The input or change event from the text input or textarea
+   * @return {void}
    */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLInputElement | HTMLTextAreaElement).value;

@@ -38,7 +38,12 @@ Font sizes MUST follow this scale:
 
 Non-standard sizes like `0.8rem`, `0.85rem`, `0.9rem`, `0.95rem` are NOT allowed. Round to the nearest size on this scale. Font sizes can increment above `1rem` in steps of `.25rem`
 
-All other CSS sizing MUST be in `rem` units, and MUST be written in `.25rem` increments, pixels are FORBIDDEN. The ONLY exception to this is for border radius, border width, text shadow, or drop shadow <= `5px`. Other relative units, where applicable, are OK (like `vh`, `vw`, `cqi`, `cqb`, `fr`).
+All other CSS sizing MUST be in `rem` units, and MUST be written in `.25rem` increments, pixels are FORBIDDEN. The ONLY exceptions are:
+
+- Border radius, border width, outline, outline-offset, text shadow, or drop shadow <= `5px`
+- The visually-hidden/sr-only accessibility pattern (`width: 1px; height: 1px; clip: rect(0,0,0,0)`) — this exception applies ONLY to this specific pattern and MUST NOT be used to justify pixel values in any other context
+
+Other relative units, where applicable, are OK (like `vh`, `vw`, `cqi`, `cqb`, `fr`).
 
 Prefer CSS Grid to Flexbox unless you need the specific characteristics of flexbox.
 
@@ -62,7 +67,7 @@ You are REQUIRED to professionally comment your code. Comments should be short a
 
 For JavaScript and TypeScript:
 
-- Functions, classes, and interfaces MUST have JSDOc formatted comments. They MUST start with `/**`, have at least one newline starting with `*`, and end with `*/`. They MUST include a description of why they've ben written, and include `@params` and `@return`, all with proper TypeScript typing, EVEN IF ITS ALREADY DOCUMENTED WITH TYPESCRIPT TYPES AT THE METHOD LEVEL
+- Functions, classes, interfaces, and type declarations MUST have JSDoc formatted comments. They MUST start with `/**`, have at least one newline starting with `*`, and end with `*/`. They MUST include a description of why they've been written. Functions MUST also include `@param` and `@return`, all with proper TypeScript typing, EVEN IF ITS ALREADY DOCUMENTED WITH TYPESCRIPT TYPES AT THE METHOD LEVEL
 - Single line comments MUST use inline comments `//`
 
 For SCSS/Sass:

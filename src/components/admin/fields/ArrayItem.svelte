@@ -90,11 +90,33 @@
   });
 </script>
 
-<!--
-  Object items use <fieldset> for semantic grouping with a <legend> in
-  the controls bar. Primitive items use a plain <div> — their parent
-  ArrayField is the <fieldset>.
--->
+{#snippet actionButtons()}
+  <button
+    class="array-item__btn"
+    type="button"
+    aria-label="Move item up"
+    disabled={isFirst}
+    onclick={() => onmoveup(index)}
+    ><span class="material-symbols-outlined">arrow_upward</span></button
+  >
+  <button
+    class="array-item__btn"
+    type="button"
+    aria-label="Move item down"
+    disabled={isLast}
+    onclick={() => onmovedown(index)}
+    ><span class="material-symbols-outlined">arrow_downward</span></button
+  >
+  <button
+    class="array-item__btn array-item__btn--remove"
+    type="button"
+    aria-label="Remove item"
+    disabled={!canRemove}
+    onclick={() => onremove(index)}
+    ><span class="material-symbols-outlined">close</span></button
+  >
+{/snippet}
+
 {#if isObject}
   <fieldset
     class="array-item"
@@ -129,30 +151,7 @@
       </button>
       <legend class="array-item__legend">{headerLabel}</legend>
       <span class="array-item__spacer"></span>
-      <button
-        class="array-item__btn"
-        type="button"
-        aria-label="Move item up"
-        disabled={isFirst}
-        onclick={() => onmoveup(index)}
-        ><span class="material-symbols-outlined">arrow_upward</span></button
-      >
-      <button
-        class="array-item__btn"
-        type="button"
-        aria-label="Move item down"
-        disabled={isLast}
-        onclick={() => onmovedown(index)}
-        ><span class="material-symbols-outlined">arrow_downward</span></button
-      >
-      <button
-        class="array-item__btn array-item__btn--remove"
-        type="button"
-        aria-label="Remove item"
-        disabled={!canRemove}
-        onclick={() => onremove(index)}
-        ><span class="material-symbols-outlined">close</span></button
-      >
+      {@render actionButtons()}
     </div>
 
     {#if !collapsed}
@@ -199,30 +198,7 @@
           inline={true}
         />
       </div>
-      <button
-        class="array-item__btn"
-        type="button"
-        aria-label="Move item up"
-        disabled={isFirst}
-        onclick={() => onmoveup(index)}
-        ><span class="material-symbols-outlined">arrow_upward</span></button
-      >
-      <button
-        class="array-item__btn"
-        type="button"
-        aria-label="Move item down"
-        disabled={isLast}
-        onclick={() => onmovedown(index)}
-        ><span class="material-symbols-outlined">arrow_downward</span></button
-      >
-      <button
-        class="array-item__btn array-item__btn--remove"
-        type="button"
-        aria-label="Remove item"
-        disabled={!canRemove}
-        onclick={() => onremove(index)}
-        ><span class="material-symbols-outlined">close</span></button
-      >
+      {@render actionButtons()}
     </div>
   </div>
 {/if}

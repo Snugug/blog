@@ -86,6 +86,7 @@
   /**
    * Handles input change, emitting null for empty nullable fields or 0 for non-nullable.
    * @param {Event} e - The input event from the number input element
+   * @return {void}
    */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLInputElement).value;

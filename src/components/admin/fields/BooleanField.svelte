@@ -54,6 +54,7 @@
   /**
    * Handles checkbox change. Preserves null for nullable fields only while the value is already null and unchecked.
    * @param {Event} e - The change event from the checkbox input element
+   * @return {void}
    */
   function handleChange(e: Event): void {
     const isChecked = (e.target as HTMLInputElement).checked;
