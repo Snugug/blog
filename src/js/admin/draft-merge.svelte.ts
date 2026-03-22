@@ -1,5 +1,6 @@
 import { loadDrafts, type Draft } from './draft-storage';
 import { splitFrontmatter } from './frontmatter';
+import { getStorageClient } from './state.svelte';
 
 // Drafts for the current collection
 let drafts = $state<Draft[]>([]);
@@ -43,15 +44,11 @@ function ensureDiffWorker(): Worker {
 }
 
 /**
- * Loads drafts for a collection from IndexedDB and dispatches snapshot comparisons to the diff worker for any drafts linked to live files. Requires a directory handle to read live file contents from disk.
+ * Loads drafts for a collection from IndexedDB and dispatches snapshot comparisons to the diff worker for any drafts linked to live files. Reads live file contents via the StorageClient.
  * @param {string} collection - The collection to load drafts for
- * @param {FileSystemDirectoryHandle} directoryHandle - The project root handle for reading live files
  * @return {Promise<void>}
  */
-export async function mergeDrafts(
-  collection: string,
-  directoryHandle: FileSystemDirectoryHandle,
-): Promise<void> {
+export async function mergeDrafts(collection: string): Promise<void> {
   drafts = await loadDrafts(collection);
 
   // Filter to drafts that need outdated checking:
@@ -62,18 +59,13 @@ export async function mergeDrafts(
     return;
   }
 
-  // Read live file bodies from disk via File System Access API
-  let collDir: FileSystemDirectoryHandle;
-  try {
-    const src = await directoryHandle.getDirectoryHandle('src');
-    const content = await src.getDirectoryHandle('content');
-    collDir = await content.getDirectoryHandle(collection);
-  } catch {
+  const client = getStorageClient();
+  if (!client) {
     outdatedMap = {};
     return;
   }
 
-  // Build diff entries by reading each candidate's live file
+  // Build diff entries by reading each candidate's live file via StorageClient
   const entries: {
     draftId: string;
     snapshot: string;
@@ -83,9 +75,7 @@ export async function mergeDrafts(
 
   for (const d of candidates) {
     try {
-      const fh = await collDir.getFileHandle(d.filename!);
-      const file = await fh.getFile();
-      const text = await file.text();
+      const text = await client.readFile(collection, d.filename!);
       const { rawFrontmatter, body } = splitFrontmatter(text);
       // Parse frontmatter to get live form data
       const { load } = await import('js-yaml');
@@ -101,7 +91,7 @@ export async function mergeDrafts(
         liveBody,
       });
     } catch {
-      // File not found or unreadable — skip this draft
+      // File not found or unreadable — skip
     }
   }
 

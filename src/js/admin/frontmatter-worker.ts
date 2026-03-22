@@ -1,8 +1,9 @@
 import { load } from 'js-yaml';
+import { StorageClient } from './storage-client';
+import type { FileEntry } from './storage-adapter';
 
 /**
- * Extracts and parses YAML frontmatter from a markdown string.
- * Handles BOM stripping, CRLF normalization, horizontal rule rejection, and empty/missing frontmatter.
+ * Extracts and parses YAML frontmatter from a markdown string. Handles BOM stripping, CRLF normalization, horizontal rule rejection, and empty/missing frontmatter.
  * @param {string} content - Raw markdown file content
  * @return {Record<string, unknown> | null} Parsed frontmatter data, or null if none is found
  */
@@ -35,60 +36,55 @@ function extractFrontmatter(content: string): Record<string, unknown> | null {
   return (load(yaml) as Record<string, unknown>) ?? null;
 }
 
-/**
- * Traverses from the project root to src/content/{collection}/.
- * @param {FileSystemDirectoryHandle} root - The project root directory handle
- * @param {string} collection - The collection name
- * @return {Promise<FileSystemDirectoryHandle>} The directory handle for the collection
- */
-async function getCollectionDir(
-  root: FileSystemDirectoryHandle,
-  collection: string,
-): Promise<FileSystemDirectoryHandle> {
-  const src = await root.getDirectoryHandle('src');
-  const content = await src.getDirectoryHandle('content');
-  return content.getDirectoryHandle(collection);
-}
+// Storage client, initialized when the main thread transfers a port
+let storageClient: StorageClient | null = null;
 
-// Worker message handler. Receives parse requests, reads .md/.mdx files from the collection directory,
-// extracts frontmatter, and returns items sorted alphabetically by title (falling back to filename).
+// Handle messages from main thread
 self.addEventListener('message', async (event) => {
-  const { type, handle, collection } = event.data;
-  if (type !== 'parse') return;
+  const { type } = event.data;
 
-  try {
-    const dir = await getCollectionDir(handle, collection);
-    const items: Array<{ filename: string; data: Record<string, unknown> }> =
-      [];
+  if (type === 'port') {
+    // Main thread is transferring a MessagePort connected to the storage SharedWorker
+    const port = event.ports[0];
+    storageClient = new StorageClient(port);
+    return;
+  }
 
-    for await (const [name, entry] of dir.entries()) {
-      if (
-        entry.kind !== 'file' ||
-        (!name.endsWith('.md') && !name.endsWith('.mdx'))
-      )
-        continue;
-
-      const file = await entry.getFile();
-      const text = await file.text();
-      const frontmatter = extractFrontmatter(text);
-      // Preserve full frontmatter so callers can access any field (e.g. `published` for date sorting)
-      const data = frontmatter ?? {};
-
-      items.push({ filename: name, data });
+  if (type === 'parse') {
+    const { collection } = event.data;
+    if (!storageClient) {
+      self.postMessage({
+        type: 'error',
+        message: 'Storage port not initialized',
+      });
+      return;
     }
 
-    // Sort alphabetically by title, falling back to filename
-    items.sort((a, b) => {
-      const aTitle =
-        typeof a.data.title === 'string' ? a.data.title : a.filename;
-      const bTitle =
-        typeof b.data.title === 'string' ? b.data.title : b.filename;
-      return aTitle.toLowerCase().localeCompare(bTitle.toLowerCase());
-    });
+    try {
+      const files: FileEntry[] = await storageClient.listFiles(collection);
+      const items: Array<{ filename: string; data: Record<string, unknown> }> =
+        [];
 
-    self.postMessage({ type: 'result', items });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    self.postMessage({ type: 'error', message });
+      for (const file of files) {
+        const frontmatter = extractFrontmatter(file.content);
+        // Preserve full frontmatter so callers can access any field (e.g. `published` for date sorting)
+        const data = frontmatter ?? {};
+        items.push({ filename: file.filename, data });
+      }
+
+      // Sort alphabetically by title, falling back to filename
+      items.sort((a, b) => {
+        const aTitle =
+          typeof a.data.title === 'string' ? a.data.title : a.filename;
+        const bTitle =
+          typeof b.data.title === 'string' ? b.data.title : b.filename;
+        return aTitle.toLowerCase().localeCompare(bTitle.toLowerCase());
+      });
+
+      self.postMessage({ type: 'result', items });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      self.postMessage({ type: 'error', message });
+    }
   }
 });
