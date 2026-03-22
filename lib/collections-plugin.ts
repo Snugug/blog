@@ -15,12 +15,7 @@ const VIRTUAL_ID = 'virtual:collections';
 /** Vite convention: resolved virtual IDs are prefixed with \0 */
 const RESOLVED_ID = '\0' + VIRTUAL_ID;
 
-/**
- * Astro integration that exposes content collection JSON schemas to client-side JavaScript.
- * Creates a symlink from public/collections -> .astro/collections and provides
- * a virtual module mapping collection names to their fetch-ready schema URLs.
- * @returns Astro integration config
- */
+/** Astro integration that exposes content collection JSON schemas to client-side JavaScript via a symlink and virtual module. */
 export default function collections(): AstroIntegration {
   return {
     name: 'collections',
@@ -39,16 +34,12 @@ export default function collections(): AstroIntegration {
 /**
  * Vite plugin that handles symlink creation and virtual module resolution.
  * @param logger - Astro integration logger for warnings
- * @returns Vite plugin config
  */
 function collectionsVitePlugin(logger: AstroIntegrationLogger) {
   return {
     name: 'vite-plugin-collections',
 
-    /**
-     * Creates symlink from public/collections to .astro/collections.
-     * Runs after astro sync has generated the schema files.
-     */
+    /** Creates symlink from public/collections to .astro/collections. */
     buildStart() {
       const root = process.cwd();
       const source = resolve(root, '.astro/collections');
@@ -62,10 +53,7 @@ function collectionsVitePlugin(logger: AstroIntegrationLogger) {
         return;
       }
 
-      // Check if something already exists at the target path.
-      // Uses lstatSync instead of existsSync because existsSync follows symlinks
-      // and returns false for broken symlinks, which would cause symlinkSync to
-      // throw EEXIST on dangling links.
+      // lstatSync instead of existsSync because existsSync follows symlinks and returns false for broken ones
       let targetStat: ReturnType<typeof lstatSync> | null = null;
       try {
         targetStat = lstatSync(target);
@@ -93,21 +81,12 @@ function collectionsVitePlugin(logger: AstroIntegrationLogger) {
       symlinkSync(relPath, target);
     },
 
-    /**
-     * Resolves the virtual:collections import to a Vite-internal ID.
-     * @param id - The import specifier
-     * @returns Resolved ID if this is our virtual module
-     */
+    /** Resolves the virtual:collections import to a Vite-internal ID. */
     resolveId(id: string) {
       if (id === VIRTUAL_ID) return RESOLVED_ID;
     },
 
-    /**
-     * Generates the virtual module content by reading .astro/collections/.
-     * Returns a mapping of collection name -> fetch URL for each schema file.
-     * @param id - The resolved module ID
-     * @returns Generated module source code
-     */
+    /** Generates the virtual module by reading .astro/collections/ and mapping collection names to schema fetch URLs. */
     load(id: string) {
       if (id !== RESOLVED_ID) return;
 
