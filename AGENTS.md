@@ -42,6 +42,7 @@ All other CSS sizing MUST be in `rem` units, and MUST be written in `.25rem` inc
 
 - Border radius, border width, outline, outline-offset, text shadow, or drop shadow <= `5px`
 - The visually-hidden/sr-only accessibility pattern (`width: 1px; height: 1px; clip: rect(0,0,0,0)`) — this exception applies ONLY to this specific pattern and MUST NOT be used to justify pixel values in any other context
+- The `.chip` class in `DraftChip.svelte` is exempt from the font size scale and the `.25rem` increment rule for `padding-block` — it uses `0.6rem` font size and `0.15rem` block padding to achieve the correct visual weight relative to sidebar item labels
 
 Other relative units, where applicable, are OK (like `vh`, `vw`, `cqi`, `cqb`, `fr`).
 
