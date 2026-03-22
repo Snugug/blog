@@ -4,7 +4,8 @@
 export type AdminRoute =
   | { view: 'home' }
   | { view: 'collection'; collection: string }
-  | { view: 'file'; collection: string; slug: string };
+  | { view: 'file'; collection: string; slug: string }
+  | { view: 'draft'; collection: string; draftId: string };
 
 // Current route, reactive via Svelte 5 runes
 let route = $state<AdminRoute>(parsePathname(location.pathname));
@@ -19,6 +20,9 @@ function parsePathname(pathname: string): AdminRoute {
     .replace(/^\/admin\/?/, '')
     .split('/')
     .filter(Boolean);
+  if (segments.length >= 3 && segments[1] === 'draft') {
+    return { view: 'draft', collection: segments[0], draftId: segments[2] };
+  }
   if (segments.length >= 2) {
     return { view: 'file', collection: segments[0], slug: segments[1] };
   }
