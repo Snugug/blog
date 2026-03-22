@@ -141,10 +141,13 @@
     computePublishDisabled(getSchema(), getEditorFile()?.formData ?? {}),
   );
 
-  // Existing filenames for uniqueness validation in the filename dialog
-  const existingFilenames = $derived(
-    getContentList().map((item) => item.filename),
-  );
+  // Existing filenames for uniqueness validation in the filename dialog — includes both live files and drafts with filenames
+  const existingFilenames = $derived([
+    ...getContentList().map((item) => item.filename),
+    ...getDrafts()
+      .filter((d) => d.filename)
+      .map((d) => d.filename!),
+  ]);
 
   // Dialog visibility state
   let showFilenameDialog = $state(false);
