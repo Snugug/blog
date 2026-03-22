@@ -160,12 +160,8 @@
     }
   });
 
-  // Loads the file when the route has a slug (file view).
-  // Phase 1: preloadFile checks IDB for a draft, otherwise sets metadata immediately.
-  // Phase 2 (async): loadFileBody reads the body from disk if no draft was found.
-  // Load file from disk (file view) or draft from IndexedDB (draft view).
-  // Both branches gate on `ready` as a reactive dependency so they re-run
-  // when the directory handle is restored on page load.
+  // Loads content for the file or draft view. Both branches gate on `ready`
+  // so they re-run when the directory handle is restored on page load.
   $effect(() => {
     const items = getContentList();
     if (ready && currentRoute.view === 'file' && items.length > 0) {
