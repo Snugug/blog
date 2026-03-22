@@ -1,0 +1,184 @@
+<script lang="ts">
+  import {
+    getBackendType,
+    getPermissionState,
+    getError,
+    pickDirectory,
+    requestPermission,
+    connectGitHub,
+  } from '$js/admin/state.svelte';
+
+  // Whether the stored FSA handle needs re-authorization
+  const needsReauth = $derived(
+    getBackendType() === 'fsa' && getPermissionState() === 'prompt',
+  );
+
+  // GitHub form state
+  let token = $state('');
+  let repo = $state('');
+  let connecting = $state(false);
+  let githubError = $state<string | null>(null);
+
+  /**
+   * Handles the GitHub connect form submission.
+   * @return {Promise<void>}
+   */
+  async function handleGitHubConnect(): Promise<void> {
+    if (!token || !repo) return;
+    connecting = true;
+    githubError = null;
+    try {
+      await connectGitHub(token, repo);
+    } catch (err) {
+      githubError = err instanceof Error ? err.message : String(err);
+    } finally {
+      connecting = false;
+    }
+  }
+</script>
+
+{#if needsReauth}
+  <div class="picker">
+    <p>This folder requires re-authorization to continue.</p>
+    <button onclick={requestPermission}>Re-authorize folder</button>
+  </div>
+{:else}
+  <div class="picker">
+    <h2 class="picker-title">Connect to your project</h2>
+
+    <div class="picker-options">
+      <div class="picker-option">
+        <h3>Local Folder</h3>
+        <p>Select your project folder on this device.</p>
+        <button onclick={pickDirectory}>Choose project folder</button>
+      </div>
+
+      <div class="picker-option">
+        <h3>GitHub Repository</h3>
+        <p>Connect using a Personal Access Token.</p>
+        <form
+          onsubmit={(e) => {
+            e.preventDefault();
+            handleGitHubConnect();
+          }}
+        >
+          <label>
+            <span class="field-label">Personal Access Token</span>
+            <input type="password" bind:value={token} placeholder="ghp_..." />
+          </label>
+          <label>
+            <span class="field-label">Repository</span>
+            <input type="text" bind:value={repo} placeholder="owner/repo" />
+          </label>
+          <button type="submit" disabled={!token || !repo || connecting}>
+            {connecting ? 'Connecting...' : 'Connect'}
+          </button>
+        </form>
+        {#if githubError}
+          <p class="error">{githubError}</p>
+        {/if}
+      </div>
+    </div>
+
+    {#if getError()}
+      <p class="error">{getError()}</p>
+    {/if}
+  </div>
+{/if}
+
+<style lang="scss">
+  .picker {
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+    padding: var(--spacing);
+    min-height: 50vh;
+    text-align: center;
+  }
+
+  .picker-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .picker-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 40rem;
+    width: 100%;
+  }
+
+  .picker-option {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border: 1px solid var(--dark-grey);
+    border-radius: 0.5rem;
+    text-align: left;
+
+    h3 {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: var(--grey);
+      margin: 0;
+    }
+  }
+
+  form {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  label {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .field-label {
+    font-size: 0.875rem;
+    color: var(--grey);
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: var(--black);
+    border: 1px solid var(--dark-grey);
+    border-radius: 0.25rem;
+    color: var(--white);
+    font-size: 0.875rem;
+
+    &::placeholder {
+      color: var(--grey);
+    }
+  }
+
+  button {
+    background: var(--plum);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+
+    &:hover {
+      background: var(--light-plum);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .error {
+    color: var(--light-red);
+    font-size: 0.875rem;
+  }
+</style>
