@@ -17,7 +17,10 @@ export class StorageClient {
   >();
   private idCounter = 0;
 
-  /** @param {MessagePort} port - The port connected to the storage SharedWorker */
+  /**
+   * Creates a client wrapping the given port.
+   * @param {MessagePort} port - The port connected to the storage SharedWorker
+   */
   constructor(port: MessagePort) {
     this.port = port;
     this.port.addEventListener('message', (event) => {

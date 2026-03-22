@@ -109,6 +109,16 @@ async function handleMessage(msg: StorageRequest): Promise<StorageResponse> {
       adapter = null;
       return { type: 'teardown', ok: true };
     }
+
+    default: {
+      // Prevents silent hangs if an unrecognized message type arrives
+      const exhaustive: never = msg;
+      return {
+        type: (exhaustive as any).type,
+        ok: false,
+        error: 'Unknown message type',
+      } as StorageResponse;
+    }
   }
 }
 

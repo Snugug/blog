@@ -30,15 +30,11 @@ type PermissionState = 'granted' | 'prompt' | 'denied';
 /** Backend type discriminator. */
 type BackendType = 'fsa' | 'github' | null;
 const collectionNames = Object.keys(schemas).sort();
-
-// SharedWorker + StorageClient singleton
 const sharedWorker = new SharedWorker(
   new URL('./storage-worker.ts', import.meta.url),
   { type: 'module', name: 'cms-storage' },
 );
 const storageClient = new StorageClient(sharedWorker.port);
-
-// Reactive state
 let backendType = $state<BackendType>(null);
 let backendReady = $state(false);
 let permissionState = $state<PermissionState>('denied');
@@ -47,40 +43,62 @@ let error = $state<string | null>(null);
 let loading = $state(false);
 let worker: Worker | null = null;
 let loadedCollection = '';
-// Resolves when the SharedWorker adapter is ready — dispatchWorker awaits this
 let initPromise: Promise<void> | null = null;
-// Per-collection content cache — instant sidebar on collection switch
 const contentCache = new Map<string, ContentItem[]>();
 
-/** @return {string[]} Sorted collection names */
+/**
+ * Exposes sorted collection names derived from virtual:collections.
+ * @return {string[]} Alphabetically sorted collection names
+ */
 export function getCollections(): string[] {
   return collectionNames;
 }
-/** @return {BackendType} Active backend type, or null */
+/**
+ * Reactive getter for the active backend type.
+ * @return {BackendType} The backend type, or null if not connected
+ */
 export function getBackendType(): BackendType {
   return backendType;
 }
-/** @return {boolean} Whether the backend is ready (the "logged in" check) */
+/**
+ * Reactive "logged in" check used by Admin.svelte to gate the UI.
+ * @return {boolean} True if a backend is initialized and ready
+ */
 export function isBackendReady(): boolean {
   return backendReady;
 }
-/** @return {PermissionState} FSA permission state (only meaningful for FSA backend) */
+/**
+ * Reactive FSA permission state for the re-auth flow in BackendPicker.
+ * @return {PermissionState} The current permission state
+ */
 export function getPermissionState(): PermissionState {
   return permissionState;
 }
-/** @return {StorageClient} Main-thread client for direct I/O */
+/**
+ * Exposes the main-thread StorageClient for editor and draft-merge I/O.
+ * @return {StorageClient} The client connected to the storage SharedWorker
+ */
 export function getStorageClient(): StorageClient {
   return storageClient;
 }
-/** @return {ContentItem[]} Content list for the selected collection */
+/**
+ * Reactive content list for the active collection, rendered by the sidebar.
+ * @return {ContentItem[]} Parsed content items for the selected collection
+ */
 export function getContentList(): ContentItem[] {
   return contentList;
 }
-/** @return {string | null} Current error message, or null */
+/**
+ * Reactive error message for display in the sidebar.
+ * @return {string | null} The error message, or null
+ */
 export function getError(): string | null {
   return error;
 }
-/** @return {boolean} Whether the worker is actively loading */
+/**
+ * Reactive loading state for the sidebar loading indicator.
+ * @return {boolean} True if the frontmatter worker is actively parsing
+ */
 export function isLoading(): boolean {
   return loading;
 }
@@ -286,7 +304,7 @@ function navigateToFirstCollectionIfHome(): void {
 
 /**
  * Loads a collection. Serves from cache instantly if available, then background refreshes.
- * @param {string} collection
+ * @param {string} collection - The collection name to load
  * @return {void}
  */
 export function loadCollection(collection: string): void {
@@ -305,7 +323,7 @@ export function loadCollection(collection: string): void {
 
 /**
  * Forces a background reload, keeping the sidebar visible.
- * @param {string} collection
+ * @param {string} collection - The collection to reload
  * @return {void}
  */
 export function reloadCollection(collection: string): void {

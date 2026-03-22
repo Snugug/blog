@@ -6,6 +6,10 @@ const BACKEND_KEY = 'backend';
 
 /**
  * Backend configuration stored in IndexedDB. Tagged union discriminated on `type`.
+ * Security note: the GitHub token is stored in plaintext in IndexedDB. This is a
+ * deliberate trade-off for a client-only app with no server to proxy through.
+ * Same-origin policy protects it from other sites, but any XSS vulnerability
+ * would expose the token.
  */
 export type BackendConfig =
   | { type: 'fsa'; handle: FileSystemDirectoryHandle }

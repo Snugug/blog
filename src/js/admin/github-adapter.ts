@@ -2,6 +2,17 @@
 import type { StorageAdapter, FileEntry, FileWrite } from './storage-adapter';
 
 /**
+ * Encodes a Uint8Array to a base64 string without using deprecated unescape().
+ * @param {Uint8Array} bytes - The bytes to encode
+ * @return {string} Base64-encoded string
+ */
+function uint8ToBase64(bytes: Uint8Array): string {
+  let binary = '';
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary);
+}
+
+/**
  * Storage adapter backed by the GitHub REST API. Uses a Personal Access Token for authentication. All file operations target src/content/{collection}/ within the repository.
  */
 export class GitHubAdapter implements StorageAdapter {
@@ -59,18 +70,17 @@ export class GitHubAdapter implements StorageAdapter {
     const listing: Array<{ name: string; download_url: string }> =
       await listRes.json();
 
-    // Filter to markdown and fetch each file's content
+    // Filter to markdown and fetch all files in parallel
     const mdFiles = listing.filter(
       (f) => f.name.endsWith('.md') || f.name.endsWith('.mdx'),
     );
-    const entries: FileEntry[] = [];
 
-    for (const file of mdFiles) {
-      const content = await this.readFile(collection, file.name);
-      entries.push({ filename: file.name, content });
-    }
-
-    return entries;
+    return Promise.all(
+      mdFiles.map(async (file) => ({
+        filename: file.name,
+        content: await this.readFile(collection, file.name),
+      })),
+    );
   }
 
   /**
@@ -118,7 +128,7 @@ export class GitHubAdapter implements StorageAdapter {
 
     const body: Record<string, string> = {
       message: `Update ${path}`,
-      content: btoa(unescape(encodeURIComponent(content))),
+      content: uint8ToBase64(new TextEncoder().encode(content)),
       branch: this.defaultBranch,
     };
     if (sha) body.sha = sha;
