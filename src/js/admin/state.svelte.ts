@@ -52,65 +52,41 @@ let initPromise: Promise<void> | null = null;
 // Per-collection content cache — instant sidebar on collection switch
 const contentCache = new Map<string, ContentItem[]>();
 
-/**
- * Returns the sorted list of collection names.
- * @return {string[]} Alphabetically sorted collection names
- */
+/** @return {string[]} Sorted collection names */
 export function getCollections(): string[] {
   return collectionNames;
 }
-/**
- * Returns the active backend type, or null if not connected.
- * @return {BackendType}
- */
+/** @return {BackendType} Active backend type, or null */
 export function getBackendType(): BackendType {
   return backendType;
 }
-/**
- * Returns whether the backend is ready — the "logged in" check.
- * @return {boolean}
- */
+/** @return {boolean} Whether the backend is ready (the "logged in" check) */
 export function isBackendReady(): boolean {
   return backendReady;
 }
-/**
- * Returns the FSA permission state. Only meaningful when backendType === 'fsa'.
- * @return {PermissionState}
- */
+/** @return {PermissionState} FSA permission state (only meaningful for FSA backend) */
 export function getPermissionState(): PermissionState {
   return permissionState;
 }
-/**
- * Returns the main-thread StorageClient for direct I/O.
- * @return {StorageClient}
- */
+/** @return {StorageClient} Main-thread client for direct I/O */
 export function getStorageClient(): StorageClient {
   return storageClient;
 }
-/**
- * Returns the content list for the selected collection.
- * @return {ContentItem[]}
- */
+/** @return {ContentItem[]} Content list for the selected collection */
 export function getContentList(): ContentItem[] {
   return contentList;
 }
-/**
- * Returns the current error message, or null.
- * @return {string | null}
- */
+/** @return {string | null} Current error message, or null */
 export function getError(): string | null {
   return error;
 }
-/**
- * Returns whether the worker is currently loading.
- * @return {boolean} True if actively parsing
- */
+/** @return {boolean} Whether the worker is actively loading */
 export function isLoading(): boolean {
   return loading;
 }
 /**
- * Initializes the singleton frontmatter worker and bridges a port to the SharedWorker.
- * @return {Worker} The existing or newly created worker instance
+ * Initializes the frontmatter worker and bridges a port to the SharedWorker.
+ * @return {Worker}
  */
 function ensureWorker(): Worker {
   if (worker) return worker;
@@ -120,12 +96,15 @@ function ensureWorker(): Worker {
   worker.addEventListener('message', (event) => {
     const data = event.data;
     if (data.type === 'result') {
-      contentList = data.items;
-      if (loadedCollection) contentCache.set(loadedCollection, data.items);
-      loading = false;
-      error = null;
-      if (backendReady && loadedCollection) {
-        mergeDrafts(loadedCollection);
+      const forCollection = data.collection as string;
+      // Always cache under the correct collection
+      contentCache.set(forCollection, data.items);
+      // Only update the visible list if this result is for the current collection
+      if (forCollection === loadedCollection) {
+        contentList = data.items;
+        loading = false;
+        error = null;
+        if (backendReady) mergeDrafts(forCollection);
       }
     } else if (data.type === 'error') {
       error = data.message;
@@ -307,7 +286,7 @@ function navigateToFirstCollectionIfHome(): void {
 
 /**
  * Loads a collection. Serves from cache instantly if available, then background refreshes.
- * @param {string} collection - The collection name to load
+ * @param {string} collection
  * @return {void}
  */
 export function loadCollection(collection: string): void {
@@ -325,8 +304,8 @@ export function loadCollection(collection: string): void {
 }
 
 /**
- * Forces a background reload of the current collection, keeping the sidebar visible.
- * @param {string} collection - The collection to reload
+ * Forces a background reload, keeping the sidebar visible.
+ * @param {string} collection
  * @return {void}
  */
 export function reloadCollection(collection: string): void {

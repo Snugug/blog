@@ -81,7 +81,7 @@ self.addEventListener('message', async (event) => {
         return aTitle.toLowerCase().localeCompare(bTitle.toLowerCase());
       });
 
-      self.postMessage({ type: 'result', items });
+      self.postMessage({ type: 'result', collection, items });
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       self.postMessage({ type: 'error', message });
