@@ -20,6 +20,9 @@ export default defineConfig({
   integrations: [svelte(), sitemap(), collections()],
   markdown,
   vite: {
+    // Workers use dynamic import() for code-splitting (storage adapter lazy loading),
+    // which requires ES module format instead of the default IIFE
+    worker: { format: 'es' },
     plugins: [
       pwa({
         strategies: 'injectManifest',
