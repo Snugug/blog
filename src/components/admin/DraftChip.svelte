@@ -15,16 +15,19 @@
   class:chip--draft={variant === 'draft'}
   class:chip--outdated={variant === 'outdated'}
 >
-  {variant === 'draft' ? 'DRAFT' : 'OUTDATED'}
+  {variant === 'draft' ? 'draft' : 'outdated'}
 </span>
 
 <style lang="scss">
-  // Visually sized closer to the subtitle than the main label text
+  // Visually sized closer to the subtitle than the main label text —
+  // exempt from font size scale and .25rem padding-block rule per CLAUDE.md
   .chip {
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0 0.25rem;
-    border-radius: 3px;
+    font-size: 0.6rem;
+    font-weight: normal;
+    text-transform: lowercase;
+    padding-inline: 0.25rem;
+    padding-block: 0.15rem;
+    border-radius: 5rem;
     line-height: 1;
     white-space: nowrap;
   }
