@@ -3,8 +3,7 @@
   import SchemaField from './SchemaField.svelte';
 
   /**
-   * Props for the ArrayItem component, which renders a single item row within
-   * an ArrayField, including drag-and-drop handles, reorder arrows, and a remove button.
+   * Props for the ArrayItem component, which renders a single item row within an ArrayField, including drag-and-drop handles, reorder arrows, and a remove button.
    */
   interface Props {
     // Parent array field name, used to namespace child field ids

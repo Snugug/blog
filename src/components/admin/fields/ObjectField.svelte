@@ -3,8 +3,7 @@
   import SchemaField from './SchemaField.svelte';
 
   /**
-   * Props for the ObjectField component, which renders a grouped fieldset of
-   * child SchemaField components for a JSON Schema object property.
+   * Props for the ObjectField component, which renders a grouped fieldset of child SchemaField components for a JSON Schema object property.
    */
   interface Props {
     // Property name for labeling

@@ -3,8 +3,7 @@
   import { extractTabs } from '$js/admin/schema-utils';
 
   /**
-   * Props for the EditorTabs component, which renders the tab bar above the
-   * editor, including the default Metadata and Body tabs plus any custom schema-defined tabs.
+   * Props for the EditorTabs component, which renders the tab bar above the editor, including the default Metadata and Body tabs plus any custom schema-defined tabs.
    */
   interface Props {
     // The JSON Schema for the current collection (null if not loaded yet)

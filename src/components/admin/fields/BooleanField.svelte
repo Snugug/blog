@@ -2,8 +2,7 @@
   import type { SchemaNode } from '$js/admin/schema-utils';
 
   /**
-   * Props for the BooleanField component, which renders a labeled checkbox
-   * for a JSON Schema boolean property.
+   * Props for the BooleanField component, which renders a labeled checkbox for a JSON Schema boolean property.
    */
   interface Props {
     // Field name used as the input id and label fallback

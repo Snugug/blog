@@ -12,8 +12,7 @@
   export type { SidebarItem };
 
   /**
-   * Props for the AdminSidebar component, which renders a filterable, sortable
-   * navigation list of collection items with an optional search input and sort popover.
+   * Props for the AdminSidebar component, which renders a filterable, sortable navigation list of collection items with a search input and optional sort popover.
    */
   interface Props {
     // Heading text displayed at the top of the sidebar

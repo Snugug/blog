@@ -2,8 +2,7 @@
   import type { SchemaNode } from '$js/admin/schema-utils';
 
   /**
-   * Props for the DateField component, which renders a labeled date input
-   * for a JSON Schema string property with format "date".
+   * Props for the DateField component, which renders a labeled date input for a JSON Schema string property with format "date-time".
    */
   interface Props {
     // Field name used as the input id and label fallback
