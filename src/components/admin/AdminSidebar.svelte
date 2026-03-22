@@ -226,7 +226,6 @@
 
   .sidebar-list {
     display: grid;
-    gap: 0.25rem;
   }
 
   .sidebar-link {
