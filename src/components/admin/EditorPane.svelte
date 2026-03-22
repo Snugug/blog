@@ -217,11 +217,17 @@
 
   .editor-pane :global(.cm-scroller) {
     flex-grow: 1;
+    // CodeMirror sets align-items: flex-start which prevents cm-content from stretching
+    // vertically. Override to stretch so the editable area fills the entire scroller.
+    align-items: stretch !important;
   }
 
-  // Forces .cm-content to shrink below its longest word so overflow-wrap can break long URLs
+  // Forces .cm-content to shrink below its longest word so overflow-wrap can break long URLs.
+  // min-height fills the scroller so the entire editor area is clickable on empty documents.
+  // Both need !important to override CodeMirror's inline theme styles.
   .editor-pane :global(.cm-content) {
     min-width: 0 !important;
+    min-height: 100% !important;
   }
 
   // Wraps long URLs at word boundaries where possible, breaking mid-word only when necessary
