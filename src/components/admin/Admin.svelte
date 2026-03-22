@@ -13,7 +13,13 @@
     getError,
   } from '$js/admin/state.svelte';
   import { loadFile, clearEditor, saveFile } from '$js/admin/editor.svelte';
-  import { fetchSchema, getSchema, clearSchema } from '$js/admin/schema.svelte';
+  import {
+    fetchSchema,
+    getSchema,
+    clearSchema,
+    prefetchAllSchemas,
+    collectionHasDates,
+  } from '$js/admin/schema.svelte';
   import DirectoryPicker from './DirectoryPicker.svelte';
   import AdminSidebar from './AdminSidebar.svelte';
   import EditorToolbar from './EditorToolbar.svelte';
@@ -145,9 +151,15 @@
     }
   });
 
+  /** Whether the active collection has date fields for sort controls */
+  const contentHasDates = $derived(
+    activeCollection ? collectionHasDates(activeCollection) : false,
+  );
+
   onMount(() => {
     initRouter();
     restoreHandle();
+    prefetchAllSchemas();
   });
 </script>
 
@@ -173,6 +185,7 @@
         storageKey={activeCollection}
         loading={isLoading()}
         error={getError() ?? undefined}
+        hasDates={contentHasDates}
       />
     {/if}
     {#if fileOpen}

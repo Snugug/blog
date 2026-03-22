@@ -24,6 +24,8 @@
     loading?: boolean;
     /** Error message to display instead of items */
     error?: string;
+    /** Whether this collection has date fields, enabling sort controls */
+    hasDates?: boolean;
   }
 
   let {
@@ -33,10 +35,8 @@
     storageKey,
     loading = false,
     error,
+    hasDates = false,
   }: Props = $props();
-
-  /** Whether any items have dates, controlling sort button visibility */
-  const hasDates = $derived(items.some((item) => item.date != null));
 
   /** Search query for filtering items by label */
   let searchQuery = $state('');
