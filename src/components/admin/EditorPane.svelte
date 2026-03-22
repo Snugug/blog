@@ -208,9 +208,15 @@
     overflow: auto;
   }
 
-  // Fill the entire editor box so clicking anywhere starts editing, even on empty documents
+  // Fill the entire editor box so clicking anywhere starts editing, even on empty documents.
+  // cm-editor uses display:flex column by default — min-height stretches the container,
+  // and flex-grow on cm-scroller makes the scrollable/clickable area fill it.
   .editor-pane :global(.cm-editor) {
     min-height: 100%;
+  }
+
+  .editor-pane :global(.cm-scroller) {
+    flex-grow: 1;
   }
 
   // Forces .cm-content to shrink below its longest word so overflow-wrap can break long URLs
