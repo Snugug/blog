@@ -58,7 +58,7 @@ Prefer CSS Grid to Flexbox unless you need the specific characteristics of flexb
 
 ### Code Comments
 
-You are REQUIRED to professionally comment your code. Comments should be short and helpful, explaining what something does, but MUST NOT include your dialog or thinking. For JavaScript and TypeScript, the MUST be written in JSDoc format, and you MUST have comments for all of your functions and classes, including inputs and outputs and a brief description of what they do, all with proper TypeScript typing. For SCSS/Sass, use inline comments `//` instead of CSS comments `/*`.
+You are REQUIRED to professionally comment your code. Comments should be short and helpful, explaining what something does, but MUST NOT include your dialog or thinking. For JavaScript and TypeScript, the MUST be written in JSDoc format, and you MUST have comments for all of your functions and classes, including inputs and outputs and a brief description of what they do, all with proper TypeScript typing. For SCSS/Sass, use inline comments `//` instead of CSS comments `/*`. Comments MUST NOT have arbitrary line breaks to conform to an invisible max character count, just write normally and have line wrapping handle comment wrapping.
 
 It is CRITICAL that you write comments explaining specific items that we've gone back and forth on a number of times to ensure that the reason why it exists the way it does (which likely went against your normal thinking) so that future developers and agents can learn from it and improve.
 
