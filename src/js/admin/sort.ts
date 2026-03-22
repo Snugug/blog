@@ -69,11 +69,14 @@ export function createComparator(
   mode: SortMode,
 ): (a: SidebarItem, b: SidebarItem) => number {
   return (a, b) => {
-    if (mode === 'date-asc') {
-      return (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0);
-    }
-    if (mode === 'date-desc') {
-      return (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0);
+    if (mode === 'date-asc' || mode === 'date-desc') {
+      // Items without a date sort to the top (e.g. new drafts without a published date)
+      if (!a.date && !b.date) return 0;
+      if (!a.date) return -1;
+      if (!b.date) return 1;
+      return mode === 'date-asc'
+        ? a.date.getTime() - b.date.getTime()
+        : b.date.getTime() - a.date.getTime();
     }
     return a.label.toLowerCase().localeCompare(b.label.toLowerCase());
   };
