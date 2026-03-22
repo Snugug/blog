@@ -1,5 +1,11 @@
 import schemas from 'virtual:collections';
-import { loadHandle, saveHandle, clearHandle } from './storage';
+import {
+  loadBackend,
+  saveBackend,
+  clearBackend,
+  type BackendConfig,
+} from './storage';
+import { StorageClient } from './storage-client';
 import { getRoute, navigate } from './router.svelte';
 import {
   getDrafts,
@@ -20,16 +26,39 @@ export type ContentItem = {
 };
 
 /**
- * Permission state for the stored directory handle.
+ * Permission state for the stored FSA directory handle.
  */
 type PermissionState = 'granted' | 'prompt' | 'denied';
+
+/**
+ * Backend type discriminator.
+ */
+type BackendType = 'fsa' | 'github' | null;
 
 // Collection names derived from virtual:collections, sorted alphabetically
 const collectionNames = Object.keys(schemas).sort();
 
-// The project root directory handle
-let directoryHandle = $state<FileSystemDirectoryHandle | null>(null);
-// Current permission state -- starts as 'denied' to show picker until restore completes
+//////////////////////////////
+// SharedWorker + StorageClient singleton
+//////////////////////////////
+
+// The SharedWorker instance, created once on module load
+const sharedWorker = new SharedWorker(
+  new URL('./storage-worker.ts', import.meta.url),
+  { type: 'module', name: 'cms-storage' },
+);
+// Main-thread client wrapping the SharedWorker's port
+const storageClient = new StorageClient(sharedWorker.port);
+
+//////////////////////////////
+// Reactive state
+//////////////////////////////
+
+// Which backend is active (null = not logged in)
+let backendType = $state<BackendType>(null);
+// Whether the backend is initialized and ready for I/O
+let backendReady = $state(false);
+// FSA-specific: permission state for re-auth flow
 let permissionState = $state<PermissionState>('denied');
 // Content items for the selected collection
 let contentList = $state<ContentItem[]>([]);
@@ -37,11 +66,14 @@ let contentList = $state<ContentItem[]>([]);
 let error = $state<string | null>(null);
 // Whether the worker is currently parsing
 let loading = $state(false);
-
-// Singleton web worker instance
+// Singleton frontmatter worker instance
 let worker: Worker | null = null;
-// The collection currently loaded (or being loaded) to avoid redundant dispatches
+// The collection currently loaded to avoid redundant dispatches
 let loadedCollection = '';
+
+//////////////////////////////
+// Getters (reactive)
+//////////////////////////////
 
 /**
  * Returns the sorted list of collection names.
@@ -50,79 +82,70 @@ let loadedCollection = '';
 export function getCollections(): string[] {
   return collectionNames;
 }
-
 /**
- * Returns the current directory handle (reactive).
- * @return {FileSystemDirectoryHandle | null} The project root directory handle, or null if not set
+ * Returns the current backend type (reactive).
+ * @return {BackendType} The active backend type, or null if not connected
  */
-export function getDirectoryHandle(): FileSystemDirectoryHandle | null {
-  return directoryHandle;
+export function getBackendType(): BackendType {
+  return backendType;
 }
-
 /**
- * Returns the current permission state (reactive).
- * @return {PermissionState} The current readwrite permission state for the stored directory handle
+ * Returns whether the backend is ready (reactive). This is the "logged in" check.
+ * @return {boolean} True if a backend is initialized and ready
+ */
+export function isBackendReady(): boolean {
+  return backendReady;
+}
+/**
+ * Returns the current FSA permission state (reactive). Only meaningful when backendType === 'fsa'.
+ * @return {PermissionState} The current permission state
  */
 export function getPermissionState(): PermissionState {
   return permissionState;
 }
-
+/**
+ * Returns the main-thread StorageClient for direct I/O from state/editor code.
+ * @return {StorageClient} The storage client connected to the SharedWorker
+ */
+export function getStorageClient(): StorageClient {
+  return storageClient;
+}
 /**
  * Returns the content list for the selected collection (reactive).
- * @return {ContentItem[]} The list of parsed content items for the active collection
+ * @return {ContentItem[]} The list of parsed content items
  */
 export function getContentList(): ContentItem[] {
   return contentList;
 }
-
-/**
- * Retrieves a FileSystemFileHandle for a content file by slug, traversing root → src → content → {collection}.
- * Matches the slug against the content list to resolve the full filename with extension.
- * @param {string} collection - The collection name
- * @param {string} slug - The filename without extension
- * @return {Promise<FileSystemFileHandle | null>} The file handle, or null if not found or no directory is open
- */
-export async function getFileHandle(
-  collection: string,
-  slug: string,
-): Promise<FileSystemFileHandle | null> {
-  if (!directoryHandle) return null;
-
-  // Find the full filename from the content list
-  const item = contentList.find((i) => {
-    const name = i.filename.replace(/\.mdx?$/, '');
-    return name === slug;
-  });
-  if (!item) return null;
-
-  try {
-    const src = await directoryHandle.getDirectoryHandle('src');
-    const content = await src.getDirectoryHandle('content');
-    const collectionDir = await content.getDirectoryHandle(collection);
-    return collectionDir.getFileHandle(item.filename);
-  } catch {
-    return null;
-  }
-}
-
 /**
  * Returns the current error message (reactive).
- * @return {string | null} The error message, or null if there is no error
+ * @return {string | null} The error message, or null
  */
 export function getError(): string | null {
   return error;
 }
-
 /**
  * Returns whether the worker is currently loading (reactive).
- * @return {boolean} True if the worker is actively parsing files
+ * @return {boolean} True if actively parsing
  */
 export function isLoading(): boolean {
   return loading;
 }
+//////////////////////////////
+// Worker management
+//////////////////////////////
 
 /**
- * Initializes the singleton worker and sets up its message handler.
+ * Bridges a MessagePort to the SharedWorker by sending it via a connect-port message. The SharedWorker calls setupPort on the received port, giving the dedicated worker direct access.
+ * @param {MessagePort} port - The port to bridge
+ * @return {void}
+ */
+function bridgePortToSharedWorker(port: MessagePort): void {
+  sharedWorker.port.postMessage({ type: 'connect-port' }, [port]);
+}
+
+/**
+ * Initializes the singleton frontmatter worker and bridges a port to the SharedWorker.
  * @return {Worker} The existing or newly created worker instance
  */
 function ensureWorker(): Worker {
@@ -136,9 +159,8 @@ function ensureWorker(): Worker {
       contentList = data.items;
       loading = false;
       error = null;
-      // Merge drafts from IndexedDB and check for outdated snapshots
-      if (directoryHandle && loadedCollection) {
-        mergeDrafts(loadedCollection, directoryHandle);
+      if (backendReady && loadedCollection) {
+        mergeDrafts(loadedCollection);
       }
     } else if (data.type === 'error') {
       error = data.message;
@@ -146,58 +168,90 @@ function ensureWorker(): Worker {
       contentList = [];
     }
   });
+
+  // Bridge a port so the frontmatter worker can talk to the storage SharedWorker
+  const channel = new MessageChannel();
+  worker.postMessage({ type: 'port' }, [channel.port1]);
+  bridgePortToSharedWorker(channel.port2);
+
   return worker;
 }
 
 /**
- * Sends a parse request to the worker for the given collection.
+ * Sends a parse request to the frontmatter worker for the given collection.
  * @param {string} collection - The collection name to parse
  * @return {void}
  */
 function dispatchWorker(collection: string): void {
-  if (!directoryHandle) return;
+  if (!backendReady) return;
   loading = true;
   error = null;
   contentList = [];
   const w = ensureWorker();
-  w.postMessage({ type: 'parse', handle: directoryHandle, collection });
+  w.postMessage({ type: 'parse', collection });
 }
 
+//////////////////////////////
+// Backend lifecycle
+//////////////////////////////
 /**
- * Restores a stored directory handle from IndexedDB and checks its permission state.
+ * Restores a stored backend config from IndexedDB and initializes the SharedWorker.
  * @return {Promise<void>}
  */
-export async function restoreHandle(): Promise<void> {
+export async function restoreBackend(): Promise<void> {
   try {
-    const stored = await loadHandle();
-    if (!stored) {
-      permissionState = 'denied';
+    const config = await loadBackend();
+    if (!config) {
+      backendType = null;
+      backendReady = false;
       return;
     }
 
-    const perm = await stored.queryPermission({ mode: 'readwrite' });
-    directoryHandle = stored;
-    permissionState = perm;
+    if (config.type === 'fsa') {
+      // Check FSA permission state
+      const perm = await config.handle.queryPermission({ mode: 'readwrite' });
+      permissionState = perm;
+      backendType = 'fsa';
 
-    if (perm === 'granted') {
-      navigateToFirstCollectionIfHome();
+      if (perm === 'granted') {
+        await storageClient.init({ type: 'init', backend: config });
+        backendReady = true;
+        navigateToFirstCollectionIfHome();
+      }
+      // If perm is 'prompt', BackendPicker shows re-auth button
+    } else {
+      // GitHub -- validate by initializing the adapter (which calls validate())
+      try {
+        await storageClient.init({ type: 'init', backend: config });
+        backendType = 'github';
+        backendReady = true;
+        navigateToFirstCollectionIfHome();
+      } catch {
+        // Token expired or repo gone -- clear and show picker
+        await clearBackend();
+        backendType = null;
+        backendReady = false;
+      }
     }
   } catch {
-    permissionState = 'denied';
+    backendType = null;
+    backendReady = false;
   }
 }
 
 /**
- * Requests readwrite permission on the stored handle.
- * Must be called from a user gesture (click handler).
+ * Requests readwrite permission on the stored FSA handle. Must be called from a user gesture.
  * @return {Promise<void>}
  */
 export async function requestPermission(): Promise<void> {
-  if (!directoryHandle) return;
+  const config = await loadBackend();
+  if (!config || config.type !== 'fsa') return;
   try {
-    const perm = await directoryHandle.requestPermission({ mode: 'readwrite' });
+    const perm = await config.handle.requestPermission({ mode: 'readwrite' });
     permissionState = perm;
     if (perm === 'granted') {
+      await storageClient.init({ type: 'init', backend: config });
+      backendReady = true;
       navigateToFirstCollectionIfHome();
     }
   } catch {
@@ -206,34 +260,55 @@ export async function requestPermission(): Promise<void> {
 }
 
 /**
- * Opens the directory picker, persists the handle, and navigates into the admin.
- * Must be called from a user gesture (click handler).
+ * Opens the directory picker, initializes the FSA backend, and persists the config. Must be called from a user gesture.
  * @return {Promise<void>}
  */
 export async function pickDirectory(): Promise<void> {
   try {
     const handle = await window.showDirectoryPicker({ mode: 'readwrite' });
-    directoryHandle = handle;
+    const config: BackendConfig = { type: 'fsa', handle };
+    await storageClient.init({ type: 'init', backend: config });
+    await saveBackend(config);
+    backendType = 'fsa';
     permissionState = 'granted';
-    await saveHandle(handle);
+    backendReady = true;
     navigateToFirstCollectionIfHome();
   } catch (err) {
-    // AbortError = user cancelled, silently ignore
     if (err instanceof DOMException && err.name === 'AbortError') return;
     error = err instanceof Error ? err.message : String(err);
   }
 }
 
 /**
- * Clears the stored handle, terminates the worker, and resets all state.
+ * Connects to a GitHub repository via PAT, initializes the GitHub backend, and persists the config.
+ * @param {string} token - GitHub Personal Access Token
+ * @param {string} repo - Repository in "owner/repo" format
+ * @return {Promise<void>}
+ */
+export async function connectGitHub(
+  token: string,
+  repo: string,
+): Promise<void> {
+  const config: BackendConfig = { type: 'github', token, repo };
+  await storageClient.init({ type: 'init', backend: config });
+  await saveBackend(config);
+  backendType = 'github';
+  backendReady = true;
+  navigateToFirstCollectionIfHome();
+}
+
+/**
+ * Tears down the backend, clears persisted config, and resets all state.
  * @return {Promise<void>}
  */
 export async function disconnect(): Promise<void> {
   worker?.terminate();
   worker = null;
   resetDraftMerge();
-  await clearHandle();
-  directoryHandle = null;
+  await storageClient.teardown();
+  await clearBackend();
+  backendType = null;
+  backendReady = false;
   permissionState = 'denied';
   contentList = [];
   loadedCollection = '';
@@ -243,7 +318,7 @@ export async function disconnect(): Promise<void> {
 }
 
 /**
- * Navigates to the first collection alphabetically, but only if currently on the /admin home view.
+ * Navigates to the first collection if currently on the /admin home view.
  * @return {void}
  */
 function navigateToFirstCollectionIfHome(): void {
@@ -254,7 +329,7 @@ function navigateToFirstCollectionIfHome(): void {
 }
 
 /**
- * Triggers worker parsing for the given collection. Skips the dispatch if already loaded to avoid rebuilding the sidebar on file-level navigation.
+ * Triggers worker parsing for the given collection. Skips if already loaded.
  * @param {string} collection - The collection name to load
  * @return {void}
  */
@@ -265,7 +340,7 @@ export function loadCollection(collection: string): void {
 }
 
 /**
- * Forces a reload of the current collection by resetting the loaded-collection guard.
+ * Forces a reload of the current collection.
  * @param {string} collection - The collection to reload
  * @return {void}
  */
