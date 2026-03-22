@@ -4,9 +4,8 @@
   import { toSortDate } from '$js/admin/sort';
   import {
     getCollections,
-    getDirectoryHandle,
-    getPermissionState,
-    restoreHandle,
+    isBackendReady,
+    restoreBackend,
     loadCollection,
     getContentList,
     isLoading,
@@ -36,7 +35,7 @@
     handleFilenameConfirm,
     computePublishDisabled,
   } from '$js/admin/admin-handlers';
-  import DirectoryPicker from './DirectoryPicker.svelte';
+  import BackendPicker from './BackendPicker.svelte';
   import AdminSidebar from './AdminSidebar.svelte';
   import EditorToolbar from './EditorToolbar.svelte';
   import EditorPane from './EditorPane.svelte';
@@ -45,10 +44,8 @@
   import FilenameDialog from './FilenameDialog.svelte';
   import DeleteDraftDialog from './DeleteDraftDialog.svelte';
 
-  // Whether the admin is ready (handle exists and permission granted)
-  const ready = $derived(
-    getDirectoryHandle() !== null && getPermissionState() === 'granted',
-  );
+  // Whether the admin backend is ready to serve content
+  const ready = $derived(isBackendReady());
 
   // The current route for tracking collection changes
   const currentRoute = $derived(getRoute());
@@ -226,7 +223,7 @@
 
   onMount(() => {
     initRouter();
-    restoreHandle();
+    restoreBackend();
     prefetchAllSchemas();
   });
 </script>
@@ -238,7 +235,7 @@
   class:admin--file-open={ready && fileOpen}
 >
   {#if !ready}
-    <DirectoryPicker />
+    <BackendPicker />
   {:else}
     <AdminSidebar
       title="Collections"
