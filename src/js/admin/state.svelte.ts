@@ -178,15 +178,18 @@ function ensureWorker(): Worker {
 }
 
 /**
- * Sends a parse request to the frontmatter worker for the given collection.
+ * Sends a parse request to the frontmatter worker for the given collection. When refreshing (e.g. after publish), keeps the current content visible instead of blanking the sidebar.
  * @param {string} collection - The collection name to parse
+ * @param {boolean} refresh - If true, keep current contentList and skip loading state
  * @return {void}
  */
-function dispatchWorker(collection: string): void {
+function dispatchWorker(collection: string, refresh = false): void {
   if (!backendReady) return;
-  loading = true;
+  if (!refresh) {
+    loading = true;
+    contentList = [];
+  }
   error = null;
-  contentList = [];
   const w = ensureWorker();
   w.postMessage({ type: 'parse', collection });
 }
@@ -340,11 +343,11 @@ export function loadCollection(collection: string): void {
 }
 
 /**
- * Forces a reload of the current collection.
+ * Forces a background reload of the current collection. Keeps the sidebar visible with current items while fetching fresh data.
  * @param {string} collection - The collection to reload
  * @return {void}
  */
 export function reloadCollection(collection: string): void {
   loadedCollection = '';
-  dispatchWorker(collection);
+  dispatchWorker(collection, true);
 }
