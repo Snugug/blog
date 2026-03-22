@@ -111,6 +111,9 @@
 
   .picker-option {
     display: grid;
+    // auto rows for content, last row (button/form) aligns to bottom
+    grid-template-rows: auto auto 1fr;
+    align-items: start;
     gap: 0.75rem;
     padding: 1.5rem;
     border: 1px solid var(--dark-grey);
@@ -126,6 +129,11 @@
       font-size: 0.875rem;
       color: var(--grey);
       margin: 0;
+    }
+
+    // Align the last child (button or form) to the bottom of the card
+    > :last-child {
+      align-self: end;
     }
   }
 
@@ -166,6 +174,7 @@
     cursor: pointer;
     font-size: 1rem;
     padding: 0.75rem 1.5rem;
+    text-align: center;
 
     &:hover {
       background: var(--light-plum);
