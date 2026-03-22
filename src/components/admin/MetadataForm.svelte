@@ -5,9 +5,9 @@
   import SchemaField from './fields/SchemaField.svelte';
 
   interface Props {
-    /** The JSON Schema for the collection */
+    // The JSON Schema for the collection
     schema: SchemaNode;
-    /** Tab name to filter by, or null for Metadata (all fields) */
+    // Tab name to filter by, or null for Metadata (all fields)
     tab?: string | null;
   }
 

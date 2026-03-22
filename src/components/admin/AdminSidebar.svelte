@@ -12,19 +12,19 @@
   export type { SidebarItem };
 
   interface Props {
-    /** Heading text displayed at the top of the sidebar */
+    // Heading text displayed at the top of the sidebar
     title: string;
-    /** Items to display in the sidebar list */
+    // Items to display in the sidebar list
     items: SidebarItem[];
-    /** href of the currently active item, highlighted with aria-current */
+    // href of the currently active item, highlighted with aria-current
     activeItem?: string;
-    /** Collection name for localStorage sort persistence (constructs key: cms-sort-{storageKey}) */
+    // Collection name for localStorage sort persistence (constructs key: cms-sort-{storageKey})
     storageKey?: string;
-    /** Whether items are currently loading */
+    // Whether items are currently loading
     loading?: boolean;
-    /** Error message to display instead of items */
+    // Error message to display instead of items
     error?: string;
-    /** Whether this collection has date fields, enabling sort controls */
+    // Whether this collection has date fields, enabling sort controls
     hasDates?: boolean;
   }
 

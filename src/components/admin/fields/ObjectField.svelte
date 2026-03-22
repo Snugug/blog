@@ -3,17 +3,17 @@
   import SchemaField from './SchemaField.svelte';
 
   interface Props {
-    /** Property name for labeling */
+    // Property name for labeling
     name: string;
-    /** JSON Schema node describing this object */
+    // JSON Schema node describing this object
     schema: SchemaNode;
-    /** Current object value */
+    // Current object value
     value: unknown;
-    /** Whether this field is required */
+    // Whether this field is required
     required?: boolean;
-    /** Callback fired when the value changes */
+    // Callback fired when the value changes
     onchange: (value: unknown) => void;
-    /** When true, renders fields without a fieldset wrapper (used inside ArrayItem). */
+    // When true, renders fields without a fieldset wrapper (used inside ArrayItem).
     inline?: boolean;
   }
 

@@ -3,47 +3,47 @@
   import SchemaField from './SchemaField.svelte';
 
   interface Props {
-    /** Parent array field name, used to namespace child field ids */
+    // Parent array field name, used to namespace child field ids
     name: string;
-    /** Zero-based position of this item in the array */
+    // Zero-based position of this item in the array
     index: number;
-    /** The item's current value */
+    // The item's current value
     item: unknown;
-    /** JSON Schema node describing a single array item */
+    // JSON Schema node describing a single array item
     itemSchema: SchemaNode;
-    /** Whether the item schema is an object type */
+    // Whether the item schema is an object type
     isObject: boolean;
-    /** Whether this item's content is collapsed (only applicable for objects) */
+    // Whether this item's content is collapsed (only applicable for objects)
     collapsed: boolean;
-    /** Whether this item is currently being dragged */
+    // Whether this item is currently being dragged
     dragging: boolean;
-    /** Whether this item is the current drag-over drop target */
+    // Whether this item is the current drag-over drop target
     dropTarget: boolean;
-    /** Whether this is the first item in the list (disables move-up) */
+    // Whether this is the first item in the list (disables move-up)
     isFirst: boolean;
-    /** Whether this is the last item in the list (disables move-down) */
+    // Whether this is the last item in the list (disables move-down)
     isLast: boolean;
-    /** Whether the remove button is enabled */
+    // Whether the remove button is enabled
     canRemove: boolean;
-    /** Fired when this item's value changes */
+    // Fired when this item's value changes
     onupdate: (index: number, value: unknown) => void;
-    /** Fired when the remove button is clicked */
+    // Fired when the remove button is clicked
     onremove: (index: number) => void;
-    /** Fired when the move-up arrow is clicked */
+    // Fired when the move-up arrow is clicked
     onmoveup: (index: number) => void;
-    /** Fired when the move-down arrow is clicked */
+    // Fired when the move-down arrow is clicked
     onmovedown: (index: number) => void;
-    /** Fired when the collapse/expand toggle is clicked */
+    // Fired when the collapse/expand toggle is clicked
     ontogglecollapse: (index: number) => void;
-    /** Native dragstart handler */
+    // Native dragstart handler
     ondragstart: (e: DragEvent) => void;
-    /** Native dragover handler */
+    // Native dragover handler
     ondragover: (e: DragEvent) => void;
-    /** Native dragleave handler */
+    // Native dragleave handler
     ondragleave: (e: DragEvent) => void;
-    /** Native drop handler */
+    // Native drop handler
     ondrop: (e: DragEvent) => void;
-    /** Native dragend handler */
+    // Native dragend handler
     ondragend: (e: DragEvent) => void;
   }
 

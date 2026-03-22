@@ -10,17 +10,17 @@
   import ObjectField from './ObjectField.svelte';
 
   interface Props {
-    /** Property name for labeling and identification */
+    // Property name for labeling and identification
     name: string;
-    /** JSON Schema node describing this field */
+    // JSON Schema node describing this field
     schema: SchemaNode;
-    /** Current field value */
+    // Current field value
     value: unknown;
-    /** Whether this field is required */
+    // Whether this field is required
     required?: boolean;
-    /** Callback fired when the value changes */
+    // Callback fired when the value changes
     onchange: (value: unknown) => void;
-    /** When true, object fields render without a fieldset wrapper (used inside ArrayItem). */
+    // When true, object fields render without a fieldset wrapper (used inside ArrayItem).
     inline?: boolean;
   }
 

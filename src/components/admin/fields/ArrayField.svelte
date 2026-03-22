@@ -4,15 +4,15 @@
   import ArrayItem from './ArrayItem.svelte';
 
   interface Props {
-    /** Property name for the label */
+    // Property name for the label
     name: string;
-    /** JSON Schema node describing this array field */
+    // JSON Schema node describing this array field
     schema: SchemaNode;
-    /** Current array value */
+    // Current array value
     value: unknown;
-    /** Whether this field is required */
+    // Whether this field is required
     required?: boolean;
-    /** Callback fired when the array value changes */
+    // Callback fired when the array value changes
     onchange: (value: unknown) => void;
   }
 

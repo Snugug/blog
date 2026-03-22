@@ -3,11 +3,11 @@
   import { extractTabs } from '$js/admin/schema-utils';
 
   interface Props {
-    /** The JSON Schema for the current collection (null if not loaded yet) */
+    // The JSON Schema for the current collection (null if not loaded yet)
     schema: SchemaNode | null;
-    /** The currently active tab identifier */
+    // The currently active tab identifier
     activeTab?: string;
-    /** Callback fired when a tab is clicked */
+    // Callback fired when a tab is clicked
     onTabChange: (tab: string) => void;
   }
 

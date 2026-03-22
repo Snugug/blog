@@ -12,7 +12,7 @@ export type EditorFile = {
   dirty: boolean;
   saving: boolean;
   filename: string;
-  /** Whether the body content has been loaded from disk */
+  // Whether the body content has been loaded from disk
   bodyLoaded: boolean;
 };
 

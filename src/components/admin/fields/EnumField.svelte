@@ -2,17 +2,17 @@
   import type { SchemaNode } from '$js/admin/schema-utils';
 
   interface Props {
-    /** Field name used as the select id and label fallback */
+    // Field name used as the select id and label fallback
     name: string;
-    /** JSON Schema node describing this field */
+    // JSON Schema node describing this field
     schema: SchemaNode;
-    /** Current field value */
+    // Current field value
     value: unknown;
-    /** The enum values to render as options */
+    // The enum values to render as options
     options: unknown[];
-    /** Whether this field is required */
+    // Whether this field is required
     required?: boolean;
-    /** Callback fired when the value changes */
+    // Callback fired when the value changes
     onchange: (value: string | null) => void;
   }
 
