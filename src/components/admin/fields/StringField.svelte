@@ -58,38 +58,12 @@
   /** Whether to render as a textarea (widget: "textarea" in schema meta) */
   const isTextarea = $derived(schema['widget'] === 'textarea');
 
-  /** Bound reference to the textarea for auto-resize */
-  let textareaEl = $state<HTMLTextAreaElement | null>(null);
-
-  /**
-   * Auto-resizes a textarea to fit its content.
-   * Resets to auto first so shrinking works when content is deleted.
-   * @param {HTMLTextAreaElement} el - The textarea element
-   */
-  function autoResize(el: HTMLTextAreaElement): void {
-    el.style.height = 'auto';
-    el.style.height = `${el.scrollHeight}px`;
-  }
-
-  // Auto-resize on initial render and when value changes externally
-  $effect(() => {
-    if (textareaEl && isTextarea) {
-      // Read inputValue to create a reactive dependency on value changes
-      void inputValue;
-      autoResize(textareaEl);
-    }
-  });
-
   /**
    * Handles input change events, emitting null for empty nullable fields.
    * @param {Event} e - The DOM input event
    */
   function handleChange(e: Event): void {
-    const target = e.target as HTMLInputElement | HTMLTextAreaElement;
-    const raw = target.value;
-    if (isTextarea && target instanceof HTMLTextAreaElement) {
-      autoResize(target);
-    }
+    const raw = (e.target as HTMLInputElement | HTMLTextAreaElement).value;
     onchange(nullable && raw === '' ? null : raw);
   }
 </script>
@@ -108,7 +82,6 @@
       readonly={readOnly}
       rows={3}
       oninput={handleChange}
-      bind:this={textareaEl}
     >{inputValue}</textarea>
   {:else}
     <input
@@ -178,11 +151,13 @@
     width: 100%;
   }
 
-  // Textarea auto-grows with content, no manual resize handle
+  // Textarea auto-grows with content via native CSS field-sizing.
+  // rows="3" sets the minimum height; field-sizing: content expands
+  // beyond that as the user types.
   .field-input--textarea {
     width: 100%;
+    field-sizing: content;
     resize: none;
-    overflow: hidden;
     font-family: inherit;
     line-height: 1.5;
   }
