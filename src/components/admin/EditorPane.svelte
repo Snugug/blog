@@ -208,6 +208,11 @@
     overflow: auto;
   }
 
+  // Fill the entire editor box so clicking anywhere starts editing, even on empty documents
+  .editor-pane :global(.cm-editor) {
+    min-height: 100%;
+  }
+
   // Forces .cm-content to shrink below its longest word so overflow-wrap can break long URLs
   .editor-pane :global(.cm-content) {
     min-width: 0 !important;
