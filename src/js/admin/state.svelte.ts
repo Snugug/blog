@@ -35,45 +35,24 @@ type PermissionState = 'granted' | 'prompt' | 'denied';
  */
 type BackendType = 'fsa' | 'github' | null;
 
-// Collection names derived from virtual:collections, sorted alphabetically
 const collectionNames = Object.keys(schemas).sort();
 
-//////////////////////////////
 // SharedWorker + StorageClient singleton
-//////////////////////////////
-
-// The SharedWorker instance, created once on module load
 const sharedWorker = new SharedWorker(
   new URL('./storage-worker.ts', import.meta.url),
   { type: 'module', name: 'cms-storage' },
 );
-// Main-thread client wrapping the SharedWorker's port
 const storageClient = new StorageClient(sharedWorker.port);
 
-//////////////////////////////
 // Reactive state
-//////////////////////////////
-
-// Which backend is active (null = not logged in)
 let backendType = $state<BackendType>(null);
-// Whether the backend is initialized and ready for I/O
 let backendReady = $state(false);
-// FSA-specific: permission state for re-auth flow
 let permissionState = $state<PermissionState>('denied');
-// Content items for the selected collection
 let contentList = $state<ContentItem[]>([]);
-// Error message, or null if no error
 let error = $state<string | null>(null);
-// Whether the worker is currently parsing
 let loading = $state(false);
-// Singleton frontmatter worker instance
 let worker: Worker | null = null;
-// The collection currently loaded to avoid redundant dispatches
 let loadedCollection = '';
-
-//////////////////////////////
-// Getters (reactive)
-//////////////////////////////
 
 /**
  * Returns the sorted list of collection names.
@@ -131,12 +110,8 @@ export function getError(): string | null {
 export function isLoading(): boolean {
   return loading;
 }
-//////////////////////////////
-// Worker management
-//////////////////////////////
-
 /**
- * Bridges a MessagePort to the SharedWorker by sending it via a connect-port message. The SharedWorker calls setupPort on the received port, giving the dedicated worker direct access.
+ * Bridges a MessagePort to the SharedWorker so dedicated workers get direct access.
  * @param {MessagePort} port - The port to bridge
  * @return {void}
  */
@@ -194,9 +169,6 @@ function dispatchWorker(collection: string, refresh = false): void {
   w.postMessage({ type: 'parse', collection });
 }
 
-//////////////////////////////
-// Backend lifecycle
-//////////////////////////////
 /**
  * Restores a stored backend config from IndexedDB and initializes the SharedWorker.
  * @return {Promise<void>}
@@ -348,6 +320,21 @@ export function loadCollection(collection: string): void {
  * @return {void}
  */
 export function reloadCollection(collection: string): void {
-  loadedCollection = '';
+  loadedCollection = collection;
   dispatchWorker(collection, true);
+}
+
+/**
+ * Optimistically updates a single item's frontmatter in the content list without re-fetching from the backend. Used after publish to instantly reflect changes in the sidebar.
+ * @param {string} filename - The filename to update
+ * @param {Record<string, unknown>} data - The new frontmatter data
+ * @return {void}
+ */
+export function updateContentItem(
+  filename: string,
+  data: Record<string, unknown>,
+): void {
+  contentList = contentList.map((item) =>
+    item.filename === filename ? { ...item, data } : item,
+  );
 }

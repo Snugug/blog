@@ -6,7 +6,11 @@ import {
   getEditorFile,
   setFilename,
 } from './editor.svelte';
-import { reloadCollection, refreshDrafts } from './state.svelte';
+import {
+  reloadCollection,
+  refreshDrafts,
+  updateContentItem,
+} from './state.svelte';
 import { navigate } from './router.svelte';
 
 /**
@@ -46,7 +50,15 @@ export async function handlePublish(
 
   await publishFile(activeCollection, file.filename);
 
-  reloadCollection(activeCollection);
+  if (file.isNewDraft) {
+    // New file — not in contentList yet, need a background refresh to pick it up
+    reloadCollection(activeCollection);
+  } else {
+    // Existing file — optimistically update sidebar with current formData
+    // so the title reflects edits instantly without re-fetching all files
+    updateContentItem(file.filename, file.formData);
+  }
+  await refreshDrafts(activeCollection);
   return { status: 'ok' };
 }
 
