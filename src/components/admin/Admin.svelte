@@ -241,6 +241,7 @@
       title="Collections"
       items={collectionItems}
       activeItem={activeCollection ? `/admin/${activeCollection}` : undefined}
+      showFooter={true}
     />
     {#if hasCollection && activeCollection}
       <AdminSidebar

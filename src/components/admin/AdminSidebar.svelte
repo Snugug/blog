@@ -9,7 +9,7 @@
   import AdminSidebarSort from './AdminSidebarSort.svelte';
   import { navigate } from '$js/admin/router.svelte';
   import { saveDraft } from '$js/admin/draft-storage';
-  import { reloadCollection } from '$js/admin/state.svelte';
+  import { reloadCollection, disconnect } from '$js/admin/state.svelte';
 
   export type { SidebarItem };
 
@@ -35,6 +35,8 @@
     collection?: string;
     // Whether to show the add button
     showAdd?: boolean;
+    // Whether to show the logout footer at the bottom
+    showFooter?: boolean;
   }
 
   let {
@@ -47,6 +49,7 @@
     hasDates = false,
     collection,
     showAdd = false,
+    showFooter = false,
   }: Props = $props();
 
   // Search query for filtering items by label
@@ -85,6 +88,14 @@
     });
     reloadCollection(collection);
     navigate(`/admin/${collection}/draft-${id}`);
+  }
+
+  /**
+   * Handles the logout button click by disconnecting the backend.
+   * @return {void}
+   */
+  function onLogout(): void {
+    disconnect();
   }
 
   // Items filtered by search query and sorted by current mode
@@ -160,12 +171,21 @@
       </ul>
     {/if}
   </div>
+
+  {#if showFooter}
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick={onLogout}>
+        <span class="material-symbols-outlined">logout</span>
+        <span>Log out</span>
+      </button>
+    </div>
+  {/if}
 </nav>
 
 <style lang="scss">
   .sidebar {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     height: 100dvh;
     border-right: 1px solid var(--dark-grey);
     position: sticky;
@@ -286,5 +306,28 @@
   .item-label-text {
     // Prevent long titles from pushing chips to a new line unnecessarily
     min-width: 0;
+  }
+
+  .sidebar-footer {
+    border-top: 1px solid var(--dark-grey);
+    padding: 0.75rem 1rem;
+  }
+
+  // Flex is appropriate here for inline icon + text alignment
+  .logout-btn {
+    background: none;
+    border: none;
+    color: var(--grey);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    padding: 0.25rem 0;
+    width: 100%;
+
+    &:hover {
+      color: var(--white);
+    }
   }
 </style>
