@@ -40,10 +40,7 @@ let bodyLoaded = $state(false);
 // Register dirty checker with router for navigation guards
 registerDirtyChecker(() => dirty);
 
-/**
- * Recomputes dirty state by comparing current body and formData
- * against their respective last-saved snapshots.
- */
+/** Recomputes dirty state by comparing body and formData against their saved snapshots. */
 function recomputeDirty(): void {
   dirty =
     body !== lastSavedBody || JSON.stringify(formData) !== lastSavedFormData;
@@ -51,27 +48,22 @@ function recomputeDirty(): void {
 
 /**
  * Returns the current editor file state, or null if no file is open.
- * Returns immediately once preloadFile is called (before body loads).
- * @returns {EditorFile | null} EditorFile object or null
+ * Returns immediately once preloadFile is called, before the body finishes loading.
  */
 export function getEditorFile(): EditorFile | null {
   if (!fileOpen) return null;
   return { handle, body, formData, dirty, saving, filename, bodyLoaded };
 }
 
-/**
- * Returns the current formData object reactively.
- * @returns {Record<string, unknown>} The current parsed frontmatter data
- */
+/** Returns the current formData object (reactive). */
 export function getFormData(): Record<string, unknown> {
   return formData;
 }
 
 /**
  * Updates a single field within formData by path and recomputes dirty state.
- * Uses setByPath to handle arbitrarily nested paths.
- * @param {PathSegment[]} path - Ordered path segments addressing the field to update
- * @param {unknown} value - The new value to assign at the given path
+ * @param path - Ordered path segments addressing the field to update
+ * @param value - The new value to assign at the given path
  */
 export function updateFormField(path: PathSegment[], value: unknown): void {
   setByPath(formData, path, value);
@@ -79,12 +71,10 @@ export function updateFormField(path: PathSegment[], value: unknown): void {
 }
 
 /**
- * Immediately populates the editor with metadata from the content list.
- * Called synchronously when a content item is clicked so the toolbar,
- * tabs, and metadata form render instantly without waiting for the
- * async file read.
- * @param {string} itemFilename - The content file's name
- * @param {Record<string, unknown>} data - Pre-parsed frontmatter data
+ * Immediately populates the editor with metadata from the content list so the UI renders
+ * without waiting for the async file read. Call before loadFileBody.
+ * @param itemFilename - The content file's name
+ * @param data - Pre-parsed frontmatter data
  */
 export function preloadFile(
   itemFilename: string,
@@ -108,10 +98,8 @@ export function preloadFile(
 }
 
 /**
- * Loads the body content from disk for an already-preloaded file.
- * Sets the file handle and body, completing the two-phase load.
- * @param {FileSystemFileHandle} fileHandle - The file handle to read
- * @returns {Promise<void>} Resolves when the body is loaded
+ * Loads the body content from disk for an already-preloaded file, completing the two-phase load.
+ * @param fileHandle - The file handle to read
  */
 export async function loadFileBody(
   fileHandle: FileSystemFileHandle,
@@ -131,20 +119,14 @@ export async function loadFileBody(
 
 /**
  * Updates the editor body content and recomputes dirty state.
- * Called by CodeMirror's update listener.
- * @param {string} content - The new body content
+ * @param content - The new body content
  */
 export function updateBody(content: string): void {
   body = content;
   recomputeDirty();
 }
 
-/**
- * Saves the current file by serializing formData to YAML and
- * reconstituting the full frontmatter + body document.
- * Writes via FileSystemWritableFileStream.
- * @returns {Promise<void>} Resolves when the file is saved
- */
+/** Serializes formData to YAML, reconstitutes the full frontmatter + body document, and writes it to disk. */
 export async function saveFile(): Promise<void> {
   if (!handle) return;
   saving = true;
@@ -167,9 +149,7 @@ export async function saveFile(): Promise<void> {
   }
 }
 
-/**
- * Clears the editor state. Called when navigating away from a file route.
- */
+/** Resets all editor state. */
 export function clearEditor(): void {
   handle = null;
   body = '';

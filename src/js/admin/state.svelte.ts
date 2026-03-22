@@ -30,45 +30,31 @@ let worker: Worker | null = null;
 /** The collection currently loaded (or being loaded) to avoid redundant dispatches */
 let loadedCollection = '';
 
-/**
- * Returns the sorted list of collection names.
- * @returns Array of collection name strings
- */
+/** Returns the sorted list of collection names. */
 export function getCollections(): string[] {
   return collectionNames;
 }
 
-/**
- * Returns the current directory handle (reactive).
- * @returns The FileSystemDirectoryHandle or null
- */
+/** Returns the current directory handle (reactive). */
 export function getDirectoryHandle(): FileSystemDirectoryHandle | null {
   return directoryHandle;
 }
 
-/**
- * Returns the current permission state (reactive).
- * @returns The current PermissionState
- */
+/** Returns the current permission state (reactive). */
 export function getPermissionState(): PermissionState {
   return permissionState;
 }
 
-/**
- * Returns the content list for the selected collection (reactive).
- * @returns Array of ContentItem
- */
+/** Returns the content list for the selected collection (reactive). */
 export function getContentList(): ContentItem[] {
   return contentList;
 }
 
 /**
- * Retrieves a FileSystemFileHandle for a content file by slug.
- * Traverses root → src → content → {collection} and matches the slug
- * against the content list to determine the full filename with extension.
+ * Retrieves a FileSystemFileHandle for a content file by slug, traversing root → src → content → {collection}.
+ * Matches the slug against the content list to resolve the full filename with extension.
  * @param collection - The collection name
  * @param slug - The filename without extension
- * @returns The file handle, or null if not found
  */
 export async function getFileHandle(
   collection: string,
@@ -93,26 +79,17 @@ export async function getFileHandle(
   }
 }
 
-/**
- * Returns the current error message (reactive).
- * @returns Error string or null
- */
+/** Returns the current error message (reactive). */
 export function getError(): string | null {
   return error;
 }
 
-/**
- * Returns whether the worker is currently loading (reactive).
- * @returns Boolean loading state
- */
+/** Returns whether the worker is currently loading (reactive). */
 export function isLoading(): boolean {
   return loading;
 }
 
-/**
- * Initializes the worker and sets up message handling.
- * @returns The worker instance
- */
+/** Initializes the singleton worker and sets up its message handler. */
 function ensureWorker(): Worker {
   if (worker) return worker;
   worker = new Worker(new URL('./frontmatter-worker.ts', import.meta.url), {
@@ -134,7 +111,7 @@ function ensureWorker(): Worker {
 }
 
 /**
- * Dispatches a parse request to the worker for the given collection.
+ * Sends a parse request to the worker for the given collection.
  * @param collection - The collection name to parse
  */
 function dispatchWorker(collection: string): void {
@@ -146,11 +123,7 @@ function dispatchWorker(collection: string): void {
   w.postMessage({ type: 'parse', handle: directoryHandle, collection });
 }
 
-/**
- * Attempts to restore a stored directory handle from IndexedDB
- * and check its permission state.
- * @returns Promise that resolves when restoration is complete
- */
+/** Restores a stored directory handle from IndexedDB and checks its permission state. */
 export async function restoreHandle(): Promise<void> {
   try {
     const stored = await loadHandle();
@@ -172,9 +145,8 @@ export async function restoreHandle(): Promise<void> {
 }
 
 /**
- * Requests read permission on the stored handle.
- * MUST be called from a user gesture handler (click).
- * @returns Promise that resolves when permission check is complete
+ * Requests readwrite permission on the stored handle.
+ * Must be called from a user gesture (click handler).
  */
 export async function requestPermission(): Promise<void> {
   if (!directoryHandle) return;
@@ -190,9 +162,8 @@ export async function requestPermission(): Promise<void> {
 }
 
 /**
- * Opens the directory picker, stores the handle, and navigates to admin.
- * MUST be called from a user gesture handler (click).
- * @returns Promise that resolves when pick and navigation are complete
+ * Opens the directory picker, persists the handle, and navigates into the admin.
+ * Must be called from a user gesture (click handler).
  */
 export async function pickDirectory(): Promise<void> {
   try {
@@ -208,10 +179,7 @@ export async function pickDirectory(): Promise<void> {
   }
 }
 
-/**
- * Clears the stored handle, terminates the worker, and resets state.
- * @returns Promise that resolves when cleanup is complete
- */
+/** Clears the stored handle, terminates the worker, and resets all state. */
 export async function disconnect(): Promise<void> {
   worker?.terminate();
   worker = null;
@@ -225,11 +193,7 @@ export async function disconnect(): Promise<void> {
   navigate('/admin');
 }
 
-/**
- * Navigates to the first collection alphabetically, but only if the user
- * is on /admin (home view). If already on a specific collection route
- * (e.g., /admin/posts), stays there instead of overriding.
- */
+/** Navigates to the first collection alphabetically, but only if currently on the /admin home view. */
 function navigateToFirstCollectionIfHome(): void {
   const current = getRoute();
   if (current.view === 'home' && collectionNames.length > 0) {
@@ -238,9 +202,8 @@ function navigateToFirstCollectionIfHome(): void {
 }
 
 /**
- * Call when the selected collection changes to trigger worker parsing.
- * Skips the dispatch if the collection is already loaded to avoid
- * tearing down and rebuilding the sidebar on file navigation.
+ * Triggers worker parsing for the given collection. Skips the dispatch if already loaded to avoid
+ * rebuilding the sidebar on file-level navigation.
  * @param collection - The collection name to load
  */
 export function loadCollection(collection: string): void {

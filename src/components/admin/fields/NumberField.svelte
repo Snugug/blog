@@ -16,12 +16,7 @@
 
   let { name, schema, value, required = false, onchange }: Props = $props();
 
-  /**
-   * Converts a name string to Title Case for use as a fallback label.
-   * Splits on camelCase, hyphens, and underscores.
-   * @param str - The raw field name
-   * @returns Title-cased display label
-   */
+  /** Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores. */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -70,10 +65,7 @@
   /** Whether empty input should emit null (nullable anyOf-unwrapped types) */
   const nullable = $derived(!!(schema['_nullable'] as boolean | undefined));
 
-  /**
-   * Builds a constraint summary string from min/max/step values.
-   * @returns Human-readable constraint text, or empty string if no constraints
-   */
+  /** Human-readable constraint summary (e.g. "min 0, max 100, step 5"), or empty string. */
   const constraintText = $derived.by(() => {
     const parts: string[] = [];
     const minVal = min;
@@ -84,10 +76,7 @@
     return parts.join(', ');
   });
 
-  /**
-   * Handles input change, emitting null for empty nullable fields.
-   * @param e - The DOM input event
-   */
+  /** Handles input change, emitting null for empty nullable fields or 0 for non-nullable. */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLInputElement).value;
     if (raw === '') {

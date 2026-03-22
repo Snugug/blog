@@ -23,9 +23,8 @@ export const SORT_MODES: Record<SortMode, { icon: string; label: string }> = {
 export const SORT_ORDER: SortMode[] = ['alpha', 'date-asc', 'date-desc'];
 
 /**
- * Reads the persisted sort mode from localStorage.
- * @param key - Collection name to construct the storage key
- * @returns The stored SortMode, or 'alpha' if absent/invalid
+ * Reads the persisted sort mode from localStorage, defaulting to 'alpha' if absent or invalid.
+ * @param key - Collection name used to construct the storage key
  */
 export function readSortMode(key: string): SortMode {
   const stored = localStorage.getItem(`cms-sort-${key}`);
@@ -36,8 +35,8 @@ export function readSortMode(key: string): SortMode {
 }
 
 /**
- * Writes the sort mode to localStorage.
- * @param key - Collection name to construct the storage key
+ * Persists the sort mode to localStorage.
+ * @param key - Collection name used to construct the storage key
  * @param mode - The sort mode to persist
  */
 export function writeSortMode(key: string, mode: SortMode): void {
@@ -45,9 +44,8 @@ export function writeSortMode(key: string, mode: SortMode): void {
 }
 
 /**
- * Creates a comparator function for sorting SidebarItems by the given mode.
+ * Returns a comparator function for sorting SidebarItems by the given mode.
  * @param mode - The sort mode to use
- * @returns A comparator function for Array.sort()
  */
 export function createComparator(
   mode: SortMode,

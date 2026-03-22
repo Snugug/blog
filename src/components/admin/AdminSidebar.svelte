@@ -235,9 +235,7 @@
     }
   }
 
-  // display: grid is in :popover-open to avoid overriding the UA's
-  // display: none on hidden popovers — CSS class specificity beats
-  // the [popover]:not(:popover-open) UA rule otherwise.
+  // display: grid is in :popover-open to avoid overriding the UA's display: none on hidden popovers
   .sort-popover {
     position-anchor: --sort-btn;
     position: fixed;
@@ -252,8 +250,7 @@
     // Prevent width from changing when popover content changes
     min-width: 10rem;
 
-    // Invisible bridge above the popover so the mouse can travel from the
-    // sort button to the popover without crossing a gap that kills interest
+    // Invisible bridge between the sort button and popover so hover interest isn't broken by the gap
     &::before {
       content: '';
       position: absolute;
@@ -320,8 +317,7 @@
       background: var(--dark-grey);
     }
 
-    // Active highlight extends to sidebar borders (no border-radius,
-    // full-width padding matches the sidebar edge)
+    // Active highlight extends to sidebar edges with no border-radius
     &[aria-current='page'] {
       background: var(--plum);
     }

@@ -14,11 +14,7 @@
   /** The CodeMirror EditorView instance */
   let view: EditorView | undefined;
 
-  /**
-   * Highlight style that makes markdown visually styled while showing raw syntax.
-   * Headings are larger and bold, bold text is bold, italic is italic,
-   * syntax markers (**, *, #, `) are dimmed.
-   */
+  /** Highlight style for the markdown editor — headings are sized, syntax markers are dimmed. */
   const markdownHighlight = HighlightStyle.define([
     // Headings — larger, bold
     {
@@ -122,7 +118,6 @@
   /**
    * Creates the full set of CodeMirror extensions.
    * @param doc - Initial document content
-   * @returns Array of extensions
    */
   function createExtensions(doc: string) {
     return [
@@ -222,17 +217,12 @@
     overflow: auto;
   }
 
-  // CodeMirror's .cm-content is a flex item that won't shrink below its
-  // longest unbroken word (a URL) due to min-width: auto. Force it to
-  // shrink so overflow-wrap can break long URLs inline.
-  // Uses scoped parent + :global child (allowed per :global policy for
-  // library-generated DOM that scoped CSS cannot reach).
+  // Forces .cm-content to shrink below its longest word so overflow-wrap can break long URLs
   .editor-pane :global(.cm-content) {
     min-width: 0 !important;
   }
 
-  // Wrap long URLs in markdown links at word boundaries where possible,
-  // falling back to breaking mid-word only when necessary.
+  // Wraps long URLs at word boundaries where possible, breaking mid-word only when necessary
   .editor-pane :global(.cm-link-wrap) {
     overflow-wrap: break-word;
     word-break: break-all;

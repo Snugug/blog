@@ -1,6 +1,4 @@
-/**
- * Database name for admin CMS persistence
- */
+/** Database name for admin CMS persistence */
 const DB_NAME = 'cms-admin';
 /** Database version */
 const DB_VERSION = 1;

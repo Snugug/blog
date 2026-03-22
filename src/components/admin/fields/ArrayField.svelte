@@ -38,11 +38,7 @@
   /** Maximum number of items allowed (from schema) */
   const maxItems = $derived(schema['maxItems'] as number | undefined);
 
-  /**
-   * Converts name to Title Case for label fallback.
-   * @param str - Raw field name
-   * @returns Title-cased display label
-   */
+  /** Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores. */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -62,10 +58,7 @@
   // Collapse state — one boolean per item slot
   // ---------------------------------------------------------------------------
 
-  /**
-   * Tracks collapsed state per item.
-   * Grows/shrinks reactively as items change.
-   */
+  /** Collapsed state per item slot; grows/shrinks reactively with the items array. */
   let collapsed = $state<boolean[]>([]);
 
   // Keep collapsed array length in sync with items without wiping existing state
@@ -93,32 +86,21 @@
   // Array mutation helpers
   // ---------------------------------------------------------------------------
 
-  /**
-   * Appends a new default item to the array.
-   * Respects maxItems constraint — button is disabled, but guard added for safety.
-   */
+  /** Appends a new default item; guards against maxItems even when button is disabled. */
   function addItem(): void {
     if (maxItems != null && items.length >= maxItems) return;
     const newItem = createDefaultValue(itemSchema);
     onchange([...items, newItem]);
   }
 
-  /**
-   * Removes the item at the given index.
-   * Respects minItems constraint — remove button is disabled, but guard added for safety.
-   * @param index - Index of the item to remove
-   */
+  /** Removes the item at the given index; guards against minItems even when button is disabled. */
   function removeItem(index: number): void {
     if (minItems != null && items.length <= minItems) return;
     const next = items.filter((_, i) => i !== index);
     onchange(next);
   }
 
-  /**
-   * Moves an item from one index to another in the array.
-   * @param from - Source index
-   * @param to - Destination index
-   */
+  /** Moves an item from one index to another, keeping collapsed state in sync. */
   function moveItem(from: number, to: number): void {
     if (to < 0 || to >= items.length) return;
     const next = [...items];
@@ -132,20 +114,13 @@
     onchange(next);
   }
 
-  /**
-   * Replaces the item at the given index with a new value.
-   * @param index - Index of the item to update
-   * @param newValue - New value for the item
-   */
+  /** Replaces the item at the given index with a new value. */
   function updateItem(index: number, newValue: unknown): void {
     const next = items.map((item, i) => (i === index ? newValue : item));
     onchange(next);
   }
 
-  /**
-   * Toggles the collapsed state for the item at the given index.
-   * @param index - Index of the item to toggle
-   */
+  /** Toggles the collapsed state for the item at the given index. */
   function toggleCollapse(index: number): void {
     collapsed = collapsed.map((c, i) => (i === index ? !c : c));
   }
@@ -154,11 +129,7 @@
   // Drag-and-drop handlers
   // ---------------------------------------------------------------------------
 
-  /**
-   * Marks an item as the drag source.
-   * @param e - The DragEvent
-   * @param index - Index of the dragged item
-   */
+  /** Marks an item as the drag source. */
   function handleDragStart(e: DragEvent, index: number): void {
     dragIndex = index;
     if (e.dataTransfer) {
@@ -166,11 +137,7 @@
     }
   }
 
-  /**
-   * Updates the drop target index while dragging over an item.
-   * @param e - The DragEvent
-   * @param index - Index of the potential drop target
-   */
+  /** Updates the drop target index while dragging over an item. */
   function handleDragOver(e: DragEvent, index: number): void {
     e.preventDefault();
     dropTarget = index;
@@ -179,18 +146,12 @@
     }
   }
 
-  /**
-   * Clears the drop target highlight when leaving an item.
-   * @param index - Index of the item being left
-   */
+  /** Clears the drop target highlight when leaving an item. */
   function handleDragLeave(index: number): void {
     if (dropTarget === index) dropTarget = -1;
   }
 
-  /**
-   * Completes the drag-and-drop reorder when an item is dropped.
-   * @param index - Index of the drop target item
-   */
+  /** Completes the drag-and-drop reorder when an item is dropped. */
   function handleDrop(index: number): void {
     if (dragIndex !== -1 && dragIndex !== index) {
       moveItem(dragIndex, index);

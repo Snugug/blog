@@ -12,26 +12,19 @@ let schema = $state<JsonSchema | null>(null);
 /** Whether all schemas have been prefetched */
 let allFetched = $state(false);
 
-/**
- * Returns the currently loaded JSON Schema (reactive).
- * @returns {JsonSchema | null} The schema object or null if not loaded
- */
+/** Returns the currently loaded JSON Schema (reactive). */
 export function getSchema(): JsonSchema | null {
   return schema;
 }
 
-/**
- * Returns whether all schemas have been prefetched (reactive).
- * @returns {boolean} True once prefetchAllSchemas completes
- */
+/** Returns whether all schemas have been prefetched (reactive). */
 export function areSchemasReady(): boolean {
   return allFetched;
 }
 
 /**
  * Fetches all collection schemas in parallel and caches them.
- * Call once on app startup so schema-derived state (like whether a
- * collection has dates for sorting) is available immediately.
+ * Call once on app startup so schema-derived state is available before the first collection renders.
  */
 export async function prefetchAllSchemas(): Promise<void> {
   const entries = Object.entries(schemas);
@@ -49,9 +42,8 @@ export async function prefetchAllSchemas(): Promise<void> {
 }
 
 /**
- * Fetches and caches the JSON Schema for a collection.
- * Sets the reactive `schema` state on success.
- * @param {string} collection - The collection name to fetch the schema for
+ * Fetches and caches the JSON Schema for a collection, then sets the reactive schema state.
+ * @param collection - The collection name to fetch the schema for
  */
 export async function fetchSchema(collection: string): Promise<void> {
   const cached = cache.get(collection);
@@ -70,11 +62,9 @@ export async function fetchSchema(collection: string): Promise<void> {
 }
 
 /**
- * Checks whether a collection's schema has a date-typed property
- * (format: "date-time"), indicating it supports date-based sorting.
- * Returns false if the schema hasn't been fetched yet.
- * @param {string} collection - The collection name to check
- * @returns {boolean} True if the schema has a date-time property
+ * Returns true if the collection's schema has a date-time property, indicating it supports date-based sorting.
+ * Requires prefetchAllSchemas to have been called; returns false if the schema isn't cached yet.
+ * @param collection - The collection name to check
  */
 export function collectionHasDates(collection: string): boolean {
   const s = cache.get(collection);
@@ -84,9 +74,7 @@ export function collectionHasDates(collection: string): boolean {
   return Object.values(props).some((p) => p['format'] === 'date-time');
 }
 
-/**
- * Clears the active schema. Called when navigating away from a file.
- */
+/** Clears the active schema. */
 export function clearSchema(): void {
   schema = null;
 }

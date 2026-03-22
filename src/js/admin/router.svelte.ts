@@ -10,7 +10,6 @@ let route = $state<AdminRoute>(parsePathname(location.pathname));
 /**
  * Parses a pathname into an AdminRoute.
  * @param pathname - The URL pathname to parse
- * @returns The parsed route object
  */
 function parsePathname(pathname: string): AdminRoute {
   const segments = pathname
@@ -26,17 +25,13 @@ function parsePathname(pathname: string): AdminRoute {
   return { view: 'home' };
 }
 
-/**
- * Returns the current admin route (reactive).
- * @returns The current AdminRoute
- */
+/** Returns the current admin route (reactive). */
 export function getRoute(): AdminRoute {
   return route;
 }
 
 /**
- * Navigates to a path within the admin SPA.
- * Uses the Navigation API to update the URL without a full page reload.
+ * Navigates to a path within the admin SPA using the Navigation API.
  * @param path - The path to navigate to (e.g., '/admin/posts')
  */
 export function navigate(path: string): void {
@@ -48,7 +43,6 @@ let dirtyChecker: (() => boolean) | null = null;
 
 /**
  * Registers a function that returns whether the editor has unsaved changes.
- * Called by the editor state module during initialization.
  * @param checker - Function returning true if there are unsaved changes
  */
 export function registerDirtyChecker(checker: () => boolean): void {
@@ -59,9 +53,8 @@ export function registerDirtyChecker(checker: () => boolean): void {
 let initialized = false;
 
 /**
- * Initializes the Navigation API listener.
- * Intercepts navigations under /admin/ and updates the reactive route state.
- * Safe to call multiple times -- only registers the listener once.
+ * Initializes the Navigation API listener, intercepting navigations under /admin/ and updating reactive route state.
+ * Safe to call multiple times — registers the listener only once.
  */
 export function initRouter(): void {
   if (initialized) return;

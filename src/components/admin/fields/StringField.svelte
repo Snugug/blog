@@ -16,12 +16,7 @@
 
   let { name, schema, value, required = false, onchange }: Props = $props();
 
-  /**
-   * Converts a name string to Title Case for use as a fallback label.
-   * Splits on camelCase, hyphens, and underscores.
-   * @param str - The raw field name
-   * @returns Title-cased display label
-   */
+  /** Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores. */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -43,7 +38,7 @@
   /** Pattern constraint from schema, if any */
   const pattern = $derived(schema['pattern'] as string | undefined);
 
-  /** Help text parts: description plus constraint info */
+  /** Description from schema */
   const description = $derived(schema['description'] as string | undefined);
 
   /** Whether field is read-only */
@@ -58,10 +53,7 @@
   /** Whether to render as a textarea (widget: "textarea" in schema meta) */
   const isTextarea = $derived(schema['widget'] === 'textarea');
 
-  /**
-   * Handles input change events, emitting null for empty nullable fields.
-   * @param {Event} e - The DOM input event
-   */
+  /** Handles input change, emitting null for empty nullable fields. */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLInputElement | HTMLTextAreaElement).value;
     onchange(nullable && raw === '' ? null : raw);
@@ -151,9 +143,7 @@
     width: 100%;
   }
 
-  // Textarea auto-grows with content via native CSS field-sizing.
-  // rows="3" sets the minimum height; field-sizing: content expands
-  // beyond that as the user types.
+  // Auto-grows with content; rows="3" sets minimum height
   .field-input--textarea {
     width: 100%;
     field-sizing: content;

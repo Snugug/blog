@@ -1,11 +1,9 @@
 import { load } from 'js-yaml';
 
 /**
- * Extracts YAML frontmatter from a markdown string.
- * Handles edge cases informed by gray-matter: BOM stripping, horizontal rule
- * rejection (----), \r\n line endings, and empty/missing frontmatter.
+ * Extracts and parses YAML frontmatter from a markdown string.
+ * Handles BOM stripping, CRLF normalization, horizontal rule rejection, and empty/missing frontmatter.
  * @param content - Raw markdown file content
- * @returns Parsed frontmatter object, or null if no valid frontmatter found
  */
 function extractFrontmatter(content: string): Record<string, unknown> | null {
   // Strip BOM if present
@@ -37,10 +35,9 @@ function extractFrontmatter(content: string): Record<string, unknown> | null {
 }
 
 /**
- * Traverses from the project root handle to src/content/{collection}/.
+ * Traverses from the project root to src/content/{collection}/.
  * @param root - The project root directory handle
  * @param collection - The collection name
- * @returns The directory handle for the collection's content folder
  */
 async function getCollectionDir(
   root: FileSystemDirectoryHandle,
@@ -52,9 +49,8 @@ async function getCollectionDir(
 }
 
 /**
- * Worker message handler. Receives parse requests with a directory handle
- * and collection name, reads .md files, extracts full frontmatter data.
- * Returns items sorted alphabetically by title, falling back to filename.
+ * Worker message handler. Receives parse requests, reads .md/.mdx files from the collection directory,
+ * extracts frontmatter, and returns items sorted alphabetically by title (falling back to filename).
  */
 self.addEventListener('message', async (event) => {
   const { type, handle, collection } = event.data;

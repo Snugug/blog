@@ -94,10 +94,7 @@
     }),
   );
 
-  /**
-   * Dispatch worker when collection changes.
-   * State module owns the worker, this effect just triggers it.
-   */
+  /** Trigger collection loading when route changes to a collection or file view. */
   $effect(() => {
     if (
       ready &&
@@ -108,10 +105,7 @@
   });
 
   /**
-   * Load file when route has a slug.
-   * Phase 1 (synchronous): preloadFile sets metadata immediately so the
-   * toolbar, tabs, and form render instantly.
-   * Phase 2 (async): loadFileBody reads the file for the body content.
+   * Load file when route has a slug. Phase 1 (synchronous): preloadFile sets metadata immediately so the toolbar, tabs, and form render instantly. Phase 2 (async): loadFileBody reads the file for the body content.
    */
   $effect(() => {
     const items = getContentList();
@@ -137,10 +131,7 @@
     }
   });
 
-  /**
-   * Fetch the JSON Schema when collection changes.
-   * Uses the same reactive dependency on the route.
-   */
+  /** Fetch the JSON Schema when the active collection changes, or clear it when no collection is active. */
   $effect(() => {
     if (
       ready &&
@@ -253,10 +244,7 @@
     border-left: 1px solid var(--dark-grey);
   }
 
-  // Content area below the pinned toolbar and tabs.
-  // overflow-y: auto for metadata scrolling, overflow-x: hidden
-  // to prevent horizontal scroll. min-height: 0 lets the 1fr
-  // grid row shrink to available space.
+  // Scrollable content area; min-height: 0 allows the 1fr grid row to shrink
   .editor-content {
     overflow-y: auto;
     overflow-x: hidden;

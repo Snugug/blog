@@ -20,10 +20,7 @@
     required?: boolean;
     /** Callback fired when the value changes */
     onchange: (value: unknown) => void;
-    /**
-     * When true, object fields render without a fieldset wrapper.
-     * Used by ArrayItem to avoid redundant grouping.
-     */
+    /** When true, object fields render without a fieldset wrapper (used inside ArrayItem). */
     inline?: boolean;
   }
 
@@ -39,20 +36,14 @@
   /** Resolve the schema node to a field type descriptor */
   const fieldType = $derived(resolveFieldType(schema));
 
-  /**
-   * Build an effective schema for rendering.
-   * For nullable types (anyOf with null), spread outer annotations onto the
-   * inner type schema with a _nullable flag so leaf components know to treat
-   * empty as null.
-   */
+  /** For nullable anyOf schemas, merges outer annotations onto the inner type and sets _nullable so leaf fields emit null for empty values. */
   const effectiveSchema = $derived.by(() => {
     if (Array.isArray(schema['anyOf'])) {
       const nonNull = (schema['anyOf'] as SchemaNode[]).find(
         (s) => s['type'] !== 'null',
       );
       if (nonNull) {
-        // Spread all outer properties (title, description, deprecated,
-        // readOnly, tab, etc.) onto inner type. Exclude anyOf to avoid recursion.
+        // Spread outer props (title, description, readOnly, etc.) onto the inner type; exclude anyOf to avoid recursion
         const { anyOf: _, ...outerProps } = schema;
         return { ...nonNull, ...outerProps, _nullable: true };
       }

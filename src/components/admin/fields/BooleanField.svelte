@@ -16,12 +16,7 @@
 
   let { name, schema, value, required = false, onchange }: Props = $props();
 
-  /**
-   * Converts a name string to Title Case for use as a fallback label.
-   * Splits on camelCase, hyphens, and underscores.
-   * @param str - The raw field name
-   * @returns Title-cased display label
-   */
+  /** Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores. */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -49,16 +44,9 @@
   /** Whether empty input should emit null (nullable anyOf-unwrapped types) */
   const nullable = $derived(!!(schema['_nullable'] as boolean | undefined));
 
-  /**
-   * Handles checkbox change, emitting the boolean value.
-   * Nullable booleans emit null only when the field has no value set and is cleared,
-   * but for a checkbox unchecking always emits false (null only when value is absent).
-   * @param e - The DOM change event
-   */
+  /** Handles checkbox change. Preserves null for nullable fields only while the value is already null and unchecked. */
   function handleChange(e: Event): void {
     const isChecked = (e.target as HTMLInputElement).checked;
-    // Nullable booleans can be null when value is unset, but checkbox interaction
-    // always resolves to true or false — only the initial null state is preserved
     onchange(nullable && value === null && !isChecked ? null : isChecked);
   }
 </script>

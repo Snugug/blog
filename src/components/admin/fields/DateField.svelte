@@ -16,12 +16,7 @@
 
   let { name, schema, value, required = false, onchange }: Props = $props();
 
-  /**
-   * Converts a name string to Title Case for use as a fallback label.
-   * Splits on camelCase, hyphens, and underscores.
-   * @param str - The raw field name
-   * @returns Title-cased display label
-   */
+  /** Converts a name string to Title Case, splitting on camelCase, hyphens, and underscores. */
   function toTitleCase(str: string): string {
     return str
       .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -29,12 +24,7 @@
       .replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
-  /**
-   * Converts a Date object or ISO string to YYYY-MM-DD format for the date input.
-   * Returns empty string for null/undefined/invalid values.
-   * @param val - The raw value (Date, string, or unknown)
-   * @returns A YYYY-MM-DD string or empty string
-   */
+  /** Converts a Date or ISO string to YYYY-MM-DD for the date input, or empty string if unset. */
   function toDateInputValue(val: unknown): string {
     if (val instanceof Date) {
       // Use UTC components to avoid timezone shifts converting to local date
@@ -70,10 +60,7 @@
   /** Whether empty input should emit null (nullable anyOf-unwrapped types) */
   const nullable = $derived(!!(schema['_nullable'] as boolean | undefined));
 
-  /**
-   * Handles date input change, emitting null for empty nullable fields.
-   * @param e - The DOM input event
-   */
+  /** Handles date input change, emitting null for empty nullable fields. */
   function handleChange(e: Event): void {
     const raw = (e.target as HTMLInputElement).value;
     onchange(nullable && raw === '' ? null : raw);

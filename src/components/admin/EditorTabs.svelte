@@ -61,7 +61,6 @@
     }
   }
 
-  // Active tab highlighted with accent color underline
   .tabs__tab--active {
     color: var(--white);
     border-bottom-color: var(--plum);

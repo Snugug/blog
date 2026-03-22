@@ -6,11 +6,8 @@ import { RangeSetBuilder, type EditorState } from '@codemirror/state';
 const linkMark = Decoration.mark({ class: 'cm-link-wrap' });
 
 /**
- * Builds decorations for all Link nodes in the visible syntax tree.
- * Wraps each markdown link ([text](url)) in a span with word-break: break-all
- * so long URLs wrap inline instead of jumping to the next line.
+ * Builds a DecorationSet marking all Link nodes in the syntax tree with the cm-link-wrap class.
  * @param state - The current editor state
- * @returns DecorationSet marking all Link nodes
  */
 function buildDecorations(state: EditorState): DecorationSet {
   const builder = new RangeSetBuilder<Decoration>();

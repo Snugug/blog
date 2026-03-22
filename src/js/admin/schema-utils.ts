@@ -29,8 +29,7 @@ export type PathSegment = string | number;
 /**
  * Resolves a JSON Schema node to a `FieldType` discriminated union.
  * Handles anyOf nullable unwrapping, enum detection, and date-time format.
- * @param schema - A JSON Schema node to resolve
- * @returns The resolved FieldType for the given schema node
+ * @param schema - The JSON Schema node to resolve
  */
 export function resolveFieldType(schema: SchemaNode): FieldType {
   // Unwrap nullable anyOf: [<innerType>, { type: 'null' }]
@@ -71,10 +70,8 @@ export function resolveFieldType(schema: SchemaNode): FieldType {
 // ---------------------------------------------------------------------------
 
 /**
- * Scans an object schema's properties for `tab` arrays and returns a sorted,
- * deduplicated list of all tab names found.
+ * Scans an object schema's properties for `tab` arrays and returns a sorted, deduplicated list of all tab names found.
  * @param schema - A JSON Schema node with an optional `properties` map
- * @returns Sorted array of unique tab name strings
  */
 export function extractTabs(schema: SchemaNode): string[] {
   const properties = schema['properties'] as
@@ -102,10 +99,8 @@ export function extractTabs(schema: SchemaNode): string[] {
 
 /**
  * Returns a type-appropriate default value for a given JSON Schema node.
- * Uses `schema.default` when present, returns `null` for nullable types,
- * and recurses into object properties to build a nested default object.
- * @param schema - A JSON Schema node to generate a default value for
- * @returns The default value (string, number, boolean, array, object, or null)
+ * Honors `schema.default` when present, returns null for nullable types, and recurses into object properties.
+ * @param schema - The JSON Schema node to generate a default value for
  */
 export function createDefaultValue(schema: SchemaNode): unknown {
   // Honour an explicit schema default first
@@ -147,11 +142,10 @@ export function createDefaultValue(schema: SchemaNode): unknown {
 // ---------------------------------------------------------------------------
 
 /**
- * Reads a deeply nested value from an object by following an array of path
- * segments. Returns `undefined` if any segment along the path is missing.
+ * Reads a deeply nested value from an object by following path segments.
+ * Returns `undefined` if any segment along the path is missing.
  * @param obj - The root object to traverse
  * @param path - Ordered path segments (string keys or numeric indices)
- * @returns The value at the given path, or `undefined` if not found
  */
 export function getByPath(obj: unknown, path: PathSegment[]): unknown {
   let current: unknown = obj;
@@ -167,8 +161,7 @@ export function getByPath(obj: unknown, path: PathSegment[]): unknown {
 // ---------------------------------------------------------------------------
 
 /**
- * Sets a deeply nested value in an object by following an array of path
- * segments, creating intermediate plain objects if any segment is missing.
+ * Sets a deeply nested value in an object by following path segments, creating intermediate objects as needed.
  * @param obj - The root object to mutate
  * @param path - Ordered path segments (string keys or numeric indices)
  * @param value - The value to assign at the resolved path
@@ -199,12 +192,10 @@ export function setByPath(
 // ---------------------------------------------------------------------------
 
 /**
- * Returns the property names from an object schema that belong to the given
- * tab. When `tab` is `null`, all property names are returned (i.e. no
- * filtering — every field appears in the catch-all Metadata view).
+ * Returns property names from a schema that belong to the given tab.
+ * When `tab` is `null`, all property names are returned (no filtering — every field appears in the catch-all Metadata view).
  * @param schema - A JSON Schema node with an optional `properties` map
  * @param tab - Tab name to filter by, or `null` to return all fields
- * @returns Array of property name strings matching the requested tab
  */
 export function getFieldsForTab(
   schema: SchemaNode,

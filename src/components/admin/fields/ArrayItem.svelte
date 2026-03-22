@@ -74,11 +74,7 @@
   /** Schema title for the item type, if present (e.g., "Step") */
   const itemTitle = $derived(itemSchema['title'] as string | undefined);
 
-  /**
-   * Header label for object items.
-   * Uses "{title} {N}" if schema has a title (e.g., "Step 1"),
-   * otherwise derives from first string value or falls back to "Item N".
-   */
+  /** Header label: "{title} N" if schema has a title, first string value, or "Item N". */
   const headerLabel = $derived.by(() => {
     if (!isObject) return '';
     if (itemTitle) return `${itemTitle} ${index + 1}`;
@@ -292,8 +288,7 @@
     font-size: 1rem;
   }
 
-  // Legend rendered inline in the controls flex row, with space after
-  // the drag handle + chevron group
+  // Legend rendered inline in the controls flex row, after the drag handle and chevron
   .array-item__legend {
     font-size: 0.875rem;
     color: var(--grey);
@@ -318,8 +313,7 @@
     min-width: 0;
     margin: 0 0.5rem;
 
-    // Hide the label and description from leaf fields — only aria-label
-    // is needed since the parent ArrayField provides the visible label
+    // Visually hide label/description — the parent ArrayField provides the visible label
     :global(.field-label),
     :global(.field-help) {
       position: absolute;

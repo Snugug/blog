@@ -13,11 +13,7 @@
     required?: boolean;
     /** Callback fired when the value changes */
     onchange: (value: unknown) => void;
-    /**
-     * When true, renders fields directly without a fieldset wrapper.
-     * Used when the object is inside an ArrayItem that already provides
-     * its own grouping and label.
-     */
+    /** When true, renders fields without a fieldset wrapper (used inside ArrayItem). */
     inline?: boolean;
   }
 
@@ -61,11 +57,7 @@
     >,
   );
 
-  /**
-   * Updates a property within this object and dispatches the full updated object.
-   * @param key - The property name
-   * @param newValue - The new property value
-   */
+  /** Updates a single property and dispatches the full updated object. */
   function handleFieldChange(key: string, newValue: unknown) {
     onchange({ ...objValue, [key]: newValue });
   }
