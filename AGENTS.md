@@ -97,3 +97,7 @@ Svelte's declarative rendering MUST be used for all UI construction. Direct DOM 
 - **Popover API** — `.showPopover()` / `.hidePopover()` require imperative calls, but the element MUST be obtained via `bind:this`, never DOM queries.
 - **Cross-component coordination** — State files MUST NOT query the DOM. Use reactive signals (counter increment pattern) so components react via `$effect` and control their own elements.
 - **Positioning** — Use CSS Anchor Positioning (`anchor-name`, `position-anchor`, `position-area`) instead of computing pixel positions with `getBoundingClientRect()` and `style.top`/`style.left`.
+
+## Subagent Delegation
+
+When delegating tasks to subagents, you MUST copy the relevant rules from BOTH this project's CLAUDE.md AND the global CLAUDE.md verbatim into the subagent prompt. Do NOT paraphrase, summarize, or add your own interpretations of the rules. If you need to add task-specific context, keep it clearly separate from the rules themselves. Subagents do not have access to CLAUDE.md files, so they will only follow what you put in their prompt — if you reword, omit, or "helpfully" add exceptions, the subagent will produce work that violates the actual rules.
