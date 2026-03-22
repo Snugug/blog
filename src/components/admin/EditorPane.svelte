@@ -6,7 +6,7 @@
   import { languages } from '@codemirror/language-data';
   import { syntaxHighlighting, HighlightStyle } from '@codemirror/language';
   import { tags as t } from '@lezer/highlight';
-  import { getEditorFile, updateBody, saveFile } from '$js/admin/editor.svelte';
+  import { getEditorFile, updateBody } from '$js/admin/editor.svelte';
   import { linkWrapPlugin } from '$js/admin/cm-link-wrap';
 
   // Container element for CodeMirror
@@ -66,17 +66,6 @@
     { tag: t.meta, color: 'var(--grey)' },
   ]);
 
-  // Keymap for saving with Cmd+S / Ctrl+S
-  const saveKeymap = keymap.of([
-    {
-      key: 'Mod-s',
-      run() {
-        saveFile();
-        return true;
-      },
-    },
-  ]);
-
   // Base editor theme matching the admin color scheme
   const editorTheme = EditorView.theme({
     '&': {
@@ -124,7 +113,6 @@
     return [
       editorTheme,
       history(),
-      saveKeymap,
       keymap.of([...defaultKeymap, ...historyKeymap]),
       markdown({
         base: markdownLanguage,
@@ -142,8 +130,8 @@
     ];
   }
 
-  // Track the last loaded filename to detect file changes
-  let lastFilename = '';
+  // Track the last loaded file identity (filename + draftId) to detect file changes
+  let lastFileKey = '';
 
   $effect(() => {
     const file = getEditorFile();
@@ -153,7 +141,7 @@
       if (view) {
         view.destroy();
         view = undefined;
-        lastFilename = '';
+        lastFileKey = '';
       }
       return;
     }
@@ -161,9 +149,11 @@
     // Wait for body to load before creating/updating CodeMirror
     if (!file.bodyLoaded) return;
 
+    const fileKey = file.draftId ?? file.filename;
+
     if (!view && container) {
       // First mount — create the editor
-      lastFilename = file.filename;
+      lastFileKey = fileKey;
       view = new EditorView({
         state: EditorState.create({
           doc: file.body,
@@ -171,9 +161,9 @@
         }),
         parent: container,
       });
-    } else if (view && file.filename !== lastFilename) {
+    } else if (view && fileKey !== lastFileKey) {
       // Different file selected — replace document
-      lastFilename = file.filename;
+      lastFileKey = fileKey;
       view.setState(
         EditorState.create({
           doc: file.body,
