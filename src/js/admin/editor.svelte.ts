@@ -6,15 +6,17 @@ import type { PathSegment } from './schema-utils';
 
 /** Editor file state exposed via getEditorFile() */
 export type EditorFile = {
-  handle: FileSystemFileHandle;
+  handle: FileSystemFileHandle | null;
   body: string;
   formData: Record<string, unknown>;
   dirty: boolean;
   saving: boolean;
   filename: string;
+  /** Whether the body content has been loaded from disk */
+  bodyLoaded: boolean;
 };
 
-/** Current file handle */
+/** Current file handle — set once the async file read completes */
 let handle = $state<FileSystemFileHandle | null>(null);
 /** Markdown/MDX body content (without frontmatter) */
 let body = $state('');
@@ -30,6 +32,10 @@ let lastSavedBody = '';
 let lastSavedFormData = '{}';
 /** Current filename for display */
 let filename = $state('');
+/** Whether the file is open (metadata available, body may still be loading) */
+let fileOpen = $state(false);
+/** Whether the body content has finished loading from disk */
+let bodyLoaded = $state(false);
 
 // Register dirty checker with router for navigation guards
 registerDirtyChecker(() => dirty);
@@ -45,16 +51,17 @@ function recomputeDirty(): void {
 
 /**
  * Returns the current editor file state, or null if no file is open.
- * @returns EditorFile object or null
+ * Returns immediately once preloadFile is called (before body loads).
+ * @returns {EditorFile | null} EditorFile object or null
  */
 export function getEditorFile(): EditorFile | null {
-  if (!handle) return null;
-  return { handle, body, formData, dirty, saving, filename };
+  if (!fileOpen) return null;
+  return { handle, body, formData, dirty, saving, filename, bodyLoaded };
 }
 
 /**
  * Returns the current formData object reactively.
- * @returns The current parsed frontmatter data
+ * @returns {Record<string, unknown>} The current parsed frontmatter data
  */
 export function getFormData(): Record<string, unknown> {
   return formData;
@@ -63,8 +70,8 @@ export function getFormData(): Record<string, unknown> {
 /**
  * Updates a single field within formData by path and recomputes dirty state.
  * Uses setByPath to handle arbitrarily nested paths.
- * @param path - Ordered path segments addressing the field to update
- * @param value - The new value to assign at the given path
+ * @param {PathSegment[]} path - Ordered path segments addressing the field to update
+ * @param {unknown} value - The new value to assign at the given path
  */
 export function updateFormField(path: PathSegment[], value: unknown): void {
   setByPath(formData, path, value);
@@ -72,45 +79,59 @@ export function updateFormField(path: PathSegment[], value: unknown): void {
 }
 
 /**
- * Loads a file into the editor state using pre-parsed frontmatter data.
- * Reads the file only for body extraction; frontmatter is supplied as data.
- * @param fileHandle - The FileSystemFileHandle to load
- * @param data - Pre-parsed frontmatter data object
- * @returns Promise that resolves when the file is loaded
+ * Immediately populates the editor with metadata from the content list.
+ * Called synchronously when a content item is clicked so the toolbar,
+ * tabs, and metadata form render instantly without waiting for the
+ * async file read.
+ * @param {string} itemFilename - The content file's name
+ * @param {Record<string, unknown>} data - Pre-parsed frontmatter data
  */
-export async function loadFile(
-  fileHandle: FileSystemFileHandle,
+export function preloadFile(
+  itemFilename: string,
   data: Record<string, unknown>,
+): void {
+  // Skip if this file is already loaded or preloaded
+  if (filename === itemFilename && fileOpen) return;
+
+  // Deep-clone to avoid mutating the caller's object
+  formData = JSON.parse(JSON.stringify(data));
+  lastSavedFormData = JSON.stringify(formData);
+  body = '';
+  lastSavedBody = '';
+  dirty = false;
+  saving = false;
+  filename = itemFilename;
+  handle = null;
+  bodyLoaded = false;
+  fileOpen = true;
+}
+
+/**
+ * Loads the body content from disk for an already-preloaded file.
+ * Sets the file handle and body, completing the two-phase load.
+ * @param {FileSystemFileHandle} fileHandle - The file handle to read
+ * @returns {Promise<void>} Resolves when the body is loaded
+ */
+export async function loadFileBody(
+  fileHandle: FileSystemFileHandle,
 ): Promise<void> {
-  // Read and split the file BEFORE setting any reactive state.
-  // Setting `handle` triggers EditorPane's $effect which reads `body` —
-  // if we set handle first, the effect sees stale/empty body and creates
-  // CodeMirror with an empty document.
   const file = await fileHandle.getFile();
   const text = await file.text();
   const split = splitFrontmatter(text);
 
-  // Deep-clone to avoid mutating the caller's object.
-  // JSON round-trip instead of structuredClone because js-yaml parses
-  // dates as Date objects which become strings through JSON — matching
-  // how the form will serialize them back to YAML.
-  formData = JSON.parse(JSON.stringify(data));
-  lastSavedFormData = JSON.stringify(formData);
   // Strip leading/trailing newlines from body for cleaner editing —
   // they get added back on save when reconstituting the file
   const trimmedBody = split.body.replace(/^\n+/, '').replace(/\n+$/, '');
   body = trimmedBody;
   lastSavedBody = trimmedBody;
-  dirty = false;
-  saving = false;
-  filename = fileHandle.name;
   handle = fileHandle;
+  bodyLoaded = true;
 }
 
 /**
  * Updates the editor body content and recomputes dirty state.
  * Called by CodeMirror's update listener.
- * @param content - The new body content
+ * @param {string} content - The new body content
  */
 export function updateBody(content: string): void {
   body = content;
@@ -121,7 +142,7 @@ export function updateBody(content: string): void {
  * Saves the current file by serializing formData to YAML and
  * reconstituting the full frontmatter + body document.
  * Writes via FileSystemWritableFileStream.
- * @returns Promise that resolves when the file is saved
+ * @returns {Promise<void>} Resolves when the file is saved
  */
 export async function saveFile(): Promise<void> {
   if (!handle) return;
@@ -157,4 +178,6 @@ export function clearEditor(): void {
   lastSavedBody = '';
   lastSavedFormData = '{}';
   filename = '';
+  fileOpen = false;
+  bodyLoaded = false;
 }

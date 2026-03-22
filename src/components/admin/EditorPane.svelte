@@ -162,6 +162,9 @@
       return;
     }
 
+    // Wait for body to load before creating/updating CodeMirror
+    if (!file.bodyLoaded) return;
+
     if (!view && container) {
       // First mount — create the editor
       lastFilename = file.filename;

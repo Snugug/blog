@@ -12,7 +12,12 @@
     isLoading,
     getError,
   } from '$js/admin/state.svelte';
-  import { loadFile, clearEditor, saveFile } from '$js/admin/editor.svelte';
+  import {
+    preloadFile,
+    loadFileBody,
+    clearEditor,
+    saveFile,
+  } from '$js/admin/editor.svelte';
   import {
     fetchSchema,
     getSchema,
@@ -104,23 +109,26 @@
 
   /**
    * Load file when route has a slug.
-   * Reading getContentList() creates a reactive dependency so this effect
-   * re-runs when the worker finishes loading the collection — fixing the
-   * race condition where a deep-link arrives before content is loaded.
+   * Phase 1 (synchronous): preloadFile sets metadata immediately so the
+   * toolbar, tabs, and form render instantly.
+   * Phase 2 (async): loadFileBody reads the file for the body content.
    */
   $effect(() => {
     const items = getContentList();
     if (ready && currentRoute.view === 'file' && items.length > 0) {
-      // Look up the ContentItem by slug to get pre-parsed frontmatter
       const item = items.find(
         (i) => i.filename.replace(/\.mdx?$/, '') === currentRoute.slug,
       );
       if (!item) return;
 
+      // Phase 1: instant metadata render
+      preloadFile(item.filename, item.data);
+
+      // Phase 2: async body load
       getFileHandle(currentRoute.collection, currentRoute.slug).then(
         (fileHandle) => {
           if (fileHandle) {
-            loadFile(fileHandle, item.data);
+            loadFileBody(fileHandle);
           }
         },
       );

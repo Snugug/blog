@@ -28,7 +28,7 @@
     <button
       class="save-button"
       type="submit"
-      disabled={!file.dirty || file.saving}
+      disabled={!file.dirty || file.saving || !file.bodyLoaded}
     >
       {file.saving ? 'Saving...' : 'Save'}
     </button>
