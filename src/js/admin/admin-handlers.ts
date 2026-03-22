@@ -6,11 +6,7 @@ import {
   getEditorFile,
   setFilename,
 } from './editor.svelte';
-import {
-  getDirectoryHandle,
-  reloadCollection,
-  refreshDrafts,
-} from './state.svelte';
+import { reloadCollection, refreshDrafts } from './state.svelte';
 import { navigate } from './router.svelte';
 
 /**
@@ -36,7 +32,7 @@ export type PublishResult =
   | { status: 'needs-filename' };
 
 /**
- * Publishes the current editor content to the filesystem. If the file has no filename, returns a status indicating the filename dialog should be shown. For new files, creates a new file handle in the collection directory.
+ * Publishes the current editor content via StorageClient. If the file has no filename, returns a status indicating the filename dialog should be shown.
  * @param {string | null} activeCollection - The currently active collection name
  * @return {Promise<PublishResult>} The result of the publish attempt
  */
@@ -46,27 +42,11 @@ export async function handlePublish(
   const file = getEditorFile();
   if (!file) return { status: 'no-file' };
   if (!file.filename) return { status: 'needs-filename' };
+  if (!activeCollection) return { status: 'no-file' };
 
-  const dirHandle = getDirectoryHandle();
+  await publishFile(activeCollection, file.filename);
 
-  if (file.handle) {
-    // Existing file — publish to its stored handle
-    await publishFile(file.handle);
-  } else if (activeCollection && dirHandle) {
-    // New file — create a handle in the collection directory
-    const src = await dirHandle.getDirectoryHandle('src');
-    const content = await src.getDirectoryHandle('content');
-    const collDir = await content.getDirectoryHandle(activeCollection);
-    const newHandle = await collDir.getFileHandle(file.filename, {
-      create: true,
-    });
-    await publishFile(newHandle);
-  }
-
-  if (activeCollection) {
-    reloadCollection(activeCollection);
-  }
-
+  reloadCollection(activeCollection);
   return { status: 'ok' };
 }
 

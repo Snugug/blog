@@ -11,6 +11,7 @@ import {
   _getDraftState,
   _setDraftState,
 } from './editor.svelte';
+import { getStorageClient } from './state.svelte';
 
 /**
  * Loads a draft by ID from IndexedDB and populates the editor. Falls back to empty state if the draft is not found (safety fallback for the "Add" button flow).
@@ -27,7 +28,6 @@ export async function loadDraftById(
   if (!draft) {
     applyEditorState(
       {
-        handle: null,
         body: '',
         formData: {},
         filename: '',
@@ -45,7 +45,6 @@ export async function loadDraftById(
 
   applyEditorState(
     {
-      handle: null,
       body: draft.body,
       formData: draft.formData,
       filename: draft.filename ?? '',
@@ -118,12 +117,14 @@ export async function saveFile(): Promise<void> {
 }
 
 /**
- * Writes editor content to disk via the File System Access API. Deletes the associated draft from IndexedDB after a successful write.
- * @param {FileSystemFileHandle} fileHandle - The file handle to write to
+ * Writes editor content to the storage backend via StorageClient. Deletes the associated draft from IndexedDB after a successful write.
+ * @param {string} collection - The collection the file belongs to
+ * @param {string} filename - The filename to write within the collection
  * @return {Promise<void>}
  */
 export async function publishFile(
-  fileHandle: FileSystemFileHandle,
+  collection: string,
+  filename: string,
 ): Promise<void> {
   const s = _getDraftState();
   _setDraftState({ saving: true });
@@ -133,9 +134,9 @@ export async function publishFile(
     const yaml = dump(s.formData, { lineWidth: -1 });
     const content = `---\n${yaml}---\n\n${s.body}\n`;
 
-    const writable = await fileHandle.createWritable();
-    await writable.write(content);
-    await writable.close();
+    const client = getStorageClient();
+    if (!client) throw new Error('No storage backend connected');
+    await client.writeFile(collection, filename, content);
 
     // Clean up the draft from IndexedDB after successful publish
     if (s.draftId) {
@@ -149,7 +150,6 @@ export async function publishFile(
     }
 
     _setDraftState({
-      handle: fileHandle,
       lastSavedBody: s.body,
       lastSavedFormData: JSON.stringify(s.formData),
       dirty: false,

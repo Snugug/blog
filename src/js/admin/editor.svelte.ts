@@ -3,12 +3,12 @@ import { splitFrontmatter } from './frontmatter';
 import { setByPath } from './schema-utils';
 import type { PathSegment } from './schema-utils';
 import { getDraftByFile } from './draft-storage';
+import { getStorageClient } from './state.svelte';
 
 /**
  * Editor file state exposed via getEditorFile().
  */
 export type EditorFile = {
-  handle: FileSystemFileHandle | null;
   body: string;
   formData: Record<string, unknown>;
   dirty: boolean;
@@ -26,7 +26,6 @@ export type EditorFile = {
  * Shape for bulk-setting all editor state via applyEditorState. Avoids repetitive assignments across load/preload/clear functions.
  */
 export type EditorStateConfig = {
-  handle: FileSystemFileHandle | null;
   body: string;
   formData: Record<string, unknown>;
   filename: string;
@@ -38,7 +37,6 @@ export type EditorStateConfig = {
   draftCreatedAt: string | null;
 };
 
-let handle = $state<FileSystemFileHandle | null>(null);
 let body = $state('');
 let formData = $state<Record<string, unknown>>({});
 let dirty = $state(false);
@@ -65,7 +63,6 @@ registerDirtyChecker(() => dirty);
  * @return {void}
  */
 export function applyEditorState(c: EditorStateConfig, open: boolean): void {
-  handle = c.handle;
   formData = c.formData;
   lastSavedFormData = JSON.stringify(c.formData);
   body = c.body;
@@ -94,7 +91,7 @@ function recomputeDirty(): void {
 
 /**
  * Returns a snapshot of draft-related internal state for use by editor-draft-ops. Exposes private module state without leaking $state reactivity.
- * @return {{ saving: boolean, draftId: string | null, isNewDraft: boolean, snapshot: string | null, currentCollection: string, draftCreatedAt: string | null, lastSavedFormData: string, lastSavedBody: string, formData: Record<string, unknown>, body: string, filename: string, dirty: boolean, handle: FileSystemFileHandle | null }}
+ * @return {{ saving: boolean, draftId: string | null, isNewDraft: boolean, snapshot: string | null, currentCollection: string, draftCreatedAt: string | null, lastSavedFormData: string, lastSavedBody: string, formData: Record<string, unknown>, body: string, filename: string, dirty: boolean }}
  */
 export function _getDraftState(): {
   saving: boolean;
@@ -109,7 +106,6 @@ export function _getDraftState(): {
   body: string;
   filename: string;
   dirty: boolean;
-  handle: FileSystemFileHandle | null;
 } {
   return {
     saving,
@@ -124,13 +120,12 @@ export function _getDraftState(): {
     body,
     filename,
     dirty,
-    handle,
   };
 }
 
 /**
  * Applies draft-related state mutations from editor-draft-ops back into the reactive module state.
- * @param {Partial<{ saving: boolean, draftId: string | null, isNewDraft: boolean, snapshot: string | null, draftCreatedAt: string | null, lastSavedFormData: string, lastSavedBody: string, dirty: boolean, handle: FileSystemFileHandle | null }>} updates - Fields to update
+ * @param {Partial<{ saving: boolean, draftId: string | null, isNewDraft: boolean, snapshot: string | null, draftCreatedAt: string | null, lastSavedFormData: string, lastSavedBody: string, dirty: boolean }>} updates - Fields to update
  * @return {void}
  */
 export function _setDraftState(
@@ -143,7 +138,6 @@ export function _setDraftState(
     lastSavedFormData: string;
     lastSavedBody: string;
     dirty: boolean;
-    handle: FileSystemFileHandle | null;
   }>,
 ): void {
   if ('saving' in updates) saving = updates.saving!;
@@ -155,7 +149,6 @@ export function _setDraftState(
     lastSavedFormData = updates.lastSavedFormData!;
   if ('lastSavedBody' in updates) lastSavedBody = updates.lastSavedBody!;
   if ('dirty' in updates) dirty = updates.dirty!;
-  if ('handle' in updates) handle = updates.handle!;
 }
 
 /**
@@ -165,7 +158,6 @@ export function _setDraftState(
 export function getEditorFile(): EditorFile | null {
   if (!fileOpen) return null;
   return {
-    handle,
     body,
     formData,
     dirty,
@@ -233,7 +225,6 @@ export async function preloadFile(
     // Draft already contains body content, no disk read needed
     applyEditorState(
       {
-        handle: null,
         body: d.body,
         formData: d.formData,
         filename: itemFilename,
@@ -252,7 +243,6 @@ export async function preloadFile(
   // No draft — load live data; $state.snapshot strips Svelte reactive proxies
   applyEditorState(
     {
-      handle: null,
       body: '',
       formData: $state.snapshot(data) as Record<string, unknown>,
       filename: itemFilename,
@@ -277,15 +267,18 @@ export function setFilename(newFilename: string): void {
 }
 
 /**
- * Loads body content from disk for an already-preloaded file, completing the two-phase load.
- * @param {FileSystemFileHandle} fileHandle - The file handle to read
+ * Loads body content via StorageClient for an already-preloaded file, completing the two-phase load.
+ * @param {string} collection - The collection the file belongs to
+ * @param {string} filename - The filename to read within the collection
  * @return {Promise<void>}
  */
 export async function loadFileBody(
-  fileHandle: FileSystemFileHandle,
+  collection: string,
+  filename: string,
 ): Promise<void> {
-  const file = await fileHandle.getFile();
-  const text = await file.text();
+  const client = getStorageClient();
+  if (!client) return;
+  const text = await client.readFile(collection, filename);
   const split = splitFrontmatter(text);
 
   // Strip leading/trailing newlines from body for cleaner editing —
@@ -293,7 +286,6 @@ export async function loadFileBody(
   const trimmedBody = split.body.replace(/^\n+/, '').replace(/\n+$/, '');
   body = trimmedBody;
   lastSavedBody = trimmedBody;
-  handle = fileHandle;
   bodyLoaded = true;
 }
 
@@ -314,7 +306,6 @@ export function updateBody(content: string): void {
 export function clearEditor(): void {
   applyEditorState(
     {
-      handle: null,
       body: '',
       formData: {},
       filename: '',

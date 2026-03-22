@@ -9,7 +9,6 @@
     restoreHandle,
     loadCollection,
     getContentList,
-    getFileHandle,
     isLoading,
     getError,
     getDrafts,
@@ -176,11 +175,7 @@
           const editorFile = getEditorFile();
           if (editorFile?.draftId) return;
 
-          getFileHandle(currentRoute.collection, currentRoute.slug).then(
-            (fileHandle) => {
-              if (fileHandle) loadFileBody(fileHandle);
-            },
-          );
+          loadFileBody(currentRoute.collection, item.filename);
         },
       );
     } else if (ready && currentRoute.view === 'draft') {
