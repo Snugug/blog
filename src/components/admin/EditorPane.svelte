@@ -232,10 +232,13 @@
   }
 
   // Wrap long URLs in markdown links at word boundaries where possible,
-  // falling back to breaking mid-word only when necessary. Uses
-  // overflow-wrap: break-word instead of word-break: break-all so that
-  // link *text* wraps at natural word boundaries while URLs still break.
+  // falling back to breaking mid-word only when necessary.
   .editor-pane :global(.cm-link-wrap) {
     overflow-wrap: break-word;
+    word-break: break-all;
+  }
+
+  .editor-pane :global(.cm-link-wrap span:nth-of-type(2)) {
+    word-break: break-word;
   }
 </style>
