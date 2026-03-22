@@ -58,7 +58,26 @@ Prefer CSS Grid to Flexbox unless you need the specific characteristics of flexb
 
 ### Code Comments
 
-You are REQUIRED to professionally comment your code. Comments should be short and helpful, explaining what something does, but MUST NOT include your dialog or thinking. For JavaScript and TypeScript, the MUST be written in JSDoc format, and you MUST have comments for all of your functions and classes, including inputs and outputs and a brief description of what they do, all with proper TypeScript typing. For SCSS/Sass, use inline comments `//` instead of CSS comments `/*`. Comments MUST NOT have arbitrary line breaks to conform to an invisible max character count, just write normally and have line wrapping handle comment wrapping.
+You are REQUIRED to professionally comment your code. Comments should be short and helpful, explaining what something does, but MUST NOT include your dialog or thinking.
+
+For JavaScript and TypeScript:
+
+- Functions, classes, and interfaces MUST have JSDOc formatted comments. They MUST start with `/**`, have at least one newline starting with `*`, and end with `*/`. They MUST include a description of why they've ben written, and include `@params` and `@return`, all with proper TypeScript typing, EVEN IF ITS ALREADY DOCUMENTED WITH TYPESCRIPT TYPES AT THE METHOD LEVEL
+- Single line comments MUST use inline comments `//`
+
+For SCSS/Sass:
+
+- You MUST use inline comments `//` instead of CSS comments `/*`
+
+Comment Blocks that are meant to draw the eye and describe a section of code must be written as follows (allowing for multiple lines, each starting with `//`):
+
+```js
+//////////////////////////////
+// Description
+//////////////////////////////
+```
+
+Comments MUST NOT have arbitrary line breaks to conform to an invisible max character count, just write normally and have line wrapping handle comment wrapping.
 
 It is CRITICAL that you write comments explaining specific items that we've gone back and forth on a number of times to ensure that the reason why it exists the way it does (which likely went against your normal thinking) so that future developers and agents can learn from it and improve.
 
