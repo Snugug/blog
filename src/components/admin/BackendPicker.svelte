@@ -239,11 +239,12 @@
 
   .pat-tooltip-heading {
     font-size: 0.875rem;
-    color: var(--grey);
+    color: var(--white);
     margin: 0 0 0.5rem;
 
     a {
       color: var(--white);
+      text-decoration: underline;
     }
   }
 
@@ -265,12 +266,13 @@
 
     dd {
       margin: 0;
-      color: var(--grey);
+      color: var(--white);
     }
   }
 
   .pat-note {
     font-size: 0.75rem;
+    color: var(--grey);
   }
 
   input {
