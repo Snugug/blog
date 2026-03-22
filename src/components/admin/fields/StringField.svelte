@@ -81,8 +81,8 @@
       maxlength={maxLength}
       readonly={readOnly}
       rows={3}
-      oninput={handleChange}
-    >{inputValue}</textarea>
+      oninput={handleChange}>{inputValue}</textarea
+    >
   {:else}
     <input
       type="text"

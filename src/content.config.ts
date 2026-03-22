@@ -13,7 +13,9 @@ const categories = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/categories' }),
   schema: z.object({
     title: z.string(),
-    description: z.string().nullable().optional(),
+    description: z.string().nullable().optional().meta({
+      widget: 'textarea',
+    }),
   }),
 });
 
@@ -25,7 +27,9 @@ const pages = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
-    summary: z.string(),
+    summary: z.string().meta({
+      widget: 'textarea',
+    }),
   }),
 });
 
@@ -58,6 +62,7 @@ const posts = defineCollection({
         title: 'Summary',
         description: 'Used in blog cards and for social media previews',
         tab: ['social'],
+        widget: 'textarea',
       }),
     categories: z.array(z.string()).optional(),
     archived: z.boolean().optional(),
