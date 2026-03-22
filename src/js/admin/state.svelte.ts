@@ -27,6 +27,8 @@ let loading = $state(false);
 
 /** Singleton web worker instance */
 let worker: Worker | null = null;
+/** The collection currently loaded (or being loaded) to avoid redundant dispatches */
+let loadedCollection = '';
 
 /**
  * Returns the sorted list of collection names.
@@ -217,6 +219,7 @@ export async function disconnect(): Promise<void> {
   directoryHandle = null;
   permissionState = 'denied';
   contentList = [];
+  loadedCollection = '';
   error = null;
   loading = false;
   navigate('/admin');
@@ -236,8 +239,12 @@ function navigateToFirstCollectionIfHome(): void {
 
 /**
  * Call when the selected collection changes to trigger worker parsing.
+ * Skips the dispatch if the collection is already loaded to avoid
+ * tearing down and rebuilding the sidebar on file navigation.
  * @param collection - The collection name to load
  */
 export function loadCollection(collection: string): void {
+  if (collection === loadedCollection) return;
+  loadedCollection = collection;
   dispatchWorker(collection);
 }
