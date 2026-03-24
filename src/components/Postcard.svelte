@@ -7,7 +7,9 @@
 
 <a href="/musings/{content.slug}" class="card__link">
   <article class="card">
-    <h2 class="type--h3 type--a card--title">{content.title}</h2>
+    <h2 class="type--h3 type--a card--title">
+      {@html content.title.replace('\n', '<br />')}
+    </h2>
     <footer class="card--date" aria-label="{label} on">
       {#if updated}
         <span class="card--updated">U</span>

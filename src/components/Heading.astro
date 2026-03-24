@@ -30,10 +30,18 @@ if (!link) {
   {
     link ? (
       <a href={link} class="heading--link heading--padded">
-        <h1 class="heading--title" itemprop="name" set:html={title} />
+        <h1
+          class="heading--title"
+          itemprop="name"
+          set:html={title.replace('\n', '<br />')}
+        />
       </a>
     ) : (
-      <h1 class="heading--title" itemprop="name" set:html={title} />
+      <h1
+        class="heading--title"
+        itemprop="name"
+        set:html={title.replace('\n', '<br />')}
+      />
     )
   }
 </div>
