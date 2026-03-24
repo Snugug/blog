@@ -7,9 +7,10 @@ import Footer from '$components/Footer.svelte';
 export interface Props {
   title: string;
   summary: string;
+  image?: string;
 }
 
-const { title, summary } = Astro.props;
+const { title, summary, image } = Astro.props;
 const t = (title ? `${title} | ` : '') + 'Snugug';
 ---
 
@@ -31,6 +32,13 @@ const t = (title ? `${title} | ` : '') + 'Snugug';
     <meta name="generator" content={Astro.generator} />
     <title>{t}</title>
     <meta name="description" content={summary} />
+    {image && <meta property="og:image" content={new URL(image, Astro.site)} />}
+    {image && <meta name="twitter:card" content="summary_large_image" />}
+    {
+      image && (
+        <meta name="twitter:image" content={new URL(image, Astro.site)} />
+      )
+    }
     <script
       defer
       data-domain="snugug.com"

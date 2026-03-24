@@ -55,7 +55,9 @@
     "prettier": "^3.7.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-svelte": "^3.4.1",
+    "puppeteer": "^24.40.0",
     "sass": "^1.97.0",
+    "sirv": "^3.0.2",
     "yaml": "^2.8.2"
   },
   "engines": {

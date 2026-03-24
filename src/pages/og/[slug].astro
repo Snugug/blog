@@ -1,0 +1,63 @@
+---
+import { getCollection, render } from 'astro:content';
+import Heading from '$components/Heading.astro';
+import Scripts from '$components/Scripts.svelte';
+import '../../sass/style.scss'; // Load global CSS
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { title } = post.data;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200, height=630, initial-scale=1.0" />
+    <link rel="stylesheet" href="/fonts/dank-mono.css" />
+  </head>
+  <body style="margin: 0; overflow: hidden; height: 630px; width: 1200px;">
+    <article class="article">
+      <header class="article--heading">
+        <Heading
+          {title}
+          hue={25}
+          saturation={30}
+          lightness={80}
+          size={125}
+          alpha={0.2}
+        />
+      </header>
+    </article>
+    <Scripts client:only />
+  </body>
+</html>
+
+<style lang="scss">
+  @use '../../sass/vendors/letterform-shades/letterform-shades' as *;
+
+  .article {
+    &--heading {
+      --heading-min-height: 630px;
+      /* Background gradient identically matched */
+      background-image: linear-gradient(
+        to bottom right,
+        var(--red),
+        var(--gold)
+      );
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 1200px;
+      height: 630px;
+      z-index: 0;
+    }
+  }
+</style>
