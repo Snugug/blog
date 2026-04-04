@@ -49,6 +49,24 @@ jobs:
       - name: Install dependencies
         run: pnpm install
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Install Chrome system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libxkbcommon0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libgbm1 \
+            libasound2t64
+      - name: Install Chrome
+        run: pnpx puppeteer browsers install chrome
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         run: |
           pnpm run astro build \

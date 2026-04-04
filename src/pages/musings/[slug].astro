@@ -26,7 +26,7 @@ const up = updated ? new Date(updated) : null;
 const dateDiff = up ? date.getTime() !== up.getTime() : false;
 ---
 
-<Layout title={title} summary={summary}>
+<Layout title={title} summary={summary} image={`/images/og/${post.id}.png`}>
   <main itemscope="" itemtype="http://schema.org/Blog">
     <article class="article">
       <header class="article--heading">
