@@ -23,10 +23,14 @@ const categories = defineCollection({
  */
 const pages = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
-  schema: z.object({
-    title: z.string(),
-    summary: z.string(),
-  }),
+  schema: z
+    .object({
+      title: z.string(),
+      summary: z.string(),
+    })
+    .meta({
+      files: ['md'],
+    }),
 });
 
 /**
@@ -35,14 +39,18 @@ const pages = defineCollection({
  */
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/posts' }),
-  schema: z.object({
-    title: z.string(),
-    published: z.coerce.date(),
-    updated: z.coerce.date().optional(),
-    summary: z.string(),
-    categories: z.array(z.string()).optional(),
-    archived: z.boolean().optional(),
-  }),
+  schema: z
+    .object({
+      title: z.string(),
+      published: z.coerce.date(),
+      updated: z.coerce.date().optional(),
+      summary: z.string(),
+      categories: z.array(z.string()).optional(),
+      archived: z.boolean().optional(),
+    })
+    .meta({
+      files: ['md'],
+    }),
 });
 
 /**
@@ -51,37 +59,41 @@ const posts = defineCollection({
  */
 const recipes = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/recipes' }),
-  schema: z.object({
-    title: z.string(),
-    published: z.coerce.date().optional(),
-    yield: z.string().optional(),
-    difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
-    image: z.string().optional(),
-    categories: z.array(z.string()).optional(),
-    instructions: z
-      .array(
-        z.object({
-          time: z
-            .object({
-              active: z.string().optional(),
-              inactive: z.string().optional(),
-              rest: z.string().optional(),
-            })
-            .optional(),
-          equipment: z.array(z.string()).optional(),
-          ingredients: z
-            .array(
-              z.object({
-                name: z.string(),
-                amount: z.string(),
-              }),
-            )
-            .optional(),
-          procedure: z.array(z.string()).optional(),
-        }),
-      )
-      .optional(),
-  }),
+  schema: z
+    .object({
+      title: z.string(),
+      published: z.coerce.date().optional(),
+      yield: z.string().optional(),
+      difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
+      image: z.string().optional(),
+      categories: z.array(z.string()).optional(),
+      instructions: z
+        .array(
+          z.object({
+            time: z
+              .object({
+                active: z.string().optional(),
+                inactive: z.string().optional(),
+                rest: z.string().optional(),
+              })
+              .optional(),
+            equipment: z.array(z.string()).optional(),
+            ingredients: z
+              .array(
+                z.object({
+                  name: z.string(),
+                  amount: z.string(),
+                }),
+              )
+              .optional(),
+            procedure: z.array(z.string()).optional(),
+          }),
+        )
+        .optional(),
+    })
+    .meta({
+      files: ['md'],
+    }),
 });
 
 export const collections = {
