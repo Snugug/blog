@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import { VitePWA as pwa } from 'vite-plugin-pwa';
 import { markdown } from './lib/markdown';
+import nebulaCMS from 'nebula-cms';
 
 // https://astro.build/config
 import svelte from '@astrojs/svelte';
@@ -17,7 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://astro.build/config
 export default defineConfig({
   site: 'https://snugug.com',
-  integrations: [svelte(), sitemap(), ogImageGenerator()],
+  integrations: [svelte(), sitemap(), ogImageGenerator(), nebulaCMS()],
   markdown,
   vite: {
     plugins: [

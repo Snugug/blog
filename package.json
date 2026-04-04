@@ -29,12 +29,13 @@
     "@astrojs/sitemap": "^3.7.1",
     "@astrojs/svelte": "^8.0.0",
     "@tweetback/canonical": "^2.0.48",
-    "astro": "^6.0.4",
+    "astro": "^6.1.0",
     "chartist": "^1.5.0",
     "cli-progress": "^3.12.0",
     "css-paint-polyfill": "^3.4.0",
     "hastscript": "^9.0.1",
     "markdown-it": "^13.0.2",
+    "nebula-cms": "^0.1.5",
     "parse-domain": "^7.0.1",
     "remark-attributes": "^0.3.2",
     "remark-definition-list": "^2.0.0",
@@ -47,7 +48,9 @@
     "the-new-css-reset": "^1.11.3",
     "unist-util-visit": "^5.0.0",
     "vite-plugin-pwa": "^1.2.0",
-    "workbox-precaching": "^7.4.0"
+    "workbox-build": "^7.4.0",
+    "workbox-precaching": "^7.4.0",
+    "workbox-window": "^7.4.0"
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
