@@ -35,7 +35,7 @@
     "css-paint-polyfill": "^3.4.0",
     "hastscript": "^9.0.1",
     "markdown-it": "^13.0.2",
-    "nebula-cms": "^0.1.5",
+    "nebula-cms": "^0.1.7",
     "parse-domain": "^7.0.1",
     "remark-attributes": "^0.3.2",
     "remark-definition-list": "^2.0.0",

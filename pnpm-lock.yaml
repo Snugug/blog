@@ -45,8 +45,8 @@ importers:
         specifier: ^13.0.2
         version: 13.0.2
       nebula-cms:
-        specifier: ^0.1.5
-        version: 0.1.5(@astrojs/svelte@8.0.0(@types/node@25.0.3)(astro@6.1.3(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(sass@1.97.0)(svelte@5.46.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(astro@6.1.3(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(svelte@5.46.0)
+        specifier: ^0.1.7
+        version: 0.1.7(@astrojs/svelte@8.0.0(@types/node@25.0.3)(astro@6.1.3(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(sass@1.97.0)(svelte@5.46.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(astro@6.1.3(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(svelte@5.46.0)
       parse-domain:
         specifier: ^7.0.1
         version: 7.0.1
@@ -3167,8 +3167,8 @@ packages:
   napi-build-utils@2.0.0:
     resolution: {integrity: sha512-GEbrYkbfF7MoNaoh2iGG84Mnf/WZfB0GdGEsM8wz7Expx/LlWf5U8t9nvJKXSp3qr5IsEbK04cBGhol/KwOsWA==}
 
-  nebula-cms@0.1.5:
-    resolution: {integrity: sha512-pFS+4KlfuPijo5i1GeS5lAMTdoRpa3doV26aFkHKa5D5umnLTkLh7XX7wuMAN9Zp3l7hcu5DiOjvdQMGZ63krw==}
+  nebula-cms@0.1.7:
+    resolution: {integrity: sha512-V3OrDAYvhpmDKWTD4nSvwQlwwz1GywPgJtbPEJbjtNSYZkrtN1zch29ouLQ3mnu4kHbOf6CSzLGCcLaGsQx7jA==}
     peerDependencies:
       '@astrojs/svelte': ^8.0.0
       astro: ^6.1.0
@@ -8478,7 +8478,7 @@ snapshots:
 
   napi-build-utils@2.0.0: {}
 
-  nebula-cms@0.1.5(@astrojs/svelte@8.0.0(@types/node@25.0.3)(astro@6.1.3(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(sass@1.97.0)(svelte@5.46.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(astro@6.1.3(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(svelte@5.46.0):
+  nebula-cms@0.1.7(@astrojs/svelte@8.0.0(@types/node@25.0.3)(astro@6.1.3(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(sass@1.97.0)(svelte@5.46.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(astro@6.1.3(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(svelte@5.46.0):
     dependencies:
       '@astrojs/svelte': 8.0.0(@types/node@25.0.3)(astro@6.1.3(@types/node@25.0.3)(rollup@2.79.2)(sass@1.97.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2))(sass@1.97.0)(svelte@5.46.0)(terser@5.44.1)(typescript@5.9.3)(yaml@2.8.2)
       '@codemirror/commands': 6.10.3
